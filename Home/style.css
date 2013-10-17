@@ -1,0 +1,64 @@
+html {
+		background: #5FBDCE;
+		font-family: 'Ubuntu', sans-serif;
+}
+body {
+	margin: 0 8ppx 8px 8px;
+}
+.nav {
+	float: right;
+	display: block;
+	width:100%;
+	margin: -2em 0 3em 0;
+	padding:0;
+}
+.nav li {
+	float: right;
+	list-style: none;
+	border-radius: 1px  solid #ccc;
+	font-size: 1.5em;
+}
+.nav li a {
+	display: block;
+	padding: 0px 15px;
+	text-decoration: none;
+/*	border-right: 1px solid #ccc; */
+/*	border: 1px dashed #015666; */
+	color: #FF9D40;
+}
+.nav li a:hover {
+	color: #FF7C00;
+	background-color: #fff;
+}
+section {
+	margin: 50px;
+	width: 100%;
+	border-radius:10px;
+}
+h1 {
+	color:#04859D;
+	font-size: 48px;
+	text-align: center;
+}
+.top {
+	text-align: center;
+}
+body a {
+	color:#FF9D40;
+	text-decoration: none;
+}
+body a:hover {
+	color:#FF7C00;
+	background-color: #fff;
+}
+.everyday {
+	color: #206876;
+}
+/* .everyday a {
+	color:#FF9D40;
+	text-decoration: none; 
+}
+.everyday a:hover {
+	color:#FF7C00;
+	background-color: #fff;
+}*/
