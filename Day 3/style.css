@@ -1,0 +1,165 @@
+/* background */
+#grass {
+	width:100%;
+	height:50px;
+	background-color: #00B060;
+	position: absolute;
+	top: 450px;
+	font-family: 'Exo', sans-serif;
+	font-size: 1.5em;
+}
+#dirt {
+	width: 100%;
+	height: 100px;
+	background-color: #A65E00;
+	position: absolute;
+	top: 500px;
+}
+#finish {
+	width: 50px;
+	height: 150px;
+	background-image: url('images/checkerboard.png');
+	position:absolute;
+	top:450px;
+	right: 100px;
+}
+#text {
+	font-family: 'Exo', sans-serif;
+	position: absolute;
+	top: 0px;
+	right: 400px;
+	font-style: italic;
+}
+h1 {
+	font-size: 4em;
+	-webkit-transform: rotate(12deg); */
+}
+
+/* user controlled box */
+.box_green {
+	position: absolute;
+	top: 270px;
+	left: 10px;
+	-webkit-transition: all 16s ease;
+}
+.box_green:hover {
+	-webkit-transform: translate(1400px, 0px);
+}
+
+/* animated red box }*/
+.box_animate {
+	position: absolute;
+	top: 250px;
+	left: 10px;
+/*	width: 200px;
+	height: 200px;
+	background-color: red; */
+	-webkit-animation-duration: 9s;
+	-webkit-animation-name: slidein;
+	-webkit-animation-timing-function: step-stop;
+}
+@-webkit-keyframes slidein {
+	from {
+		margin-left:0%;
+	}
+	75% {
+		margin-left:50%;
+		animation-play-state: paused;
+	}
+	90% {
+		margin-left:50%;
+		animation-play-state: running;
+	}
+	to {
+		margin-left:100%;
+	}
+
+
+/* original
+@-webkit-keyframes slidein {
+	from {
+		margin-left:100%;
+	}
+	75% {
+		margin-left:25%;
+		animation-play-state: paused;
+	}
+	90% {
+		margin-left:25%;
+		animation-play-state: running;
+	}
+	to {
+		margin-left:0%;
+	}
+}
+*/ 
+
+
+
+
+
+/* .boxA and .boxB and the button 
+
+body {
+	width:1000px;
+} 
+
+.boxA {
+	position: absolute; 
+	bottom: 10px;
+	left: 20px;                 
+	width: 200px;
+	height: 200px;
+	background-color: blue;
+	-webkit-transition: all 1s ease;
+}
+.boxB {
+	position: absolute;
+	bottom: 10px;
+	left: 300px;                     
+	width: 200px;
+	height: 200px;
+	background-color: orange;
+	-webkit-transition: all 5s ease;
+}
+
+.inp {
+	position: absolute;
+	bottom: 10px;
+	right: 600px;
+}
+*/
+/* class to be added to .boxA and .boxB for a transform + size reduction 
+.box-change {
+	-webkit-transform: translate(0,-500px);
+	width: 100px;
+	height: 100px;
+}
+*/
+
+
+
+
+
+/* this will change .box and .box2 on hover 
+
+.box:hover {
+	-webkit-transform: translate(0px, -200px);
+}
+.box:hover + .box2 {
+	-webkit-transform: translate(0px, -400px);
+}
+.box2 {
+	position: absolute;
+	width: 200px;
+	height: 200px;
+	bottom: 10px;
+	left: 300px;
+	background-color: red;
+	-webkit-transition: all 5s ease-in-out;
+}
+
+*/
+
+
+
