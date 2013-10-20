@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="style.css">
+	<link href='http://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+	<div id="wrap">
+
+		<div id="spacer">
+			<h1>Decisions!</h1>
+			<p>A quick way to decide between two choices is to flip a coin.  Instead of looking at the coin, think about what result you were hoping to find.  Most people subconsciously desire one result over the other, and this helps you tap into your intuition! </p>
+			<p><img src="images/quarter.png" width="100" height="100"></p>
+		</div>
+
+		<div id="leftSide">
+			<!-- BUTTON, input called userChoice1, button when clicked calls function userSubmit -> into JS -->
+			<p> What is one choice?</p>
+			<input id='userChoice1'> 
+			<br>
+		</div>
+
+		<!-- what the user input, spitted back out by function, called onclick -->
+		<div id='result'>
+			<p>Your choice</p>
+			<button onClick='userSubmit()'>Help me decide!</button>
+		</div>
+
+		<div id="rightSide">
+			<!-- BUTTON, input called userChoice2, button when clicked calls function userSubmit -> into JS -->
+			<p>What is your other choice?</p>
+			<input id='userChoice2'>
+		</div>
+
+	</div>
+
+	<script src="script.js"></script>	
+
+</body>
+
+</html>

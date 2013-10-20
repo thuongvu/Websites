@@ -1,0 +1,42 @@
+body {
+	background: url('images/project_papper.png');
+	font-family: 'Nunito', sans-serif;
+} 
+h1 {
+	font-size: 5em;
+}
+#wrap {
+	width: 960px; 
+	margin: 0 auto;
+
+}
+#spacer {
+	width: 100%;
+	height: 300px;
+	position: relative;
+	text-align: center;
+	top: -50px;
+}
+#leftSide {
+	width: 33%;
+	height: 200px;	
+	float: left;
+	font-size:1.5em;
+	text-align: left;
+
+}
+#rightSide {
+	width: 33%;
+	height: 200px;
+	float: left;
+	font-size:1.5em;
+	text-align: right;
+}
+#result {
+	width: 33%;
+	height:100%;
+	float: left;
+	text-align: center;
+	font-size:1.5em;
+
+}
