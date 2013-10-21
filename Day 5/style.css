@@ -1,0 +1,72 @@
+body {
+	background: url('images/linedpaper.png');
+}
+#wrap {
+	width: 960px;
+	margin: 0 auto;
+	text-align: center;
+	font-family: 'Arvo', serif;
+}
+#left {
+	width:33%;
+	float: left;
+	height: 480px;
+}
+
+.purpleBalloon{
+	opacity: 0;
+	-webkit-transition: all 5s ease;
+    -ms-transition: all 5s ease;
+    -moz-transition: all 5s ease;
+    -0-transition: all 5s ease;
+    transition: all 5s ease; */
+}
+.showPurple{
+	opacity: 1;
+}
+.blueBalloon{
+	opacity: 0;
+	-webkit-transition: all 5s ease;
+    -ms-transition: all 5s ease;
+    -moz-transition: all 5s ease;
+    -0-transition: all 5s ease;
+    transition: all 5s ease; */
+    -webkit-transform: translate(0,5px);
+}
+.showBlue{
+	opacity: 1;
+}
+#main {
+	width: 33%;
+	float: left;
+	height: 480px;
+}
+#right {
+	width: 33%;
+	float: left;
+	height: 480px;
+}
+h1 {
+    font-size: 5em;
+}
+
+form {
+    display: inline-block;
+} 
+
+#button{
+    display: inline-block;
+    height:20px;
+	width:100px;
+	background-color:#cc0000;
+	font-family:arial;
+	font-weight:bold;
+	color:#ffffff;
+	border-radius: 5px;
+	text-align:center;
+	margin-top:2px;
+}
+
+.list {
+	color:#cc0000;
+}
