@@ -1,0 +1,31 @@
+html {
+	text-align: center;
+	font-family: 'Quicksand', sans-serif;
+}
+section {
+	height: 120px;
+}
+h1 {
+	font-size: 2.5em;
+}
+body {
+	width: 960px;
+	height: 480px;
+	margin: 0px auto;
+}
+div {
+    width: 24px;
+    height: 24px;
+    background-color: #34D0BA;
+    display: inline-block;
+    margin-right: 1px;
+    margin-left: 1px;
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+.opacity {
+    opacity: 0.2;
+}
+.highlight {
+    border: solid 3px #023B33;
+}
