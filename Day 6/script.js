@@ -22,7 +22,7 @@ function addDiv () {
     });
   });
 
-// on hover over divs, this function 
+/* on hover over divs, this function will toggle the "highlight" class */
   $(function() {
     $( "div" ).hover(function(){
       $( this ).toggleClass("highlight", "easeInElastic");

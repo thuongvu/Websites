@@ -70,3 +70,6 @@ form {
 .list {
 	color:#cc0000;
 }
+#image {
+	opacity: 0;
+}

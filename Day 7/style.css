@@ -1,0 +1,55 @@
+body {
+	background:url("linedpaper.png");
+}
+#wrapper {
+	width: 960px;
+}
+.fenix {
+    font-family: 'Fenix', serif;
+}
+.rokkitt {
+	font-family: 'Rokkitt', serif;
+}
+.montaga {
+	font-family: 'Montaga', serif;
+}
+.merriweatherSans {
+	font-family: 'Merriweather Sans', sans-serif;
+}
+
+.robotoCondensed {
+	font-family: 'Roboto Condensed', sans-serif;
+}
+.adventPro {
+	font-family: 'Advent Pro', sans-serif;
+}
+.miltonianTattoo {
+	font-family: 'Miltonian Tattoo', cursive;
+}
+.stintUltraExpanded {
+	font-family: 'Stint Ultra Expanded', cursive;
+}
+.mysteryQuest {
+	font-family: 'Mystery Quest', cursive;
+}
+.shadowsIntoLightTwo {
+	font-family: 'Shadows Into Light Two', cursive; 
+}
+.ui-menu {
+    width: 240px;
+    float: left;
+
+}
+.textarea {
+    width: 710px;
+    height: 480px;
+    text-align: center;
+    position: relative;
+    left: 280px;
+}
+#title {
+	font-size: 3em;
+	text-decoration: bold;
+	color: red;
+}
+
