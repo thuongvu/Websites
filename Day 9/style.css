@@ -1,0 +1,52 @@
+body {
+	background:url(images/corkbg.jpg);
+}
+form {
+    display: inline-block;
+} 
+#main {
+	font-family: 'Shadows Into Light', cursive;
+	text-align: center;
+}
+h1 {
+	font-size: 5em;
+	color: white;
+}
+h3 {
+	color: white;
+}
+#button{
+    display: inline-block;
+    height:20px;
+	width:100px;
+	background-color: #FFE219;
+/*	font-family:arial;
+	font-weight:bold;  */
+	font-family: 'Roboto Slab', serif;
+	color: #001FB2;
+	border-radius: 5px;
+	text-align:center;
+	margin-top:2px;
+}
+
+.list {
+	color:#001FB2;
+}
+#image {
+	opacity: 0;
+}
+.item {
+    width: 150px;
+    height: 150px;
+    background-color: #FFE28C;
+    border-radius: 5px;
+    
+
+}
+.chkb {
+    float: right
+}
+ #pin {
+	margin-left: 35px;
+	margin-top: -55px; 
+}
