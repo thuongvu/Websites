@@ -1,0 +1,37 @@
+body {
+	background: url(roughcloth.png);
+	font-family: 'Enriqueta', serif;
+}
+.title {
+	width: 100%;
+	clear: both;
+	text-align:center;
+	margin-top: -35px;
+}
+h1 {
+	font-size: 3em;
+}
+.left {
+	width: 33%;
+	float: left;
+	text-align: right;
+}
+.center {
+	width: 33%;
+	float: left;
+	text-align: center;
+}
+.right {
+	width: 33%;
+	float: left;
+	text-align: left;
+}
+.left_invis {
+	display:none;
+}
+.center_invis {
+	display:none;
+}
+.right_invis {
+	display:none;
+}

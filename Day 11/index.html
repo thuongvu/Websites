@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="style.css">
+	<link href='http://fonts.googleapis.com/css?family=Enriqueta' rel='stylesheet' type='text/css'>
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="script.js"></script>
+</head>
+<body>
+	<div class="title">
+		<h1>Tip Calculator</h1>
+		<h3>Enter in the cost of each person's meal, the tax, and click Calculate!</h3>
+	</div>	
+
+	<div class="left">
+		<p>How much did Person A's meal cost?</p>
+		<input id="personASub"/>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+		<div class="left_invis">
+			<p>Person A should pay a tip of</p>
+			<input id="personATip"/>
+			<br>
+			<br>
+			<p>Person A owes a total of</p>
+			<input id="personAOwes"/>
+		</div>
+	</div>
+
+	<div class="center">
+		<p>Taxes?</p>
+		<input id="lowerTaxes"/>
+		<br>
+		<br>
+		<img src="pizza2.png" width="266" height"200"/>
+		<br>
+		<input type="button" id="calcButton" style="font-size: 10em" value="Calculate!" />
+			<br>
+			<br>
+			<br>
+		<div class="center_invis">
+			<p>The entire meal costs a total of </p>
+		<input id="totalCost"/>
+		</div>
+	</div>
+
+	<div class="right">
+		<p>How much did Person B's meal cost?</p>
+		<input id="personBSub"/>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+		<div class="right_invis">
+			<p>Person B should pay a tip of</p>
+			<input id="personBTip"/>
+			<br>
+			<br>
+			<p>Person B owes a total of</p>
+			<input id="personBOwes"/>
+		</div>
+
+
+	</div>
+<!--images from http://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Eq_it-na_pizza-margherita_sep2005_sml-2.png/800px-Eq_it-na_pizza-margherita_sep2005_sml-2.png -->
+</body>
