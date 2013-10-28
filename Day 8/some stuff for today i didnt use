@@ -1,0 +1,81 @@
+// first test
+var redraw;
+var height = 480;
+var width = 960;
+
+window.onload = function () {
+
+	var g = new Graph();
+		g.addEdge("Red", "Green");
+	
+
+	var layouter = new Graph.Layout.Spring(g);
+	layouter.layout();
+
+	var renderer = new Graph.renderer.Raphael('canvas', g, width, height);
+
+	redraw = function() {
+		layouter.layout();
+		renderer.draw();
+	};
+}; 
+
+// second test
+ var redraw, g, renderer;
+
+window.onload = function() {
+
+	var height = 480;
+	var width = 960;
+
+	g = new Graph();
+		g.addNode("Red");
+		g.addEdge("Red", "Green");
+
+	var layouter = new Graph.Layout.Spring(g);
+	renderer = new Graph.Renderer.Raphael('canvas', g, width, height);
+
+	redraw = function() {
+		layouter.layout();
+		renderer.draw();
+	};
+
+};
+
+
+// WHY THE HELL DID THIS JUST WORK
+var redraw, g, renderer;
+/*
+window.onload = function() {
+    
+    var width = $(document).width() - 20;
+    var height = $(document).height() - 60;
+    
+    g = new Graph();
+
+    g.addNode("strawberry");
+    g.addNode("cherry");
+    g.addEdge("strawberry", "cherry");
+
+    var layouter = new Graph.Layout.Spring(g);
+    renderer = new Graph.Renderer.Raphael('canvas', g, width, height);
+
+    }; */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
