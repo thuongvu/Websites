@@ -1,0 +1,39 @@
+body {
+    font-family: 'Press Start 2P', cursive;
+    background: url(images/mochaGrunge.png);
+}
+#title {
+    text-align: center;
+    font-size: 3em;
+    color: #D4000B;
+    margin: 10px;
+}
+#rec {
+    text-align: center;
+    margin-bottom: 50px;
+}
+#wutTime {
+    height: 50px;
+    width: 600px;
+    text-align: center;
+    margin: 0 auto;
+}
+#zombie {
+    display: none;
+    margin-left: 450px;
+}
+#on {
+    display: none;
+    height: 60px;
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+#space {
+    height: 50px;
+    width: 420px;
+    margin: 0 auto;
+}
+#ready {
+    float: right;
+}

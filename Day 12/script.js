@@ -44,7 +44,7 @@ $(document).ready(function() {
     	} else {
     		$('body').removeClass('sunset');
     		$('body').addClass('night');       		
-    	};
+    	}; 
         $('#time').text(time.hh + ':' + time.mm + ':' + time.ss + time.ampm);
     }, 1000);
 });
