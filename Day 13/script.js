@@ -52,7 +52,7 @@ var record = new Array();
 
 pause = function() {
 clearTimeout(clock);
-    if (sec > 1) {
+    if (sec >= 1) {
         $('#rec').text("You are too SLOW!  You're lucky to be alive!"); 
     } else {
      record.push(ms)

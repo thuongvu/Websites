@@ -1,0 +1,38 @@
+body {
+	background: url(pw_pattern.png);
+}
+#inText {
+	font-size: 1em;
+}
+#outText {
+	font-size: 1em;
+}
+#title {
+	margin: 0 auto;
+	text-align: center;
+	font-size: 1em;
+}
+#title h1 {
+	font-size: 4em;
+	font-family: 'Open Sans Condensed', sans-serif;
+}
+#left {
+	float: left;
+	text-align: center;
+	margin: 0 auto;
+}
+#middle {
+	float: left;
+	margin-top: 175px;
+}
+#right {
+	float: left;
+	text-align: center;
+	margin: 0 auto;
+}
+#wrapper {
+	width: 960px;
+	margin: 0 auto;
+	text-align: center;
+	font-family: 'Rokkitt', serif;
+}
