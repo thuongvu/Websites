@@ -1,0 +1,31 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+	width: 960px;
+	margin: 0 auto;
+	background: url(whitediamond.png);
+}
+.currentMonth {
+	color: blue;
+	text-align: center;
+}
+.currentDay {
+	border: 1px solid black;
+	color: red;
+	text-align: center;
+}
+.calendar td{
+	padding: 5px;
+	width: 200px;
+	font-size: 3em;
+}
+.currentMonth th {
+	text-align: center;
+	font-size: 4em;
+	font-color: ;
+}
+.weekDays {
+	text-align: center;
+} 
+.calendar {
+	margin: 0 auto;
+}
