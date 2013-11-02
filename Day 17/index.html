@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="style.css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans|Merriweather+Sans' rel='stylesheet' type='text/css'>
+	<script src="script.js"></script>
+</head>
+
+
+<body>
+	<div id="wrapper">
+		<div id="title">
+			<h1>The 12 Most Popular <img src="https://developers.google.com/youtube/images/YouTube_logo_standard_white.png" height="60"/> Videos Today</h1>
+		</div>
+		<div id="videos">
+		</div>
+	</div>
+
+
+<script src="http://gdata.youtube.com/feeds/api/standardfeeds/most_popular?v=2&alt=json&callback=showVideos&max-results=12&time=today"></script>
+
+</body>
+</html>

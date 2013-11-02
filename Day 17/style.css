@@ -1,0 +1,12 @@
+#wrapper {
+	margin: auto 0;
+	text-align: center;
+}
+h1 {
+	font-size: 2em;
+}
+body {
+	width: 100%;
+	height: 100%;
+	font-family: 'Merriweather Sans', sans-serif;
+}
