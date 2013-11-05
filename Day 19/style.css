@@ -1,0 +1,25 @@
+#stopRecord {
+	display: none;
+}
+#playBack {
+	display: none;
+}
+#upload {
+	display: none;
+}
+#wrapper {
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 10%;
+}
+#timer{
+	font-size: 2em;
+}
+#title {
+	margin: 0 auto;
+	text-align: center;	
+	color: white;
+}
+body {
+	background: url(triangular.png);
+}
