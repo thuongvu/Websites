@@ -1,0 +1,29 @@
+body {
+	background: #bee8f4; /* Old browsers */
+background: -moz-linear-gradient(top, #bee8f4 1%, #a9e4f7 30%, #0fb4e7 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#bee8f4), color-stop(30%,#a9e4f7), color-stop(100%,#0fb4e7)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #bee8f4 1%,#a9e4f7 30%,#0fb4e7 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #bee8f4 1%,#a9e4f7 30%,#0fb4e7 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #bee8f4 1%,#a9e4f7 30%,#0fb4e7 100%); /* IE10+ */
+background: linear-gradient(to bottom, #bee8f4 1%,#a9e4f7 30%,#0fb4e7 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bee8f4', endColorstr='#0fb4e7',GradientType=0 ); /* IE6-9 */
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+}
+#wrapper {
+	height: 3000px;
+	width: 100%;
+}
+.balloons {
+	position: absolute;
+}
+#bottom {
+	top: 3000px;
+	left: 28%;
+	position: absolute;
+	text-align: center;
+	margin: 0 auto;
+	font-family: 'Open Sans', sans-serif;
+	color: #fff;
+	font-size: 1.5em;
+}
