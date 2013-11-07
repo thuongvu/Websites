@@ -1,0 +1,28 @@
+.blue {
+	background-color: blue;
+}
+
+.red {
+	background-color: red;
+}
+.yellow {
+	background-color: yellow;
+}
+.wrapper {
+	text-align: center;
+	margin: 0 auto;
+	width: 100%;
+}
+#center {
+	margin-top: 15%;
+
+}
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+#title {
+	font-size: 2em;
+}
+#message {
+	margin-top: 5%;
+}
