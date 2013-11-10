@@ -1,0 +1,48 @@
+@font-face
+{
+font-family: PokemonSolid;
+src: url('PokemonSolid.ttf');
+}
+#title {
+	font-family: PokemonSolid;
+	color: #CFA665;
+	margin: 0 auto;
+	text-align: center;
+}
+#shuffle {
+	margin: 0 auto;
+	text-align: center;
+}
+.down {
+	background-color: #88C7FF; /* #3C75B2 */
+	width: 100px;
+	height: 100px;
+	margin: 5px;
+	display: inline-block;
+	font-size: 0px;
+	vertical-align: top;
+	border-radius: 5px;
+}
+.up {
+	background-color: #FFCF7C;
+	width: 100px;
+	height: 100px;
+	margin: 5px;
+	display: inline-block;
+	font-size: 1em;
+	vertical-align: top;
+	border-radius: 5px;
+}
+.matched {
+	background-color: #B28F60;
+	width: 100px;
+	height: 100px;
+	margin: 5px;
+	display: inline-block;
+	vertical-align: top;
+	border-radius: 5px;
+}
+
+.hover {
+	opacity: 0.7;
+}
