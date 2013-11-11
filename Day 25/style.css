@@ -9,6 +9,10 @@ src: url('PokemonSolid.ttf');
 	margin: 0 auto;
 	text-align: center;
 }
+body {
+	width: 1100px;
+	margin: 0 auto;
+}
 #shuffle {
 	margin: 0 auto;
 	text-align: center;

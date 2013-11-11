@@ -67,7 +67,7 @@ $(document).ready(function(){
 			// check if there is a match between the two elements with .test class, give player half a second to look at it before .down class is added again
 			setTimeout(function(){
 				checkMatch();
-				}, 500);
+				}, 1500);
 		}  else {
 			return false;
 		}

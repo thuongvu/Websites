@@ -1,0 +1,19 @@
+#screen {
+	height: 40px;
+	text-align: right;
+	background-color: #3276BF;
+	border-radius: 10px;
+	color: #fff;
+}
+#wrapper {
+	margin-left: 42%;
+	margin-top: 5%;
+	text-align: center;
+}
+#title {
+	margin: 0 auto;
+	text-align: center;
+}
+body {
+	background-color: #F2F2F5 !important;
+}
