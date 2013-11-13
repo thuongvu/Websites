@@ -1,0 +1,15 @@
+body {
+	font-family: 'Anaheim', sans-serif;
+}
+#wrapper {
+	margin: 0 auto;
+	text-align: center;
+}
+#sam {
+	margin: 0 auto;
+	text-align: center;	
+	display: block;
+}
+h1 {
+	font-size: 3em;
+}

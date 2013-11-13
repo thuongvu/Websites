@@ -1,0 +1,49 @@
+body {
+	font-family: Helvetica;
+}
+#topTitle {
+	font-size: 1.5em;
+	margin: 0 auto;
+	text-align: center;
+	color: #F2C90D;
+}
+.title {
+	vertical-align: top;
+	display: inline-block;
+	font-weight: bold;
+	color: red;
+}
+.source {
+	vertical-align: top;
+	display: block;
+	font-size: 0.75em;
+}
+#google-feed {
+	width: 700px; 
+	float: left;
+}
+#twitter {
+	float: left;
+}
+ul
+{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+li a {
+	text-decoration: none;
+}
+a:link {text-decoration:none;}
+a:visited {text-decoration:none;}
+a:hover {text-decoration:underline;}
+a:active {text-decoration:underline;}
+
+#blurb a:link {text-decoration:none;}
+#blurb a:visited {text-decoration:none;}
+#blurb a:hover {text-decoration:underline;}
+#blurb a:active {text-decoration:underline;}
+
+.red {
+	color: red;
+}
