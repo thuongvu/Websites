@@ -13,3 +13,6 @@ body {
 h1 {
 	font-size: 3em;
 }
+#player {
+	-webkit-mask-box-image: url(mask2.png);
+}

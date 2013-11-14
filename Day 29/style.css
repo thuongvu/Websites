@@ -1,0 +1,19 @@
+#display {
+	margin: 0 auto;
+	text-align: center;
+	font-size: 3em;
+	height: 300px;
+	width: 500px;
+	background: url(images/linedpaper.png);
+}
+body {
+	font-family: font-family: 'Droid Serif', serif;
+}
+#title {
+	margin: 0 auto;
+	text-align: center;
+} 
+#instructions {
+	margin: 0 auto;
+	text-align: center;
+} 

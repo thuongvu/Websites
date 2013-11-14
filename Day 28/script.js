@@ -25,8 +25,8 @@ $(document).ready(function() {
 
 	function videoAll() {
 	    var	player = new YT.Player('player', {
-	        	height: '390',
-	          	width: '640',
+	        	height: '384',
+	          	width: '384',
 	         	playerVars: {
 	          		controls: 0,
 	          		enablejsapi: 1,
