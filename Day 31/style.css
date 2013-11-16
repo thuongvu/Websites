@@ -1,0 +1,19 @@
+@font-face
+{
+font-family: HarryP;
+src: url('HarryP.TTF');
+}
+#snitch {
+	width: 100px;
+	height: 30px;
+	position: absolute;
+}
+#reward {
+	text-align: center;
+	margin: 0 auto;
+	font-family: HarryP;
+	font-size: 4em;
+}
+body {
+	background-color: #4DCEFF;
+}

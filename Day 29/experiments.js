@@ -69,9 +69,15 @@ $(document).ready(function(){
         new state("Wyoming","Cheyenne")     
     ]
 
-    var randomState = allStates[Math.floor(Math.random()*allStates.length)];
+  /*  var randomState = allStates[Math.floor(Math.random()*allStates.length)];
     console.log(randomState);
-        randomState.display();
+        randomState.display(); */
+
+
+/* allStates.forEach(function (eachState) {
+    eachState.display(); */
+})
+
 
 })
 

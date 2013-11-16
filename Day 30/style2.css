@@ -1,0 +1,40 @@
+#quiz1 {
+	margin: 0 auto;
+	text-align: center;
+	font-size: 1.5em;
+}
+#quiz2 {
+	margin: 0 auto;
+	text-align: center;
+	font-size: 1.5em;
+}
+.state {
+	margin: 0 auto;
+	text-align: center;
+	height: 300px;
+	width: 500px;
+	font-size: 2em;
+	background: url(images/linedpaper.png);
+}
+.caps {
+	margin: 0 auto;
+	text-align: center;
+	height: 300px;
+	width: 500px;
+	font-size: 2em;
+	background: url(images/linedpaper.png);
+}
+body {
+	font-family: 'Droid Serif', serif;
+}
+#title {
+	margin: 0 auto;
+	text-align: center;
+} 
+.instructions {
+	margin: 0 auto;
+	text-align: center;
+} 
+li {
+	list-style-type: none;
+}
