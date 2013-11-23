@@ -1,0 +1,63 @@
+@font-face
+{
+font-family: PokemonSolid;
+src: url('PokemonSolid.ttf');
+}
+body {
+background: #FFFFC2;
+}
+#title {
+	font-family: PokemonSolid;
+	font-size:4em;
+	margin: 0 auto;
+	text-align: center;
+	color: #EEBB00;
+	text-shadow:
+   -1px -1px 0 #333370,  
+    5px -5px 0 #333370,
+    -5px 5px 0 #333370,
+     5px 5px 0 #333370;
+}
+#instructions {
+	text-align: center;
+	margin: 0 auto;
+	font-family: PokemonSolid;
+	font-size: 1.5em;
+}
+#xGoesHere {
+	margin-left: 15px;
+	font-family: 'PT Sans', sans-serif;
+	font-size: 3em;
+	line-height: 75%;
+	color: #333370;
+}
+#plus {
+	font-family: 'PT Sans', sans-serif;
+	font-size: 3em;
+	line-height: 50%;
+	color: #FFCC00;
+}
+#yGoesHere {
+	margin-left: 15px;
+	font-family: 'PT Sans', sans-serif;
+	font-size: 3em;
+	line-height: 75%;
+	color: #333370;
+}
+#wrapper {
+	text-align: 0;
+	margin-top: 3%;
+	margin-left: 45%;
+}
+#message {
+	color: #333370;
+	font-family: 'PT Sans', sans-serif;
+	font-size: 1.5em;
+}
+#counter {
+	color: #FFCC00;
+	font-family: 'PT Sans', sans-serif;
+	font-size: 1.5em;
+	text-align: 0;
+	margin-left: -12%;
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Fate of the World</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<script src="/js/gAnalytics.js"></script>
+</head>
+<body ng-app="" ng-controller='destroySave'>
+
+	<img src='earth.png'</>
+	
+	<br>
+		
+	<div class='buttons' ng-class='{fadeOut: isShowing(buttonIndex)}' ng-repeat='(buttonIndex, button) in briefcase'>
+	<!-- iterate this div, for a buttonIndex AND button for every entry in the array "briefcase" -->	
+		<button ng-click='setHide(buttonIndex)'><img src='Red_button.png'</></button>
+		<!-- on click, invoke the setHide function with buttonIndex as a param.  button index is our way of marking which iteration we are presently on -->
+		</br>
+		<span ng-show='!isShowing(buttonIndex)'><h3>{{button.name}}</h3></span>
+		<!-- show the name prop on the button model -->
+		<div ng-show='isShowing(buttonIndex)'>{{button.result}}</div>
+		<!-- show the evaluation of this expression: isShowing(), with the buttonIndex as a param -->
+	</div>
+</body>
+
+</html>

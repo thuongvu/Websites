@@ -1,0 +1,33 @@
+<!-- 	<div class='buttons' ng-repeat='button in briefcase'>
+		<button ng-click='fateOfWorld()'>{{button.name}}</button>
+		<div ng-show='resultDiv.show'>{{button.result}}</div>
+	</div> -->
+<!-- 	THIS WORKS
+	<div class='buttons' ng-repeat='button in briefcase'>
+		<button ng-click='hide = true'>{{button.name}}</button>
+		<div ng-show='hide'>{{button.result}}</div>
+	</div> -->
+
+	<!-- THIS IS EVEN BETTER, THIS IS WHAT I WANTED -->
+	<div class='buttons' ng-repeat='(buttonIndex, button) in briefcase'>
+	<!-- iterate this div, for a buttonIndex AND button for every entry in the array "briefcase" -->
+		<img src='Red_button.png'</>
+		<br>
+		<button ng-click='setHide(buttonIndex)'>{{button.name}}</button>
+		<!-- on click, invoke the setHide function with buttonIndex as a param.  button index is our way of marking which iteration we are presently on -->
+		<div ng-show='isShowing(buttonIndex)'>{{button.result}}</div>
+		<!-- show the evaluation of this expression: isShowing(), with the buttonIndex as a param -->
+	</div>
+
+
+	// 
+
+
+	
+	// $scope.resultDiv = {};
+	// $scope.resultDiv.show = false;
+
+// // reveal button result with the function.  it should remain the button result for each of their iterations, right?
+// 	$scope.fateOfWorld = function(){
+// 		$scope.resultDiv.show = !$scope.resultDiv.show;
+// 	}

@@ -1,0 +1,12 @@
+.buttons {
+	display: inline-block;
+	text-align: center;
+	vertical-align: top;
+}
+.fadeOut img {
+	opacity: 0.1;
+}
+body {
+	margin: 0 auto;
+	text-align: center;
+}

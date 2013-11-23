@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Factors</title>
+	 <link rel="stylesheet" href="http://cdn.jsdelivr.net/foundation/4.3.2/css/foundation.min.css">
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>	
+	<script src="/js/gAnalytics.js"></script>
+</head>
+<body ng-app="numbersApp">
+
+<div ng-controller="numberCtrl">
+	<h1>Factors</h1>
+	<p>Click any number to see what numbers it divides into evenly.</p>
+	<button ng-click="reset()">Reset</button>
+	<br>
+	<div ng-repeat="digit in numbers">
+		<number num="{{digit.number}}" func="divisible(num)"></number>
+	</div>
+</div>
+
+</body>
+</html>

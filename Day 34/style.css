@@ -1,0 +1,21 @@
+.grid div {
+	display: inline-block;	
+	padding: 10px;
+}
+#title h1 {
+	font-size: 3em;
+	display: inline !important;
+}
+
+body {
+	text-align: center;
+	margin: 0 auto;
+	vertical-align: top;
+	background-image: url('images/fabric_plaid.png');
+}
+.list table {
+	margin: 0 auto;
+}
+.white {
+	color: white;
+}

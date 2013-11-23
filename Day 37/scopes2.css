@@ -1,0 +1,45 @@
+@font-face
+{
+font-family: scoobydoo;
+src: url('scoobydoo.ttf');
+}
+#title {
+	font-size: 3em;
+	color: white;
+	margin: 0 auto;
+	text-align: center;
+}
+.expander {
+	width: 150px;
+	height: 200px;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 40px;
+}
+.expander > .title {
+	color: white;
+	padding: .1em .3em; 
+	cursor: pointer;
+	height: 200px;
+}
+.expander > .body {
+	padding: .1em .3em; 
+}
+
+img {
+	transition: 1s linear all;
+}
+
+.right {
+	position: relative;
+	left: 1500px;
+}
+.left {
+	position: relative;
+	left: -1500px;
+}
+body {
+	background-color: black;
+	font-family: scoobydoo;
+	
+}

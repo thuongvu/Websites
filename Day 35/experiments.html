@@ -1,0 +1,98 @@
+var app = angular.module("squareApp", []);
+
+app.controller("squareCtrl", function($scope) {
+	$scope.changeColor = function() {
+		console.log("changed color")
+	}
+})
+
+
+app.directive("enter", function() {
+	return function (scope, element, attrs) {
+		element.bind("mouseenter", function() {
+			console.log("Mouse enter");
+			scope.$apply(attrs.enter);
+		})
+	}
+})
+
+
+<div ng-controller="squareCtrl">
+
+	<div enter="changeColor" class="box">
+
+	</div>
+
+</div>
+
+
+var app = angular.module('superApp', [])
+
+// directive called enter, A for default, it takes a string param passed into attrs,
+// and then that's passed as a param into this method call
+app.directive("enter", function() {
+	return {
+		scope: {},
+		link: function($scope, element, attrs) {
+		element.bind("mouseenter", function() {
+			element.addClass(attrs.enter)
+		})
+	}
+	}
+})
+
+app.controller("superCtrl", function($scope) {
+	$scope.superpowers = [];
+
+	// putting an array on a service to test it out
+	$scope.superheroes = [0,1,2]
+
+	$scope.makeFly = function() {
+		$scope.superpowers.push("fly");
+		$scope.superpower = $scope.superpowers.join(" ");
+	}
+	$scope.makeSize = function() {
+		$scope.superpowers.push("size");
+		$scope.superpower = $scope.superpowers.join(" ");
+	}
+	$scope.makeSpeed = function() {
+		$scope.superpowers.push("speed");
+		$scope.superpower = $scope.superpowers.join(" ");
+	}
+})
+
+//////////////////
+
+
+var app = angular.module('superApp', [])
+
+// directive called enter, A for default, it takes a string param passed into attrs,
+// and then that's passed as a param into this method call
+app.directive("enter", function() {
+	return {function($scope, element, attrs) {
+		element.bind("mouseenter", function() {
+			element.addClass(attrs.enter)
+		})
+	}
+	}
+})
+
+app.controller("superCtrl", function($scope) {
+	$scope.superpowers = [];
+
+	// putting an array on a service to test it out
+	$scope.superheroes = [0,1,2]
+
+	$scope.makeFly = function() {
+		$scope.superpowers.push("fly");
+		$scope.superpower = $scope.superpowers.join(" ");
+	}
+	$scope.makeSize = function() {
+		$scope.superpowers.push("size");
+		$scope.superpower = $scope.superpowers.join(" ");
+	}
+	$scope.makeSpeed = function() {
+		$scope.superpowers.push("speed");
+		$scope.superpower = $scope.superpowers.join(" ");
+	}
+})

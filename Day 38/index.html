@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TV Show Premieres</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+	<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/tv-premieres-app/app.js"></script>
+	<script type="text/javascript" src="js/tv-premieres-app/controllers/mainController.js"></script>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class='banner'>
+        <div class='container'>
+            <h1>TV SHOW PREMIERES</h1>
+        </div>
+    </div>
+	<div class="container main-frame" ng-app="TVPremieresApp" ng-controller="mainController" ng-init="init()">
+
+		<div class="search-box row-fluid form-inline">
+			<label>Filter:</label>
+			<input type="text" ng-model="filterText"/>
+			<select ng-model="genreFilter" ng-options="label for label in availableGenres">
+				<option value="">All</option>
+			</select>
+			
+			<label>Order by Air Date:</label>
+			<select ng-model="orderReverse" class="input-medium">
+					<option value="true">Descending</option>
+					<option value="false">Ascending</option>
+			</select>
+		</div>
+
+        <div class="results-container">
+            <ul class="episode-list">
+            	<li ng-repeat="tele in results | filter: filterText | filter: {show.genres:genreFilter} | orderBy: customOrder:orderReverse">
+					<div class="row-fluid">
+						<div class="span3">
+							<img ng-src="{{tele.episode.images.screen}}" width="300"/>
+						</div>
+						<div class="span5">
+							<a href="{{tele.episode.url}}"><h3>{{tele.show.title}} : {{tele.episode.title}}</h3></a>
+							
+							<p>{{tele.episode.overview}}</p>
+						</div>
+						<div class="span4">
+							<div class="fulldate pull-right label label-info">
+								{{tele.date}}
+							</div>
+							<ul class="show-info">
+								<li><strong>On:</strong> {{tele.show.air_day_utc}} {{tele.show.air_time}}</li>
+								<li><strong>Network:</strong> {{tele.show.network}} </li>
+								<li><strong>Season:</strong> {{tele.episode.season}} </li>
+								<li><strong>Genre:</strong> <span ng-repeat="genre in tele.show.genres">{{genre + " "}}</span></li>
+							</ul>	
+						</div>
+					</div>
+				</li>
+            </ul>
+        </div>
+</body>
+</html>

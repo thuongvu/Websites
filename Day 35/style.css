@@ -1,0 +1,35 @@
+
+.box {
+	width: 100px;
+	height: 100px;
+	transition: 3s linear all;
+	display: inline-block;
+}
+.fly {
+	position: relative;
+	top: -800px !important;
+}
+.size {
+	position: relative;
+	top: -100px;
+	width: 200px;
+	height: 200px;
+}
+.speed {
+	position: relative;
+	left: 800px;
+	transition: 0.5s linear all;
+}
+#wrapper {
+	margin: 0 auto;
+	text-align: center;
+}
+body {
+	background-color: #01AEF2;
+}
+p {
+	color: #D9182A;
+}
+span {
+	color: #F1E304;
+}

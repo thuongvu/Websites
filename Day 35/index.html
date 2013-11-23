@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	 <link rel="stylesheet" href="http://cdn.jsdelivr.net/foundation/4.3.2/css/foundation.min.css">
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>	
+	<script src="/js/gAnalytics.js"></script>
+</head>
+<body ng-app="superApp" ng-controller="superCtrl">
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<div id="wrapper">
+		<div class="box" enter="{{superpower}}"><img src="superman.png"/></div>
+		<br><br><br><br><br><br><br>
+		<p>Click a super power (or two or three) and then hover over Superman!</p>
+		<button ng-click="makeFly()"><span>Fly</span></button>
+		<button ng-click="makeSize()"><span>Supersize</span></button>
+		<button ng-click="makeSpeed()"><span>Speed</span></button>
+	</div>
+</body>
+</html>
+

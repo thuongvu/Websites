@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>200 Calories</title>
+	<link rel="stylesheet" href="http://cdn.jsdelivr.net/foundation/4.3.2/css/foundation.min.css">
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>	
+</head>
+
+<body ng-app="foodApp" ng-controller="foodController">
+
+	<div id="title">
+		<h1>200 Calories of various foods</h1>
+		<br>
+		<br>
+		<br>
+		<p>Data and Images from <a href="http://imgur.com/gallery/w9nHF">here</a></p>
+	</div>
+
+	<div>
+		<button ng-click="layout = 'list'">List</button>
+		<button ng-click="layout = 'grid'">Grid</button>
+		<br>
+		<button ng-click="filters.group =''" class="tiny secondary">Clear Filter</button>
+	</div>
+
+	<div ng-show="layout == 'list'" class="list">
+		<table>
+			<tr>
+				<td><h4>Name</h4></td>
+				<td><h4>Food Group</h4><span>(Click to sort)</span></td>
+
+			<tr ng-repeat="foodItem in food.list | filter: filters">
+				<td>{{foodItem.name}}</td> 
+				<td><a ng-click="filters.group = foodItem.group"> {{foodItem.group}}</a></td>
+				<td><img ng-src='{{foodItem.img}}' width='200'></td>
+
+		</table>
+	</div>
+
+
+	<div ng-show="layout == 'grid'" class="grid">
+		<div class="alert-box success"><h4 class="white">Click on images to sort them by food group!</h4></div>
+		<br>
+		<div ng-repeat="foodItem in food.list | filter: filters ">
+		<a href="#"><img ng-click="filters.group = foodItem.group" ng-src='{{foodItem.img}}' width='300' /></a>
+		</div>
+	</div>
+
+</body>
+
+</html>

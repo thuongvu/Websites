@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My First Directive</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+	<script type="text/javascript" src="directive1.js"></script>	
+</head>
