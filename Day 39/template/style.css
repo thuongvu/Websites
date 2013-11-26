@@ -1,0 +1,46 @@
+body {
+	background-color: #E84C46;
+}
+ul {
+	list-style: none;
+	margin: 0px;	
+}
+li {
+	list-style: none;
+	margin: 0px;	
+}
+#movieList_center li {
+	cursor: pointer;
+}
+#movieList_center ul :hover {
+	background-color: #FF8E87;
+	border-radius: 5px;
+}
+.wrapper {
+	border-radius: 5px;
+	background-color: #FFF;
+	padding: 20px;
+}
+.repeat {
+	border-radius: 5px;
+	border-bottom: dotted 1px #B21500;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+#movieList_right li {
+	border-bottom: solid 1px #CCC;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+	line-height: 40px;
+}
+#movieList_right  {
+	background-color: #e1e1e1;
+	border-radius: 5px;
+	margin: 0px;
+	padding: 10px;
+}
+#movieList_left  {
+	border-radius: 5px;
+	margin: 0px;
+	padding: 10px;
+}

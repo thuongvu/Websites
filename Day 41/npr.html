@@ -1,0 +1,24 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/foundation/4.3.2/css/foundation.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+    <script src="npr.js"></script>
+  </head>
+  <body>
+
+    <div ng-controller="PlayerController">
+      <button ng-click="play()" class="button" ng-show="!playing">Play</button>
+      <button ng-click="stop()" class="button alert" ng-show="playing">Stop</button>
+      Playing audio: <b>{{ playing }}</b>
+
+      <ul id="programs_list" class="">
+        <li ng-repeat="program in programs" ng-click="play(program)">
+          <!-- <span class="large-12">{{program.title.$text}}</span>  -->
+            <span npr-link play='play(program)' ng-model='program'>
+         </li> 
+      </ul>
+    </div>
+
+  </body>
+</html>

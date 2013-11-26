@@ -5,16 +5,25 @@ var genMathProb = function() {
 		// make an empty array called num
 		this.num = [];
 		// a for statement that pushes numbers 0-49 into the array called num, 
-		for (i = 1; i <= 12; i++) {
+		for (i = 0; i < 50; i++) {
 			this.num.push(i);
 		}
 		// new variables x & y assigned to a random value from the array
-		this.x = this.num[Math.floor(Math.random() * 12)];
-		this.y = this.num[Math.floor(Math.random() * 12)];
+		this.xFirst = this.num[Math.floor(Math.random() * 50)];
+		this.yFirst = this.num[Math.floor(Math.random() * 50)];
+
+		if (this.xFirst > this.yFirst) {
+			this.x = this.xFirst;
+			this.y = this.yFirst;
+		} else {
+			this.x = this.yFirst;
+			this.y = this.xFirst;
+		}
+
 		// new variable for user input
 		this.userInput = '';
 		// variable used to check whether the user input is the correct answer
-		this.z = this.x * this.y;
+		this.z = this.x - this.y;
 		// 2 if statements: if variable x or y is less than 10, add spaces so the numbers are aligned when adding, write to html doc 
 		// (aligned numbers really helped me as a kid when i was adding)
 		// if variables x and y are greater than 10, just write to html doc

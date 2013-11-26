@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+	<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<link rel="stylesheet" href="style.css">
+	<script src="/js/gAnalytics.js"></script>
+</head>
+<body ng-app="rtApp" ng-controller="mainCtrl" ng-init="showInTheaters()">
+
+	<div class="container wrapper">
+	<div>
+	<button ng-click="showInTheaters()">Movies in Theaters</button>
+	<button ng-click="homeRental()">Popular Rentals</button>
+	<button ng-click="upcomingMovies()">Upcoming Movies</button>
+	<button ng-click="openingMovies()">Opening Movies</button>
+			<label>Filter</label>
+			<input type="text" ng-model="search"/>
+	</div>
+		
+		<div class="row repeat" ng-repeat="movie in results | filter:search | orderBy: 'movie.ratings.audience_score'">
+				<div class="col-md-3" id="movieList_left">
+					<div><img ng-src="{{movie.posters.detailed}}"/></div>
+					<div>
+						<span ng-class="{'label label-success': movie.ratings.audience_score >=80, 'label label-danger': movie.ratings.audience_score <=79}">Audiences: {{movie.ratings.audience_rating}} 
+							{{movie.ratings.audience_score}}%</span>
+						<br>
+						<span ng-class="{'label label-success': movie.ratings.critics_score >=80, 'label label-danger': movie.ratings.critics_score <=79}">Critics: {{movie.ratings.critics_rating}}
+							{{movie.ratings.critics_score}}%</span>
+					</div>
+				</div>
+
+				<div class="col-md-7" id="movieList_center">
+				<ul>
+				<li ng-click="toggle(movie)">
+					<div><h3>{{movie.title}}</h3></div>
+					<div><strong>Cast:</strong></div>
+					<span ng-repeat="actor in movie.abridged_cast">
+						<span>{{actor.name}}&nbsp;&nbsp;</span>
+					</span>
+					<div><strong>Critics' Consensus:</strong></div>
+					<div> {{movie.critics_consensus}}</div>
+					<div><strong>Click for synopsis:</strong></div>
+					<div ng-show="showMe(movie)">{{movie.synopsis}}</div>
+				</li>
+				</ul>
+					
+				</div>
+
+				<ul class="col-md-2" id="movieList_right">
+					<li><strong>Release:</strong> {{movie.release_dates.theater}}</li>
+					<li><strong>Runtime:</strong> {{movie.runtime}}</li>
+					<li><strong>MPAA:</strong> {{movie.mpaa_rating}}</li>
+				</ul>
+
+		</div>
+	</div>
+
+</body>
+</html>

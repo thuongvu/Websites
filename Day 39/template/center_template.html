@@ -1,0 +1,15 @@
+				<div class="col-md-7" id="movieList_center">
+				<ul>
+				<li ng-click="toggle(ngModel)">
+					<div><h3>{{ngModel.title}}</h3></div>
+					<div><strong>Cast:</strong></div>
+					<span ng-repeat="actor in ngModel.abridged_cast">
+						<span>{{actor.name}}&nbsp;&nbsp;</span>
+					</span>
+					<div><strong>Critics' Consensus:</strong></div>
+					<div> {{ngModel.critics_consensus}}</div>
+					<div><strong>Click for synopsis:</strong></div>
+					<div ng-show="showMe(ngModel)">{{ngModel.synopsis}}</div>
+				</li>
+				</ul>
+				</div>

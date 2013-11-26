@@ -7,6 +7,7 @@ app.controller("mainController", function($scope, $http){
 
 	$scope.customOrder = function(tvshow) {
 				return tvshow.episode.first_aired;
+				console.log(tvshow.episode.first_aired);
 	}
 	$scope.orderFields = ["Air Date"];
 	$scope.orderDirections = ["Descending", "Ascending"];
@@ -35,6 +36,7 @@ app.controller("mainController", function($scope, $http){
 	    						$scope.availableGenres.push(genre); 
 	    					}
 	    			})
+	    			console.log(tvshow.episode.first_aired)
     			});	
     		});
     	}).error(function(error) { 

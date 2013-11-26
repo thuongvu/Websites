@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Stars</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<link rel="stylesheet" href="style.css">
+	<script src="/js/gAnalytics.js"></script>
+</head>
+<body ng-app="starsApp">
+
+	<div ng-controller="starsCtrl">
+		<div class="bigStar" ng-show="messageState"><img src="blueStar.jpg" height="620" /></div>
+	<span ng-repeat="star in starsContainer" ng-show="starState">
+		<star></star>
+	</span>
+		
+	</div>
+</body>
+</html>

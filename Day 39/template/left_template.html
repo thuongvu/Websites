@@ -1,0 +1,10 @@
+	<div class="col-md-3" id="movieList_left">
+					<div><img ng-src=" {{ngModel.posters.detailed}} "/></div>
+					<div>
+						<span ng-class="{'label label-success': ngModel.ratings.audience_score >=80, 'label label-danger': ngModel.ratings.audience_score <=79}">Audiences: {{ngModel.ratings.audience_rating}} 
+							{{ngModel.ratings.audience_score}}%</span>
+						<br>
+						<span ng-class="{'label label-success': ngModel.ratings.critics_score >=80, 'label label-danger': ngModel.ratings.critics_score <=79}">Critics: {{ngModel.ratings.critics_rating}}
+							{{ngModel.ratings.critics_score}}%</span>
+					</div>
+				</div>
