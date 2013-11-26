@@ -1,6 +1,8 @@
-<div class="nprLink row" ng-click="play(ngModel)">
+
+<div class="nprLink row" player="player">
   <span class="name large-8 columns">
-    <button class="large-2 small-2 playButton columns">Play</button>
+    <button class="large-2 small-2 columns" ng-click="player.play(ngModel)">Play</button>
+    <button class="alert large-2 small-2 columns" ng-click="player.stop()">Stop</button>
     <div class="large-10 small-10 columns">
       <div class="row">
         <span class="large-12">{{ ngModel.title.$text }}</span>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/foundation/4.3.2/css/foundation.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+    <script src="npr.js"></script>
+  </head>
+  <body>
+    <div id="title">
+      
+      <h1><img src="npr.jpg" width="250"</> Morning Edition</h1>
+    </div>
+    <div ng-controller="PlayerController">
+
+      <ul>
+        <li ng-repeat="program in programs">
+            <span npr-link ng-model="program"></span>
+        </li> 
+      </ul>
+    </div>
+
+  </body>
+</html>
