@@ -12,11 +12,11 @@ app.factory("NumberGenerator", function () {
 app.controller("numberCtrl", function ($scope, NumberGenerator) {
 	$scope.numbers = NumberGenerator;
 	$scope.divisible = function (number) {
-		var Div = [];
-		for (i = 1; i < 1001; i++) {
-			if (i % number == 0) {
-				Div.push({number: i, group: "div"})
-				$scope.numbers = Div;
+		var div = [];
+		for (var i = 1; i < 1001; i++) {
+			if (i % number === 0) {
+				div.push({number: i, group: "div"})
+				$scope.numbers = div;
 			}
 		}
 	}

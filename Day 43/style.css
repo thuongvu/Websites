@@ -1,0 +1,59 @@
+#wrapper {
+	text-align: center;
+	margin: 0 auto;
+}
+.Gryffindor {
+	background-color: #CD8E22;
+	color: #C22A2C;
+}
+.Gryffindor h1 {
+	background-color: #CD8E22;
+	color: #C22A2C;
+}
+.Gryffindor h3 {
+	background-color: #CD8E22;
+	color: #C22A2C;
+}
+.Hufflepuff {
+	background-color: #D6C7C0;
+	color: #A28218;
+}
+.Hufflepuff h1 {
+	background-color: #D6C7C0;
+	color: #A28218;
+}
+.Hufflepuff h1 {
+	background-color: #D6C7C0;
+	color: #A28218;
+}
+.Hufflepuff h3 {
+	background-color: #D6C7C0;
+	color: #A28218;
+}
+.Slytherin {
+	background-color: #7C7B6F;
+	color: #046A3A;
+}
+.Slytherin h1{
+	background-color: #7C7B6F;
+	color: #046A3A;
+}
+.Slytherin h3{
+	background-color: #7C7B6F;
+	color: #046A3A;
+}
+.Ravenclaw {
+	background-color: #F7C93E;
+	color: #1B557D;
+}
+.Ravenclaw h1 {
+	background-color: #F7C93E;
+	color: #1B557D;
+}
+.Ravenclaw h3 {
+	background-color: #F7C93E;
+	color: #1B557D;
+}
+#sortingHat {
+	height: 200px;
+}

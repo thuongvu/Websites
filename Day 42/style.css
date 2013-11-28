@@ -1,0 +1,29 @@
+@font-face
+{
+font-family: Matrix;
+src: url('matrix.regular.ttf');
+}
+.pill {
+	display: inline-block;
+	width: 320px;
+	margin: 0 auto;
+	text-align: center;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+body {
+	font-family: Matrix;
+		margin: 0 auto;
+	text-align: center;
+	color: green;
+	background-color: black;
+}
+#title {
+	font-size: 3em;
+}
+#front {
+	height: 200px;
+}
+#choseBlue {
+	margin-top: 20%;
+}

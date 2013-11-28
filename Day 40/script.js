@@ -2,7 +2,7 @@ var app = angular.module("starsApp", []);
 
 app.controller("starsCtrl", function ($scope) {
 	$scope.starsContainer = [];
-	for (i = 0; i < 84; i++) {
+	for (var i = 0; i < 84; i++) {
 		$scope.starsContainer.push(i);
 	};
 
