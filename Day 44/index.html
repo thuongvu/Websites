@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+		<link rel="stylesheet" href="style.css">
+	 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>	
+	<script src="/js/gAnalytics.js"></script>
+</head>
+<body ng-app="app">
+	<div id="wrapper" ng-controller="mainCtrl">
+
+		<div id="center">
+			<div><h1>Happy Thanksgiving!</h1></div>
+			<div><h2>Feed Jabba the Hutt!</h2><span>instructions:  iind the correct combination of food to feed Jabba for Thanksgiving, or <u>you</u> will be Thanksgiving.  Hint:  If he likes even one item in your list, he will say: "Mmmmmm, more...  MORE!"</span></div>
+		</div>
+
+		<div id="left">
+			<div>
+				Turkey <input type="number" ng-model="dinner.turkey" max="1" min="0"/><br/>
+				Corn <input type="number" ng-model="dinner.corn"  max="1" min="0"/><br/>
+				Mashed Potatoes <input type="number" ng-model="dinner.mashed"  max="1" min="0"/><br/>
+				Pumpkin pie <input type="number" ng-model="dinner.pumpkin"  max="1" min="0"/><br/>
+
+				<button ng-click="update(dinner)">PLEASE ACCEPT MY OFFERING</button>
+			</div>
+
+			<span ng-show="showTurkey"><img id="turkey" src="turkey.gif"/></span>
+			<span ng-show="showPumpkin"><img id="pumpkinPie" src="pumpkin_pie.png"/></span>
+			<span ng-show="showCorn"><img id="corn" src="corn.png"/></span>
+			<span ng-show="showMashed"><img id="mashedPotatoes" src="mashedPotatoes.png"/></span>
+
+		</div>
+
+		<div id="right">
+			<img id="jabba" src="Jabba.jpg"/> 
+			<div ng-show="showIncorrect">try again.  jabba will eat you if you get it wrong again</div>
+			<div ng-show="showMore">mmmmmm, more...  more!</div>
+			<div ng-show="showCorrect">yayyyy, you got it right!  jabba won't throw you in the rancor pit!!!</div>
+		</div>
+
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+@font-face
+{
+font-family: Starjedi;
+src: url('Starjedi.ttf');
+}
+#jabba {
+	width: 300px;
+}
+#wrapper {
+	margin: 0 auto;
+	text-align:  center;
+}
+#left {
+	display: inline-block;
+	vertical-align: top;
+	width: 600px;
+}
+#right {
+	display: inline-block;
+	vertical-align: top;
+	width: 400px;
+}
+#turkey {
+	width: 150px;
+}
+#corn {
+	width: 150px;
+}
+#pumpkinPie {
+	width: 150px;
+}
+#mashedPotatoes {
+	width: 150px;
+}
+#center {
+	margin-top: -3%;
+	margin-bottom: 30px;
+}
+body {
+	background-color: #9B9388;
+	color: #fff;
+	font-family: Starjedi;
+}
