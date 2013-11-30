@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Yoda-Speak</title>
+		<link rel="stylesheet" href="style.css">
+		<link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+	 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>	
+	<script src="/js/gAnalytics.js"></script>
+</head>
+<body ng-app="app" ng-controller="mainCtrl">
+	<div id="wrapper">
+		
+		<div id="center">
+			<h1>Yoda-speak</h1>
+			<h4>How would Jedi Master Yoda say it?  Find out below!</h4>
+		</div>
+
+		<div id="left">
+			<img src="yoda.png">
+		</div>
+
+		<div id="right">
+			<textarea rows="4" cols="50" ng-model="user.input"></textarea>
+			<button ng-click="submit()">You say this, how would, yoda, hmm?</button>
+			<div>{{user.output}}</div>
+		</div>
+
+	</div>
+</body>
+</html>

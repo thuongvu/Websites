@@ -67,14 +67,12 @@ app.controller('mainCtrl', function ($scope, $timeout) {
 	$scope.update = function (dinner) {
 		$scope.cooked = angular.copy(dinner);
 		if ((($scope.preference.turkey === 1) && ($scope.cooked.turkey === 1)) || (($scope.preference.pumpkin === 1) && ($scope.cooked.pumpkin === 1)) || (($scope.preference.corn === 1) && ($scope.cooked.corn === 1)) || (($scope.preference.mashed === 1) && ($scope.cooked.mashed === 1))) {
-			console.log("YES")
 			$scope.showMore = true;
 			$timeout(function() {
 			    $scope.showMore = false;
 			  }, 2500);
 		} 
 		if ($scope.cooked.turkey ==! $scope.preference.turkey || $scope.cooked.pumpkin ==! $scope.preference.pumpkin || $scope.cooked.corn ==! $scope.preference.corn || $scope.cooked.mashed ==! $scope.preference.mashed )  {
-			console.log('Nope');
 			$scope.showIncorrect = true;
 			$timeout(function() {
 			    $scope.showIncorrect = false;
@@ -82,7 +80,6 @@ app.controller('mainCtrl', function ($scope, $timeout) {
 			$scope.reset();
 		}
 		if ($scope.cooked.turkey === $scope.preference.turkey && $scope.cooked.pumpkin === $scope.preference.pumpkin && $scope.cooked.corn === $scope.preference.corn && $scope.cooked.mashed === $scope.preference.mashed) {
-			console.log("Hooray");
 			$scope.showMore = false;
 			 $scope.showIncorrect = false;
 			$scope.showCorrect = true;

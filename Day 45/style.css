@@ -1,0 +1,23 @@
+#left {
+	display: inline-block;
+	width: 480px;
+	vertical-align: top;
+}
+#right {
+	display: inline-block;
+	width: 480px;
+	vertical-align: top;
+}
+#center {
+
+}
+#wrapper {
+	text-align: center;
+	margin: 0 auto;
+}
+body {
+	background-color: #537858;
+	color: #FF4339;
+	font-family: 'Oxygen', sans-serif;
+	font-style: strong;
+}
