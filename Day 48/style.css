@@ -1,0 +1,53 @@
+@font-face
+{
+font-family: PokemonSolid;
+src: url('PokemonSolid.ttf');
+}
+body {
+	background: #FFFFC2;
+}
+.number {
+	text-align: right;
+	width: 100px;
+	font-size: 1.5em;
+	color: #333370;
+}
+.operator {
+	text-align: right;
+	font-size: 1.5em;
+	color: #FFCC00;
+	line-height: 0%;
+	height: 10px;
+}
+#mathProblem {
+	margin: 0 auto;
+	margin-left: 40%;
+}
+#nav {
+	text-align: left;
+}
+#header {
+	margin: 0 auto;
+	text-align: center;
+	font-size: 1.5em;
+}
+#title {
+	font-family: PokemonSolid;
+	font-size:3em;
+	margin: 0 auto;
+	text-align: center;
+	color: #EEBB00;
+	text-shadow:
+   -1px -1px 0 #333370,  
+   5px -5px 0 #333370,
+   -5px 5px 0 #333370,
+   5px 5px 0 #333370;
+}
+#difficulty {
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 10%;
+}
+#pokemonImg {
+	height: 64px;
+}

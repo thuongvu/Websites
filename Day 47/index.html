@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>What's up, Instagram?</title>
+		<link rel="stylesheet" href="style.css">
+	 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>	
+	<script src="/js/gAnalytics.js"></script> 
+</head>
+<body ng-app="app" ng-controller="mainCtrl">
+	<div id="photoContainer">
+		<div class="pop" ng-repeat="photo in photos">
+			<img ng src="{{photo.low_resolution.url}}">
+		</div>
+	</div>
+</body>
+</html>

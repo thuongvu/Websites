@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+		<!-- <link rel="stylesheet" href="http://cdn.jsdelivr.net/foundation/4.3.2/css/foundation.min.css"> -->
+		<link rel="stylesheet" href="style.css">
+	 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+	 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-route.js"></script>
+	<script type="text/javascript" src="script.js"></script>	
+	<!-- // <script src="/js/gAnalytics.js"></script> -->
+</head>
+<body ng-app="app" ng-controller="plus" ng-init="setProblem(range)">
+	Range: <input type="number" ng-model="range"></input>
+	<pre>range is: {{range}}</pre>
+	<pre>firstNumber is: {{firstNumber}}</pre>
+	<pre>secondNumber is: {{secondNumber}}</pre>
+	<pre>answerNumbers is: {{answerNumbers}}</pre>
+
+	<div ng-repeat="number in firstNumber track by $index">
+		<span ng-show="checkIndex($index)">{{number}}</span>
+	</div>
+	<div ng-repeat="number in secondNumber track by $index">
+		<span ng-show="checkIndex($index)">{{number}}</span>
+	</div>
+	<input type="number" ng-model="answer"></input>
+	<button ng-click="submitAnswer(answer)">Submit Answer</button>
+
+	<div ng-repeat="pokemon in displayPokemon">
+		<img ng-src="{{pokemon}}">
+	</div>
+
+</body>

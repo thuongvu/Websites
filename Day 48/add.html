@@ -1,0 +1,31 @@
+<div ng-init="setProblem(range)">
+
+		<div id="mathProblem">
+
+			<div class="number"ng-repeat="number in firstNumber track by $index">
+				<span class="number" ng-show="checkIndex($index)">{{number}}</span>
+			</div>
+
+			<span class="operator" ng-show="addSignShow">+</span>
+			<span class="operator" ng-show="subtractSignShow">-</span>
+			<span class="operator" ng-show="multiplySignShow">X</span>
+			<span class="operator" ng-show="divideSignShow">/</span>
+
+			<div class="number" ng-repeat="number in secondNumber track by $index">
+				<span class="number" ng-show="checkIndex($index)">{{number}}</span>
+			</div>
+
+			<form>
+				<input type="number" ng-model="answer"></input>
+				<button class="btn btn-warning" type="submit" ng-click="submitAnswer(answer)">Enter</button>
+			</form>
+
+		</div>
+
+		<div id="pokemon">
+			<span ng-repeat="pokemon in displayPokemon track by $index">
+				<img id="pokemonImg" ng-src="{{pokemon}}">
+			</span>
+		</div>
+
+</div>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Poke-math 2.0</title>
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+		<link rel="stylesheet" href="style.css">
+	 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+	 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-route.js"></script>
+	<script type="text/javascript" src="script.js"></script>	
+	<script src="/js/gAnalytics.js"></script>
+</head>
+<body ng-app="app">
+	<nav class="navbar navbar-default navbar-static-top" role="navigation">
+		<div id="nav" ng-controller="menu">
+			<button class="btn btn-primary" ng-click="changeRoute('add')">Addition</button>
+			<button class="btn btn-success" ng-click="changeRoute('subtract')">Subtraction</button>
+			<button class="btn btn-info" ng-click="changeRoute('multiply')">Multiplication</button>
+			<button class="btn btn-warning" ng-click="changeRoute('divide')">Division</button>
+			<button class="btn btn-danger" ng-click="changeRoute('difficulty')">Change Difficulty</button>
+		</div>
+	</nav>
+
+	<div id="header">
+		<div id="title">Poke-math 2</title></div>
+		<div id="instructions">Instructions: Complete math problems to catch Pokemon!</div>
+	</div>
+
+	<div>
+			<ng-view></ng-view>
+	</div>
+
+</body>

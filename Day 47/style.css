@@ -1,0 +1,17 @@
+.pop {
+	display: inline-block;
+	margin: 0 auto;
+	
+}
+.pop img {
+	width: 200px;
+}
+#photoContainer {
+	width: 840px;
+}
+body {
+	background-color: #000;
+}
+#photoContainer {
+	margin: 0 auto;
+}

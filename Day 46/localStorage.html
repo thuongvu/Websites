@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>To Do List</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+	<script type="text/javascript" src="angular-local-storage.js"></script>
+	<script type="text/javascript" src="localStorage.js"></script>	
+	<script src="/js/gAnalytics.js"></script>
+</head>
+<body ng-app="app" ng-controller="mainCtrl">
+	<div id="wrapper">
+		<div id="title">
+			<h1>To Do List</h1>
+			<p>Instructions:  Add items to your list!  You can close the window, refresh, come back later, and your list will still be here!  <br>They will remain  until you 1. compelete them, or 2. clear your browser history/cache.  No cheating!<br>  Note:  Works differently for various browsers. </p>
+		</div>
+		<div id="enter">
+			<form id="buttons">
+				<input type="text" placeholder="Enter item here" ng-model="list"></input>
+				<button class="btn-success" ng-click="addItem()" type="submit">Add item</button>
+				<button class="btn-info" ng-click="clearList()">Clear list</button>
+			</form>
+
+			<div ng-repeat="items in storage track by $index">
+				<button class="btn-danger" ng-click="removeItem($index)">x</button> {{items}}
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

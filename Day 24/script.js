@@ -39,7 +39,7 @@ var pokeContainer = function() {
 		// empty array called pokemon
 		this.pokemon = [];
 		// for statement that pushes all 150 pictures into the array called pokemon
-		for (i = 1; i <= 150; i++) {
+		for (var i = 1; i <= 150; i++) {
 			this.pokemon.push('images/' + i + '.png');
 		}
 		// variable called randPokemon is assigned the value of a randomly chosen picture from the array called pokemon

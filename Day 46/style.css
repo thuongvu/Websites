@@ -1,0 +1,17 @@
+#wrapper #title {
+	text-align: center;
+	width: 720px;
+	margin: 0 auto;
+}
+#wrapper #enter {
+	margin: 0 auto;
+	text-align: left;
+	margin-left: 38%;
+}
+#title h1 {
+	font-weight: bold;
+	font-size: 4em;
+}
+body {
+	background: url(linedpaper.png);
+}
