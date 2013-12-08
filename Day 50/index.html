@@ -1,0 +1,52 @@
+<html>
+<head>
+	<title>Chat</title>
+	<link rel="stylesheet" href="chat.css">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+	<script type="text/javascript" src="chat.js"></script>	
+	<script src="/js/gAnalytics.js"></script>
+</head>
+<body ng-app="app" ng-controller="mainCtrl">
+	<div id="title"><h1>Chat</h1></div>
+
+<div id="wrapper">
+	<div class="row">
+		<div class="col-sm-6 col-sm-offset-2">
+			<table class="chatTable table table-striped">
+				<tr ng-repeat="msg in messageList track by $index">
+					<td class="name">{{msg.get("name")}}:</td><td>{{msg.get("message")}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="row">
+		<form name="inputName" novalidate>
+			<span class="col-lg-4 col-lg-offset-1" ng-show="!showState">
+				<div class="input-group">
+				<input type="text" class="form-control" ng-model="name" placeholder="Choose a name" class="form-control" required/>
+				<span class="input-group-btn">
+					<button class="btn btn-warning" ng-disabled="inputName.$invalid" ng-click="setName()">Enter</button>
+				</span>
+			</div>
+			</span>
+		</form>
+
+		<form name="inputText" novalidate>
+			<span class="col-lg-6 col-lg-offset-2" ng-show="showState">
+		    	<div class="input-group">
+		     		<input type="text" class="form-control" ng-model="message" placeholder="Type your message here!" class="form-control"/>
+		      	<span class="input-group-btn">
+		        		<button class="btn btn-success" ng-click="addChatMessage()" ng-disabled="inputText.$invalid" >Enter</button>
+		     		</span>
+		    	</div>
+		   </span>
+
+		</form>
+	</div>	
+</div>
+
+</body>
+</html>

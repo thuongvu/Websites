@@ -1,0 +1,21 @@
+li {
+	list-style-type: none;
+}
+.name {
+	width: 100px;
+	font-weight: bold;
+}
+#title {
+	margin: 0 auto;
+	text-align: center;
+}
+#wrapper {
+	margin-left: 15%;
+} 
+.chatTable {
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+body {
+	height: 100%;
+}

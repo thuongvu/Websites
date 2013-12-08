@@ -1,0 +1,74 @@
+<html>
+<head>
+	<title>To Do List v3</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>	
+	// <script src="/js/gAnalytics.js"></script>
+</head>
+<body ng-app="app" ng-controller="mainCtrl">
+
+	<div id="fb-root"></div>
+	<script>
+	  window.fbAsyncInit = function() {
+	    Parse.FacebookUtils.init({
+	      appId      : '573186322751814',     
+	      channelUrl : 'channel.html',                   
+	      status     : true,  
+	      cookie     : true,                              
+	      xfbml      : true                                  
+	    });
+
+	  };
+
+	  (function(){
+	     if (document.getElementById('facebook-jssdk')) {return;}
+	     var firstScriptElement = document.getElementsByTagName('script')[0];
+	     var facebookJS = document.createElement('script'); 
+	     facebookJS.id = 'facebook-jssdk';
+	     facebookJS.src = '//connect.facebook.net/en_US/all.js';
+	     firstScriptElement.parentNode.insertBefore(facebookJS, firstScriptElement);
+	   }());
+	</script>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<button class="btn btn-primary navbar-btn" ng-show="!loggedIn" ng-click="facebookLogin()">Sync your list through Facebook</button>
+	<button class="btn btn-warning navbar-btn" ng-show="loggedIn" ng-click="logOut()">Log Out</button>
+		<div class="navbar-header">
+		</div>
+	</nav>
+
+<div id="wrapper">
+	<div id="title"><h1>To Do List v3</h1></div>
+<div class="row">
+	<form class="navbar-form navbar-left" name="inputName" novalidate>
+	  <div class="form-group">
+	  	<input type="text" class="form-control" ng-model="item" ng-show="!loggedIn" placeholder="Please login first :)"  required/>
+	   <input type="text" class="form-control" ng-model="item" ng-show="loggedIn" placeholder="Enter items here"  required/>
+	  </div>
+	  <button type="submit" class="btn btn-success" ng-disabled="inputName.$invalid" ng-click="addItem()">Enter</button>
+	</form>
+</div>
+
+<div class="row">
+		<div class="col-sm-5">
+				<table class="table">
+					<tr ng-repeat="item in itemsList track by $index">
+						<td>
+							<button class="btn btn-xs btn-danger" ng-click="deleteItem(item.id)">X</button>{{item.get("item")}}
+						</td>
+					</tr>
+				</table>
+		</div>
+</div>
+</div>
+	
+
+
+
+
+
+</body>
+</html>

@@ -3,6 +3,11 @@ var app = angular.module("app", ['ngRoute']);
 //routes
 	app.config(function($routeProvider){
 		$routeProvider
+		.when("/",
+		{
+			templateUrl: "add.html",
+			controller: 'add',
+		})
 		.when("/add",
 		{
 			templateUrl: "add.html",

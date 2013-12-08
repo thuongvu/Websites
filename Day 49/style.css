@@ -1,0 +1,53 @@
+body {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+body:after {
+  content: "";
+  background: url(tree.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  opacity: 0.3;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;   
+}
+#form {
+  position: absolute;
+  margin-top: 40%;
+  opacity: .8;
+}
+#secret {
+  position: absolute;
+  margin-top: 25%;
+  margin-left: 1%;
+  font-size: 2em;
+  border-radius: 5px;
+  color: green;
+  text-align: center;
+  background-color: white;
+  opacity: .8;
+}
+
+#inspiration {
+  color: green;
+  font-size: 3em;
+  font-weight: bold;
+  position: absolute;
+  text-align: center;
+  margin-left: 34%;
+  width: 400px;
+}
+#instructions {
+  font-size: 1.5em;
+  position: absolute;
+  margin-top: 5%;
+  margin-left: 10%;
+  color: #000;
+  border-radius: 5px;
+  opacity: .8;
+}

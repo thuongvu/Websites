@@ -1,0 +1,39 @@
+<html>
+<head>
+	<title>Secrets</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+	<script type="text/javascript" src="ui-bootstrap-custom-0.7.0.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-resource.js"></script>
+	<script type="text/javascript" src="script.js"></script>	
+	<script src="/js/gAnalytics.js"></script>
+</head>
+
+<body ng-app="app" ng-controller="mainCtrl">
+	<div ng-show="!showForm">
+		<a id="inspiration"><span tooltip-placement="bottom" tooltip-html-unsafe="{{toolTip}}">Secrets</span></a>
+	</div>
+
+	<div id="instructions" ng-show="!showForm">Instructions: Share a secret, and you will be able to see a secret shared by the previous user of this website.</div>
+
+	<form name="form" novalidate>
+		<div id="form" ng-show="!showForm" class="input-group input-group-lg">
+			<input type="text" ng-model="secretMessage" class="form-control" required /><br />
+			<span class="input-group-btn">
+				<button class="btn btn-success" type="submit" ng-click="addSecret()" ng-disabled="form.$invalid" >Share a secret</button>
+			</span>
+		</div>
+	</form>
+
+	<div id="secret">
+		<span ng-repeat="secret in secretsList">
+			<span>{{secret.get('message')}}</span>
+		</span>
+	</div>
+</body>
+
+<!-- Photo from here: http://www.flickr.com/photos/8748128@N02/3147679735/sizes/l/ Creative Commons -->
+
+</html>

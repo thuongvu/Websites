@@ -1,0 +1,77 @@
+<html>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.11/d3.min.js"></script>
+	<!-- // <script type="text/javascript" src="d3_1.js"></script>	 -->
+</head>
+<body>
+	<script>
+	var windowWidth = $(window).width() - 10;
+   var windowHeight = $(window).height() - 10;
+
+		var svg = d3.select("body")
+						.append("svg")
+						.attr("width", windowWidth)
+						.attr("height", windowHeight)
+
+		var counter = [1];
+		
+		var counterVar = 1;
+
+		// var xScale = d3.scale.linear()
+		// 						.domain([d3.min(counter),d3.max(counter)])
+		// 						.range([0, windowWidth]);
+		// var yScale = d3.scale.linear()
+		// 						.domain([d3.min(counter),d3.max(counter)])
+		// 						.range([0, windowHeight]);	
+														
+		// console.log(xScale(300));
+		// console.log(rScale(200));
+
+		 var rScale = d3.scale.linear()
+								.domain([1,100])
+								.range([50, windowHeight / 2]);	
+								console.log(rScale(300));
+
+		setInterval(function() {
+			counterVar+=1;
+			counter.push(counterVar);
+			console.log(counter);
+
+		var circles = svg.selectAll("circle")
+					.data(counter)
+					.enter()
+					.append("circle")
+					.attr({
+						cx: function(d) {
+							return (windowWidth / 2) ;
+						},
+						cy: function(d) {
+							return (windowHeight / 2) ;
+						},
+						r: function(d) {
+							return rScale(d);
+						}
+					})
+	   var numbers = svg.selectAll("text")
+								.data(counter)
+								.enter()
+								.append("text")
+								.text(function(d) {
+									return d;
+								})
+								.attr("x", function (d) {
+									return (windowWidth / 2) - 1
+								})
+								.attr("y", function(d) {
+									return (windowHeight / 2) + 4
+								})
+								.attr("font-family", "sans-serif")
+					   		.attr("font-size", "11px")
+					   		.attr("fill", "red");
+
+		},1000);
+
+	</script>
+</body>
+</html>
