@@ -1,0 +1,29 @@
+.axis path,
+.axis line {
+	fill: none;
+	stroke: black;
+	shape-rendering: crispEdges;
+}
+.axis text {
+	font-family: sans-serif;
+	font-size: 1em;
+}
+.h,.v{
+	stroke: black;
+	stroke-dasharray: 4 4;
+	stroke-width: 1;
+	stroke-opacity:.5;
+}
+.background {
+  fill: none;
+  pointer-events: all;
+}
+.countryName {
+	font-family: sans-serif;
+	font-size: 1em;
+}
+#title {
+	font-size: 1.5em;
+	margin: 0 auto;
+	text-align: center;
+}

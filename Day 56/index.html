@@ -1,0 +1,141 @@
+<html>
+<head>
+	<link rel="stylesheet" href="style.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.11/d3.min.js"></script>
+	<script src="fisheye.js"></script>
+	<script src="/js/gAnalytics.js"></script>
+</head>
+<body>
+	<div id="title">C02 emissions, Gross national income, & Life Expectancy of all UN countries, 2011 (HDR Report)</div>
+	<script type="text/javascript">
+
+		// initialize svg
+		var w = $(window).width() - 100,
+			 h = $(window).height() - 100,
+			 margin = 50;
+
+		var svg = d3.select("body")
+			 .append("svg")
+			 .attr("width", w)
+			 .attr("height", h)
+
+		// scales
+		var x = d3.fisheye.scale(d3.scale.linear) // gross income
+			 .domain([0, 10000, 120000])
+			 .range([margin, w/3 , w - margin]);
+
+		var y = d3.fisheye.scale(d3.scale.linear) // life expectancy
+			 .domain([40, 85])
+			 .range([h - margin, margin]);
+
+		var r = d3.scale.linear() // radius for co2 level
+			 .domain([0, 4, 20])
+			 .range([4, 20, 100]);
+
+		var c = d3.scale.category10() // colors
+			 .domain(["Africa", "Americas", "Asia", "Europe", "Oceania"])
+
+		// axes
+		var xAxis = d3.svg.axis()
+			 .scale(x)
+			 .orient("bottom")
+		var yAxis = d3.svg.axis()
+			 .scale(y)
+			 .orient("left")
+
+		// appending x and y axis to chart
+
+			// x axis
+		svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + (h - margin) + ")")
+			.call(xAxis)
+			.append("text")
+				.text("Gross National Income per capita")
+					.attr("dy", "0.75em")
+					.attr("x", w / 2)
+					.attr("y", 30)
+
+			// y axis
+		svg.append("g")
+			.attr("class", "y axis")
+			.attr("transform", "translate(" + margin + ",0)")
+			.call(yAxis)
+				.append("text")
+				.text("Life Expectancy by years")
+				.attr("transform", "rotate(-90)")
+				.attr("x",  - h / 2)
+				.attr("y", margin - 85)
+
+			// text	
+		svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + (h - margin) + ")")
+			.append("text")
+				.text("The larger the circle, the more CO2 emissions")
+					.attr("x", w * .6)
+					.attr("y", - h / 8)
+
+		// draw graph
+		d3.csv("HDR_2011_cleaned.csv", function(csv) { // get data
+			// dots
+			var dot = svg.append("g")
+				 .attr("class", "dots")
+			 .selectAll(".dot")
+			 	.data(csv).enter()
+			   .append("circle")
+			   .attr("class", "dot")
+			   .style("fill", function (d) {
+			   	return c(d.Region);
+			   })
+			   .call(position);
+
+			// country labels
+			 var name = svg.append("g")
+			 	.selectAll("text")
+			 	.data(csv).enter()
+				.append("text")
+					.text(function (d) {
+						return d.Country;
+					})
+					.attr("font-family", "sans-serif")
+					.attr("font-size", "10px")
+					.call(country);
+
+			// position of dots
+			function position(dot) {
+				dot 	.attr("cx", function (d) {
+							return x(+d.GNIPerCapita)
+						})
+						.attr("cy", function (d) {
+							return y(+d.LifeExpectancy)
+						})
+						.attr("r", function (d) {
+							return r(Math.sqrt(+d.CO2emission))
+						})
+			}
+
+			// position of country names
+			function country(name) {
+				name	.attr("x", function (d) {
+						return x(+d.GNIPerCapita)
+					})
+					.attr("y", function (d) {
+						return y(+d.LifeExpectancy)
+					})
+			}
+
+			// fisheye on mousemove
+			svg.on("mousemove", function() {
+				var mouse = d3.mouse(this);
+				x.distortion(5).focus(mouse[0]);
+				y.distortion(5).focus(mouse[1]);
+				dot.call(position);
+				name.call(country);
+				svg.select(".x.axis").call(xAxis);
+				svg.select(".y.axis").call(yAxis);
+			})
+		})
+	</script>
+</body>

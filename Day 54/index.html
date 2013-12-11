@@ -1,0 +1,63 @@
+<html>
+<head>
+	<title>Y</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.11/d3.min.js"></script>
+	<script src="/js/gAnalytics.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		 var data = [];
+
+		$(document).on("mousemove", function(event) {
+			var mouseX = event.pageX,
+				 mouseY = event.pageY;
+			$("#log").text("pageX: " + event.pageX + ", pageY: " + event.pageY);
+			data.shift();
+			data.push(mouseX);
+
+			// setting up the svg on the page
+			var chart = d3.select("body")
+							  .append("svg")
+							  .attr("width", w * data.length)
+							  .attr("height", h);
+
+			// initial bars
+			chart.selectAll("rect")
+				  .data(data)
+				  .enter()
+				  .append("rect")
+				  .attr("x", function(d, i) {
+				  		return i * w;
+				  })
+				  .attr("y", function (d) {
+				  	return h - y(d);
+				  })
+				  .attr("width", w)
+				  .attr("height", function (d) {
+				  	return d;
+				  })
+				  .attr("fill", function(d) {
+				  	return colorScale(d);
+				  })
+				  .attr("stroke", "white")
+		})
+			// dimensions of max bar size
+			var w = 20,
+				 h = 200;
+			// scales
+			var x = d3.scale.linear()
+				 .domain([0, 1])
+				 .range([0, w]);
+
+			var y = d3.scale.linear()
+				 .domain([0, $(window).width()])
+				 .range([0, h]);
+
+		 	var colorScale = d3.scale.linear()
+				.domain([0,400])
+				.interpolate(d3.interpolateHsl)
+				.range(["#ff0000",
+						 "#00F0CA"])			
+	</script>
+</body>
