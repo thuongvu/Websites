@@ -1,0 +1,71 @@
+<html>
+<head>
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.11/d3.min.js"></script>
+	<script src="/js/gAnalytics.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+	var root = { 
+		"key": "World", "values": [{
+		 "key": "AFRICA", "values": [{ "key": "Eastern Africa", "values": [{ "key": "Burundi", "values": [{ "pop": "90", "Major_Region": "AFRICA", "Region": "Eastern Africa", "Country": "Burundi", "Country code": "108"}] }, { "key": "Comoros", "values": [{ "pop": "68", "Major_Region": "AFRICA", "Region": "Eastern Africa", "Country": "Comoros", "Country code": "174"}] }, { "key": "Djibouti", "values": [{ "pop": "83", "Major_Region": "AFRICA", "Region": "Eastern Africa", "Country": "Djibouti", "Country code": "262"}]}] }, { "key": "Middle Africa", "values": [{ "key": "Cameroon", "values": [{ "pop": "20", "Major_Region": "AFRICA", "Region": "Middle Africa", "Country": "Cameroon", "Country code": "120"}]}]}] }, { "key": "ASIA", "values": [{ "key": "Eastern Asia", "values": [{ "key": "China", "values": [{ "pop": "13", "Major_Region": "ASIA", "Region": "Eastern Asia", "Country": "China", "Country code": "156"}]}] }, { "key": "Southern Asia", "values": [{ "key": "Pakistan", "values": [{ "pop": "173", "Major_Region": "ASIA", "Region": "Southern Asia", "Country": "Pakistan", "Country code": "586"}]}] }, { "key": "Western Asia", "values": [{ "key": "Yemen", "values": [{ "pop": "22", "Major_Region": "ASIA", "Region": "Western Asia", "Country": "Yemen", "Country code": "887"}]}]}] }, { "key": "NORTHERN AMERICA", "values": [{ "key": "NORTHERN AMERICA", "values": [{ "key": "Canada", "values": [{ "pop": "34", "Major_Region": "NORTHERN AMERICA", "Region": "NORTHERN AMERICA", "Country": "Canada", "Country code": "124"}] }, { "key": "United States of America", "values": [{ "pop": "31", "Major_Region": "NORTHERN AMERICA", "Region": "NORTHERN AMERICA", "Country": "United States of America", "Country code": "840"
+	}]}]}]}] 
+	};
+
+	// height/width
+	var width = 500,
+		 height = 500;
+
+	// color scale
+	// var color = d3.scale.category10();
+	var color = d3.scale.ordinal()
+		 .range([
+		 	"#7FE6FF",
+		 	"#87E862",
+		 	"#FFD678",
+		 	"#E86362",
+		 	"#866CFF",
+		 	"#FF9E73",
+		 	"#E8DB69",
+		 	])
+
+	// declare treemap
+	var treemap = d3.layout.treemap()
+		 .size([width, height])
+		 .value(function (d) {
+		 	return d.pop;
+		 })
+		 .children(function (d) {
+		 	return d.values
+		 })
+
+	// appending to body
+	var div = d3.select("body")
+		 .append("div")
+		 .attr("class", "main")
+		 .style("position", "relative")
+		 .style("width", width + "px")
+		 .style("height", height + "px")
+
+		var node = div.datum(root).selectAll(".node")
+			.data(treemap.nodes)
+		 .enter().append("div")
+		 	.attr("class", "node")
+		 	.style("background", function (d) {
+		 		return d.values ? color(d.key) : null;  
+		 	}) 									
+		 	.style("left", function (d) {
+		 		return d.x + "px";
+		 	})
+		 	.style("right", function (d) {
+		 		return d.y + "px";
+		 	})
+		 	.style("width", function (d) {
+		 		return Math.max(0, d.dx - 1) + "px";
+		 	})
+		 	.style("height", function (d) {
+		 		return Math.max(0, d.dy - 1) + "px";
+		 	})
+
+	</script>
+</body>

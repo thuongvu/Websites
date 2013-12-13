@@ -1,0 +1,12 @@
+.node {
+		border: solid 1px white;
+		font: .75em sans-serif;
+		line-height: 12px;
+		overflow: hidden;
+		position: absolute;
+		text-indent: 2px;
+	}
+.main {
+	text-align: center;
+	margin: 0 auto;
+}

@@ -1,0 +1,18 @@
+.productImage {
+	height: 100px;
+}
+#title {
+	margin: 0 auto;
+	text-align: center;
+}
+#costs {
+	margin: 0 auto;
+	text-align: center;
+}
+#addForm {
+	margin-left: 30%;
+	margin-top: 2%;
+}
+.arc path {
+	stroke: #fff;
+}

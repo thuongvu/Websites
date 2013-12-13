@@ -1,0 +1,54 @@
+<html>
+<head>
+	<link rel="stylesheet" href="style.css">
+	<!-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> -->
+	<!-- // <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script> -->
+	<script type="text/javascript" src="angular.min.js"></script>	
+	<script type="text/javascript" src="draganddrop.js"></script>	
+	<script type="text/javascript" src="script.js"></script>	
+	<!-- // <script src="/js/gAnalytics.js"></script> -->
+</head>
+<body ng-app="app" ng-controller="mainCtrl">
+
+	<div>
+		Total Budget: <input ng-model="totalBudget"></input>
+		Current cost: <span>{{totalAmount | currency}}</span>
+	</div>
+
+	<form>
+	<input type="text" ng-model="item.link" placeholder="link to photo"></input>
+	<input type="number" ng-model="item.price" placeholder="price"></input>
+	<input type="text" ng-model="item.name" placeholder="name"></input>
+	<button type="submit" ng-click="add()">Add item to list</button>
+	</form>
+
+
+	<div>
+		<table>
+			<tr ng-repeat="items in list">
+				<td><img class="productImage" ng-src="{{items.link}}"></img></td>
+				<td>{{items.price}}</td>
+				<td>{{items.name}}</td>
+				<td><button ng-click="remove($index)">X</button></td>
+				<!-- <image link="{{items.link}}"></image> -->
+				
+			</tr>
+		</table>
+	</div>
+
+</body>
+</html>
+
+
+
+///////////
+
+app.directive("image", function () {
+	return {
+		restrict: "EA",
+		scope: {
+			link: "@"
+		},
+		template: '<img ng-src="{{link}}"></img>',
+	}
+})

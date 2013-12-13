@@ -1,0 +1,56 @@
+<html>
+<head>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<script type="text/javascript" src="angular.min.js"></script>	
+	<script type="text/javascript" src="draganddrop.js"></script>	
+	<script type="text/javascript" src="d3module.js"></script>	
+	<script type="text/javascript" src="script.js"></script>	
+	<script src="/js/gAnalytics.js"></script>
+</head>
+<body ng-app="app" ng-controller="mainCtrl">
+	<div id="title"><h1>Christmas shopping</h1></div>
+	<div id="costs">
+		Current cost: <span>{{totalAmount | currency}}</span>
+	</div>
+
+<div id="addForm" class="input-group input-group-lg">
+	<form>
+		<input type="text" ng-model="item.link" placeholder="Link to photo"></input>
+		<input type="text" ng-model="item.name" placeholder="Name"></input>
+		<input type="number" ng-model="item.price" placeholder="Price"></input>
+		<button type="submit" ng-click="add()">Add item to list</button>
+	</form>
+</div>
+
+<div id="right" class="col-md-4">
+	<table class="table table-striped" id="tempList" ui-on-Drop="onDrop($event, $data, tempList)">
+		<th>MAYBE list</th>
+		<tr ui-draggable="true" drag="tempItems" on-drop-success="dropSuccessHandler($event, $index, tempList)" ng-repeat="tempItems in tempList">
+			<td><img class="productImage" ng-src="{{tempItems.link}}"></img></td>
+			<td>{{tempItems.price | currency}}</td>
+			<td>{{tempItems.name}}</td>
+			<td><button ng-click="remove($index, tempList)">X</button></td>
+		</tr>
+	</table>
+</div>
+
+	<div id="left" class="col-md-4">
+		<table class="table table-striped" ui-on-Drop="onDrop($event, $data, list)">
+			<th>YES list</th>
+			<tr ui-draggable="true" drag="items" on-drop-success="dropSuccessHandler($event, $index, list)" ng-repeat="items in list">
+				<td><img class="productImage" ng-src="{{items.link}}"></img></td>
+				<td>{{items.price | currency}}</td>
+				<td>{{items.name}}</td>
+				<td><button ng-click="remove($index, list)">X</button></td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="col-md-4">
+	<d3bars data="list"></d3bars>
+	</div>
+
+
+</body>
+</html>
