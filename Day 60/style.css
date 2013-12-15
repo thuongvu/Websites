@@ -1,0 +1,18 @@
+.bar {
+  fill: #4682b4;
+}
+.axis text {
+  font-family: sans-serif;
+  font-size: 0.75em;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+#title {
+   margin: 0 auto;
+   text-align: center;
+   font-family: sans-serif;
+}
