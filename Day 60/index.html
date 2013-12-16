@@ -19,16 +19,19 @@
   <button class="btn btn-default btn-xs vod-func"># of VOD platforms</button>
 
 <script type="text/javascript">
-    // svg attrs
+  
+  //SVG dimensions
   var w = $(window).width() - 100,
       h = $(window).height() - 100,
       padding = 200;
 
-   svg = d3.select("body")
+  var svg = d3.select("body")
       .append("svg")
       .attr("width", w)
       .attr("height", h)
       .attr("class", "chart")
+
+  // declaring functions
 
   d3.selectAll(".opening-func")
     .on("click", function () {
@@ -64,7 +67,7 @@
       redraw(vod, "VOD")
     })
 
-
+  // easier to access keys/values from the csv --> json 
   var price = function (d) {
     return +d.values[0].Price // 
   }
@@ -89,11 +92,10 @@
  
 
 
-// ~~~~~~~~~~ INITIALIZE ~~~~~~~~~
+// ~~~~~~~~~~ INITIALIZE ~~~~~~~~~ //
+    // CSV --> dataByKey --> sorted
     d3.csv("sundance2.csv", function (csv) {
-      var data = d3.nest()
-        .entries(csv);
-
+          // databyKey as global var so it can be accessible by others methods
        dataByKey = d3.nest()
         .key(function (d) {
           return d.Title
@@ -104,101 +106,111 @@
       return b.values[0].Revenue - a.values[0].Revenue
     })
 
-  // scales
-  var y = d3.scale.ordinal()
-     .domain(sorted.map(function (d) {
-        return d.key;
-     }))
-     .rangeRoundBands([h, 0], .1);
+    // SCALES
+    var y = d3.scale.ordinal()
+       .domain(sorted.map(function (d) {
+          return d.key;
+       }))
+       .rangeRoundBands([h, 0], .1);
 
-  var x = d3.scale.linear()
-     .domain([0, d3.max(sorted, revenue)])
-     .range([0, w - 250]);
+    var x = d3.scale.linear()
+       .domain([0, d3.max(sorted, revenue)])
+       .range([0, w - 250]);
 
-  // axes
-  var xAxis = d3.svg.axis()
-      .scale(x)
-      .orient("bottom")
+    // combining category20 + category20b
+     d3.scale.category40 = function() {
+        return d3.scale.ordinal().range(d3_category40);
+    };
 
-  var yAxis = d3.svg.axis()
-      .scale(y)
-      .orient("left")
+    var d3_category40 = [ "#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5", "#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a", "#d6616b", "#e7969c", "#7b4173", "#a55194", "#ce6dbd", "#de9ed6" ];
 
-  // chart
-   chart = d3.select(".chart")
-    .attr("width", w )
-    .attr("height", h + 100)
-    .append("g")
+        // colorscale as global to be accessible by other methods
+    colorScale = d3.scale.category40();
 
-  chart.selectAll(".bar")
-     .data(sorted)
-     .enter()
-     .append("rect")
-     .attr("class", "bar")
-     .attr("x", padding)
-     .attr("y", function (d) {
-        return y(d.key);
-     })
-     // NOTE FOR SELF: REMEMBER: HEIGHT AND WIDTH, NOT H & W
-     .attr("width", function (d) {
-        return x(revenue(d));
-     })
-     .attr("height", y.rangeBand())
-     
-  // appending axes to chart
-  chart.append("g")
-       .attr("class", "x axis")
-       .attr("transform", "translate("+padding+"," + h + ")")
-       .call(xAxis)
+    // AXES
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom")
 
-  chart.append("g")
-       .attr("class", "y axis")
-       .attr("transform", "translate("+padding+ "," + 0 + ")")
-       .call(yAxis)
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
 
-    })
-// ~~~~~~~~~~ INITIALIZE ~~~~~~~~~
+    // CHART
+     chart = d3.select(".chart")
+      .attr("width", w )
+      .attr("height", h + 100)
+      .append("g")
+
+    chart.selectAll(".bar")
+       .data(sorted)
+       .enter()
+       .append("rect")
+       .attr("fill", function (d,i) {
+        return colorScale(d.key);
+       })
+       .attr("x", padding)
+       .attr("y", function (d) {
+          return y(d.key);
+       })
+       // NOTE FOR SELF: REMEMBER: HEIGHT AND WIDTH, NOT H & W
+       .attr("width", function (d) {
+          return x(revenue(d));
+       })
+       .attr("height", y.rangeBand())
+       
+    // APPEND AXES TO CHART + CALL
+    chart.append("g")
+         .attr("class", "x axis")
+         .attr("transform", "translate("+padding+"," + h + ")")
+         .call(xAxis)
+
+    chart.append("g")
+         .attr("class", "y axis")
+         .attr("transform", "translate("+padding+ "," + 0 + ")")
+         .call(yAxis)
+
+      })
+// ~~~~~~~~~~ INITIALIZE ~~~~~~~~~ //
 
 
+  function redraw(widthVar, stringVal) {
+    
+    // SORT NEW DATA
+    var sorted = dataByKey.sort(function (a,b) {
+        return b["values"][0][stringVal] - a["values"][0][stringVal]
+      })
 
+    // UPDATE SCALES
+    var y = d3.scale.ordinal()
+       .domain(sorted.map(function (d) {
+          return d.key;
+       }))
+       .rangeRoundBands([h, 0], .1);
 
- function redraw(widthVar, stringVal) {
-  
-  // sorting new information
-  var sorted = dataByKey.sort(function (a,b) {
-      return b["values"][0][stringVal] - a["values"][0][stringVal]
-    })
+    var x = d3.scale.linear()
+       .domain([0, d3.max(sorted, widthVar)])
+       .range([0, w - 250]);
 
-  // new scales
-  var y = d3.scale.ordinal()
-     .domain(sorted.map(function (d) {
-        return d.key;
-     }))
-     .rangeRoundBands([h, 0], .1);
+    // DECLARE NEW AXES
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom")
 
-  var x = d3.scale.linear()
-     .domain([0, d3.max(sorted, widthVar)])
-     .range([0, w - 250]);
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
 
-  // new axes
-  var xAxis = d3.svg.axis()
-      .scale(x)
-      .orient("bottom")
-
-  var yAxis = d3.svg.axis()
-      .scale(y)
-      .orient("left")
-
-  // update
-  var rect = chart.selectAll("rect")
-     .data(sorted)
-
+    // UPDATE
+    var rect = chart.selectAll("rect")
+       .data(sorted)
 
     rect.transition()
       .duration(1000) 
-      .attr("class", "bar")
       .attr("x", padding)
-
+      .attr("fill", function (d, i) {
+        return colorScale(d.key);
+      })
       .attr("y", function (d) {
          return y(d.key);
       })
@@ -208,13 +220,15 @@
       })
       .attr("height", y.rangeBand())
 
-    // added transitions to the axes too!
+    // TRANSITION TO AXES + CALLING THEM
     svg.select(".x.axis").transition()
+       .duration(1000) 
        .call(xAxis)
 
     svg.select(".y.axis").transition()
+       .duration(1000) 
        .call(yAxis)
-}
+  }
  
 
 </script>

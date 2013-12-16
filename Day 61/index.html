@@ -1,0 +1,85 @@
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.11/d3.min.js"></script>
+  <script src="/js/gAnalytics.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+	// characters split up as elements of an array
+	var alphabet = "abcdefghijklABCDEFGHIJKLMNOPQRSTUVWXY0123456789+-*/=%#@_?!<`^".split(""); 
+
+  // outer dimensions
+  var width = $(window).width() - 100,
+      height = $(window).height();
+
+ 	// svg 
+ 	var svg = d3.select("body")
+ 		.append("svg")
+ 		.attr("width", width)
+ 		.attr("height", height)
+ 		.append("g")
+      .attr("transform", "translate(" + (width - 150 ) + "," + (height / 2) + ")");
+
+ 	function update(data) {
+
+ 		// JOIN
+ 		var text = svg.selectAll("text") 
+ 			 .data(data, function (d) {
+        return d
+       }) 
+   
+ 		//ENTER 
+ 		text.enter()
+ 			 .append("text") 
+       .attr("transform", function (d) {
+        return "rotate(90)"
+       }) 
+ 			 .attr("class", "enter")
+        .attr("y", function (d, i) {
+         return i * 18 // space between each letter
+        })
+       .attr("x", - height / 1.2)
+       .text(function (d) {
+        return d;
+       })
+       .transition()
+       .duration(500)
+
+	   // EXIT 
+	   text.exit()
+         .transition().ease("linear")
+         .duration(function () {
+          return Math.floor(Math.random() * 1500 + 1000)
+         })
+         .attr("x", function () {
+          return height + Math.floor(Math.random() * 200) 
+         })
+         .style("fill-opacity", 1e-6)
+         .remove();
+ 	}
+
+ 	// invoke function to initialize
+ 	update(alphabet);
+
+// these two functions are from http://bl.ocks.org/mbostock/3808221
+ 	setInterval(function() {
+ 	  update(shuffle(alphabet)
+ 	      .slice(0, Math.floor(Math.random() * 26 + 20))
+        );
+ 	}, 300);
+
+ 	function shuffle(array) {
+ 	  var m = array.length, t, i;
+ 	  while (m) {
+ 	    i = Math.floor(Math.random() * m--);
+ 	    t = array[m], array[m] = array[i], array[i] = t;
+ 	  }
+ 	  return array;
+ 	}
+
+</script>
+</body>
+</html>

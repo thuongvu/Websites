@@ -1,0 +1,15 @@
+  @font-face
+  {
+  font-family: katakana;
+  src: url('katakana.ttf');
+  }
+  text {
+    font-family: katakana;
+    font-size: 2em;
+  }
+  body {
+    background-color: black;
+  }
+  .enter {
+    fill: green;
+  }

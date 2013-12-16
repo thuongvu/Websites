@@ -32,7 +32,7 @@ app.directive('d3bars', function (d3) {
 		 		dataArray.push(obj);
 		 	}
 		 	scope.data.forEach(logAElements);
-		 	// console.log(dataArray);
+		 	console.log(dataArray);
 		 
 			var arc = d3.svg.arc()
 				 .outerRadius(radius - 10)
