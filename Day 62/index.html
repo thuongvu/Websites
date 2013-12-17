@@ -1,0 +1,210 @@
+<html>
+<head>
+	<title># of Tweets about Barack Obama</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.11/d3.min.js"></script>
+  <script src="/js/gAnalytics.js"></script>
+
+</head>
+<body>
+<div id="title"><h1># of Tweets about Barack Obama</h1></div>
+<script type="text/javascript">
+
+	// svg outer dimensions
+	var width = $(window).width() - 100,
+		 height = $(window).height() - 100,
+		 padding = 100;
+
+	// INITIALIZING FUNCTION //
+	function makeChart(data) {
+		// SCALES
+			// x scale
+		var x = d3.time.scale()
+			 .domain(d3.extent(data, function (d) {
+			 	return d.date
+			 }))
+			 .range([padding, width - padding])
+			// y scale
+		 var y = d3.scale.linear()
+			 .domain([0, d3.max(data, function (d) {
+			 	return d.volume;
+			 })])
+			 .range([height - padding - 10, padding - 10]) 
+
+		// INITIALIZING AXES
+
+			// x axis
+		var xAxis = d3.svg.axis()
+			 .scale(x)
+			 .orient("bottom")
+			 .ticks(10)
+			 // y axis
+		var yAxis = d3.svg.axis()
+			 .scale(y)
+			 .orient("left")
+			 .ticks(10)
+
+		// LINE
+		var line = d3.svg.line()
+			 .x(function (d) {
+			 	return x(d.date) 
+			 })
+			 .y(function (d) {
+			 	return y(d.volume) 
+			 })
+
+		// SVG INNER DIMENSION
+		svg = d3.select("body").append("svg") //svg needs to be a global var
+			 .attr("width", width)
+			 .attr("height", height)
+		  .append("g")
+
+		// APPENDING + CALLING AXES
+
+			// x axis
+		svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + (height - padding - 10) + ")")
+			.call(xAxis)
+		 .append("text") 
+				.text("Date")
+				.attr("x", width / 2)
+				.attr("y", 50)
+
+				// citation text at bottom of x axis
+		svg.append("text")
+			.attr("transform", "translate(0," + (height - padding - 10) + ")")
+				.attr("class", "cite")
+				.text("Information updated daily from http://www.truthy.indiana.edu/ Truthy: enabling the study of online social networks. Karissa Rae McKelvey and Filippo Menczer. CSCW Companion, page 23-26. ACM, (2013)")
+				.attr("x", width / 11)
+				.attr("y", 80)
+				
+			// y axis
+		svg.append("g")
+			.attr("class", "y axis")
+			.attr("transform", "translate(" + padding + ",-10)")                  
+			.call(yAxis)
+				.append("text")
+				.text("# of Tweets")
+				.attr("transform", "rotate(-90)")
+				.attr("x", - height / 2)
+				.attr("y", padding - 170)
+				
+		// PATH
+		path = svg.append("g") //path needs to be a global var
+			.append("path")
+			.datum(data)
+			.attr("d", line)
+			.attr("class", "line")
+	}
+
+	// UPDATE CHART FUNCTION
+	function updateChart(data) {
+
+		// REDEFINING SCALES
+
+			// x scale
+		var x = d3.time.scale()
+			 .domain(d3.extent(data, function (d) {
+			 	return d.date
+			 }))
+			 .range([padding, width - padding])
+
+			 // y scale
+		 var y = d3.scale.linear()
+			 .domain([0, d3.max(data, function (d) {
+			 	return d.volume;
+			 })])
+			 .range([height - padding - 10, padding - 10]) 
+
+		// REDEFINING AXES
+
+			// x axis
+		var xAxis = d3.svg.axis()
+			 .scale(x)
+			 .orient("bottom")
+			 .ticks(10)
+
+			 // y axis
+		var yAxis = d3.svg.axis()
+			 .scale(y)
+			 .orient("left")
+			 .ticks(10)
+
+		// REDEFINING LINE
+		var line = d3.svg.line()
+			 .x(function (d) {
+			 	return x(d.date) 
+			 })
+			 .y(function (d) {
+			 	return y(d.volume) 
+			 })
+
+		// AXES TRANSITION
+
+			// x axis + calling
+		svg.select(".x.axis").transition()
+			.duration(150)
+			.call(xAxis)
+
+			// y axis + calling			
+		svg.select(".y.axis").transition()
+			.duration(150)
+			.call(yAxis)
+
+
+		// PATH TRANSITION
+		
+		path.attr("d", line)
+			 .attr("transform", null)
+		 .transition()
+			.duration(750)
+			.ease("linear")
+	}
+
+	// FUNCTION TO UPDATE DATA TO CHART
+	function sliceAddChart() {
+		var data = origData.slice(0,100) // slicing first 100 entries, 0-99 inclusive 
+
+		makeChart(data); // invoke makeChart() with that data
+
+		var counter = 99; // set counter at 99
+
+		// setInterval called "update"
+		var update = setInterval(function() {
+			counter++ // add another number to counter
+			var splice = origData.slice(counter, counter + 1)
+			data.shift(); // shift the first item of the data array
+			data.push(splice[0]); // push the splice
+
+			if (origData.length == counter) { // if counter is length of origData,
+				clearInterval(update) //clearInterval "update" 
+				data = origData.slice(0,100) // set the data to have the value of the first 100 entries, 0-99 inclusive. if i don't include this, i get an error
+				d3.select("svg").remove() // remove all svg elements
+				sliceAddChart() // invoke this whole function again
+			}
+			updateChart(data);
+		}, 1000)
+	}
+
+	// XHR JSON REQUEST
+	 d3.json("https://truthy-public.p.mashape.com/timelines?&meme_id=783").header("X-Mashape-Authorization", "OFnRuWJsY2TwdrEtByGzVfB4y7q37hJm").get(function (error, json) {
+
+	 	origData = json.objects[0].events;
+
+		origData.forEach(function (d) {
+			d.date = parseDate(d.date); // date, prop specified by api, parsing it, and setting it to d.date
+			d.volume  = +d.volume; // number of tweets, prop specified by api, setting it to d.volume
+		})
+	
+		sliceAddChart()
+
+	 })
+
+	// DATE PARSER
+	var parseDate = d3.time.format("%Y-%m-%dT%H:%M:%S").parse;
+
+</script>
+</body>
+</html>
