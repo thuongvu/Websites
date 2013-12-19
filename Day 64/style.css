@@ -1,0 +1,13 @@
+path {
+    stroke: black;
+    stroke-width: 0.25px;
+    fill: #3AE896;
+    opacity: 0.9;
+  }
+body {
+  background-color: #3FBBFF;
+}
+.title {
+  fill: #fff;
+  font-family: Helvetica;
+}

@@ -1,0 +1,12 @@
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+.title {
+  font-family: Helvetica;
+  font-size: 2em;
+}
+.cite {
+  font-family: Helvetica;
+  font-size: .7em;
+}

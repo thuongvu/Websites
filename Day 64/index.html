@@ -1,0 +1,118 @@
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.11/d3.min.js"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <script src="/js/gAnalytics.js"></script>
+</head>
+<body>
+<button id="find">Click here to see where you are!</button>
+<script type="text/javascript">
+  // svg outer dimensions
+  var width = $(window).width(),
+      height = $(window).height() - 50;
+
+  // projection
+  var projection = d3.geo.mercator()
+      .center([0,5]) // lat and lng in deg --> returns projection
+      .translate([600,320])
+      .scale(110)
+      .rotate([0,0]) // 3 axis rotate, rotate by -180 lng
+
+  //svg append
+  var svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+  // path
+  // like the svg.line, generates data string suitable for d attr of svg path 
+  var path = d3.geo.path()  // creates new geo path generator
+      .projection(projection); // sets the projection used by the path generator.  we pass in the projection var
+
+  // g group
+   g = svg.append("g") 
+
+  // load json
+  d3.json("world-110m.json", function (error, topology) {
+
+    g.selectAll("path") // selectAll of path elements on g
+      .data(topojson.feature(topology, topology.objects.countries).features)
+        .enter()
+        .append("path")
+        .attr("d", path)
+        // the toposon.feature will get data from topology, the success object
+        // and from that, pull data that defines countries, stored under topology.objects.countries
+        // and then returns "features", and handles it
+
+        // title text
+        var title = g.append("text")
+            .text("World map")
+            .attr("x", width / 2.2)
+            .attr("y", 80)
+            .attr("font-size", "2.5em")
+            .attr("class", "title")
+
+        //description text
+        var description = g.append("text")
+            .text("Click, scroll, & drag to zoom / pan")
+            .attr("x", width / 2.4)
+            .attr("y", height - 20)
+            .attr("font-size", "1.5em")
+            .attr("class", "title")
+    })
+  
+  var zoom = d3.behavior.zoom() // creates event listener
+    .on("zoom", function () { // on zoom event, do this
+      g.attr("transform", "translate("+ d3.event.translate.join(",")+")scale("+d3.event.scale+")") // gather translate + scale attrs
+      .selectAll("path") // apply them to path elements
+        .attr("d", path.projection(projection)) // pass in the var projection to the path generator
+    })
+  svg.call(zoom) // call it
+
+// invoke geolocation api function, get latitude longitude of user on #find click
+$(document).ready(function () { 
+  $("#find").click(function (){
+      navigator.geolocation.getCurrentPosition(function (position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+       addCircle(longitude, latitude) // invoke addCircle, passing longitude and latitude
+      })
+    })
+  })
+
+function addCircle(longitude, latitude) {
+    var coords = projection([longitude, latitude])  // pass longitude and latitude into the projection func, set that value to "coords"
+
+        // append circle, using that data passed in
+        g.append("circle") 
+          .attr("cx", function() {
+            return coords[0];
+          })
+          .attr("cy", function () {
+            return coords[1];
+          })
+          .attr("r", 2)
+          .attr("fill", "#B23E12")
+
+        // append text 
+        g.append("text")
+          .text("You are here!")
+          .attr("x", function () {
+            return coords[0]
+          })
+          .attr("y", function () {
+             return coords[1];
+          })
+          .attr("class", "title")
+          .attr("font-size", "1.5em")
+          .attr("font-family", "Helvetica")
+          .attr("fill", "#fff")
+
+        // set zoom center to wherever the user's coords are
+        zoom.center([coords[0],coords[1]])
+}
+// Many thanks to http://www.d3noob.org/2013/03/a-simple-d3js-map-explained.html
+</script>
+</body>
+</html>

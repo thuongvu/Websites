@@ -1,0 +1,119 @@
+<html>
+<head>
+  <title>How #RT Retweets Spread</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.11/d3.min.js"></script>
+  <script src="/js/gAnalytics.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+  // SVG outer dimensions
+  var width = $(window).width(),
+      height = $(window).height();
+
+  // colorscale
+  var colorScale = d3.scale.category20();
+
+  // var force w/ charge, linkdistance, size
+  var force = d3.layout.force()
+    .charge(-15)
+    .linkDistance(25)
+    .size([width, height - 50]);
+
+  // svg append
+  var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .append("g")
+
+// title appended to the g group, to the svg
+ var title = svg.append("g")
+    .append("text")
+      .text("How #RT Retweets Spread")
+      .attr("x", width / 2.6)
+      .attr("y", height /15)
+      .attr("class", "title")
+
+  // citation appended to the g group, to the svg
+  var cite = svg.append("g")
+    .append("text")
+      .text("Data from http://www.truthy.indiana.edu/ Truthy: enabling the study of online social networks. Karissa Rae McKelvey and Filippo Menczer. CSCW Companion, page 23-26. ACM, (2013)")
+      .attr("class", "cite")
+      .attr("x", width /8)
+      .attr("y", height / 9)
+
+  // load up json file
+  d3.json("mixed.json", function (error, graph) {
+    console.log(graph)
+  // structure of outfile.json
+    // json file is an object -->  
+          // prop "nodes" has a value of an array of objects
+              // each object has 2 props: x and y, with # as value
+          // prop "links" has a value of an array of objects
+              // each obj has 2 props:
+                // source - holds an object as it's value
+                    // x prop with # as value
+                    // y prop with # as value
+                // target -  holds an object as it's value
+                    // x prop with # as value
+                    // y prop with # as value
+
+      // assign nodes and links to correct path from json file
+      force
+          .nodes(graph.nodes)
+          .links(graph.links)
+          .start();
+          // starts simulation, must be called when layout created after assigning nodes and links
+
+      // link will be the class for all lines
+      var link = svg.selectAll(".link") 
+        .data(graph.links)
+        .enter()
+        .append("line") 
+        .attr("class", "link") 
+
+      // node will be the class for circles
+      var node = svg.selectAll(".node") 
+        .data(graph.nodes)
+        .enter()
+        .append("circle") 
+        .attr("class", "node")
+        .attr("r", function (d) {
+          return d.size / 2.5
+        })
+        .attr("fill", function (d,i) {
+          return colorScale(i); 
+        })
+        .attr("opacity", 0.8)
+        .call(force.drag)
+        // force.drag binds behavior to nodes to allow interactive dragging
+
+      force.on("tick", function () {
+        // registers a listener on the event of a tick.  tick events are dispatched for every tick of simulation.  updates the displayed positions of nodes and links.  for every tick of the layout, positions/movement is computated
+        link
+          .attr("x1", function (d) {
+            return d.source.x;
+          })  
+          .attr("y1", function (d) {
+            return d.source.y;
+          })
+          .attr("x2", function (d) {
+            return d.target.x;
+          })
+          .attr("y2", function (d) {
+            return d.target.y;
+          });
+
+        node 
+          .attr("cx", function (d) {
+            return d.x
+          })
+          .attr("cy", function (d) {
+            return d.y
+          })
+      })
+  })
+</script>
+</body>
+</html>
