@@ -1,8 +1,5 @@
 navigator.geolocation.getCurrentPosition(success, error);
 
-var latitude = '';
-var longitude = '';
-
 function success(pos) {
 	var crd = pos.coords;
 	$('#position').html('<p> Your current position is: Latitude: ' + crd.latitude + '   Longitude: ' + crd.longitude + '</p>')
@@ -26,7 +23,6 @@ function getLocation(response) {
 		type: 'GET',
 		datatype: 'json',
 		success: function(data) {
-		 	var jsonInfo = JSON.stringify(data);
 		 	var jsonInfo2 = data;
 			$('#table0').html('<tr><td>' + jsonInfo2[0].day_of_week + '</td></tr><tr><td>' + Math.round(jsonInfo2[0].high) + '</td></tr><tr><td>' + Math.round(jsonInfo2[0].low) + '</td></tr><tr><td>' + jsonInfo2[0].condition + '</td></tr>')
 		 	$('#table1').html('<tr><td>' + jsonInfo2[1].day_of_week + '</td></tr><tr><td>' + Math.round(jsonInfo2[1].high) + '</td></tr><tr><td>' + Math.round(jsonInfo2[1].low) + '</td></tr><tr><td>' + jsonInfo2[1].condition + '</td></tr>') 
