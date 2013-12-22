@@ -1,0 +1,147 @@
+<html>
+<head>
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.11/d3.min.js"></script>
+  <!-- // <script src="/js/gAnalytics.js"></script> -->
+<style>
+body {
+  background: url(starTile.jpg);
+  background-attachment: fixed;
+  }
+  </style>
+</head>
+<body>
+<script type="text/javascript">
+  var width = $(window).width(),
+      height = $(window).height(),
+      padding = 50;
+
+  d3.csv("planets.csv", function (data) {
+      console.log(data)
+      console.log(data[1].radius)
+
+    // scales
+    var x = d3.scale.linear()
+        .domain([0, 36000000, 4000000000])
+        .range([padding, 300, width])
+
+    // console.log(x(data[0].radius))
+    var fromSun = x(data[0].radius);
+    console.log(fromSun)
+
+    var y = d3.scale.linear()
+        .domain([0, 432500])
+        .range([height, padding])
+
+    var r = d3.scale.linear()
+        .domain([0, 432500])
+        .range([0, height / 3])
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", width - padding)
+        .attr("height", height - padding)
+        // .append("g")
+        // .call(zoom) // adding
+
+    // var g = svg.selectAll("g")
+    var g = svg.append("g");
+
+    // var planet = svg.append("g")
+    var planet = g.selectAll(".planets")
+        .attr("class", "planets")
+      // .selectAll(".planets")
+        .data(data).enter()
+        .append("circle")
+        .attr("cx", function (d) {
+          return x(+d.miles)
+        })
+        .attr("cy", height / 2)
+        .attr("r", function (d) {
+          return r(+d.radius)
+        })
+        .attr("fill", function (d) {
+          return d.color
+        })
+
+    var name = g.selectAll("text")
+    // planet
+        // .attr("class", "planetName")
+    // var name = svg.append("g")
+        .data(data).enter()
+        .append("text")
+        .text(function (d) {
+          return d.planet
+        })
+        .attr("x", function (d) {
+          return x(+d.miles)
+        })
+        .attr("y", height / 2)
+        .attr("font-size", ".1em")
+        .attr("font-family", "sans-serif")
+        .attr("fill", "green")
+
+    var solarSystem = g
+        .append("text")
+        .text("Solar System")
+        .attr("x", width / 3)
+        .attr("y", height / 9)
+        .attr("font-size", "3em")
+        .attr("font-family", "sans-serif")
+        .attr("fill", "white")
+
+
+    
+
+    // var xAxis = d3.svg.axis()
+    //   .scale(x)
+    //   .orient("bottom")
+
+    // var yAxis = d3.svg.axis()
+    //   .scale(y)
+    //   .orient("left")
+
+    // svg.append("g")
+    //   .attr("class", "x axis")
+    //   .attr("transform", "translate(0, " + (height - 100) + ")")
+    //   .call(xAxis);
+
+    // svg.append("g")
+    //   .attr("class", "y axis")
+    //   // .attr("transform", "rotate(-90)")
+    //   .attr("transform", "translate(" + 100 + "," + (0) + ")")
+    //   .call(yAxis);
+
+
+
+    // var clip = svg.append("clipPath")
+    //     // .attr("id", "clip")
+    //     .append("rect")
+    //     .attr("x", 0)
+    //     .attr("y", 0)
+    //     .attr("width", width)
+    //     .attr("height", height)
+
+    // function zoomed() {
+    //   svg.select(".x.axis").call(xAxis);
+    //   svg.select(".y.axis").call(yAxis);
+
+    // }
+
+    // var zoom = d3.behavior.zoom() // creates event listener
+    //   .on("zoom", function () { // on zoom event, do this
+    //      g.attr("transform", "translate(" + d3.event.translate[0] + "," + d3.event.translate[1] + ") scale(" + d3.event.scale + ")")
+    //   })
+    // svg.call(zoom) // call it
+
+
+    svg.call(d3.behavior.zoom()
+      .on("zoom", function() {
+        g.attr("transform", "translate(" + d3.event.translate[0] + "," + d3.event.translate[1] + ") scale(" + d3.event.scale + ")")
+      })
+    )
+
+  })
+</script>
+</body>
+</html>
