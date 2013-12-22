@@ -1,0 +1,51 @@
+<html>
+<head>
+  <title>Inception Squares</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.11/d3.min.js"></script>
+  <script src="/js/gAnalytics.js"></script>
+</head>
+<body>
+  <div>
+    <h4 id="instructions">Instructions: Move your mouse over the squares to make art!  Zoom in by placing the cursor over the square and scrolling upwards.</h4>
+  </div>
+<script type="text/javascript">
+  // svg
+  // outer
+  var width = 400,
+      height = 400;
+
+  // append svg
+  var svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height)
+
+  var g = svg.append("g")
+
+  makeSquare(400, 400, 0, 0)
+
+  function makeSquare (width, height, x, y) {
+    g
+        .append("rect")
+        .attr("x", x)
+        .attr("y", y)
+        .attr("width", width)
+        .attr("height", width)
+        .attr("fill", '#'+(Math.random()*0xFFFFFF<<0).toString(16)) // http://stackoverflow.com/a/5092846
+        .on("mouseover", function () {
+          d3.select(this)
+          makeSquare(width / 2, height / 2, x, 0)
+          makeSquare(width / 2, height / 2, width / 2, y)
+          makeSquare(width / 2, height / 2, width / 2, width / 2)
+        })
+  }
+  // https://gist.github.com/esbullington/3892807
+  svg.call(d3.behavior.zoom()
+    .on("zoom", function() {
+      g.attr("transform", "translate(" + d3.event.translate[0] + "," + d3.event.translate[1] + ") scale(" + d3.event.scale + ")")
+    })
+  )
+
+</script>
+</body>
+</html>
