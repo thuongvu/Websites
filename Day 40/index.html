@@ -8,13 +8,11 @@
 	<script src="/js/gAnalytics.js"></script>
 </head>
 <body ng-app="starsApp">
-
 	<div ng-controller="starsCtrl">
 		<div class="bigStar" ng-show="messageState"><img src="blueStar.jpg" height="620" /></div>
 	<span ng-repeat="star in starsContainer" ng-show="starState">
 		<star></star>
 	</span>
-		
 	</div>
 </body>
 </html>

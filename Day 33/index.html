@@ -8,11 +8,8 @@
 	<script src="/js/gAnalytics.js"></script>
 </head>
 <body ng-app="" ng-controller='destroySave'>
-
 	<img src='earth.png'</>
-	
 	<br>
-		
 	<div class='buttons' ng-class='{fadeOut: isShowing(buttonIndex)}' ng-repeat='(buttonIndex, button) in briefcase'>
 	<!-- iterate this div, for a buttonIndex AND button for every entry in the array "briefcase" -->	
 		<button ng-click='setHide(buttonIndex)'><img src='Red_button.png'</></button>
@@ -24,5 +21,4 @@
 		<!-- show the evaluation of this expression: isShowing(), with the buttonIndex as a param -->
 	</div>
 </body>
-
 </html>

@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html ng-app="expanderModule">
 <head>
+	<title>Scooby Doo</title>
 	 <link rel="stylesheet" href="scopes2.css">
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
 	<script type="text/javascript" src="scopes2.js"></script>	
 	<script src="/js/gAnalytics.js"></script>
 </head>
-
 <body>
-
 	<div id="wrapper" ng-controller="SomeController">
 		<div id="title"><h1>Scooby Doo</h1></div>
 		<accordion>
@@ -18,11 +17,7 @@
 				<img run='{{direction}}' ng-src='{{expander.text}}' height='150'>
 			</expander>
 		</accordion>
-
 	</div>
-	
 <script src="/js/gAnalytics.js"></script>
 </body>
-
-
 </html>

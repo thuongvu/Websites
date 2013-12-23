@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>Guess the number</title>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
@@ -8,23 +9,17 @@
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<script src="script.js"></script>
 	<script src="/js/gAnalytics.js"></script>
-	<title>Guess the number</title>
 </head>
-
 <body>
-
 	<div class="wrapper">
-		<div id="title">
-		<h1>Guess the number! (0-10)</h1>
+			<div id="title">
+			<h1>Guess the number! (0-10)</h1>
+			</div>
+		<div id="center">
+			<input id="insertNum"></input>
+			<button id="submit">Enter</button>
+			<div id="message"></div>
 		</div>
-	<div id="center">
-		<input id="insertNum"></input>
-		<button id="submit">Enter</button>
-		<div id="message"></div>
 	</div>
-
-	</div>
-
 </body>
-
 </html>

@@ -6,18 +6,16 @@
 	<script type="text/javascript" src="script.js"></script>
 	<script src="/js/gAnalytics.js"></script>
 </head>
-
 <body>
 	<div ng-app="">
-		<div ng-controller="multiplication">
-			<form ng-repeat='number in numberArray'>
-				{{number.number}} x  <input ng-model="table.startNum">
-				equals {{number.number * table.startNum}} 	
-				<br>	
-			</form>
+			<div ng-controller="multiplication">
+				<form ng-repeat='number in numberArray'>
+					{{number.number}} x  <input ng-model="table.startNum">
+					equals {{number.number * table.startNum}} 	
+					<br>	
+				</form>
+			</div>
 		</div>
-	</div>
-
 	</div>
 
 </body>
