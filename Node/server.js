@@ -82,27 +82,6 @@ io.on("connection", function(socket) {
 
 })
 
-http.listen(app.get("port"), app.get("ipaddr"), function () {
+http.listen(app.get("port"), function () {
 	console.log("server is up and running.  go to http://" + app.get("ipaddr") + ":" + app.get("port"));
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
