@@ -7,15 +7,6 @@ function init() {
 	// save session ID in a var for later
 	var sessionId = '';
 
-	// helper function to update participants' list
-	function updateParticipants (participants) {
-		$('#participants').html('');
-		for (var i = 0; i < participants.length; i++) {
-			$('#participants').append('<span id="' + participants[i].id + '">' + 
-				participants[i].name + ' ' + (participants[i].id === sessionId ? '(You)' : '') + '<br /></span>');
-		}
-	}
-
 	// when client connects successfully to the server, an event "connect" is emitted
 	// get the sess ID & log it
 	socket.on('connect', function () {
@@ -51,12 +42,19 @@ function init() {
 	function sendMessage() {
 		var outgoingMessage = $('#outgoingMessage').val();
 		var name = $('#name').val();
-		$.ajax({
-			url: '/message',
-			type: 'POST',
-			dataType: 'json',
-			data: {message: outgoingMessage, name: name}
-		});
+		$.post('/message', {
+			message: outgoingMessage,
+			name: name
+		})
+	}
+
+	// helper function to update participants' list
+	function updateParticipants (participants) {
+		$('#participants').html('');
+		for (var i = 0; i < participants.length; i++) {
+			$('#participants').append('<span id="' + participants[i].id + '">' + 
+				participants[i].name + ' ' + (participants[i].id === sessionId ? '(You)' : '') + '<br /></span>');
+		}
 	}
 
 	// if user presses Enter on textarea, call sendMessage if valid
