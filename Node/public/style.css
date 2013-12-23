@@ -12,3 +12,7 @@ textarea {
 .topaligned {
 	vertical-align: top;
 }
+#nameDec {
+	font-weight: bold;
+	color: blue;
+}
