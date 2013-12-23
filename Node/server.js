@@ -1,7 +1,8 @@
 // module dependencies
 var express = require("express")
 	, app = express()
-	, http = require("http").createServer(app);
+	, http = require("http").createServer(app)
+	, _ = require("underscore");
 
 // server config
 
@@ -29,6 +30,43 @@ app.get("/", function (request, response) {
 
 });
 
+// post method to create chat message
+app.post("/message", function (request, response) {
+	
+	// the request body expects a param named message
+	var message = request.body.message;
+
+	// if the message is empty or wasnt sent, then it's a bad request
+	if (_.isUndefined(message) || _.isEmpty(message.trim())) {
+		return response.json(400, {error: "Message is invalid"});
+	}
+
+	// let the client know
+	response.json(200, {message: "Message received"});
+
+})
+
 http.listen(app.get("port"), app.get("ipaddr"), function () {
 	console.log("server is up and running.  go to http://" + app.get("ipaddr") + ":" + app.get("port"));
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
