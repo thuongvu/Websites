@@ -13,7 +13,7 @@ var participants = []
 app.set("ipaddr", "127.0.0.1");
 
 // sever port #
-app.set("port", 8080);
+app.set("port", 8888);
 
 // specifify views folder
 app.set("views", __dirname + "/views");
