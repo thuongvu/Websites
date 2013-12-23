@@ -35,7 +35,7 @@ function init() {
 	socket.on('incomingMessage', function (data) {
 		var message = data.message;
 		var name = data.name;
-		$('#messages').prepend('<b class="sn">' + name + ':</b>' + message + '<br>'); // for some reason they mispelled it as hr here
+		$('#messages').prepend('<b class="sn">' + name + ':</b>  ' + message + '<br>'); // for some reason they mispelled it as hr here
 	});
 
 	// sendMessage will do an ajax post call to server w/ message in textarea
