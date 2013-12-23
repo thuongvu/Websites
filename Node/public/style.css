@@ -9,10 +9,15 @@ textarea {
 .inlineBlock {
 	display: inline-block;
 }
-.topaligned {
+.topAligned {
 	vertical-align: top;
 }
 #nameDec {
 	font-weight: bold;
 	color: blue;
+}
+#wrapper {
+	background-color: blue;
+	height: 500px;
+	width: 400px;
 }
