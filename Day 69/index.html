@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rainbow</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.11/d3.min.js"></script>
+  <script src="/js/gAnalytics.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+  // outer svg dimensions
+  var width = $(window).width(),
+      height = $(window).height();
+
+    // inner svg dimensions
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+
+    var g = svg.append("g");
+
+    function makeRect(rotation, w, fill) {
+        g.append("rect")
+                .attr("x", w)
+                .attr("y", 0 )
+                .attr("height", 50)
+                .attr("width", 5)
+                .attr("transform", "translate(400, 200) rotate(" + rotation + ", 200, 100)")
+                .attr("fill", fill)
+                .attr("opacity", 0.3)
+    }
+
+    var circleWidth = width / 6
+
+    var counter = 1.2;
+    var i = 1;
+
+    var makeCircle = setInterval(function () {
+      var rotate = i * counter
+      makeRect(rotate, circleWidth, "violet")
+      makeRect(rotate, circleWidth / 1.4, "blue")
+      makeRect(rotate, circleWidth / 2, "green")
+      makeRect(rotate, circleWidth / 2.8, "yellow")
+      makeRect(rotate, circleWidth / 4.6, "orange")
+      makeRect(rotate, circleWidth / 8.2 ,"red")
+      // counter++
+      i++
+      console.log(counter);
+      if (i === 541) {
+        clearInterval(makeCircle);
+      }
+    },200)
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-function init() {
+$(document).on('ready', function () {
 	var serverBaseUrl = document.domain;
 
 	// on client init, try to connect to socket.io server, no need to specify port bc we already did that
@@ -86,9 +86,7 @@ function init() {
 	$('#outgoingMessage').on('keyup', outgoingMessageKeyUp);
 	$('#name').on('focusout', nameFocusOut);
 	$('#send').on('click', sendMessage);
-
-}
-$(document).on('ready', init);
+});
 
 
 
