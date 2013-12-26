@@ -4,9 +4,7 @@ var app = express();
 var http = require("http").createServer(app);
 var io = require("socket.io").listen(http);
 var _ = require("underscore");
-
-// list of participants in chatroom
-var participants = []
+var chatroom = require("./modules/chatroomModule.js");
 
 app.set("ipaddr", "127.0.0.1");
 app.set("port", 8080);
@@ -21,30 +19,11 @@ app.get("/chatroom", function (request, response) {
 });
 
 app.post("/chatroom/message", function (request, response) {
-	var message = request.body.message;
-	if (_.isUndefined(message) || _.isEmpty(message.trim())) {
-		return response.json(400, {error: "Message is invalid"});
-	}
-	var name = request.body.name;
-	io.sockets.emit("incomingMessage", {message: message, name: name});
-	response.json(200, {message: "Message received"});
+	chatroom.chatroomPost(request, response, io);
 });
 
 io.on("connection", function(socket) {
-	socket.on("newUser", function (data) {
-		participants.push({id: data.id, name: data.name});
-		io.sockets.emit("newConnection", {participants: participants});
-	});
-
-	socket.on("nameChange", function (data) {
-		_.findWhere(participants, {id: socket.id}).name = data.name;
-		io.sockets.emit("nameChanged", {id: data.id, name: data.name});
-	});
-
-	socket.on("disconnect", function () {
-		participants = _.without(participants, _.findWhere(participants, {id: socket.id}));
-		io.sockets.emit("userDisconnected", {id: socket.id, sender: "system"});
-	});
+	chatroom.chatroom_io(socket, io);
 })
 
 http.listen(app.get("port"), function () {
