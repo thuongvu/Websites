@@ -1,9 +1,9 @@
 // module dependencies
-var express = require("express")
-	, app = express()
-	, http = require("http").createServer(app)
-	, io = require("socket.io").listen(http)
-	, _ = require("underscore");
+var express = require("express");
+var app = express();
+var http = require("http").createServer(app);
+var io = require("socket.io").listen(http);
+var _ = require("underscore");
 
 // list of participants in chatroom
 var participants = []
