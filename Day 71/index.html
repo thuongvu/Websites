@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.11/d3.min.js"></script>
+  <script src="/js/gAnalytics.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+  var width = $(window).width(),
+      height = $(window).height();
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+    
+    svg.on('mouseover', function () {
+
+      var coordinates = d3.mouse(this);
+
+      svg.append("circle")
+        .attr("cx", coordinates[0])
+        .attr("cy", coordinates[1])
+        .attr("r", 80)
+         .attr("stroke", '#'+(Math.random()*0xFFFFFF<<0).toString(16))
+        .attr("stroke-width", 10)
+        .attr("fill", '#'+(Math.random()*0xFFFFFF<<0).toString(16))
+        .attr("opacity", 0.5)
+        .transition().duration(2000)
+          .attr("r", 1)
+          .remove();
+    })
+
+  
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
