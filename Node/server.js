@@ -16,11 +16,11 @@ app.use(express.static("public", __dirname + "/public"));
 app.use(express.bodyParser());
 
 // server routing
-app.get("/", function (request, response) {
-	response.render("index");
+app.get("/chatroom", function (request, response) {
+	response.render("chatroom/chatroom");
 });
 
-app.post("/message", function (request, response) {
+app.post("/chatroom/message", function (request, response) {
 	var message = request.body.message;
 	if (_.isUndefined(message) || _.isEmpty(message.trim())) {
 		return response.json(400, {error: "Message is invalid"});
@@ -30,24 +30,17 @@ app.post("/message", function (request, response) {
 	response.json(200, {message: "Message received"});
 });
 
-// socket.io events
 io.on("connection", function(socket) {
-	// when a new user connects, we expect an event "newUser"
-	// then we emit an event "newConnections" w/ list
 	socket.on("newUser", function (data) {
 		participants.push({id: data.id, name: data.name});
 		io.sockets.emit("newConnection", {participants: participants});
 	});
 
-	// when a user changes name, expect event "nameChange"
-	// emit an event called "nameChanged" to all w/ id+new name of user who emited original msg
 	socket.on("nameChange", function (data) {
 		_.findWhere(participants, {id: socket.id}).name = data.name;
 		io.sockets.emit("nameChanged", {id: data.id, name: data.name});
 	});
 
-	// when user disconnects, event "disconnect" is automatically captured by server
-	// then emit event called userDisconnected to all w/ id of user who disconnected
 	socket.on("disconnect", function () {
 		participants = _.without(participants, _.findWhere(participants, {id: socket.id}));
 		io.sockets.emit("userDisconnected", {id: socket.id, sender: "system"});

@@ -42,7 +42,7 @@ $(document).on('ready', function () {
 	function sendMessage() {
 		var outgoingMessage = $('#outgoingMessage').val();
 		var name = $('#name').val();
-		$.post('/message', {
+		$.post('/chatroom/message', {
 			message: outgoingMessage,
 			name: name
 		})
@@ -87,26 +87,3 @@ $(document).on('ready', function () {
 	$('#name').on('focusout', nameFocusOut);
 	$('#send').on('click', sendMessage);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
