@@ -4,6 +4,7 @@ var http = require("http").createServer(app);
 var io = require("socket.io").listen(http);
 var _ = require("underscore");
 var chatroom = require("./modules/chatroomModule.js");
+var words = require("./modules/wordsModule.js");
 
 app.set("ipaddr", "127.0.0.1");
 app.set("port", 8080);
@@ -24,6 +25,36 @@ app.post("/chatroom/message", function (request, response) {
 var chat = io.of('/chatroom').on("connection", function (socket) {
 	chatroom.chatroom_io(socket, io);
 })
+
+// write
+app.get("/write", function (request, response) {
+
+	response.render("write/write");
+	response.send(storyArray.slice(-1)[0]);
+
+	// response.send("lol");
+	// response.send({ some: 'json' });
+	
+	console.log(storyArray.slice(-1)[0] + 'is the last in the array');
+	// response.wordsArray = ["Hello","world"];
+});
+
+// app.post("/write/postsentence", function (request, response) {
+// 	words.addSentence(request, response);
+// })
+var storyArray = ["whatsgooood"];
+app.post("/write/postsentence", function (request, response) {
+	var sentence = request.body.sentence;
+	if (_.isUndefined(sentence) || _.isEmpty(sentence.trim())) {
+		return response.json(400, {error: "Sentence is invalid"});
+	}
+	
+	storyArray.push(sentence.toString());
+	console.log(sentence);
+	response.send(storyArray)
+})
+
+
 
 http.listen(app.get("port"), function () {
 	console.log("server is up and running.  go to http://" + app.get("ipaddr") + ":" + app.get("port"));
