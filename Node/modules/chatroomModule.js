@@ -12,7 +12,7 @@ function chatroomPost (request, response, io) {
 	response.json(200, {message: "Message received"});
 };
 
-function chatroom_io (socket, io, chat) {
+function chatroom_io (socket, io) {
 	socket.on("newUser", function (data) {
 		participants.push({id: data.id, name: data.name});
 		this.broadcast.emit("newConnection", {participants: participants});
@@ -21,8 +21,8 @@ function chatroom_io (socket, io, chat) {
 
 	socket.on("nameChange", function (data) {
 		_.findWhere(participants, {id: socket.id}).name = data.name;
-		this.emit("nameChanged", {id: data.id, name: data.name});
 		this.broadcast.emit("nameChanged", {id: data.id, name: data.name});
+		this.emit("nameChanged", {id: data.id, name: data.name});
 	});
 
 	socket.on("disconnect", function () {
