@@ -1,38 +1,39 @@
 $(document).on('ready', function () {
 	var serverBaseUrl = document.domain;
 
-	// on client init, try to connect to socket.io server, no need to specify port bc we already did that
-	var socket = io.connect(serverBaseUrl);
+	// on client init, try to connect to chatroom_io.io server, no need to specify port bc we already did that
+	// var chatroom_io = io.connect(serverBaseUrl);
+	var chatroom_io = io.connect(serverBaseUrl + '/chatroom');
 
 	// save session ID in a var for later
 	var sessionId = '';
 
 	// when client connects successfully to the server, an event "connect" is emitted
 	// get the sess ID & log it
-	socket.on('connect', function () {
-		sessionId = socket.socket.sessionid;
+	chatroom_io.on('connect', function () {
+		sessionId = chatroom_io.socket.sessionid;
 		console.log('Connected ' + sessionId);
-		// let socket.io know when there's a new user w/ their sessionid and name, emit "newUser" event
-		socket.emit('newUser', {id: sessionId, name: $('#name').val()});
+		// let chatroom_io.io know when there's a new user w/ their sessionid and name, emit "newUser" event
+		chatroom_io.emit('newUser', {id: sessionId, name: $('#name').val()});
 	});
 
 	// when server emits "newConnection" event, reset participants section, display connected users, and we are assigning sessionid as span id
-	socket.on('newConnection', function (data) {
+	chatroom_io.on('newConnection', function (data) {
 		updateParticipants(data.participants);
 	});
 
 	// when server emits "userDisconnected" event, remove span element from participants element
-	socket.on('userDisconnected', function (data) {
+	chatroom_io.on('userDisconnected', function (data) {
 		$('#' + data.id).remove();
 	});
 
 	// when server fires "nameChanged" event, we must update span w/ given id
-	socket.on('nameChanged', function (data) {
+	chatroom_io.on('nameChanged', function (data) {
 		$('#' + data.id).html(data.name + ' ' + (data.id === sessionId ? '(You)' : '') + '<br />');
 	});
 
 	// when receiving new chat message w/ "incomingMessage" event, prepend it to messages section
-	socket.on('incomingMessage', function (data) {
+	chatroom_io.on('incomingMessage', function (data) {
 		var message = data.message;
 		var name = data.name;
 		$('#messages').prepend('<b class="sn">' + name + ':</b>  ' + message + '<br>'); // for some reason they mispelled it as hr here
@@ -78,7 +79,7 @@ $(document).on('ready', function () {
 	// when user updates name, let server know but emitting "nameChange" event
 	function nameFocusOut() {
 		var name = $('#name').val();
-		socket.emit('nameChange', {id: sessionId, name: name});
+		chatroom_io.emit('nameChange', {id: sessionId, name: name});
 	}
 
 	// elements setup
