@@ -1,15 +1,17 @@
 <html>
 	<head>
+		<link rel="stylesheet" href="/css/writeStyle.css">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script src="/js/write/write.js"></script>
 	</head>
 	<body>
-		Helloo worldd!
-		<div id="containWords"></div>
-		<div id="lastSentence"><%= lastSentence %></div>
-		<input type="text" id="sentence"></input>
-		<button id="send">Send sentence</button>
-		<div id="showStory"></div>
+		<div id="wrapper">
+			<div id="containWords"></div>
+			<div id="showStory"></div>
+			<div id="lastSentence"><%= lastSentence %></div>
+			<input type="text" id="sentence"></input>
+			<button id="send">Send sentence</button>
+		</div>
 	</body>
 
 </html>
