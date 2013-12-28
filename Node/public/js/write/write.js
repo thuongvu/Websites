@@ -5,16 +5,24 @@ $(document).on('ready', function () {
 			sentence: outgoingSentence,
 		})
 	}
-// jQuery.post( url [, data ] [, success(data, textStatus, jqXHR) ] [, dataType ] )
+var story = [];
 	function sendSentence() {
 		var outgoingSentence = ' ' + $('#sentence').val() + ' ';
 		$.post('/write/postsentence', {
 			sentence: outgoingSentence,
 		}, function (data) {
-			console.log(data);
-			$('#showStory').html(data);
+			data.forEach(function (data) {
+				story += data.sentence
+			})
+			$('#showStory').html(story);
+			$('.hideAfterAdd').hide();
 		})
 	}
 
 	$('#send').on('click', sendSentence)
+	$('#sentence').keypress(function(e){
+		if (e.which == 13) {
+			$('#send').click();
+		};
+	});
 });

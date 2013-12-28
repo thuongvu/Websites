@@ -3,15 +3,20 @@
 		<link rel="stylesheet" href="/css/writeStyle.css">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script src="/js/write/write.js"></script>
+		<script src="/js/gAnalytics.js"></script>
 	</head>
 	<body>
 		<div id="wrapper">
-			<div id="containWords"></div>
+			<div id="title"><h1>Story Time</h1></div>
+			<div id="instructions" class="hideAfterAdd"><h3>This screen will show you the sentence written by the previous user.  Add your own sentence to the end of the story, and we'll reveal the whole story to you!</h3></div>
+			<div id="containWords" class="hideAfterAdd"></div>
 			<div id="showStory"></div>
-			<div id="lastSentence"><%= lastSentence %></div>
-			<input type="text" id="sentence"></input>
-			<button id="send">Send sentence</button>
+			
+			<div class="hideAfterAdd" id="sentenceInputArea">
+				<div id="lastSentence">The last sentence is: <span id="justLastSentence"><%= lastSentence %></span></div>
+				<textarea id="sentence" cols="60" rows="2" maxlength="140"placeholder="What happens next?"></textarea>
+				<button id="send">Add sentence</button>
+			</div>
 		</div>
 	</body>
-
 </html>
