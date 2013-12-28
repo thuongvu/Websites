@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Flying Colors</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.11/d3.min.js"></script>
+	<script src="/js/gAnalytics.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+
+   var width = $(window).width();
+   var height = $(window).height();
+
+	var range = d3.range(Math.round(Math.random() * 100));
+
+	var colorScale = d3.scale.linear()
+		.domain([d3.min(range),d3.max(range)])
+		.interpolate(d3.interpolateHsl)
+		.range(["#ff0000",
+				 "#00F0CA"])
+
+	var svg = d3.select("body")
+						.append("svg")
+						.attr("width", width)
+						.attr("height", height)
+
+	function changeHeight () {
+		var range = d3.range(Math.round(Math.random() * 100));
+		
+		var rects = svg.selectAll("rect")
+			.data(range)
+
+		// enter
+		rects.enter()
+			.append("rect")
+			.attr("width", width)
+			.attr("height", Math.round(Math.random() * 30))
+			.attr("x", 0)
+			.attr("y", function (d,i) {
+				return i * (height / range.length);
+			})
+			.attr("fill", function (d,i) {
+				return colorScale(i);
+			})
+			.transition()
+				.duration(1000)
+
+		// join
+		rects.transition()
+			.duration(1000)
+			.attr("height", Math.round(Math.random() * 20))
+
+		// exit
+		rects.exit()
+			.transition()
+			.duration(1000)
+			.remove();
+	}
+
+	setInterval(function () {
+		changeHeight()
+	}, 1000)
+	changeHeight();
+
+	</script>
+</body>
