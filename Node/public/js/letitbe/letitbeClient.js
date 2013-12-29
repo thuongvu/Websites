@@ -23,4 +23,11 @@ $(document).ready(function() {
 		})
 	}
 
+	$('#nameInput').keypress(function(e) {
+		if (e.which == 13) {
+			$('#setName').click();
+		};
+	})
+
+
 })
