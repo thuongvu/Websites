@@ -6,6 +6,10 @@ body {
 	font-size: 3em;
 	line-height: 50%;
 	color: red;
+
+}
+#title a {
+	text-decoration: none;
 }
 #title {
 	text-align: center;
