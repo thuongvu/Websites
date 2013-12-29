@@ -52,14 +52,13 @@ app.get("/letitbe/add", function (request, response) {
 app.post("/letitbe/add", function (request, response) {
 	letitbe.addWisdom(request, response);
 })
-
 app.get("/letitbe/name/:name", function (request, response) {
 	letitbe.renderPage(request, response, function (docs) {
 		response.render("letitbe/letitbeName.ejs", {compliment: docs.wisdom, name: request.params.name });
 	})
 })
 
-
+// ------------------------------------------------------------------------- //
 
 http.listen(app.get("port"), function () {
 	console.log("server is up and running.  go to http://" + app.get("ipaddr") + ":" + app.get("port"));
