@@ -18,7 +18,8 @@ $(document).ready(function() {
 		}, function (data) {
 			console.log(data)
 			$('#thank').html(data).fadeIn().delay(500);
-			$('#thank').delay(3000).fadeOut()
+			$('#thank').delay(3000).fadeOut();
+			$('#wisdom').val('');
 		})
 	}
 
