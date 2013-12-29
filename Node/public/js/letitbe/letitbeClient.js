@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	$('#setName').click(function() {
 	   // window.location = 'letitbe/name/' + $('#nameInput').val();
-	   window.location = 'name/' + $('#nameInput').val();
+	   window.location = 'letitbe/name/' + $('#nameInput').val();
 	});
 
 	$('#send').on('click', sendWisdom)
