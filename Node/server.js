@@ -8,7 +8,7 @@ var words = require("./modules/wordsModule.js");
 var letitbe = require("./modules/letItBeModule.js");
 // mongo
 var mongojs = require('mongojs');
-var db = mongojs('test', ['sentenceCollection']);
+var db = mongojs('test', ['wisdomCollection']); //'sentenceCollection', 
 
 app.set("ipaddr", "127.0.0.1");
 app.set("port", 8080);
@@ -40,49 +40,22 @@ app.post("/write/postsentence", function (request, response) {
 })
 
 // let it be
-// app.get("/letitbe", function (request, response) {
-// 	// db.sentenceCollection.find(function(err, docs) {
-//    	// console.log("about to serve " + docs.slice(-1)[0].sentence + " to html doc")
-//    	// response.render("letitbe/letitbe", {lastSentence: docs.slice(-1)[0].sentence });
-//    	randNumber(findRandom)
-// 	// });
-// 	function randNumber (callback) {
-// 		var num = Math.round(Math.random() * 10)
-// 		callback(num, "letitbe/letitbe")
-// 	}
-// 	function findRandom (random, page) {
-// 		db.sentenceCollection.find().limit(-1).skip(random).next(function (err, docs) {
-// 			response.render(page, {compliment: docs.sentence });
-// 			console.log(docs);
-// 		})
-// 	}
-	
-// })
-
 app.get("/letitbe", function (request, response) {
 	letitbe.renderPage(request, response, function (docs) {
-		response.render("letitbe/letitbe", {compliment: docs.sentence });
+		response.render("letitbe/letitbe", {compliment: docs.wisdom });
 	})
 })
 app.get("/letitbe/add", function (request, response) {
-		response.render("letitbe/add", {compliment: docs.sentence });
+		response.render("letitbe/add");
 })
 
 app.post("/letitbe/add", function (request, response) {
-	words.addSentence(request, response);
+	letitbe.addWisdom(request, response);
 })
 
 app.get("/letitbe/name/:name", function (request, response) {
-	console.log(request.params.name) 
-	// db.sentenceCollection.find(function(err, docs) {
-   // console.log("about to serve " + docs.slice(-1)[0].sentence + " to html doc")
-   // response.render("letitbe/letitbeName", {lastSentence: docs.slice(-1)[0].sentence, name: request.params.name });
-	// letitbe.renderPage(request, response, "letitbe/letitbeName.ejs")
-	// response.render("letitbe/letitbe", {compliment: docs.sentence, name: request.params.name });
-	// });
-
 	letitbe.renderPage(request, response, function (docs) {
-		response.render("letitbe/letitbeName.ejs", {compliment: docs.sentence, name: request.params.name });
+		response.render("letitbe/letitbeName.ejs", {compliment: docs.wisdom, name: request.params.name });
 	})
 })
 

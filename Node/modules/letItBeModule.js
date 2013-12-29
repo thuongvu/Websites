@@ -1,22 +1,22 @@
 var _ = require("underscore");
 var mongojs = require('mongojs');
-var db = mongojs('test', ['sentenceCollection']);
+var db = mongojs('test', ['wisdomCollection']);
 
 function renderPage(request, response, call) {
    randNumber(findRandom)
 	function randNumber (callback) {
-		db.sentenceCollection.count(function (err, docs) {
+		db.wisdomCollection.count(function (err, docs) {
 			// console.log("this collection has " + docs )
-			var num = Math.round(Math.random() * docs)
+			var num = Math.round(Math.random() * (docs - 1))
 			callback(num)
 		})
 		// var num = Math.round(Math.random() * 10)
 		// callback(num)
 	}
 	function findRandom (random, callback) {
-		db.sentenceCollection.find().limit(-1).skip(random).next(function (err, docs) {
+		db.wisdomCollection.find().limit(-1).skip(random).next(function (err, docs) {
 			call(docs)
-			console.log(docs);
+			// console.log(docs);
 		})
 	}
 	// function mainPage(docs) {
@@ -26,4 +26,19 @@ function renderPage(request, response, call) {
 
 
 
+function addWisdom (request, response) {
+	var wisdom = request.body.wisdom;
+	if (_.isUndefined(wisdom) || _.isEmpty(wisdom.trim())) {
+		return response.json(400, {error: "wisdom is invalid"});
+	}
+	
+	db.wisdomCollection.save({wisdom: request.body.wisdom.toString()}, function(err, saved) {
+	  if( err || !saved ) console.log("sentence not saved in db");
+	  else console.log("saved in db");
+	});
+
+}
+
+
 exports.renderPage = renderPage;
+exports.addWisdom = addWisdom;
