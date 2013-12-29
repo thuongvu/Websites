@@ -1,13 +1,23 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="/css/letitbeStyle.css">
+		<link href='http://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script src="/js/letitbe/letitbeClient.js"></script>
 		<!-- // <script src="/js/gAnalytics.js"></script> -->
 	</head>
 	<body>
-	DEAR <%= name %>
-	<%= compliment %>
-
+		<div id="top">
+			<div id="links"><a href="../">Home</a>   <a href="../add">Add your own words!</a></div>
+			<br>
+			<div id="title">
+				<h1>Let it Be</h1>
+				<h3>Spreading love in times of need</h3>
+			</div>
+		</div>
+		<div id="compliment">
+			<div id="dear">Dear <%= name %>,</div>
+			<h1><%= compliment %></h1>
+		</div>
 	</body>
 </html>

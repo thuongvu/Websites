@@ -35,6 +35,7 @@ function addWisdom (request, response) {
 	db.wisdomCollection.save({wisdom: request.body.wisdom.toString()}, function(err, saved) {
 	  if( err || !saved ) console.log("sentence not saved in db");
 	  else console.log("saved in db");
+	  response.send("Saved!  Thank you for spreading love! :)")
 	});
 
 }

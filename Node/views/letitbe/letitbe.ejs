@@ -1,14 +1,21 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="/css/letitbeStyle.css">
+		<link href='http://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script src="/js/letitbe/letitbeClient.js"></script>
 		<!-- // <script src="/js/gAnalytics.js"></script> -->
 	</head>
 	<body>
-HELLO
-<%= compliment %>
-
-	<input id="nameInput"></input><button id="setName"></button>
+		<div id="links"><a href="../letitbe">Home</a>   <a href="../letitbe/add">Add your own words!</a></div>
+		<br>
+		<div id="title">
+			<h1>Let it Be</h1>
+			<h3>Spreading love in times of need</h3>
+			<input id="nameInput" placeholder="What's your name?"></input><button id="setName">Enter</button>
+		</div>
+		<div id="compliment">
+			<h1><%= compliment %></h1>
+		</div>
 	</body>
 </html>

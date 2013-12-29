@@ -15,8 +15,10 @@ $(document).ready(function() {
 		var outgoingWisdom = $('#wisdom').val();
 		$.post('/letitbe/add', {
 			wisdom: outgoingWisdom,
-		}, function () {
-			console.log("added")
+		}, function (data) {
+			console.log(data)
+			$('#thank').html(data).fadeIn().delay(500);
+			$('#thank').delay(3000).fadeOut()
 		})
 	}
 

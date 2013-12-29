@@ -1,0 +1,33 @@
+body {
+	font-family: 'Bad Script', sans-serif;
+	font-size: 1em;
+}
+#title h1 {
+	font-size: 3em;
+	line-height: 50%;
+}
+#title {
+	text-align: center;
+	
+}
+#compliment {
+	margin-top: 3%;
+	font-size: 1em;
+	text-align: center;
+}
+#compliment h1 {
+	font-size: 5em;
+}
+#links {
+	float: right;
+}
+#dear {
+	font-size: 3em;
+	text-align: left;
+}
+#top {
+	background-color: yellow;
+}
+#addArea {
+	text-align: center;
+}
