@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  // <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.11/d3.min.js"></script>
   <script src="/js/gAnalytics.js"></script>
 </head>
 <body>
   <input type="number" id="brushSize" value="10"></input>
   <input type="number" id="opacity" value=".5"></input>
+  <button id="reset">Reset</button>
 <script type="text/javascript">
   var width = $(window).width(),
       height = $(window).height();
@@ -17,37 +18,28 @@
         .attr("height", height)
         .on("mousedown", mouseDown)
         .on("mouseup", mouseUp)
-        // .append("g")
-        // .on("mousemove", addTick)
 
     function mouseDown () {
       svg.on('mousemove', function () {
         var coordinates = d3.mouse(this);
-        svg.append("circle")
-          .attr("cx", coordinates[0])
-          .attr("cy", coordinates[1])
-          .attr("r", size)
-          .attr("stroke-width", 1)
-          .attr("fill", color)
-          .attr("opacity", opacity)
+      var drawStroke = svg.append("circle")
+            .attr("cx", coordinates[0])
+            .attr("cy", coordinates[1])
+            .attr("r", size)
+            .attr("stroke-width", 1)
+            .attr("fill", color)
+            .attr("opacity", opacity)
+
+          console.log(drawStroke)
       })
     }
 
     function mouseUp () {
       svg.on("mousemove", null)
     }
-    
-    // function color () {
-    //   return "blue"
-    // }
     var color = function () {
       return "blue"
     }
-
-    // function size () {
-    //   return 5
-    // }
-
     var size = $('#brushSize').val()
     var opacity = $('#opacity').val()
     $(document).ready(function () {
@@ -57,80 +49,12 @@
       $('#opacity').change(function () {
           opacity = $('#opacity').val()
       }) 
+      $('#reset').click(function () { 
+          svg.selectAll("*").remove();
+      })
     })
-
-
-
-
-
-
-
-
-
-
-    // function mouseDown() {
-    //   var m = d3.mouse(this)
-    //   line = svg.append("line")
-    //       .attr("x1", m[0])
-    //       .attr("y1", m[1])
-    //       .attr("x2", m[0])
-    //       .attr("y2", m[1])
-    //       .attr("stroke", "black")
-    //       .attr("stroke-width", "2px")
-
-    //   svg.on("mousemove", mousemove)
-    // }
-    // function mousemove() {
-    //   var m = d3.mouse(this)
-    //   line.attr("x2", m[0])
-    //       .attr("y2", m[1])
-    // }
-
-    // function mouseUp() {
-    //   svg.on("mousemove", null)
-    // }
-    // var ptData = [];
-
-    // function addTick () {
-    //   var pt = d3.mouse(this);
-    //   tick(pt)
-    // }
-
-    // var line = d3.svg.line()
-    //   .x(function (d) {
-    //     return d[0]
-    //   })
-    //   .y(function (d) {
-    //     return d[1]
-    //   })
-    //   .interpolate("basis")
-
-    // var path = svg.append("g")
-    //   .append("path")
-    //   .data([ptData])
-    //   .attr("stroke", "black")
-    //   .attr("stroke-width", "2px")
-    //   .attr("d", line)
-
-    //   function tick(pt) {
-    //     ptData.push(pt)
-    //   path.attr("d", function (d) {
-    //     return line(d)
-    //   })
-    //   }
 
   
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-

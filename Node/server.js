@@ -6,7 +6,7 @@ var _ = require("underscore");
 var chatroom = require("./modules/chatroomModule.js");
 var words = require("./modules/wordsModule.js");
 var letitbe = require("./modules/letItBeModule.js");
-// mongo
+var drawSomething = require("./modules/drawSomethingModule.js");
 var mongojs = require('mongojs');
 var db = mongojs('test', ['wisdomCollection']); //'sentenceCollection', 
 
@@ -57,6 +57,16 @@ app.get("/letitbe/name/:name", function (request, response) {
 		response.render("letitbe/letitbeName.ejs", {compliment: docs.wisdom, name: request.params.name });
 	})
 })
+
+//drawSomething 
+app.get("/drawsomething", function (request, response) {
+	response.render("drawSomething/drawSomething");
+});
+
+var draw = io.of('/drawsomething').on("connection", function (socket) {
+	chatroom.chatroom_io(socket, io);
+})
+
 
 // ------------------------------------------------------------------------- //
 
