@@ -10,7 +10,7 @@ body {
 }
 #title {
 	text-align: center;
-	line-height: 50%;
+	/*line-height: 50%;*/
 }
 #options {
 	width: 1100px;
