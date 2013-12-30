@@ -22,7 +22,7 @@ $(document).ready(function () {
   var width = $(window).width(),
       height = $(window).height();
 
-    var svg = d3.select("body").append("svg")
+     svg = d3.select("body").append("svg")
         .attr("width", width)
         .attr("height", height)
         .on("mousedown", mouseDown)
@@ -44,6 +44,7 @@ $(document).ready(function () {
       }) 
       $('#reset').click(function () { 
           svg.selectAll("*").remove();
+          drawSomething_socket.emit('reset');
       })
 
     function mouseDown () {
@@ -97,7 +98,38 @@ $(document).ready(function () {
 
     });
     
+    drawSomething_socket.on('resetDrawing', function () {
+      svg.selectAll("*").remove();
+      // drawSomething_socket.emit('reset');
+    })
+
 })
+  function sendSentence() {
+    function drawNewObj (obj) {
+        svg.append("circle")
+        .attr("cx", obj.cx)
+        .attr("cy", obj.cy)
+        .attr("r", obj.r)
+        .attr("stroke-width", 1)
+        .attr("fill", obj.fill)
+        .attr("opacity", obj.opacity)
+    }
+    $.get('/drawsomething/previous', function (data) {
+      // console.log(data.dots)
+      var allPreviousDots = data.dots;
+      allPreviousDots.forEach(function (dots) {
+        console.log(dots.dot)
+
+    
+
+        drawNewObj(dots.dot);
+
+
+      })
+    })
+  }
+  sendSentence();
+// var dotsArray = dots
 
   
 </script>

@@ -8,7 +8,7 @@ var words = require("./modules/wordsModule.js");
 var letitbe = require("./modules/letItBeModule.js");
 var drawSomething = require("./modules/drawSomethingModule.js");
 var mongojs = require('mongojs');
-var db = mongojs('test', ['wisdomCollection']); //'sentenceCollection', 
+// var db = mongojs('test', ['wisdomCollection']); //'sentenceCollection', 
 
 app.set("ipaddr", "127.0.0.1");
 app.set("port", 8080);
@@ -60,7 +60,12 @@ app.get("/letitbe/name/:name", function (request, response) {
 
 //drawSomething 
 app.get("/drawsomething", function (request, response) {
-	response.render("drawSomething/drawSomething");
+	// response.render("drawSomething/drawSomething");
+	drawSomething.renderPage(request, response);
+});
+
+app.get("/drawsomething/previous", function (request, response) {
+	drawSomething.getPrevious(request, response);
 });
 
 var draw = io.of('/drawsomething').on("connection", function (socket) {
