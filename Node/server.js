@@ -64,7 +64,7 @@ app.get("/drawsomething", function (request, response) {
 });
 
 var draw = io.of('/drawsomething').on("connection", function (socket) {
-	chatroom.chatroom_io(socket, io);
+	drawSomething.drawSomething_io(socket, io);
 })
 
 
