@@ -1,0 +1,91 @@
+svg {
+	background-color: #fff;
+	margin-left: 5%;
+	border: 2px solid black;
+	border-radius: 5px;
+}
+body {
+	background: url(greyzz.png);
+	font-family: 'Open Sans', sans-serif;
+}
+#title {
+	text-align: center;
+	line-height: 50%;
+}
+#options {
+	width: 1100px;
+	margin-left: 5%;
+	font-weight: bold;
+}
+.option {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+#reset {
+	float: right;
+	background-color: red;
+	height: 30px;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 1.5em;
+	border: none;
+    box-shadow: 0 1px 1px #000;
+    border-bottom: 1px solid #000;
+    border-radius: 3px;
+}
+
+/*color picker styling from https://gist.github.com/naacal/3700648*/
+* {
+	margin: 0;
+	padding: 0;
+}
+.color-wrapper {
+	position: relative;
+	display: inline-block;
+}
+input.call-picker {
+	border: 1px solid #AAA;
+	color: #666;
+	text-transform: uppercase;
+	float: left;    
+	outline: none;
+  text-transform: uppercase;
+  width: 85px;
+}
+
+.color-picker {
+	width: 130px;
+	background: #F3F3F3;
+	border: 5px solid #fff;
+	box-shadow: 0px 0px 3px 1px #DDD;
+	position: absolute;
+	top: 61px;
+	left: 2px;
+}
+
+.color-holder {
+	background: #fff;
+	cursor: pointer;
+	border: 1px solid #AAA;
+	width: 40px;
+	height: 30px;
+	float: left;
+	margin-left: 5px;
+}
+
+.color-picker .color-item {
+	cursor: pointer;
+	width: 10px;
+	height: 10px;
+	list-style-type: none;
+	float: left;
+	margin: 2px;
+	border: 1px solid #DDD;
+}
+
+.color-picker .color-item:hover {
+	border: 1px solid #666;
+	opacity: 0.8;
+	-moz-opacity: 0.8;
+	filter:alpha(opacity=8);
+}
