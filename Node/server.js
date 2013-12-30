@@ -5,9 +5,10 @@ var io = require("socket.io").listen(http);
 var _ = require("underscore");
 var chatroom = require("./modules/chatroomModule.js");
 var words = require("./modules/wordsModule.js");
-// mongo
+var letitbe = require("./modules/letItBeModule.js");
+var drawSomething = require("./modules/drawSomethingModule.js");
 var mongojs = require('mongojs');
-var db = mongojs('test', ['sentenceCollection']);
+// var db = mongojs('test', ['wisdomCollection']); //'sentenceCollection', 
 
 app.set("ipaddr", "127.0.0.1");
 app.set("port", 8080);
@@ -38,7 +39,41 @@ app.post("/write/postsentence", function (request, response) {
 	words.addSentence(request, response);
 })
 
+// let it be
+app.get("/letitbe", function (request, response) {
+	letitbe.renderPage(request, response, function (docs) {
+		response.render("letitbe/letitbe", {compliment: docs.wisdom });
+	})
+})
+app.get("/letitbe/add", function (request, response) {
+		response.render("letitbe/add");
+})
 
+app.post("/letitbe/add", function (request, response) {
+	letitbe.addWisdom(request, response);
+})
+app.get("/letitbe/name/:name", function (request, response) {
+	letitbe.renderPage(request, response, function (docs) {
+		response.render("letitbe/letitbeName.ejs", {compliment: docs.wisdom, name: request.params.name });
+	})
+})
+
+//drawSomething 
+app.get("/drawsomething", function (request, response) {
+	// response.render("drawSomething/drawSomething");
+	drawSomething.renderPage(request, response);
+});
+
+app.get("/drawsomething/previous", function (request, response) {
+	drawSomething.getPrevious(request, response);
+});
+
+var draw = io.of('/drawsomething').on("connection", function (socket) {
+	drawSomething.drawSomething_io(socket, io);
+})
+
+
+// ------------------------------------------------------------------------- //
 
 http.listen(app.get("port"), function () {
 	console.log("server is up and running.  go to http://" + app.get("ipaddr") + ":" + app.get("port"));
