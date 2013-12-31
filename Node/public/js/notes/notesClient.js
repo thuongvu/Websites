@@ -108,7 +108,7 @@ app.controller('MainCtrl', function ($scope, socket) {
 		var note = {
 			id: new Date().getTime(),
 			title: 'New Note',
-			body: 'Pending',
+			body: 'Message goes here :)',
 			x: 0,
 			y: 0
 		};
