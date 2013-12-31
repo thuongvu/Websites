@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-	<!-- // <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script> -->
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
 	<link rel="stylesheet" href="/css/notesStyle.css">
 	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
 	<script src="/js/socket.io.min.js"></script>
 	<script src="/js/notes/notesClient.js"></script>
-
-	<!-- // <script src="/js/gAnalytics.js"></script> -->
+	<script src="/js/gAnalytics.js"></script>
 </head>
 <body ng-app="app">
+	<div id="title">
+		<h1>Stickies v2</h1>
+	</div>
 	<div ng-controller="MainCtrl">
-		<button id="createButton" ng-click="createNote()" class="btn btn-info pull-right">Create Note</button>
+		<div class="row">
+
+		<div class="offset5">
+			<div class="span2">
+				<button id="createButton" ng-click="createNote()" class="btn btn-large btn-success">Create Note</button>
+			</div>
+		</div>
+		</div>
 
 		<div sticky-note ng-repeat="note in notes" note="note" class="alert alert-block sticky-note" ondelete="deleteNote(id)" ng-style={"left":note.x,"top":note.y}>
 			<button type="button" class="close" ng-click="deleteNote(note.id)">&times;</button>

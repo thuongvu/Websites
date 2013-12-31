@@ -43,7 +43,6 @@ app.directive('stickyNote', function (socket) {
 				})
 			}
 		})
-
 		socket.on('onNoteMoved', function(data) {
 			if (data.id == scope.note.id) {
 				element.animate({
@@ -96,21 +95,8 @@ app.controller('MainCtrl', function ($scope, socket) {
 		console.log(data)
 		angular.forEach(data, function (notes) {
 			$scope.notes.push(notes)
-
 		})
-
-		// socket.on('onNoteMoved', function(data) {
-		// 	if (data.id == scope.note.id) {
-		// 		element.animate({
-		// 			left: data.x
-		// 		,	top: data.y
-		// 		})
-		// 	}
-		// })
-
 	})
-
-	// })
 
 	// incoming + 
 	socket.on('onNoteCreated', function (data) {
@@ -126,24 +112,20 @@ app.controller('MainCtrl', function ($scope, socket) {
 			x: 0,
 			y: 0
 		};
-
 		$scope.notes.push(note);
-
 		socket.emit('createNote', note) // emit event 'createNote' w/ obj note
 	};
-
-
-	//incoming -
-	socket.on('onNoteDeleted', function (data) {
-		console.log(data)
-		$scope.handleDeletedNote(data.id); // RIGHT HERE
-	});
-
 
 	$scope.deleteNote = function (id) {
 		$scope.handleDeletedNote(id);
 		socket.emit('deleteNote', {id: id});
 	}
+
+	//incoming -
+	socket.on('onNoteDeleted', function (data) {
+		console.log(data)
+		$scope.handleDeletedNote(data.id); 
+	});
 
 	$scope.handleDeletedNote = function (id) {
 		var oldNotes = $scope.notes,

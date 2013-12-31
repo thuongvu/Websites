@@ -13,3 +13,18 @@
 	border: none;
 	display: block;
 }
+body {
+	background: url(corkbg.jpg);
+}
+#title {
+	color: #fff;
+	font-family: sans-serif;
+	text-align: center;
+}
+#title h1 {
+	font-size: 4em;
+}
+#createButton {
+	text-align: center;
+	margin: 0 auto;
+}

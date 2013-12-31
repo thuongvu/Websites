@@ -8,16 +8,13 @@ function renderPage(request, response) {
 
 var initial;
 function notes_io(socket, io) {
-	// socket.on('connection', function (socket) {
 
 		socket.on('connected', function (data) {
-			// var notes_socket_io = this;
 			db.notesCol.find(function(err, data) {
 				socket.emit('previousNotes', data)
 				socket.broadcast.emit('previousNotes', data)
 			})
 		})
-				
 
 		socket.on('createNote', function (data) {
 			this.broadcast.emit('onNoteCreated', data)
@@ -52,7 +49,6 @@ function notes_io(socket, io) {
 			this.broadcast.emit('onNoteMoved', data)
 		})
 
-	// })
 }
 exports.notes_io = notes_io;
 exports.renderPage = renderPage;
