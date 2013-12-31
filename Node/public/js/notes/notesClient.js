@@ -31,7 +31,28 @@ app.directive('stickyNote', function (socket) {
 	var linker = function(scope, element, attrs) {
 		element.css('left', '10px');
 		element.css('top', '50px');
-		// element.hide().fadeIn();
+		element.hide().fadeIn();
+		element.draggable({
+			stop: function(event, ui) {
+				socket.emit('moveNote', {
+					id: scope.note.id
+				,	title: scope.note.title
+				,	body: scope.note.body
+				,	x: ui.position.left
+				,	y: ui.position.top
+				})
+			}
+		})
+
+		socket.on('onNoteMoved', function(data) {
+			if (data.id == scope.note.id) {
+				element.animate({
+					left: data.x
+				,	top: data.y
+				})
+			}
+		})
+
 	};
 	var controller = function($scope) {
 		// outgoing
@@ -48,6 +69,9 @@ app.directive('stickyNote', function (socket) {
 			if (data.id == $scope.note.id) {
 				$scope.note.title = data.title;
 				$scope.note.body = data.body;
+				//added
+				$scope.note.x = data.x;
+				$scope.note.y = data.y;
 			}
 		});
 	};
@@ -57,8 +81,8 @@ app.directive('stickyNote', function (socket) {
 	,	link: linker
 	,	controller: controller
 	,	scope: {
-			note: '=' //two way binding
-		,	ondelete: '&' // expression binding
+			note: '=', //two way binding
+			ondelete: '&' // expression binding
 		}
 	};
 
@@ -66,6 +90,27 @@ app.directive('stickyNote', function (socket) {
 
 app.controller('MainCtrl', function ($scope, socket) {
 	$scope.notes = []; // container
+
+	socket.emit('connected')
+	socket.on('previousNotes', function (data) {
+		console.log(data)
+		angular.forEach(data, function (notes) {
+			$scope.notes.push(notes)
+
+		})
+
+		// socket.on('onNoteMoved', function(data) {
+		// 	if (data.id == scope.note.id) {
+		// 		element.animate({
+		// 			left: data.x
+		// 		,	top: data.y
+		// 		})
+		// 	}
+		// })
+
+	})
+
+	// })
 
 	// incoming + 
 	socket.on('onNoteCreated', function (data) {
@@ -77,7 +122,9 @@ app.controller('MainCtrl', function ($scope, socket) {
 		var note = {
 			id: new Date().getTime(),
 			title: 'New Note',
-			body: 'Pending'
+			body: 'Pending',
+			x: 0,
+			y: 0
 		};
 
 		$scope.notes.push(note);
@@ -88,21 +135,26 @@ app.controller('MainCtrl', function ($scope, socket) {
 
 	//incoming -
 	socket.on('onNoteDeleted', function (data) {
-		$scope.deleteNote(data.id);
+		console.log(data)
+		$scope.handleDeletedNote(data.id); // RIGHT HERE
 	});
 
-	//outgoing -
+
 	$scope.deleteNote = function (id) {
+		$scope.handleDeletedNote(id);
+		socket.emit('deleteNote', {id: id});
+	}
+
+	$scope.handleDeletedNote = function (id) {
 		var oldNotes = $scope.notes,
 			 newNotes = [];
 
 		angular.forEach(oldNotes, function (note) {
 			if (note.id !== id) newNotes.push(note);
-		});
+		})
 
 		$scope.notes = newNotes;
-		socket.emit('deleteNote', {id:id});
-	};
+	}
 
 });
 
