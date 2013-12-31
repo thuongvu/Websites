@@ -12,7 +12,6 @@ function notes_io(socket, io) {
 		socket.on('connected', function (data) {
 			db.notesCol.find(function(err, data) {
 				socket.emit('previousNotes', data)
-				socket.broadcast.emit('previousNotes', data)
 			})
 		})
 
