@@ -7,6 +7,7 @@ var chatroom = require("./modules/chatroomModule.js");
 var words = require("./modules/wordsModule.js");
 var letitbe = require("./modules/letItBeModule.js");
 var drawSomething = require("./modules/drawSomethingModule.js");
+var notes = require("./modules/notesModule.js");
 var mongojs = require('mongojs');
 // var db = mongojs('test', ['wisdomCollection']); //'sentenceCollection', 
 
@@ -20,6 +21,7 @@ app.use(express.bodyParser());
 // chatroom
 app.get("/chatroom", function (request, response) {
 	response.render("chatroom/chatroom");
+	response.end();
 });
 
 app.post("/chatroom/message", function (request, response) {
@@ -60,7 +62,6 @@ app.get("/letitbe/name/:name", function (request, response) {
 
 //drawSomething 
 app.get("/drawsomething", function (request, response) {
-	// response.render("drawSomething/drawSomething");
 	drawSomething.renderPage(request, response);
 });
 
@@ -71,6 +72,16 @@ app.get("/drawsomething/previous", function (request, response) {
 var draw = io.of('/drawsomething').on("connection", function (socket) {
 	drawSomething.drawSomething_io(socket, io);
 })
+
+// notes
+app.get('/notes', function (request, response) {
+	notes.renderPage(request, response);
+})
+
+var notes_socket_io = io.of('/notes').on("connection", function (socket) {
+	notes.notes_io(socket, io)
+})
+
 
 
 // ------------------------------------------------------------------------- //

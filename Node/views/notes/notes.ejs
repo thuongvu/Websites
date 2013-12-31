@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script> -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+	<link rel="stylesheet" href="/css/notesStyle.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+	<!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script> -->
+	<script src="/js/socket.io.min.js"></script>
+	<script src="/js/notes/notesClient.js"></script>
+	
+	<!-- // <script src="/js/gAnalytics.js"></script> -->
+</head>
+<body ng-app="app">
+	<div ng-controller="MainCtrl">
+		<button id="createButton" ng-click="createNote()" class="btn btn-info pull-right">Create Note</button>
+
+		<div sticky-note ng-repeat="note in notes" note="note" class="alert alert-block sticky-note" ondelete="deleteNote(id)">
+			<button type="button" class="close" ng-click="deleteNote(note.id)">&times;</button>
+			<input ng-model="note.title" ng-change="updateNote(note)" type="text" class="title">
+			<textarea ng-model="note.body" ng-change="updateNote(note)" class="body">{{note.body}}</textarea>
+
+		</div>
+	</div>
+</body>
+</html>
