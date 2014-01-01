@@ -51,7 +51,7 @@ $(document).ready(function() {
 					"ytapiplayer", "480", "360", "8", null, null, params, attObj);
 
 		setTimeout(function () {
-			// ytplayer.seekTo(seekTime)
+
 			callback()
 		}, 1000)
 		
@@ -76,7 +76,7 @@ $(document).ready(function() {
 				}
 			}
 		}
-		
+		syncState(); // now, syncstate gets invoked during every stateBroadcast event AS well as just in tgeneral.  before, you'd have to wait for a statebroadcast for it to invoke, but now it invokes all the time.
 
 	});
 
