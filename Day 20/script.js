@@ -8,6 +8,8 @@ $(document).ready(function() {
 var attObj = {id: "youtubePlayer"}; 
 swfobject.embedSWF("http://www.youtube.com/v/" +youtubeURL + "?enablejsapi=1&playerapiid=ytplayer&version=3", 
 					"ytapiplayer", "480", "360", "8", null, null, params, attObj);
+
+
 	});
 });
 
@@ -34,6 +36,20 @@ function onYouTubePlayerReady(playerId) {
 	$('#youtubePause').click(function() {
 		pauseButton();
 	});	
+
+	var currentTime;
+	var currentState;
+	setInterval(function() {
+	currentTime = ytplayer.getCurrentTime();
+	currentState = ytplayer.getPlayerState()
+	console.log(currentState + " " + currentTime )
+	}, 1000)
+
+	ytplayer.addEventListener("onStateChange", "onytplayerStateChange");
+
+	function onytplayerStateChange(newState) {
+   console.log("Player's new state: " + newState);
+}
 } 
 
 var playButton = function play() {
@@ -53,6 +69,17 @@ var pauseButton = function play() {
 		ytplayer2.pauseVideo();
 	};	
 };
+
+
+// function onYouTubePlayerReady(playerId) {
+//   ytplayer = document.getElementById("myytplayer");
+//   ytplayer.addEventListener("onStateChange", "onytplayerStateChange");
+// }
+
+// function onytplayerStateChange(newState) {
+//    alert("Player's new state: " + newState);
+// }
+
 
 
 
