@@ -8,6 +8,7 @@ var words = require("./modules/wordsModule.js");
 var letitbe = require("./modules/letItBeModule.js");
 var drawSomething = require("./modules/drawSomethingModule.js");
 var notes = require("./modules/notesModule.js");
+var here = require("./modules/hereModule.js");
 var mongojs = require('mongojs');
 // var db = mongojs('test', ['wisdomCollection']); //'sentenceCollection', 
 
@@ -79,9 +80,17 @@ app.get('/notes', function (request, response) {
 })
 
 var notes_socket_io = io.of('/notes').on("connection", function (socket) {
-	notes.notes_io(socket, io)
+	notes.notes_io(socket, io);
 })
 
+// here
+app.get('/here', function (request, response) {
+	here.renderPage(request, response);
+})
+
+var here_socket_io = io.of('/here').on("connection", function (socket) {
+	here.here_io(socket, io);
+})
 
 
 // ------------------------------------------------------------------------- //

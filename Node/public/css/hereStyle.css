@@ -1,0 +1,29 @@
+* { margin: 0; padding: 0; border: 0; }
+body {
+        font-family: sans-serif;
+}
+
+#title {
+        text-align: center;
+        margin-bottom: 20px;
+}
+#intro {
+        text-align: center;
+        margin-bottom: 20px;
+}
+.app {
+        width: 720px;
+        padding: 10px;
+        background: #EBF2EF;
+        text-align: center;
+        font-size: 2em;
+        line-height: 390px;
+        margin: 10px auto;
+        border-radius: 3px;
+}
+
+#map {
+        width: 720px;
+        height: 420px;
+        background: transparent;
+}
