@@ -3,8 +3,7 @@ $(document).ready(function() {
 	var serverBaseUrl = document.domain;
 	socket = io.connect(serverBaseUrl + '/yousee');
 
-	$('#loadVideo').click(function(){
-		youtubeURL = $('#urlInput').val(); 
+	function loadVideo(youtubeURL, callback) {
 		var params = {
 			allowScriptAccess: "always",
 			allowFullScreen: true
@@ -12,6 +11,21 @@ $(document).ready(function() {
 		var attObj = {id: "youtubePlayer"}; 
 		swfobject.embedSWF("http://www.youtube.com/v/" +youtubeURL + "?enablejsapi=1&playerapiid=ytplayer&version=3", 
 					"ytapiplayer", "480", "360", "8", null, null, params, attObj);
+		if (callback) {
+			callback()
+		}
+	}
+
+	$('#loadVideo').click(function(){
+		youtubeURL = $('#urlInput').val(); 
+		loadVideo(youtubeURL)
+		// var params = {
+		// 	allowScriptAccess: "always",
+		// 	allowFullScreen: true
+		// };
+		// var attObj = {id: "youtubePlayer"}; 
+		// swfobject.embedSWF("http://www.youtube.com/v/" +youtubeURL + "?enablejsapi=1&playerapiid=ytplayer&version=3", 
+		// 			"ytapiplayer", "480", "360", "8", null, null, params, attObj);
 		socket.emit("loadVideo", {url: youtubeURL})
 	});
 
@@ -67,14 +81,14 @@ $(document).ready(function() {
 
 			if (data.state === 1) {
 				console.log("started")
-				ytplayer.seekTo(seekTime)
-				ytplayer.playVideo();
-			} else {
-				if (data.state === 2) {
-					ytplayer.pauseVideo()
 					ytplayer.seekTo(seekTime)
+				ytplayer.playVideo();
+			} else if (data.state === 2){
+				ytplayer.seekTo(seekTime)
+					ytplayer.pauseVideo()
+						
 				}
-			}
+			// }
 		}
 		syncState(); // now, syncstate gets invoked during every stateBroadcast event AS well as just in tgeneral.  before, you'd have to wait for a statebroadcast for it to invoke, but now it invokes all the time.
 
@@ -113,14 +127,21 @@ function onYouTubePlayerReady(playerId) {
 		
 	}
 		function onytplayerStateChange(newState) {
-	   	var currentTime = ytplayer.getCurrentTime();
+	   	// var currentTime = ytplayer.getCurrentTime();
 	   	// console.log("Player's new state: " + newState + " time is " + currentTime);
 	   	// console.log(youtubeURL)
 	   	if (newState === 1) {
+	   		console.log("state is " + newState)
 	   		 time = setInterval(function() {
-	   			currentTime = ytplayer.getCurrentTime();
+	   			var currentTime = ytplayer.getCurrentTime();
 	   			socket.emit("currentTime", {currentTime: currentTime})
+	   			socket.emit('stateChange', {state: newState, time: currentTime, url: youtubeURL});
 	   		}, 1000)
+	   	} else if (newState === 2) {
+	   		console.log("state is " + newState)
+	   		var currentTime = ytplayer.getCurrentTime();
+	   		socket.emit("currentTime", {currentTime: currentTime})
+	   		clearInterval(time)
 	   	} else {
 	   		clearInterval(time)
 	   	}
