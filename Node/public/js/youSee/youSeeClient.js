@@ -14,6 +14,9 @@ $(document).ready(function() {
 		if (callback) {
 			callback()
 		}
+
+		ytplayer = document.getElementById("youtubePlayer");
+
 	}
 
 	$('#loadVideo').click(function(){
@@ -29,9 +32,35 @@ $(document).ready(function() {
 		socket.emit("loadVideo", {url: youtubeURL})
 	});
 
-	socket.on('connect', function (data) {
-		console.log("just connected")
+	// socket.emit("connected")
+
+	socket.on('askState', function (data) {
+		console.log(data)
+		loadVideo(data.url.url)
+		// console.log(ytplayer)
+		// var ytplayer = document.getElementById("youtubePlayer");
+		setTimeout(function ( ){
+			ytplayer.seekTo(data.currentTime.currentTime + 3)
+			ytplayer.playVideo();
+		},1500)
+		
 	});
+
+	var broadcast = 0;
+
+	socket.on("currentTimeBroadcast", function (data) {
+		broadcast = 1;
+	})
+
+	setTimeout(function () {
+		if (broadcast == 1) {
+		console.log("broadcasting")
+		socket.emit("connected")
+	}
+}, 1000)
+	
+
+
 
 	socket.on('loadVideoBroadcast', function (data) {
 		console.log(data)
@@ -67,7 +96,7 @@ $(document).ready(function() {
 		setTimeout(function () {
 
 			callback()
-		}, 1000)
+		}, 1500)
 		
 		}
 
@@ -135,7 +164,7 @@ function onYouTubePlayerReady(playerId) {
 	   		 time = setInterval(function() {
 	   			var currentTime = ytplayer.getCurrentTime();
 	   			socket.emit("currentTime", {currentTime: currentTime})
-	   			socket.emit('stateChange', {state: newState, time: currentTime, url: youtubeURL});
+	   			// socket.emit('stateChange', {state: newState, time: currentTime});
 	   		}, 1000)
 	   	} else if (newState === 2) {
 	   		console.log("state is " + newState)
@@ -148,3 +177,4 @@ function onYouTubePlayerReady(playerId) {
 
 	   	socket.emit('stateChange', {state: newState, time: currentTime, url: youtubeURL});
 		}
+
