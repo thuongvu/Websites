@@ -1,7 +1,9 @@
+var serverBaseUrl = document.domain;
+var socket = io.connect(serverBaseUrl + '/yousee');
+
 $(document).ready(function() {
 
-	var serverBaseUrl = document.domain;
-	socket = io.connect(serverBaseUrl + '/yousee');
+	
 
 	function loadVideo(youtubeURL, callback) {
 		var params = {
@@ -20,7 +22,7 @@ $(document).ready(function() {
 	}
 
 	$('#loadVideo').click(function(){
-		youtubeURL = $('#urlInput').val(); 
+		youtubeURL = $('#urlInput').val(); // needs to be global???
 		loadVideo(youtubeURL);
 		socket.emit("loadVideo", {url: youtubeURL});
 	});
@@ -56,7 +58,7 @@ $(document).ready(function() {
 
 	socket.on('stateBroadcast', function (data) {
 		function setVideo(callback) {
-		ytplayer = document.getElementById("youtubePlayer");
+		var ytplayer = document.getElementById("youtubePlayer");
 		var youtubeURL = data.url
 		var params = {
 			allowScriptAccess: "always",
@@ -76,8 +78,7 @@ $(document).ready(function() {
 		
 		function syncState() {
 			socket.on('currentTimeBroadcast', function(data) {
-				console.log("the current time is " + data.currentTime)
-				seekTime = data.currentTime 
+				seekTime = data.currentTime // needs to be global???
 			})
 
 			if (data.state === 1) {
@@ -92,6 +93,7 @@ $(document).ready(function() {
 		syncState(); // now, syncstate gets invoked during every stateBroadcast event AS well as just in general.  before, you'd have to wait for a statebroadcast for it to invoke, but now it invokes all the time.
 	});
 });
+
 
 
 function onYouTubePlayerReady(playerId) {
