@@ -1,0 +1,15 @@
+#map {
+        /*width: 960px;*/
+        /*height: 420px;*/
+        background: transparent;
+        margin: 0 auto;
+}
+#happyCount {
+	color: orange;
+}
+#sadCount {
+	color: steelblue;
+}
+body {
+	font-family: sans-serif;
+}

@@ -10,6 +10,8 @@ var drawSomething = require("./modules/drawSomethingModule.js");
 var notes = require("./modules/notesModule.js");
 var here = require("./modules/hereModule.js");
 var youSee = require("./modules/youSeeModule.js");
+var twit = require("./modules/twitterModule.js");
+
 var mongojs = require('mongojs');
 // var db = mongojs('test', ['wisdomCollection']); //'sentenceCollection', 
 
@@ -102,6 +104,14 @@ var youSee_socket_io = io.of('/yousee').on("connection", function (socket) {
 	youSee.youSee_io(socket, io);
 })
 
+//twitter
+app.get('/twitter', function (request, response) {
+	twit.renderPage(request, response);
+})
+
+var twitter_socket_io = io.of('/twitter').on("connection", function (socket) {
+	twit.twitter_io(socket, io);
+})
 
 // ------------------------------------------------------------------------- //
 
