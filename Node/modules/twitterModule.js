@@ -21,9 +21,7 @@ _.each(watchSymbols, function (v) {
 });
 
 	fs.readFile('../../config/keys.json', function(err, data) {
-		// console.log(data)
 		var keys = JSON.parse(data);
-		// console.log(keys)
 		t = new twitter(keys);
 	})
 
@@ -42,21 +40,16 @@ function openStream() {
 						// added
 						if (claimed) {
 							coords = {"symbol": v, "coordinates": tweet.coordinates, "text": tweet.text, "image": tweet.user.profile_image_url};
-							// console.log("incoming tweet")
 							eventEmitter.emit("newTweet")
 						}
 					}
-					
 				})
 			}
-
-
 		})
 	})
 }
 
 
-// node + sockets
 function renderPage (request, response) {
 	response.render("twitter/twitter")
 }

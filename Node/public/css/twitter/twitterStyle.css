@@ -1,15 +1,37 @@
 #map {
-        /*width: 960px;*/
-        /*height: 420px;*/
         background: transparent;
         margin: 0 auto;
+        text-align: center;
 }
 #happyCount {
-	color: orange;
+	background-color: orange;
+	padding-right: 15px;
+	padding-left: 15px;
+	color: #fff;
+	font-size: 1.5em;
+	border-radius: 3px;
 }
 #sadCount {
-	color: steelblue;
+	background-color: steelblue;
+	color: #fff;
+	font-size: 1.5em;
+	padding-right: 15px;
+	padding-left: 15px;
+	border-radius: 3px;
 }
 body {
 	font-family: sans-serif;
+}
+#left {
+	float: left;
+	display: inline;
+	margin-left: 4%;
+}
+#right {
+	float: right;
+	display: inline;
+}
+#title {
+	font-size: 3em;
+	text-align: center;
 }
