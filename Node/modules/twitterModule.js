@@ -20,7 +20,7 @@ _.each(watchSymbols, function (v) {
 	watchList.symbols[v] = 0;
 });
 
-	fs.readFile('../../../config/keys.json', function(err, data) {
+	fs.readFile('../../config/keys.json', function(err, data) {
 		// console.log(data)
 		var keys = JSON.parse(data);
 		// console.log(keys)
