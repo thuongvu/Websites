@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="/css/twitter/twitterStyle.css">
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js?"></script>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" />
+	<link rel="stylesheet" href="/css/leaflet.awesome-markers.css">
+	<script src="/js/leaflet.awesome-markers.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="/js/socket.io.min.js"></script>
+	<script src="/js/twitter/twitterClient.js"></script>
+	<script src="/js/gAnalytics.js"></script> 
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+</head>
+<body>
+	<div id="title">Around the World</div>
+	<div id="left">
+		<span id="happyCount">"Happy" Tweets: 0</span>
+		<span id="sadCount">"Sad" Tweets: 0</span>
+	<div>
+
+	<div id="map"></div>
+
+	<div id="right">
+		<button class="btn btn-danger" id="pause">Pause</button>
+		<button class="btn btn-success" id="resume">Resume</button>
+	</div>
+
+</body>
+</html>
