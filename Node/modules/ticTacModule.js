@@ -77,6 +77,12 @@ function ticTac_io(socket, io) {
 						newgame[data.room]["user2Array"].push(data.button);
 					}
 
+
+					if (newgame[data.room]["spotsClaimed"].length === 9) {
+						newgame[data.room].reset();
+						socket.in(data.room).emit('announceWinner', "Draw! Click to play again.")
+						socket.in(data.room).broadcast.emit('announceWinner', "Draw! Click to play again.")
+					}
 	// this looks terrible, i will need to find a way to make this work later.  why doesnt || work with this?  can i use multiple vars with _.contains? GOOGLE LATER
 
 					var winnerPattern = ["button1", "button2", "button3"]
