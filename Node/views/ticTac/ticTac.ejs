@@ -5,24 +5,31 @@
 	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 	<script src="/js/socket.io.min.js"></script>
 	<script src="/js/ticTac/ticTacClient.js"></script>
-	<!-- <script src="/js/gAnalytics.js"></script>  -->
+	<script src="/js/gAnalytics.js"></script> 
 </head>
 <body>
-	<button id="emitToRoom">Emit</button>
-	<div>
-		<button class="spot" id="button1">1</button>
-		<button class="spot" id="button2">2</button>
-		<button class="spot" id="button3">3</button>
+	<div class="center" id="title">Tic Tac Toe</div>
+	<div class="center" id="instructions">Play Tic Tac Toe!  When another user joins, we will update the status and begin the game.  </div>
+	<div id="status">
+		<div class="center" id="waitPlay"></div>
+		<div class="center" id="announce"></div>
 	</div>
-	<div>
-		<button class="spot" id="button4">4</button>
-		<button class="spot" id="button5">5</button>
-		<button class="spot" id="button6">6</button>
-	</div>
-	<div>
-		<button class="spot" id="button7">7</button>
-		<button class="spot" id="button8">8</button>
-		<button class="spot" id="button9">9</button>
+	<div id="board" class="center">
+		<div>
+			<button class="spot" id="button1"></button>
+			<button class="spot" id="button2"></button>
+			<button class="spot" id="button3"></button>
+		</div>
+		<div>
+			<button class="spot" id="button4"></button>
+			<button class="spot" id="button5"></button>
+			<button class="spot" id="button6"></button>
+		</div>
+		<div>
+			<button class="spot" id="button7"></button>
+			<button class="spot" id="button8"></button>
+			<button class="spot" id="button9"></button>
+		</div>
 	</div>
 </body>
 </html>
