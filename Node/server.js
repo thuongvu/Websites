@@ -11,7 +11,7 @@ var notes = require("./modules/notesModule.js");
 var here = require("./modules/hereModule.js");
 var youSee = require("./modules/youSeeModule.js");
 var twit = require("./modules/twitterModule.js");
-
+var ticTac = require("./modules/ticTacModule.js");
 var mongojs = require('mongojs');
 // var db = mongojs('test', ['wisdomCollection']); //'sentenceCollection', 
 
@@ -112,6 +112,16 @@ app.get('/twitter', function (request, response) {
 var twitter_socket_io = io.of('/twitter').on("connection", function (socket) {
 	twit.twitter_io(socket, io);
 })
+
+// tictac
+app.get('/tictac', function (request, response) {
+	ticTac.renderPage(request, response)
+})
+
+var ticTac_socket_io = io.of('/tictac').on("connection", function (socket) {
+	ticTac.ticTac_io(socket, io);
+})
+
 
 // ------------------------------------------------------------------------- //
 
