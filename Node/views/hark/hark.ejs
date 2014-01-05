@@ -1,31 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- <link rel="stylesheet" href="/css/ticTac/ticTacStyle.css"> -->
+	<link rel="stylesheet" href="/css/hark/harkStyle.css">
 	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-	<!-- // <script src="/js/hark/hark.bundle.js"></script> -->
-	<!--<script src="/js/gAnalytics.js"></script>  -->
-	<!-- // <script src="/js/hark/demo.bundle.js"></script> -->
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.11/d3.min.js"></script>
 	<script src="/js/hark/harkClient.js"></script>
-	<style>
-		video {
-			display: none;
-		}
-	</style>
+	<script src="/js/gAnalytics.js"></script>  
 </head>
 <body>
-	<video width="320"></video>
-	<!-- <div id="userSpeaking" class="notification"></div> -->
+	<div id="wrapper">
+		<div id="title">Hark!</div>
+		<div id="instructions">
+			Instructions:  Speak into your microphone to generate a cool visualization!
+		</div>
+	</div>
 	<script>
-		var width = $(window).width() - 100,
+		var width = $(window).width(),
 		    height = $(window).height() - 100;
 
 		var svg = d3.select("body")
 			.append("svg")
 			.attr("width", width)
 			.attr("height", height)
-			.append("g");
 
 		var rScale = d3.scale.linear()
 		   .domain([-75, 0])
@@ -33,23 +29,25 @@
 
 		function hearMe(volume) {
 			svg.append("circle")
-			.attr("cx", width / 2)
-			.attr("cy", height / 2)
-			.attr("r", 0)
-	      .attr("stroke", '#'+(Math.random()*0xFFFFFF<<0).toString(16))
-	    	.attr("stroke-width", 10)
-	      .attr("fill", '#'+(Math.random()*0xFFFFFF<<0).toString(16))
-	      .attr("opacity", 0.5)
-	      .transition().duration(750)
-	      .attr("r", function () {
-	      	if (rScale(volume) < 0) {
-	      		return 0
-	      	}  else {
-	      		return rScale(volume)
-	      	}
-	      })
-	      .transition().duration(500)
-	      .remove();
+				.attr("cx", width / 2)
+				.attr("cy", height / 2)
+				.attr("r", 0)
+		      .attr("stroke", '#'+(Math.random()*0xFFFFFF<<0).toString(16))
+		    	.attr("stroke-width", 0)
+		      .attr("fill", '#'+(Math.random()*0xFFFFFF<<0).toString(16))
+		      .attr("opacity", 0.5)
+		      .transition().duration(500)
+			      .attr("stroke-width", 10)
+			      .attr("r", function () {
+			      	if (rScale(volume) < 0) {
+			      		return 0
+			      	}  else {
+			      		return rScale(volume)
+			      	}
+			      })
+		      .transition().duration(500)
+			      .attr("stroke-width", 0)
+			      .remove();
 		}
 	</script>
 </body>
