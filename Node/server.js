@@ -13,6 +13,8 @@ var youSee = require("./modules/youSeeModule.js");
 var twit = require("./modules/twitterModule.js");
 var ticTac = require("./modules/ticTacModule.js");
 var mongojs = require('mongojs');
+var harkModule = require("./modules/harkModule.js");
+
 // var db = mongojs('test', ['wisdomCollection']); //'sentenceCollection', 
 
 app.set("ipaddr", "127.0.0.1");
@@ -120,6 +122,16 @@ app.get('/tictac', function (request, response) {
 
 var ticTac_socket_io = io.of('/tictac').on("connection", function (socket) {
 	ticTac.ticTac_io(socket, io);
+})
+
+// hark
+app.get('/hark', function (request, response) {
+	harkModule.renderPage(request, response)
+})
+
+// ig
+app.get('/ig', function (request, response) {
+	console.log(request);
 })
 
 
