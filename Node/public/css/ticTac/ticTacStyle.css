@@ -1,0 +1,28 @@
+.center {
+	text-align: center;
+	margin: 0 auto;
+}
+#title {
+	font-size: 3em;
+}
+#instructions {
+	font-size: 1.5em;
+}
+body {
+	font-family: sans-serif;
+}
+#board {
+	margin-top: 100px;
+}
+#status {
+	margin-top: 30px;
+}
+.spot {
+	height: 100px;
+	width: 100px;
+	background-color: #BFBDB6;
+	border-radius: 5px;
+}
+#announce {
+	font-size: 2em;
+}
