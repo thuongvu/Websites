@@ -8,101 +8,102 @@
 <body>
 <button class="add-data">Add</button>
 <button class="remove-data">Remove</button>
+<script src="testScript.js"></script>
 <script type="text/javascript">
-  // size of svg
-  var w = $(window).width() - 10,
-      h = $(window).height() - 10,
-      padding = 100;
+//   // size of svg
+//   var w = $(window).width() - 10,
+//       h = $(window).height() - 10,
+//       padding = 100;
 
-  // pre-loaded data
-  JSONData = [
-    { "id": 1, "xCoord": 30, "yCoord": 40},
-    { "id": 2, "xCoord": 20, "yCoord": 80},
-    { "id": 3, "xCoord": 60, "yCoord": 20},
-    { "id": 4, "xCoord": 87, "yCoord": 25},
-    { "id": 5, "xCoord": 12, "yCoord": 15},
-  ];
+//   // pre-loaded data
+//   JSONData = [
+//     { "id": 1, "xCoord": 30, "yCoord": 40},
+//     { "id": 2, "xCoord": 20, "yCoord": 80},
+//     { "id": 3, "xCoord": 60, "yCoord": 20},
+//     { "id": 4, "xCoord": 87, "yCoord": 25},
+//     { "id": 5, "xCoord": 12, "yCoord": 15},
+//   ];
 
-  // set var data to have value of jsondata
-  var data = JSONData;
+//   // set var data to have value of jsondata
+//   var data = JSONData;
 
-// scales
-  // x 
-  var x = d3.scale.linear()
-      .domain(d3.extent(data, function (d) {
-        return d.xCoord;
-      }))
-      .range([padding , w - padding])
-  // y
-  var y = d3.scale.linear()
-      .domain(d3.extent(data, function (d) {
-        return d.yCoord;
-      }))
-      .range([h - padding, padding])
-  // color
-  var colorScale = d3.scale.category20()
+// // scales
+//   // x 
+//   var x = d3.scale.linear()
+//       .domain(d3.extent(data, function (d) {
+//         return d.xCoord;
+//       }))
+//       .range([padding , w - padding])
+//   // y
+//   var y = d3.scale.linear()
+//       .domain(d3.extent(data, function (d) {
+//         return d.yCoord;
+//       }))
+//       .range([h - padding, padding])
+//   // color
+//   var colorScale = d3.scale.category20()
 
-  // svg
-  var svg = d3.select("body")
-    .append("svg")
-    .attr("width", w)
-    .attr("height", h)
+//   // svg
+//   var svg = d3.select("body")
+//     .append("svg")
+//     .attr("width", w)
+//     .attr("height", h)
 
-// refreshGraph function 
-  var refreshGraph = function () {
-      // update x and y scales
-      x.domain(d3.extent(data, function (d) {
-        return d.xCoord;
-      }))
-      y.domain(d3.extent(data, function (d) {
-        return d.yCoord;
-      }))
+// // refreshGraph function 
+//   var refreshGraph = function () {
+//       // update x and y scales
+//       x.domain(d3.extent(data, function (d) {
+//         return d.xCoord;
+//       }))
+//       y.domain(d3.extent(data, function (d) {
+//         return d.yCoord;
+//       }))
 
-      // append circles, key function as id
-      var circles = svg.selectAll("circle")
-        .data(JSONData, function (d) {
-          return d.id
-        })
+//       // append circles, key function as id
+//       var circles = svg.selectAll("circle")
+//         .data(JSONData, function (d) {
+//           return d.id
+//         })
 
-        circles.exit()
-          .remove();
+//         circles.exit()
+//           .remove();
 
-      // if data entry isnt binded to dom element yet..
-      circles.enter() 
-       .append("circle")
-       .attr("cx", function (d) {
-        return x(d.xCoord)
-       })
-       .attr("cy", function (d) {
-        return y(d.yCoord)
-       })
-       .attr("r", Math.floor(Math.random() * 80))
-       .attr("fill", function (d,i) {
-          return colorScale(i)
-       })
-       .attr("opacity", 0.5);
-  }
-//invokation of refreshgraph
-  refreshGraph();
+//       // if data entry isnt binded to dom element yet..
+//       circles.enter() 
+//        .append("circle")
+//        .attr("cx", function (d) {
+//         return x(d.xCoord)
+//        })
+//        .attr("cy", function (d) {
+//         return y(d.yCoord)
+//        })
+//        .attr("r", Math.floor(Math.random() * 80))
+//        .attr("fill", function (d,i) {
+//           return colorScale(i)
+//        })
+//        .attr("opacity", 0.5);
+//   }
+// //invokation of refreshgraph
+//   refreshGraph();
 
-  // add-data button invokes function that creates new obj, pushes obj to data
-  d3.selectAll(".add-data")
-      .on("click", function () {
-        obj = {
-          "id": Math.floor(Math.random() * 1000),
-          "xCoord": Math.floor(Math.random() * 100),
-          "yCoord": Math.floor(Math.random() * 100)
-        }
-        data.push(obj)
-        refreshGraph();
-  })
+//   // add-data button invokes function that creates new obj, pushes obj to data
+//   d3.selectAll(".add-data")
+//       .on("click", function () {
+//         obj = {
+//           "id": Math.floor(Math.random() * 1000),
+//           "xCoord": Math.floor(Math.random() * 100),
+//           "yCoord": Math.floor(Math.random() * 100)
+//         }
+//         data.push(obj)
+//         refreshGraph();
+//   })
 
-  // remove-data button function that splices random element
-  d3.selectAll(".remove-data")
-      .on("click", function () {
-        var idx = Math.floor(Math.random() * data.length)
-        data.splice(Math.floor(Math.random() * data.length), 1)
-        refreshGraph()
-  })
+//   // remove-data button function that splices random element
+//   d3.selectAll(".remove-data")
+//       .on("click", function () {
+//         var idx = Math.floor(Math.random() * data.length)
+//         data.splice(Math.floor(Math.random() * data.length), 1)
+//         refreshGraph()
+//   })
 </script>
 </body>
