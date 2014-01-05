@@ -129,6 +129,11 @@ app.get('/hark', function (request, response) {
 	harkModule.renderPage(request, response)
 })
 
+// ig
+app.get('/ig', function (request, response) {
+	console.log(request);
+})
+
 
 // ------------------------------------------------------------------------- //
 
