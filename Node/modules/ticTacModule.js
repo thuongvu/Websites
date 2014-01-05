@@ -50,10 +50,10 @@ function ticTac_io(socket, io) {
 
 	socket.on("connectionAccepted", function (data) {
 		if (newgame[data.room].users < 2) {
-			socket.in(room).emit('waiting', "Waiting for another player to join...")
+			socket.in(data.room).emit('waiting', "Waiting for another player to join...")
 		} else if (newgame[data.room].users === 2){
-			socket.in(room).emit('waiting', "Another player has joined!  Begin!")
-			socket.in(room).broadcast.emit('waiting', "Another player has joined!  Begin!")
+			socket.in(data.room).emit('waiting', "Another player has joined!  Begin!")
+			socket.in(data.room).broadcast.emit('waiting', "Another player has joined!  Begin!")
 		}
 	})
 
@@ -180,6 +180,8 @@ function ticTac_io(socket, io) {
 			roomCount-=1;
 		}
 		newgame[room].users -=1
+		console.log(socket.id + " is leaving")
+
 	})
 }
 
