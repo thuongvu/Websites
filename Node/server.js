@@ -14,8 +14,12 @@ var twit = require("./modules/twitterModule.js");
 var ticTac = require("./modules/ticTacModule.js");
 var mongojs = require('mongojs');
 var harkModule = require("./modules/harkModule.js");
+// var Instagram = require("instagram-node-lib");
+var ig = require("./modules/igModule.js");
 
-// var db = mongojs('test', ['wisdomCollection']); //'sentenceCollection', 
+// Instagram.set('client_id', '7f3a0d9e6cca4689b5dadeaed96197dd');
+// Instagram.set('client_secret', 'e75bf8d778ea4b25b5037d5d65ba3f4b');
+// Instagram.set('callback_url', 'CALLBACK-URL');
 
 app.set("ipaddr", "127.0.0.1");
 app.set("port", 8080);
@@ -130,9 +134,24 @@ app.get('/hark', function (request, response) {
 })
 
 // ig
+	// get request for viewing page
 app.get('/ig', function (request, response) {
-	console.log(request);
+	ig.renderPage(request, response);
 })
+	// for handshake
+app.get('/ig/callback/3', function (request, response) {
+	ig.handshake(request, response);
+})
+	// for each new post instagram sends data
+app.post('/ig/callback/3', function (request, response) {
+	ig.igPost(request, response);
+})
+
+var ig_socket_io = io.of('/ig').on("connection", function (socket) {
+	ig.ig_io(socket, io);
+})
+
+ig.igBlueTags();
 
 
 // ------------------------------------------------------------------------- //
