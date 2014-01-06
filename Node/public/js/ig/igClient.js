@@ -3,12 +3,8 @@ $(document).ready(function () {
 	var socket = io.connect(serverBaseUrl + '/ig');
 	var image;
 
-
-
 	socket.on('newPhoto', function (data) {
 		var url = data.data;
-		console.log(data)
-		
 			$.ajax({
 				url: url,
 				type: 'GET',
@@ -17,16 +13,8 @@ $(document).ready(function () {
 			}).done(function(data) {
 				for (var i = 0; i < data.data.length; i++) {
 					image = data.data[i].images.low_resolution.url;
-					// console.log(data.data[i].images.low_resolution.url)
 					$('#imageContainer').prepend('<img src="' + image + '" />')
 				}
 			})
-			
 	});
-
-
-
-
-
 })
-

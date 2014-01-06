@@ -14,12 +14,7 @@ var twit = require("./modules/twitterModule.js");
 var ticTac = require("./modules/ticTacModule.js");
 var mongojs = require('mongojs');
 var harkModule = require("./modules/harkModule.js");
-// var Instagram = require("instagram-node-lib");
 var ig = require("./modules/igModule.js");
-
-// Instagram.set('client_id', '7f3a0d9e6cca4689b5dadeaed96197dd');
-// Instagram.set('client_secret', 'e75bf8d778ea4b25b5037d5d65ba3f4b');
-// Instagram.set('callback_url', 'CALLBACK-URL');
 
 app.set("ipaddr", "127.0.0.1");
 app.set("port", 8080);
@@ -33,11 +28,9 @@ app.get("/chatroom", function (request, response) {
 	response.render("chatroom/chatroom");
 	response.end();
 });
-
 app.post("/chatroom/message", function (request, response) {
 	chatroom.chatroomPost(request, response, io);
 });
-
 var chat = io.of('/chatroom').on("connection", function (socket) {
 	chatroom.chatroom_io(socket, io);
 })
@@ -46,7 +39,6 @@ var chat = io.of('/chatroom').on("connection", function (socket) {
 app.get("/write", function (request, response) {
 	words.renderPage(request, response)
 });
-
 app.post("/write/postsentence", function (request, response) {
 	words.addSentence(request, response);
 })
@@ -60,7 +52,6 @@ app.get("/letitbe", function (request, response) {
 app.get("/letitbe/add", function (request, response) {
 		response.render("letitbe/add");
 })
-
 app.post("/letitbe/add", function (request, response) {
 	letitbe.addWisdom(request, response);
 })
@@ -74,11 +65,9 @@ app.get("/letitbe/name/:name", function (request, response) {
 app.get("/drawsomething", function (request, response) {
 	drawSomething.renderPage(request, response);
 });
-
 app.get("/drawsomething/previous", function (request, response) {
 	drawSomething.getPrevious(request, response);
 });
-
 var draw = io.of('/drawsomething').on("connection", function (socket) {
 	drawSomething.drawSomething_io(socket, io);
 })
@@ -87,7 +76,6 @@ var draw = io.of('/drawsomething').on("connection", function (socket) {
 app.get('/notes', function (request, response) {
 	notes.renderPage(request, response);
 })
-
 var notes_socket_io = io.of('/notes').on("connection", function (socket) {
 	notes.notes_io(socket, io);
 })
@@ -96,7 +84,6 @@ var notes_socket_io = io.of('/notes').on("connection", function (socket) {
 app.get('/here', function (request, response) {
 	here.renderPage(request, response);
 })
-
 var here_socket_io = io.of('/here').on("connection", function (socket) {
 	here.here_io(socket, io);
 })
@@ -105,7 +92,6 @@ var here_socket_io = io.of('/here').on("connection", function (socket) {
 app.get('/yousee', function (request, response) {
 	youSee.renderPage(request, response);
 })
-
 var youSee_socket_io = io.of('/yousee').on("connection", function (socket) {
 	youSee.youSee_io(socket, io);
 })
@@ -114,7 +100,6 @@ var youSee_socket_io = io.of('/yousee').on("connection", function (socket) {
 app.get('/twitter', function (request, response) {
 	twit.renderPage(request, response);
 })
-
 var twitter_socket_io = io.of('/twitter').on("connection", function (socket) {
 	twit.twitter_io(socket, io);
 })
@@ -123,7 +108,6 @@ var twitter_socket_io = io.of('/twitter').on("connection", function (socket) {
 app.get('/tictac', function (request, response) {
 	ticTac.renderPage(request, response)
 })
-
 var ticTac_socket_io = io.of('/tictac').on("connection", function (socket) {
 	ticTac.ticTac_io(socket, io);
 })
@@ -134,24 +118,19 @@ app.get('/hark', function (request, response) {
 })
 
 // ig
-	// get request for viewing page
 app.get('/ig', function (request, response) {
 	ig.renderPage(request, response);
 })
-	// for handshake
 app.get('/ig/callback/3', function (request, response) {
 	ig.handshake(request, response);
 })
-	// for each new post instagram sends data
 app.post('/ig/callback/3', function (request, response) {
 	ig.igPost(request, response);
 })
-
 var ig_socket_io = io.of('/ig').on("connection", function (socket) {
 	ig.ig_io(socket, io);
 })
-
-ig.igBlueTags();
+ig.igSelfieTags();
 
 
 // ------------------------------------------------------------------------- //
