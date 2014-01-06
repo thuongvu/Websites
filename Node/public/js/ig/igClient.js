@@ -8,7 +8,7 @@ $(document).ready(function () {
 	socket.on('newPhoto', function (data) {
 		var url = data.data;
 		console.log(data)
-		setTimeout(function() {
+		
 			$.ajax({
 				url: url,
 				type: 'GET',
@@ -21,7 +21,6 @@ $(document).ready(function () {
 					$('#imageContainer').prepend('<img src="' + image + '" />')
 				}
 			})
-		}, 5000)
 			
 	});
 

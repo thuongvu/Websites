@@ -2,6 +2,7 @@ var Instagram = require("instagram-node-lib");
 var events = require("events");
 var eventEmitter = new events.EventEmitter();
 var url;
+var photoCounter = 0;
 
 Instagram.set('client_id', '7f3a0d9e6cca4689b5dadeaed96197dd');
 Instagram.set('client_secret', 'e75bf8d778ea4b25b5037d5d65ba3f4b');
@@ -79,8 +80,16 @@ function igPost(request, response) {
 }
 
 
+eventEmitter.on("newPhoto", function () {
+	photoCounter++;
+	if (photoCounter === 100) {
+		eventEmitter.emit("sendPhoto")
+		photoCounter = 0;
+	}
+})
+
 function ig_io(socket,io) {
-	eventEmitter.on("newPhoto", function () {
+	eventEmitter.on("sendPhoto", function () {
 		socket.emit("newPhoto", {data: url});
 	})
 
