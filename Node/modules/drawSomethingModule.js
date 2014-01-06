@@ -31,7 +31,6 @@ function getPrevious (request, response) {
 	
 }
 
-
 exports.drawSomething_io = drawSomething_io;
 exports.renderPage = renderPage;
 exports.getPrevious = getPrevious;
