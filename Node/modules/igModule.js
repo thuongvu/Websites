@@ -82,7 +82,7 @@ function igPost(request, response) {
 
 eventEmitter.on("newPhoto", function () {
 	photoCounter++;
-	if (photoCounter === 100) {
+	if (photoCounter === 10) {
 		eventEmitter.emit("sendPhoto")
 		photoCounter = 0;
 	}
