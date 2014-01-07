@@ -1,0 +1,27 @@
+#map {
+  background: transparent;
+  margin: 0 auto;
+  text-align: center;
+}
+.inline {
+  display: inline-block;
+}
+.leaflet-popup-content-wrapper {
+	width: 200px;
+	height: 250px;
+}
+
+/*.leaflet-popup-content {
+	width: 200px;
+	height: 200px;
+}
+
+.leaflet-popup-content-wrapper .leaflet-popup-content {
+	width: 200px;
+	height: 200px;
+}
+
+.leaflet-popup-tip-container {
+	width: 200px;
+	height: 200px;
+}*/
