@@ -19,7 +19,7 @@ function igGeo(lat, lng, socketId) {
 		Instagram.subscriptions.unsubscribe({ id: previousSub })
 	}
 	// quick fix
-	Instagram.subscriptions.unsubscribe({ id: 4032232 });
+	Instagram.subscriptions.unsubscribe({ id: 4032270 });
 
 	console.log("socketId is + " + socketId);
 
