@@ -80,7 +80,7 @@ $(document).ready(function () {
 		        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 		   }).addTo(map);
 
-		   circle = L.circle([lat, lng], 4000, {
+		   circle = L.circle([lat, lng], 5000, {
 		   	color: 'red',
 		   	fillColor: 'red',
 		   	fillOpacity: 0.3,
@@ -98,7 +98,7 @@ $(document).ready(function () {
 		   		map.removeLayer(circle);
 		   	}
 		   	
-		   	circle = L.circle([latClick, lngClick], 4000, {
+		   	circle = L.circle([latClick, lngClick], 5000, {
 		   		color: 'red',
 		   		fillColor: 'red',
 		   		fillOpacity: 0.3,
