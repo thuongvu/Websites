@@ -7,6 +7,9 @@ var subscriptions = [];
 var subDirectory = {};
 var subscriptionID;
 
+// best curl command ever 
+// curl -X DELETE 'https://api.instagram.com/v1/subscriptions?client_secret=4c36bd0b64214355abfeb6b80cf8960b&object=all&client_id=ee792378f4f2484b81748343d1bba08b'
+
 // you can already see my keys in my git history, so fuck it.
 Instagram.set('client_id', 'ee792378f4f2484b81748343d1bba08b');
 Instagram.set('client_secret', '4c36bd0b64214355abfeb6b80cf8960b');
@@ -18,10 +21,6 @@ function igGeo(lat, lng, socketId) {
 		var previousSub = subDirectory[socketId];
 		Instagram.subscriptions.unsubscribe({ id: previousSub })
 	}
-	// quick fix
-	Instagram.subscriptions.unsubscribe({ id: 4032270 });
-
-	console.log("socketId is + " + socketId);
 
 	Instagram.subscriptions.subscribe({
 	  object: 'geography',
@@ -32,9 +31,7 @@ function igGeo(lat, lng, socketId) {
 	  type: 'subscription',
 	  id: '#',
 	  complete: function (data) {
-	  	console.log("subscription is " +  data.id)
 	  	subDirectory[socketId] = data.id
-	  	console.log(subDirectory)
 	  	eventEmitter.emit("newSubscription", {data: data.id, id: socketId});
 	  	
 	  }
@@ -52,7 +49,6 @@ function handshake(request, response) {
 
 function igPost(request, response) {
 	var data = request.body;
-	console.log(data);
 
 	data.forEach(function(tag) {
 		url = 'https://api.instagram.com/v1/geographies/' + tag.object_id + '/media/recent?&count=1&client_id=ee792378f4f2484b81748343d1bba08b';
@@ -86,11 +82,9 @@ function igMap_io (socket,io) {
 	socket.on("disconnect", function () {
 		var socketId = socket.id;
 		if (subDirectory[socketId]) {
-		var previousSub = subDirectory[socketId];
-		Instagram.subscriptions.unsubscribe({ id: previousSub })
-		console.log("this is what is left of subdirectory")
-		console.log(subDirectory)
-	}
+			var previousSub = subDirectory[socketId];
+			Instagram.subscriptions.unsubscribe({ id: previousSub })
+		}
 	})
 
 

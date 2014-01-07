@@ -10,24 +10,19 @@ $(document).ready(function () {
 
 	socket.on("connection", function(data) {
 		socketId = data.id;
-		console.log(socketId)
 	})
 
 	socket.on("newSubscription", function (data) {
 		if (data.socketId == socketId) {
 			subsID = data.data;
-			console.log(subsID + " is my latest subscription ID")
 		}
 	})
 
 	var happyMarker = L.AwesomeMarkers.icon({ icon: 'star', markerColor: 'orange' })
 
 			socket.on('newPhoto', function (data) {
-				console.log("arrival for data.subscriptionID:" + data.subscriptionID)
-				console.log("my subscriptionId is " + subsID)
 				if (data.subscriptionID == subsID) {
 					var url = data.data;
-					console.log(data)
 					req =	$.ajax({
 							url: url,
 							type: 'GET',
@@ -35,9 +30,6 @@ $(document).ready(function () {
 							dataType: 'jsonp'
 						}).done(function(data) {
 							for (var i = 0; i < data.data.length; i++) {
-								console.log(data)
-								console.log(data.data[0].location.latitude)
-								console.log(data.data[0].location.longitude)
 								image = data.data[i].images.low_resolution.url;
 								var marker = L.marker([data.data[0].location.latitude, data.data[0].location.longitude], {icon: happyMarker, opacity: 0.7}).addTo(map);
 								marker.bindPopup("<img src='"+ data.data[0].images.thumbnail.url +"'></img>").openPopup();
@@ -88,7 +80,6 @@ $(document).ready(function () {
 
 		   addStream(lat, lng);
 		   map.on('click', function (e) {
-		   	console.log("you clicked at lat: " + e.latlng)
 		   	locations = [];
 		   	locations.push(e.latlng);
 		   	var latClick = locations[0].lat;
