@@ -1,0 +1,23 @@
+#map {
+  background: transparent;
+  margin: 0 auto;
+  text-align: center;
+}
+.leaflet-popup-content-wrapper {
+	width: 200px;
+	height: 200px;
+}
+.center {
+	text-align: center;
+	margin: 0 auto;
+}
+#title {
+	font-size: 2em;
+}
+body {
+	font-family: Helvetica;
+}
+#loading {
+	font-size: 1.5em;
+	margin-top: 15%;
+}

@@ -15,6 +15,7 @@ var ticTac = require("./modules/ticTacModule.js");
 var mongojs = require('mongojs');
 var harkModule = require("./modules/harkModule.js");
 var ig = require("./modules/igModule.js");
+var igMap = require("./modules/igMapModule.js");
 
 app.set("ipaddr", "127.0.0.1");
 app.set("port", 8080);
@@ -131,6 +132,22 @@ var ig_socket_io = io.of('/ig').on("connection", function (socket) {
 	ig.ig_io(socket, io);
 })
 ig.igSelfieTags();
+
+//igMap
+app.get('/igmap', function (request, response) {
+	igMap.renderPage(request, response);
+})
+app.get('/igmap/callback/1', function (request, response) {
+	igMap.handshake(request, response);
+})
+app.post('/igmap/callback/1', function (request, response) {
+	igMap.igPost(request, response);
+})
+var igMap_socket_io = io.of('/igmap').on("connection", function (socket) {
+	igMap.igMap_io(socket, io);
+})
+// igMap.igGeo();
+
 
 
 // ------------------------------------------------------------------------- //

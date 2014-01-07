@@ -10,14 +10,15 @@ Instagram.set('client_secret', 'e75bf8d778ea4b25b5037d5d65ba3f4b');
 Instagram.set('callback_url', 'http://node.thuongvuho.com/ig/callback/3');
 
 function igSelfieTags() {
-	Instagram.subscriptions.subscribe({
-	  object: 'tag',
-	  object_id: 'selfie',
-	  aspect: 'media',
-	  callback_url: 'http://node.thuongvuho.com/ig/callback/3',
-	  type: 'subscription',
-	  id: '#'
-	});
+	// Instagram.subscriptions.subscribe({
+	//   object: 'tag',
+	//   object_id: 'selfie',
+	//   aspect: 'media',
+	//   callback_url: 'http://node.thuongvuho.com/ig/callback/3',
+	//   type: 'subscription',
+	//   id: '#'
+	// });
+console.log("running igSelfieTags")
 }
 
 function renderPage(request, response) {
