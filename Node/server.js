@@ -28,10 +28,10 @@ app.set("view engine", "ejs");
 app.use(express.static("public", __dirname + "/public"));
 app.use(express.bodyParser());
 
-var options = {
-	key: fs.readFileSync('ssl/key.pem'),
-	cert: fs.readFileSync('ssl/key-cert.pem')
-};
+// var options = {
+// 	key: fs.readFileSync('ssl/key.pem'),
+// 	cert: fs.readFileSync('ssl/key-cert.pem')
+// };
 
 // chatroom
 app.get("/chatroom", function (request, response) {
@@ -169,4 +169,4 @@ var treasure_socket_io = io.of('/collabtypewriter').on("connection", function (s
 http.listen(app.get("port"), function () {
 	console.log("server is up and running.  go to http://" + app.get("ipaddr") + ":" + app.get("port"));
 });
-https.createServer(options, app).listen(8081);
+// https.createServer(options, app).listen(8081);
