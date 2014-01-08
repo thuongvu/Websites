@@ -57,7 +57,7 @@ app.controller('MainCtrl', function ($scope, socket) {
 		$scope.data3.note = data;
 	})
 
-	$scope.updateNotefour = function (note) {
+	$scope.updateNoteFour = function (note) {
 		socket.emit('updateNoteFour', note)
 	}
 	socket.on('onNoteUpdatedFour', function (data) {
