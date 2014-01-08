@@ -15,8 +15,6 @@ function treasure_io(socket, io) {
 	socket.on('updateNoteFour', function (data) {
 		socket.broadcast.emit('onNoteUpdatedFour', data)
 	})
-
-
 }
 
 exports.renderPage = renderPage;

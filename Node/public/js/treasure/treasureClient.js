@@ -25,46 +25,6 @@ app.factory('socket', function ($rootScope) {
 	};
 });
 
-app.config(function($routeProvider) {
-	$routeProvider
-		.when("/", 
-		{
-			templateUrl: "/js/treasure/partials/treasureHome.html",
-			controller: "MainCtrl"
-		})
-		.when("/buriedtreasure", 
-		{
-			templateUrl: "/js/treasure/partials/buriedTreasure.html",
-			controller: "MainCtrl"
-		})
-})
-
-// app.directive('noteMessage', function (socket){
-// 	var dirCtrl = function ($scope) {
-// 		$scope.updateNote = function (note) {
-// 				socket.emit('updateNote', note)
-// 				console.log("directives $scope.updateNote is working")
-// 		};
-// 		socket.on('onNoteUpdated', function (data) {
-// 			$scope.data.note = data;
-// 		})
-// 	};
-
-// 	var linker = function(scope, element, attrs) {
-// 		console.log("at least the link function works")
-// 	}
-
-// 	return {
-// 		restrict: 'EA',
-// 		link: linker,
-// 		controller: dirCtrl,
-// 		// scope: 
-// 		// {
-// 			// note: '='
-// 		// }
-// 	};
-// })
-
 
 app.controller('MainCtrl', function ($scope, socket) {
 	$scope.data = {};

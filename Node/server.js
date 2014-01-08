@@ -155,18 +155,14 @@ app.post('/igmap/callback/1', function (request, response) {
 var igMap_socket_io = io.of('/igmap').on("connection", function (socket) {
 	igMap.igMap_io(socket, io);
 })
-// igMap.igGeo();
 
 // treasure
-app.get('/treasure', function (request, response) {
+app.get('/collabtypewriter', function (request, response) {
 	treasure.renderPage(request, response);
 })
 var treasure_socket_io = io.of('/treasure').on("connection", function (socket) {
 	treasure.treasure_io(socket, io);
 })
-
-
-
 
 // ------------------------------------------------------------------------- //
 
