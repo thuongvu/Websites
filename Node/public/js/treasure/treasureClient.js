@@ -1,8 +1,8 @@
-var app = angular.module('app', ['ngRoute']);
+var app = angular.module('app', []);
 
 app.factory('socket', function ($rootScope) {
 	var serverBaseUrl = document.domain;
-	var socket = io.connect(serverBaseUrl + '/treasure');
+	var socket = io.connect(serverBaseUrl + '/collabtypewriter');
 	return {
 		on: function (eventName, callback) {
 			socket.on(eventName, function () {

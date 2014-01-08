@@ -160,7 +160,7 @@ var igMap_socket_io = io.of('/igmap').on("connection", function (socket) {
 app.get('/collabtypewriter', function (request, response) {
 	treasure.renderPage(request, response);
 })
-var treasure_socket_io = io.of('/treasure').on("connection", function (socket) {
+var treasure_socket_io = io.of('/collabtypewriter').on("connection", function (socket) {
 	treasure.treasure_io(socket, io);
 })
 
