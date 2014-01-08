@@ -8,6 +8,7 @@ var photoCounter = 0;
 Instagram.set('client_id', '7f3a0d9e6cca4689b5dadeaed96197dd');
 Instagram.set('client_secret', 'e75bf8d778ea4b25b5037d5d65ba3f4b');
 Instagram.set('callback_url', 'http://node.thuongvuho.com/ig/callback/3');
+// curl -X DELETE 'https://api.instagram.com/v1/subscriptions?client_secret=e75bf8d778ea4b25b5037d5d65ba3f4b&object=all&client_id=7f3a0d9e6cca4689b5dadeaed96197dd'
 
 function igSelfieTags() {
 	// Instagram.subscriptions.subscribe({

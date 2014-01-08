@@ -3,6 +3,10 @@ var app = express();
 var http = require("http").createServer(app);
 var io = require("socket.io").listen(http);
 var _ = require("underscore");
+var mongojs = require('mongojs');
+var https = require('https');
+var fs = require('fs');
+
 var chatroom = require("./modules/chatroomModule.js");
 var words = require("./modules/wordsModule.js");
 var letitbe = require("./modules/letItBeModule.js");
@@ -12,10 +16,10 @@ var here = require("./modules/hereModule.js");
 var youSee = require("./modules/youSeeModule.js");
 var twit = require("./modules/twitterModule.js");
 var ticTac = require("./modules/ticTacModule.js");
-var mongojs = require('mongojs');
 var harkModule = require("./modules/harkModule.js");
 var ig = require("./modules/igModule.js");
 var igMap = require("./modules/igMapModule.js");
+var treasure = require("./modules/treasureModule.js");
 
 app.set("ipaddr", "127.0.0.1");
 app.set("port", 8080);
@@ -23,6 +27,11 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 app.use(express.static("public", __dirname + "/public"));
 app.use(express.bodyParser());
+
+// var options = {
+// 	key: fs.readFileSync('ssl/key.pem'),
+// 	cert: fs.readFileSync('ssl/key-cert.pem')
+// };
 
 // chatroom
 app.get("/chatroom", function (request, response) {
@@ -146,12 +155,18 @@ app.post('/igmap/callback/1', function (request, response) {
 var igMap_socket_io = io.of('/igmap').on("connection", function (socket) {
 	igMap.igMap_io(socket, io);
 })
-// igMap.igGeo();
 
-
+// treasure
+app.get('/collabtypewriter', function (request, response) {
+	treasure.renderPage(request, response);
+})
+var treasure_socket_io = io.of('/collabtypewriter').on("connection", function (socket) {
+	treasure.treasure_io(socket, io);
+})
 
 // ------------------------------------------------------------------------- //
 
 http.listen(app.get("port"), function () {
 	console.log("server is up and running.  go to http://" + app.get("ipaddr") + ":" + app.get("port"));
 });
+// https.createServer(options, app).listen(8081);

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+	<link rel="stylesheet" href="/css/treasure/treasureStyle.css">
+	<script src="/js/socket.io.min.js"></script> 
+	<script src="/js/treasure/treasureClient.js"></script>
+	<script src="/js/gAnalytics.js"></script> 
+</head>
+<body ng-app="app">
+	<div ng-controller="MainCtrl">
+	<div id="wrapper">
+
+		<div id="left" class="sideBySide">
+			<div>{{data.note}}</div>
+			<input ng-model="data.note" ng-change="updateNote(data.note)" ></input>
+		</div>
+
+		<div id="right" class="sideBySide">
+			<div>{{data2.note}}</div>
+			<input ng-model="data2.note" ng-change="updateNoteTwo(data2.note)" ></input>
+		</div>
+
+		<div id="left" class="sideBySide">
+			<div>{{data3.note}}</div>
+			<input ng-model="data3.note" ng-change="updateNoteThree(data3.note)" ></input>
+		</div>
+
+		<div id="right" class="sideBySide">
+			<div>{{data4.note}}</div>
+			<input ng-model="data4.note" ng-change="updateNoteFour(data4.note)" ></input>
+		</div>
+
+	</div>
+
+	</div>
+</body>
