@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	// <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script> -->
+	<!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script> -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js"></script>
+	<link rel="stylesheet" href="/css/treasure/treasureStyle.css">
+	<!-- <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet"> -->
+	<script src="/js/socket.io.min.js"></script> 
+	<script src="/js/treasure/treasureClient.js"></script>
+	<!--<script src="/js/gAnalytics.js"></script> -->
+</head>
+<body ng-app="app">
+	<div ng-controller="MainCtrl">
+<!-- 			<div>{{data.note}}</div>
+			<input ng-model="data.note" ng-change="updateNote(data.note)"></input>
+			<a href="#/">Home sweet home</a>
+			<a href="#/buriedtreasure">Buried Treasure</a>
+		 -->
+	<div id="wrapper">
+
+		<div id="left" class="sideBySide">
+			<div>{{data.note}}</div>
+			<input ng-model="data.note" ng-change="updateNote(data.note)" ></input>
+		</div>
+
+		<div id="right" class="sideBySide">
+			<div>{{data2.note}}</div>
+			<input ng-model="data2.note" ng-change="updateNoteTwo(data2.note)" ></input>
+		</div>
+
+		<div id="left" class="sideBySide">
+			<div>{{data3.note}}</div>
+			<input ng-model="data3.note" ng-change="updateNoteThree(data3.note)" ></input>
+		</div>
+
+		<div id="right" class="sideBySide">
+			<div>{{data4.note}}</div>
+			<input ng-model="data4.note" ng-change="updateNoteFour(data4.note)" ></input>
+		</div>
+
+	</div>
+
+	</div>
+	<ng-view></ng-view>
+</body>

@@ -33,7 +33,6 @@ function igGeo(lat, lng, socketId) {
 	  complete: function (data) {
 	  	subDirectory[socketId] = data.id
 	  	eventEmitter.emit("newSubscription", {data: data.id, id: socketId});
-	  	
 	  }
 	});
 }

@@ -1,0 +1,23 @@
+.sideBySide {
+	display: inline-block;
+	width: 800px;
+	font-family: courier New;
+	font-size: 3em;
+	margin-bottom: 3%;
+
+}
+#left {
+	float: left;
+	text-align: left;
+}
+
+#right {
+	float: right;
+	text-align: right;
+}
+input {
+	width: 300px;
+}
+#wrapper {
+	margin-top: 3%;
+}
