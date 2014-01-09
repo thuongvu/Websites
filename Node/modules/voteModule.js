@@ -8,15 +8,13 @@ function renderPage(request, response) {
 function vote_io(socket, io) {
 
 	db.colorVoteCollection.find(function (err, docs){
-		console.log(docs)
-		console.log("user connected")
 		socket.emit("connectedUser", docs)
 	})
 
 	socket.on("newVote", function (data) {
 		socket.broadcast.emit("updatedVotes", data)
 
-		// // add ONCE
+		// // add ONCE to setup mongodb
 		// db.colorVoteCollection.save(data, function(err, saved) {
 		//   if( err || !saved ) console.log("vote not saved in db");
 		//   else console.log("vote in db");
