@@ -10,16 +10,11 @@
 </head>
 <body ng-app="app" ng-controller="MainCtrl">
 
-		<div>
-			<span ng-model="data.vote">{{data.vote}}</span>
-			<button ng-click="addVote()">Add</button>
-		</div>
+		<div><graph data="data.colors"></graph></div>	
 
 		<div class="inline" ng-repeat="color in colors">
 			<div class="squares" style="background-color: {{color}}" ng-click="vote($index)"></div>
 		</div>
 
-		<graph data="data.colors"></graph>
-	
-
 </body>
+</html>

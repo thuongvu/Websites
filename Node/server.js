@@ -169,6 +169,10 @@ var treasure_socket_io = io.of('/collabtypewriter').on("connection", function (s
 app.get('/vote', function (request, response) {
 	vote.renderPage(request, response);
 })
+var vote_socket_io = io.of('/vote').on("connection", function (socket) {
+	vote.vote_io(socket, io);
+})
+
 
 // ------------------------------------------------------------------------- //
 
