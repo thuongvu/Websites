@@ -16,24 +16,24 @@ function vote_io(socket, io) {
 	socket.on("newVote", function (data) {
 		socket.broadcast.emit("updatedVotes", data)
 
-		// add ONCE
-		db.colorVoteCollection.save(data, function(err, saved) {
-		  if( err || !saved ) console.log("vote not saved in db");
-		  else console.log("vote in db");
-		});
+		// // add ONCE
+		// db.colorVoteCollection.save(data, function(err, saved) {
+		//   if( err || !saved ) console.log("vote not saved in db");
+		//   else console.log("vote in db");
+		// });
 
-		// // update
-		// db.colorVoteCollection.findAndModify({
-		// 	remove: data,
-		// 	new: true,
-		// }, function (err, saved) {
-		// 	if ( !saved ||err ) console.log(err);
-		// 	else 
-		// 	  	db.colorVoteCollection.save(data, function(err, saved) {
-		// 	  	  if( err || !saved ) console.log("vote not saved in db");
-		// 	  	  else console.log("vote in db");
-		// 	  	});
-		// })
+		// update
+		db.colorVoteCollection.findAndModify({
+			remove: data,
+			new: true,
+		}, function (err, saved) {
+			if ( !saved ||err ) console.log(err);
+			else 
+			  	db.colorVoteCollection.save(data, function(err, saved) {
+			  	  if( err || !saved ) console.log("vote not saved in db");
+			  	  else console.log("vote in db");
+			  	});
+		})
 
 
 	})

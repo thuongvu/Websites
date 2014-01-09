@@ -155,11 +155,11 @@ app.controller('MainCtrl', function ($scope, socket) {
 		console.log("connected")
 	})
 
-	// socket.on("connectedUser", function (data) {
-	// 	console.log("connected user WOOP")
-	// 	$scope.data = data[0];
-	// 	console.log($scope.data)
-	// })
+	socket.on("connectedUser", function (data) {
+		console.log("connected user WOOP")
+		$scope.data = data[0];
+		console.log($scope.data)
+	})
 
 	socket.on("updatedVotes", function (data) {
 		console.log("this data is coming from socket.io")
