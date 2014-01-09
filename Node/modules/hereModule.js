@@ -1,4 +1,3 @@
-
 function renderPage (request, response) {
 	response.render("here/here")
 }

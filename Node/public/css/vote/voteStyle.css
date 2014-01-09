@@ -1,0 +1,11 @@
+.squares {
+	width: 100px;
+	height: 100px;
+	/*display: inline;*/
+}
+.inline {
+	display: inline-block;
+}
+/*div {
+	display: inline-block;
+}*/
