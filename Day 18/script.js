@@ -41,6 +41,7 @@ $(document).ready(function() {
 
 function opening(response) {
 	$('#list').empty();
+	console.log(response)
 	$.each(response.movies, function(i, movie) {
 		$('#list').append("<a href ='" +movie.links.alternate+ "'><img class='poster' src='" +movie.posters.detailed+ "' height='203' width='140' </></a>");
 	});

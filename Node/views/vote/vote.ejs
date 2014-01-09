@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+	<link rel="stylesheet" href="/css/vote/voteStyle.css">
+	<script src="/js/socket.io.min.js"></script> 
+	<script src="/js/vote/d3module.js"></script>
+	<script src="/js/vote/voteClient.js"></script>
+	<script src="/js/gAnalytics.js"></script> 
+</head>
+<body ng-app="app" ng-controller="MainCtrl">
+		<div class="center">
+			<div id="title">Color Click</div>
+			<div id="info">Instructions: Click on the colored squares to "vote" for your favorite color.  It's updated instantly for anyone looking at the page!</div>
+		</div>
+		<div id="pushedCenter">
+			<div>
+				<graph data="data.colors"></graph>
+			</div>	
+			<div class="inline" ng-repeat="color in colors">
+				<div class="squares" style="background-color: {{color}}" ng-click="vote($index)"></div>
+			</div>
+		</div>
+</body>
+</html>

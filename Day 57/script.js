@@ -21,6 +21,8 @@ app.directive('d3bars', function (d3) {
 
 		scope.$watch('data', updatePie, true);
 		 function updatePie() {
+		 	// console.log("HELLO")
+		 	console.log(scope.data)
 		 	svg.selectAll("*").remove();
 		 	var dataArray = [];
 		 	function logAElements(element) {

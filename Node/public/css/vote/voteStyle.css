@@ -1,0 +1,23 @@
+.squares {
+	width: 25px;
+	height: 25px;
+}
+.squares:hover{
+	opacity: 0.8;
+}
+.inline {
+	display: inline-block;
+}
+#pushedCenter {
+	margin: 0 auto;
+	margin-left: 10.5%;
+}
+.center {
+	text-align: center;
+}
+#title {
+	font-size: 2.5em;
+}
+body {
+	font-family: sans-serif;
+}

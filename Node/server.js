@@ -20,6 +20,7 @@ var harkModule = require("./modules/harkModule.js");
 var ig = require("./modules/igModule.js");
 var igMap = require("./modules/igMapModule.js");
 var treasure = require("./modules/treasureModule.js");
+var vote = require("./modules/voteModule.js");
 
 app.set("ipaddr", "127.0.0.1");
 app.set("port", 8080);
@@ -163,6 +164,15 @@ app.get('/collabtypewriter', function (request, response) {
 var treasure_socket_io = io.of('/collabtypewriter').on("connection", function (socket) {
 	treasure.treasure_io(socket, io);
 })
+
+// vote
+app.get('/vote', function (request, response) {
+	vote.renderPage(request, response);
+})
+var vote_socket_io = io.of('/vote').on("connection", function (socket) {
+	vote.vote_io(socket, io);
+})
+
 
 // ------------------------------------------------------------------------- //
 
