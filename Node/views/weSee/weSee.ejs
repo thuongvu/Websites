@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="/css/weSee/weSeeStyle.css">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<script src="/js/socket.io.min.js"></script>
+	<script src="/js/weSee/weSeeClient.js"></script>
+	<script src="/js/gAnalytics.js"></script>
+</head>
+<body>
+	<!-- <div id="title"> -->
+		<!-- <h1>You See, I See</h1> -->
+	<!-- </div> -->
+	<nav>
+		<!-- <div id="instructions">Instructions</div> -->
+		<a href="#" id="instructions" class="btn btn-info" rel="popover" data-content="This website allows users to sync while watching youtube videos.  Join a room, load a video, and tell a friend to join you!  If the first user pauses, fast-forwards, or rewinds, all other viewers follow along!  If a video immediately pops open during your visit, then someone else else has the controls!  If no video pops open, then you are in control!" data-original-title="Instructions">Instructions</a>
+		<div id="title">Youtube Video Sync</div>
+		
+	</nav>
+
+	<div id="load">
+		<div id="announceRoom"></div>
+		<div id="forMainUser">
+			<input id="urlInput" placeholder="Youtube Link"></input>
+			<button id="loadVideo" class="btn btn-success">Load video</button>
+		</div>
+		<div id="roomSection">
+			<input id="roomInput" placeholder="Choose a room name!"></input>
+			<button id="joinRoom" class="btn btn-info">Join room</button>
+		</div>
+		
+		<!-- </div> -->
+	</div>
+	
+	<div id="playerContainer">
+	</div>
+</body>
+</html>
