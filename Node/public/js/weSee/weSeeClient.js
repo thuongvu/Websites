@@ -3,18 +3,9 @@ var socket = io.connect(serverBaseUrl + '/wesee');
 var roomName;
 var videoLoaded = 0;
 var broadcast = 0;
-// var ytplayer;
-// var seekTime;
-
-
 
 $(document).ready(function() {
-	// $('#instructions').popover('show')
-	 // $("#example").popover();
 	$('#instructions').popover({placement: 'bottom', trigger: 'hover'});
-	// var options = {
-	// 	trigger: 'hover'
-	// }
 	$('#forMainUser').hide();
 
 	$('#joinRoom').click(function() {
@@ -27,7 +18,7 @@ $(document).ready(function() {
 				$('#announceRoom').append('<h4>Room:<b> ' + roomName + '</b></h4>');
 			} else {
 				$('#roomSection').hide();
-				$('#announceRoom').html('hello');
+				$('#announceRoom').append('<h4>Room:<b> ' + roomName + '</b></h4>');
 			}
 		}, 1000)
 		
@@ -43,7 +34,6 @@ $(document).ready(function() {
 		videoLoaded = 1;
 		swfobject.removeSWF("youtubePlayer")
 		$('#playerContainer').append("<div id='ytapiplayer'></div>")
-
 
 		var params = {
 			allowScriptAccess: "always",
@@ -65,7 +55,6 @@ $(document).ready(function() {
 		var re = /=(\w+\W?\w+)/;
 		var urlMatch = urlUnparsed.match(re);
 		youtubeURL = urlMatch[1];
-		// youtubeURL = $('#urlInput').val(); // needs to be global???
 		loadVideo(youtubeURL);
 		socket.emit("loadVideo", {url: youtubeURL, roomName: roomName});
 	});
@@ -75,8 +64,6 @@ $(document).ready(function() {
 	});
 
 	// check if there is a "broadcaster", if there is, emit "connected"
-
-	// var broadcast = 0;
 
 	socket.on("currentTimeBroadcast", function (data) {
 		broadcast = 1;
@@ -116,18 +103,9 @@ $(document).ready(function() {
 		
 	});
 
-
 	socket.on('stateBroadcast', function (data) {
-		// console.log(data)
 		function setVideo(callback) {
-		// swfobject.removeSWF("youtubePlayer")
-		// if ($('#ytapiplayer')) {
-			// console.log("it exists")
-		// } else {
-			// $('#playerContainer').append("<div id='ytapiplayer'></div>")
-		// }
-		
-		 ytplayer = document.getElementById("youtubePlayer");
+		ytplayer = document.getElementById("youtubePlayer");
 		var youtubeURL = data.url
 		var params = {
 			allowScriptAccess: "always",
@@ -147,18 +125,6 @@ $(document).ready(function() {
 		
 		function syncState() {
 			socket.on('currentTimeBroadcast', function(data) {
-				// console.log(data)
-				// seekTime = data.currentTime // needs to be global???
-				// if (ytplayer) {
-				// 	if (data.state === 1) {
-				// 		ytplayer.seekTo(data.currentTime + 1)
-				// 		ytplayer.playVideo();
-				// 	} else if (data.state === 2){
-				// 		ytplayer.seekTo(data.currentTime + 1)
-				// 		ytplayer.pauseVideo()
-								
-				// 	}
-				// }
 			})
 			if (ytplayer) {
 				if (data.state === 1) {
@@ -172,11 +138,8 @@ $(document).ready(function() {
 			}
 			
 		}
-		// syncState(); // now, syncstate gets invoked during every stateBroadcast event AS well as just in general.  before, you'd have to wait for a statebroadcast for it to invoke, but now it invokes all the time.
 	});
 });
-
-
 
 function onYouTubePlayerReady(playerId) {
 		ytplayer.addEventListener("onStateChange", "onytplayerStateChange");
@@ -195,9 +158,7 @@ function onYouTubePlayerReady(playerId) {
 				} else {
 					clearInterval(time)
 				}
-
 				socket.emit('stateChange', {state: newState, currentTime: currentTime, url: youtubeURL, roomName: roomName});
 			}
-	   	
 		}
 
