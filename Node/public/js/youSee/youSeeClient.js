@@ -2,10 +2,11 @@ var serverBaseUrl = document.domain;
 var socket = io.connect(serverBaseUrl + '/yousee');
 
 $(document).ready(function() {
-
-	
-
 	function loadVideo(youtubeURL, callback) {
+		
+		swfobject.removeSWF("youtubePlayer")
+		$('#playerContainer').append("<div id='ytapiplayer'></div>")
+
 		var params = {
 			allowScriptAccess: "always",
 			allowFullScreen: true

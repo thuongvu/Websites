@@ -21,6 +21,7 @@ var ig = require("./modules/igModule.js");
 var igMap = require("./modules/igMapModule.js");
 var treasure = require("./modules/treasureModule.js");
 var vote = require("./modules/voteModule.js");
+var weSee = require("./modules/weSeeModule.js");
 
 app.set("ipaddr", "127.0.0.1");
 app.set("port", 8080);
@@ -173,6 +174,13 @@ var vote_socket_io = io.of('/vote').on("connection", function (socket) {
 	vote.vote_io(socket, io);
 })
 
+// weSee
+app.get('/wesee', function (request, response) {
+	weSee.renderPage(request, response);
+})
+var weSee_socket_io = io.of('/wesee').on("connection", function (socket) {
+	weSee.weSee_io(socket, io);
+})
 
 // ------------------------------------------------------------------------- //
 
