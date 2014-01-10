@@ -62,7 +62,7 @@ $(document).ready(function() {
 
 	$('#loadVideo').click(function(){
 		urlUnparsed = $('#urlInput').val(); 
-		var re = /=(\w+)/;
+		var re = /=(\w+\W?\w+)/;
 		var urlMatch = urlUnparsed.match(re);
 		youtubeURL = urlMatch[1];
 		// youtubeURL = $('#urlInput').val(); // needs to be global???
