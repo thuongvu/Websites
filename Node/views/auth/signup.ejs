@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Enlist</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> 
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> 
+	<link rel="stylesheet" href="/css/auth/authStyle.css">
+</head>
+<body>
+<div class="container">
+
+<div class="col-sm-6 col-sm-offset-3">
+	<div class="jumbotron text-center">
+		<h1><span class="fa fa-sign-in"></span> Enlist</h1>
+
+		<% if (message.length > 0) { %>
+			<div class="alert alert-danger"><%= message %></div>
+		<% } %>
+
+		<form action="/auth/signup" method="post">
+			<div class="form-group">
+				<label>Email</label>
+				<input type="text" class="form-control" name="email">
+			</div>
+			<div class="form-group">
+				<label>Password</label>
+				<input type="password" class="form-control" name="password">
+			</div>
+
+			<button type="submit" class="btn btn-warning btn-lg">Signup</button>
+		</form>
+
+		<hr>
+
+		<p>Already enlisted? <a href="/auth/login">Let's go!</a></p>
+		<p>Or go <a href="/auth">back to shore</a>.</p>
+
+	</div>
+
+</div>
+
+</div>
+</body>
+</html>

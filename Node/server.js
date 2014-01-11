@@ -23,12 +23,35 @@ var treasure = require("./modules/treasureModule.js");
 var vote = require("./modules/voteModule.js");
 var weSee = require("./modules/weSeeModule.js");
 
+	// auth
+	var port = process.env.PORT || 8080;
+	var mongoose = require('mongoose');
+	var passport = require('passport')
+	var flash = require('connect-flash');
+	var configDB = require('./config/database.js');
+	mongoose.connect(configDB.url);
+	require ('./config/passport')(passport)
+	app.use(express.logger('dev')); 
+	app.use(express.cookieParser()); 
+	app.use(express.bodyParser()); 
+
+	app.set('view engine', 'ejs'); 
+
+	app.use(express.session({ secret: 'secretsecretsarenofun' })); 
+	app.use(passport.initialize());
+	app.use(passport.session()); 
+	app.use(flash());
+
+	// ----------------
+
+	require('./routes.js')(app, passport);
+
 app.set("ipaddr", "127.0.0.1");
 app.set("port", 8080);
 app.set("views", __dirname + "/views");
-app.set("view engine", "ejs");
+// app.set("view engine", "ejs");
 app.use(express.static("public", __dirname + "/public"));
-app.use(express.bodyParser());
+// app.use(express.bodyParser());
 
 // var options = {
 // 	key: fs.readFileSync('ssl/key.pem'),

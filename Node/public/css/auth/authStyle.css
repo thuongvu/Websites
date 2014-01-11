@@ -1,0 +1,20 @@
+body {
+	padding-top: 80px;
+}
+.jumbotron {
+	background-color: #304FB2;
+	color: #fff;
+}
+.container {
+}
+#rum {
+	width: 150px;
+}
+#instructions {
+}
+.popover {
+	color: black;
+}
+#treasure {
+	cursor: pointer;
+}
