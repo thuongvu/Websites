@@ -1,5 +1,5 @@
 var mongojs = require('mongojs');
-var db = mongojs('test', ['colorVoteCollection']);
+var db = mongojs('mongodb://localhost/test', ['colorVoteCollection']);
 
 function renderPage(request, response) {
 	response.render('vote/vote')
