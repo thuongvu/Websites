@@ -3,6 +3,8 @@
 <head>
 	<link rel="stylesheet" href="/css/timed/timedStyle.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+	
+	<link rel="stylesheet" href="/css/timed/bootstrap.min.css">
 </head>
 <body>
 	<div class="text-center"><h1>Zombies</h1></div>
@@ -42,8 +44,13 @@
 				<li class="active"><a ng-href="#/highscores">Best Scores</a></li>
 			</ul>
 
-			<div>
+			<div class="text-center">
 				<h1>HIGH SCORES</h1>
+				<table class="table table-striped" >
+					<tr ng-repeat="score in highScoresList">
+						<td>{{score.name}}: {{score.score}}</td>
+					</tr>
+				</div>
 				<div ng-repeat="score in highScoresList">
 					<tr>
 						<td>{{score.name}}: {{score.score}}</td>

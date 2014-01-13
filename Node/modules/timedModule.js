@@ -8,8 +8,12 @@ function renderPage(request, response) {
 
 function timed_io (socket, io) {
 	socket.on("newScore", function (data) {
-		sanitizer.sanitize(data)
-		db.timeScoreCollection.save({name: data.name, score: data.score}, function(err, saved) {
+		var name = sanitizer.sanitize(data.name)
+		var score = sanitizer.sanitize(data.score)
+		console.log(data.name)
+		console.log(data.score)
+		socket.emit("highScoresToClient", data)
+		db.timeScoreCollection.save({name: name, score: score}, function(err, saved) {
 		  if( err || !saved ) console.log("timeScore not saved in db");
 		  else console.log("timeScore saved in db");
 		  		findDoc(); //not sure this is blocking code, and so on

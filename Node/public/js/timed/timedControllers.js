@@ -7,9 +7,16 @@ angular.module('app.controllers', [])
 		$scope.zombieShow = false;
 		$scope.highScoresList = [];
 
+		socket.on("highScoresToClient", function (data) {
+			console.log(data)
+		})
+
 		// send high score button
 		$scope.sendHighSchore = function () {
 			socket.emit("newScore", {name: $scope.name, score: $scope.bestScore})
+			$scope.name = " ";
+			console.log($scope.name)
+			console.log($scope.bestScore)
 		}
 
 		// logic for buttons/timers
@@ -67,7 +74,6 @@ angular.module('app.controllers', [])
 						$scope.bestScore = sorted[0]
 					}
 				}
-				console.log($scope.bestScore + " is your high score")
 			}
 		}
 		$scope.$on('timer-stopped', function (event, data) {
@@ -79,6 +85,5 @@ angular.module('app.controllers', [])
 		socket.on("highScoresToClient", function (data) {
 			$scope.showHighScores = true;
 			$scope.highScoresList = data;
-			console.log($scope.highScoresList)
 		})
 	}])
