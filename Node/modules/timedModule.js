@@ -1,5 +1,6 @@
 var mongojs = require('mongojs');
 var db = mongojs('mongodb://localhost/test', ['timeScoreCollection']);
+var sanitizer = require('sanitizer');
 
 function renderPage(request, response) {
 	response.render('timed/timed')
@@ -7,6 +8,7 @@ function renderPage(request, response) {
 
 function timed_io (socket, io) {
 	socket.on("newScore", function (data) {
+		sanitizer.sanitize(data)
 		db.timeScoreCollection.save({name: data.name, score: data.score}, function(err, saved) {
 		  if( err || !saved ) console.log("timeScore not saved in db");
 		  else console.log("timeScore saved in db");

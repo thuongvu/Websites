@@ -9,26 +9,23 @@ angular.module('app.controllers', [])
 
 		// send high score button
 		$scope.sendHighSchore = function () {
-			console.log($scope.name);
-			console.log($scope.bestScore);
 			socket.emit("newScore", {name: $scope.name, score: $scope.bestScore})
 		}
 
 		// logic for buttons/timers
 		var randomSeconds = function () {
-			return Math.round(Math.random() * 3000) + 200;
+			return Math.round(Math.random() * 1500) + 200;
 		}
 		function timerDirectiveStart() {
-			$scope.$broadcast('timer-start');
 			$scope.timerRunning = true;
 			$scope.zombieShow = true;
-			// sixtySecondTimer()
+			$scope.$broadcast('timer-start');
 		}
 		function sixtySecondTimer() {
-			setTimeout(function() {
+			// setTimeout(function() {
 				timerDirectiveStart()
-			}, 1000)
-			$scope.countDown = 5;
+			// }, 1000)
+			$scope.countDown = 10;
 			var timer = setInterval(function() {
 				$scope.countDown --;
 				$scope.$apply();
@@ -43,19 +40,23 @@ angular.module('app.controllers', [])
 
 		$scope.startTimer = function (){
 			setTimeout(function() {
+				$scope.zombieShow = true;
 				sixtySecondTimer();
-			}, randomSeconds())
+			}, 300)
 		}
 
 		$scope.stopTimer = function () {
 			$scope.zombieShow = false;
 			$scope.$broadcast('timer-stop');
 			$scope.timerRunning = false;
-			if ($scope.countDown > 0) {
+
+			if ($scope.countDown > 2) {
 				var timer = setTimeout(function() {
 					timerDirectiveStart();
 				}, randomSeconds())
 			} else {
+				clearInterval(timer)
+				// sort data --> bestscore, etc
 				var sorted = $scope["scores"].sort(function (a,b) {
 				   return a - b
 				})
@@ -70,10 +71,7 @@ angular.module('app.controllers', [])
 			}
 		}
 		$scope.$on('timer-stopped', function (event, data) {
-			console.log('timer stopped - data = ', data)
-			console.log('in milliseconds: ', data.millis)
 			$scope.scores.push(data.millis);
-			console.log($scope.scores)
 		})
 	}])
 	.controller('highCtrl', ['$scope', 'socket', function ($scope, socket) {
