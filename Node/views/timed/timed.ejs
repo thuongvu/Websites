@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<link rel="stylesheet" href="/css/timed/timedStyle.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+</head>
+<body>
+	<!-- <div ng-controller="mainCtrl"> -->
+		<a ng-href="#/">Game Home</a>
+		<a ng-href="#/highscores">High Scores</a>
+
+		<ng-view></ng-view>
+
+		<script type="text/ng-template" id="mainView.html">
+			<div>COUNTDOWN: {{countDown}}</div>
+			<div>HIGH SCORE: {{bestScore}}</div>
+			<label>Name</label><input ng-model="name" placeholder="for high score list"></input>
+			<button ng-click="sendHighSchore()">Submit your high score</button>
+			<div><timer autostart="false"></timer></div>
+			<button class="btn btn-success" ng-click="startTimer()">Start Game / Reset</button>
+			<button class="btn-lg btn-danger" ng-click="stopTimer()">KILL ZOMBIE</button>
+			<div>
+			<img ng-show="zombieShow" src="/images/timed/Dancing_Zombie2.gif"></img>
+			</div>
+		</script>
+
+		<script type="text/ng-template" id="highScores.html">
+			<div>
+				<h1>HIGH SCORES</h1>
+				<div ng-repeat="score in highScoresList">
+					<tr>
+						<td>{{score.name}}: {{score.score}}</td>
+					</tr>
+					</table>
+				</div>
+			</div>
+		</script>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+	<script src="http://code.angularjs.org/1.2.7/angular-route.min.js"></script>
+	<script src="/bower_components/angular-timer/app/js/timer.js"></script>
+	<script src="/js/socket.io.min.js"></script> 
+	<script src="/js/timed/timedApp.js"></script>
+	<script src="/js/timed/timedControllers.js"></script>
+	<script src="/js/timed/timedDirectives.js"></script>
+	<script src="/js/timed/timedServices.js"></script>
+	<!-- // <script src="/js/gAnalytics.js"></script>  -->
+</body>
+</html>
