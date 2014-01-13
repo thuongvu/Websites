@@ -22,6 +22,7 @@ var igMap = require("./modules/igMapModule.js");
 var treasure = require("./modules/treasureModule.js");
 var vote = require("./modules/voteModule.js");
 var weSee = require("./modules/weSeeModule.js");
+var timed = require("./modules/timedModule.js");
 
 	// auth
 	var port = process.env.PORT || 8080;
@@ -203,6 +204,15 @@ app.get('/wesee', function (request, response) {
 })
 var weSee_socket_io = io.of('/wesee').on("connection", function (socket) {
 	weSee.weSee_io(socket, io);
+})
+
+// jvj
+app.get('/timedd', function (request, response) {
+	timed.renderPage(request, response)
+})
+
+var timed_socket_io = io.of('/timedd').on("connection", function (socket) {
+	timed.timed_io(socket, io);
 })
 
 // ------------------------------------------------------------------------- //
