@@ -54,10 +54,15 @@ app.set("views", __dirname + "/views");
 app.use(express.static("public", __dirname + "/public"));
 // app.use(express.bodyParser());
 
+
+// https ------
 // var options = {
 // 	key: fs.readFileSync('ssl/key.pem'),
 // 	cert: fs.readFileSync('ssl/key-cert.pem')
 // };
+// var https = require("https").createServer(options, app);
+// var ios = require("socket.io").listen(https);
+// ------------
 
 // chatroom
 app.get("/chatroom", function (request, response) {
@@ -197,6 +202,9 @@ app.get('/vote', function (request, response) {
 var vote_socket_io = io.of('/vote').on("connection", function (socket) {
 	vote.vote_io(socket, io);
 })
+// var vote_socket_io_ssl = ios.of('/vote').on("connection", function (socket) {
+// 	vote.vote_io(socket, io);
+// })
 
 // weSee
 app.get('/wesee', function (request, response) {
@@ -206,7 +214,7 @@ var weSee_socket_io = io.of('/wesee').on("connection", function (socket) {
 	weSee.weSee_io(socket, io);
 })
 
-// jvj
+// timedd
 app.get('/timedd', function (request, response) {
 	timed.renderPage(request, response)
 })
@@ -220,4 +228,6 @@ var timed_socket_io = io.of('/timedd').on("connection", function (socket) {
 http.listen(app.get("port"), function () {
 	console.log("server is up and running.  go to http://" + app.get("ipaddr") + ":" + app.get("port"));
 });
-// https.createServer(options, app).listen(8081);
+// https.listen(8081,function() {
+// 	console.log("magic happening on ths https server")
+// });
