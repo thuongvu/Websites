@@ -69,7 +69,8 @@ module.exports = function (passport) {
 	}));
 
 	// facebook
-	passport.use(new FacebookStrategy({
+	// passport.use(new FacebookStrategy({
+	passport.use('fb', new FacebookStrategy({
 
 		clientID				: configAuth.facebookAuth.clientID,
 		clientSecret		: configAuth.facebookAuth.clientSecret,
@@ -102,11 +103,6 @@ module.exports = function (passport) {
 				});
 			});
 	}));
-
-
-
-
-
 };
 
 

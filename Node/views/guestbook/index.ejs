@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Pirate's Den</title>
+	<title>Guestbook</title>
 	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/css/guestBook/guestBookStyle.css">
@@ -11,14 +11,13 @@
 
 	<div class="jumbotron text-center">
 		<h1>Guestbook </h1>
-		<p>Login to <a href="/guestbook/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a> to write in my guestbook :)</p>
+		<p>Login to <a href="/guestbook/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a> to write in the guestbook :)</p>
 	</div>
 	<div class="messageContainer col-md-8 col-md-offset-2">
 		<table class="table table-hover">
 		<tr><th>Guest</th><th>Message</th></tr>
 		<% var reverse = guestPosts.reverse(); %>
 		<% for(var i=0; i<reverse.length; i++) {%>
-			
 		   <tr><td><%= reverse[i].fbName %></td><td> <%= guestPosts[i].message %></td><tr>
 		<% } %>
 		</table>

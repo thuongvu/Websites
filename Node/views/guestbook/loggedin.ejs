@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Pirate's Den</title>
+	<title>Guestbook - Members</title>
 	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/css/guestBook/guestBookStyle.css">
 </head>
 <body>
 <div class="container">
+
 	<div class="jumbotron text-center">
-		<h1>Guestbook </h1>
+		<h1>Guestbook</h1>
 		<h3>Hi, <%= user.facebook.name %>!</h3>
+		<a href="/guestbook/logout" class="btn btn-default btn-sm">Logout</a>
 	</div>
+
 	<form action="/guestbook/loggedin" method="post">
-
-		<div class="form-horizontal">
-			<div class="col-md-6">
-				<label>Message</label>
-				<input type="text" class="form-control" name="message">
-				<button type="submit" class="btn btn-warning">Post</button>
-			</div>
-		
-
+		<div class="form-group col-md-offset-3">
+				<input id="messageInput" type="text" class="form-group col-md-8" name="message" placeholder="Message">
+				<button type="submit" class="btn btn-success">Post</button>
 		</div>
 	</form>
 
