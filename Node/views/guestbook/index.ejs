@@ -4,32 +4,34 @@
 	<title>Pirate's Den</title>
 	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/css/auth/authStyle.css">
+	<link rel="stylesheet" href="/css/guestBook/guestBookStyle.css">
 </head>
 <body>
 <div class="container">
 
 	<div class="jumbotron text-center">
-		<h1>Guest Book </h1>
-
-		<p>Login or Register with:</p>
-
-		<a href="/guestbook/login" class="btn btn-info"><span class="fa fa-anchor"></span>Guestbook Login</a>
-		
-		<a href="#" id="freePassword" class="btn btn-warning" rel="popover" data-content=" arr@pirate.com / tharsheblows" data-original-title="Username/password:">Guests</a>
-		<a href="/guestbook/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
+		<h1>Guestbook </h1>
+		<p>Login to <a href="/guestbook/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a> to write in my guestbook :)</p>
 	</div>
-	<div>
-		<ul>
-		<% for(var i=0; i<guestPosts.length; i++) {%>
-		   <li><%= guestPosts[i].fbName %>: <%= guestPosts[i].message %></li>
+	<div class="messageContainer col-md-8 col-md-offset-2">
+		<table class="table table-hover">
+		<tr><th>Guest</th><th>Message</th></tr>
+		<% var reverse = guestPosts.reverse(); %>
+		<% for(var i=0; i<reverse.length; i++) {%>
+			
+		   <tr><td><%= reverse[i].fbName %></td><td> <%= guestPosts[i].message %></td><tr>
 		<% } %>
-		</ul>
+		</table>
 	</div>
-
+	
 </div>
 	<script src="/bower_components/jquery/jquery.min.js"></script>
 	<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="/js/auth/indexClient.js"></script>
+	<!-- // <script src="/js/guestBook/guestBookClient.js"></script> -->
+	<script>
+	var posts = <%- JSON.stringify(guestPosts) %>;
+		// var posts = guestPosts;
+		console.log(posts);
+	</script>
 </body>
 </html>

@@ -64,6 +64,7 @@ app.get('/guestbook', function (req, res) {
 	db.guestBookCollection.find(function(err, data) {
 		console.log(data)
 		res.render('guestbook/index', {guestPosts: data})
+		// res.json({ user: 'tobi' })
 	}) 
 });
 
@@ -101,10 +102,10 @@ app.get('/guestbook/loggedin', isLoggedIn, function (req, res) {
 });
 
 
-app.post("/guestbook/post", function (request, response) {
+app.post("/guestbook/loggedin", function (request, response) {
 	console.log(request.body.message);
 	console.log(request.user.facebook.name)
-	var message = sanitizer.sanitize(request.body.message);
+	var message = sanitizer.sanitize(request.body.message.slice(0, 255));
 	var fbName = sanitizer.sanitize(request.user.facebook.name)
 
 	if (_.isUndefined(message) || _.isEmpty(message.trim())) {
@@ -114,7 +115,11 @@ app.post("/guestbook/post", function (request, response) {
 	db.guestBookCollection.save({message: message, fbName: fbName}, function(err, saved) {
 	  if( err || !saved ) console.log("message not saved in db");
 	  else console.log("message in db");
-	  response.end() // test here because it seems laggy
+	  // response.end() // test here because it seems laggy
+	  db.guestBookCollection.find(function(err, data) {
+	  	console.log(data)
+	  	response.render('guestbook/loggedin', {guestPosts: data, user: request.user})
+	  }) 
 	});
 
 })
