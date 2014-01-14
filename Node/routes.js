@@ -57,10 +57,6 @@ module.exports = function (app, passport) {
 
 // GUESTBOOK ---------------------------------------------------------------------------------
 app.get('/guestbook', function (req, res) {
-	// w/o mongo data
-	// res.render('guestbook/index');
-
-	// w/ db data
 	db.guestBookCollection.find(function(err, data) {
 		res.render('guestbook/index', {guestPosts: data})
 	}) 
@@ -82,24 +78,15 @@ app.get('/guestbook/facebook', passport.authenticate('fb', {scope: 'email'}))
 
 app.get('/auth/facebook/callback',
 	passport.authenticate('fb', {
-	// passport.authenticate('facebook', {
 		successRedirect : '/guestbook/loggedin',
 		failureRedirect : '/guestbook'
 	}));
 
 app.get('/guestbook/loggedin', isLoggedInGuessBook, function (req, res) {
-	// w/o db data
-	// res.render('guestbook/loggedin', {
-	// 	user : req.user
-	// });
-
-	// w/ db data
 	db.guestBookCollection.find(function(err, data) {
 		res.render('guestbook/loggedin', {guestPosts: data, user: req.user})
 	}) 
-
 });
-
 
 app.post("/guestbook/loggedin", function (request, response) {
 	var message = sanitizer.sanitize(request.body.message.slice(0, 255));
@@ -116,7 +103,6 @@ app.post("/guestbook/loggedin", function (request, response) {
 	  	response.render('guestbook/loggedin', {guestPosts: data, user: request.user})
 	  }) 
 	});
-
 })
 
 app.get('/guestbook/logout', function (req, res) {
