@@ -20,6 +20,14 @@
 		</form>
 	</div>
 
+	<div>
+		<ul>
+		<% for(var i=0; i<guestPosts.length; i++) {%>
+		   <li><%= guestPosts[i].fbName %>: <%= guestPosts[i].message %></li>
+		<% } %>
+		</ul>
+	</div>
+
 </div>
 	<script src="/bower_components/jquery/jquery.min.js"></script>
 	<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

@@ -4,7 +4,7 @@ var sanitizer = require('sanitizer');
 var _ = require("underscore");
 
 module.exports = function (app, passport) {
-	// AUTH PAGE
+	// AUTH PAGE -------------------------------------------------
 	app.get('/auth', function (req, res) {
 		res.render('auth/index');
 	});
@@ -55,15 +55,16 @@ module.exports = function (app, passport) {
 	// 	}));
 
 
-// GUESTBOOK
+// GUESTBOOK ------------------------------------------------
 app.get('/guestbook', function (req, res) {
 	// w/o mongo data
-	res.render('guestbook/index');
+	// res.render('guestbook/index');
 
-	// // w/ db data
-	// db.guestBookCollection.find(function(err, docs) {
-	// 	res.render('guestbook/index', {guestPosts: docs})
-	// }) 
+	// w/ db data
+	db.guestBookCollection.find(function(err, data) {
+		console.log(data)
+		res.render('guestbook/index', {guestPosts: data})
+	}) 
 });
 
 
@@ -86,9 +87,17 @@ app.get('/auth/facebook/callback',
 	}));
 
 app.get('/guestbook/loggedin', isLoggedIn, function (req, res) {
-	res.render('guestbook/loggedin', {
-		user : req.user
-	});
+	// w/o db data
+	// res.render('guestbook/loggedin', {
+	// 	user : req.user
+	// });
+
+	// w/ db data
+	db.guestBookCollection.find(function(err, data) {
+		console.log(data)
+		res.render('guestbook/loggedin', {guestPosts: data, user: req.user})
+	}) 
+
 });
 
 
@@ -102,10 +111,10 @@ app.post("/guestbook/post", function (request, response) {
 		return response.json(400, {error: "wisdom is invalid"});
 	}
 	
-	db.guestBookCollection.save({message: message}, function(err, saved) {
+	db.guestBookCollection.save({message: message, fbName: fbName}, function(err, saved) {
 	  if( err || !saved ) console.log("message not saved in db");
 	  else console.log("message in db");
-	  response.end() // test here
+	  response.end() // test here because it seems laggy
 	});
 
 })
