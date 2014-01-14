@@ -1,0 +1,25 @@
+		 <ul class="nav nav-tabs">
+				<li class="active"><a ng-href="#/">Game Home</a></li>
+				<li><a ng-href="#/highscores">Best Scores</a></li>
+				<form class="navbar-form navbar-right">
+				      <div class="form-group">
+				        <input ng-model="name" type="text" class="form-control" placeholder="Name">
+				      </div>
+				      <button ng-click="sendHighSchore()" class="btn btn-info">Submit best score</button>
+				    </form>
+			</ul>
+
+			<div class="text-center">
+				<h3>Seconds Left: {{countDown}}</h3>
+				<h4>Your best score: {{bestScore}}</h4>
+				<h4>Score:<timer autostart="false"></timer></h4>
+			</div>
+
+			<div id="zombie" class="text-center">
+				<img ng-show="zombieShow" src="/images/timed/Dancing_Zombie2.gif"></img>
+			</div>
+
+			<div class="text-center">
+				<button class="btn btn-success" ng-click="startTimer()">Start Game / Reset</button>
+				<button class="btn-lg btn-danger" ng-click="stopTimer()">KILL ZOMBIE</button>
+			</div>

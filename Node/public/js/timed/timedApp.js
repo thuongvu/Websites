@@ -2,11 +2,11 @@ angular.module('app', ['ngRoute', 'app.controllers', 'app.directives', 'app.serv
 	.config(function($routeProvider) {
 		$routeProvider
 		.when('/', {
-			templateUrl: 'mainView.html',
+			templateUrl: '/partials/timedd/mainView.ejs',
 			controller: 'mainCtrl'
 		})
 		.when('/highscores', {
-			templateUrl: 'highScores.html',
+			templateUrl: '/partials/timedd/highScores.ejs',
 			controller: 'highCtrl'
 		})
 	})

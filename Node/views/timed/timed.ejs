@@ -3,63 +3,12 @@
 <head>
 	<link rel="stylesheet" href="/css/timed/timedStyle.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-	
 	<link rel="stylesheet" href="/css/timed/bootstrap.min.css">
 </head>
 <body>
 	<div class="text-center"><h1>Zombies</h1></div>
-		<ng-view></ng-view>
+	<ng-view></ng-view>
 
-		<script type="text/ng-template" id="mainView.html">
-			 <ul class="nav nav-tabs">
-				<li class="active"><a ng-href="#/">Game Home</a></li>
-				<li><a ng-href="#/highscores">Best Scores</a></li>
-				<form class="navbar-form navbar-right">
-				      <div class="form-group">
-				        <input ng-model="name" type="text" class="form-control" placeholder="Name">
-				      </div>
-				      <button ng-click="sendHighSchore()" class="btn btn-info">Submit best score</button>
-				    </form>
-			</ul>
-
-			<div class="text-center">
-				<h3>Seconds Left: {{countDown}}</h3>
-				<h4>Your best score: {{bestScore}}</h4>
-				<h4>Score:<timer autostart="false"></timer></h4>
-			</div>
-
-			<div id="zombie" class="text-center">
-				<img ng-show="zombieShow" src="/images/timed/Dancing_Zombie2.gif"></img>
-			</div>
-
-			<div class="text-center">
-				<button class="btn btn-success" ng-click="startTimer()">Start Game / Reset</button>
-				<button class="btn-lg btn-danger" ng-click="stopTimer()">KILL ZOMBIE</button>
-			</div>
-		</script>
-
-		<script type="text/ng-template" id="highScores.html">
-			<ul class="nav nav-tabs">
-				<li><a ng-href="#/">Game Home</a></li>
-				<li class="active"><a ng-href="#/highscores">Best Scores</a></li>
-			</ul>
-
-			<div class="text-center">
-				<h1>HIGH SCORES</h1>
-				<table class="table table-striped" >
-					<tr ng-repeat="score in highScoresList">
-						<td>{{score.name}}: {{score.score}}</td>
-					</tr>
-				</div>
-				<div ng-repeat="score in highScoresList">
-					<tr>
-						<td>{{score.name}}: {{score.score}}</td>
-					</tr>
-					</table>
-				</div>
-			</div>
-		</script>
-	
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
 	<script src="http://code.angularjs.org/1.2.7/angular-route.min.js"></script>
 	<script src="/bower_components/angular-timer/app/js/timer.js"></script>
