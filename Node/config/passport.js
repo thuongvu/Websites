@@ -1,7 +1,9 @@
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var User = require('../models/user');
-var configAuth = require('./auth')
+var configAuth = require('./auth');
+var sanitizer = require('sanitizer');
+
 module.exports = function (passport) {
 	// used to serialize user for session
 	passport.serializeUser(function(user, done) {
@@ -20,7 +22,11 @@ module.exports = function (passport) {
 		passwordField : 'password',
 		passReqToCallback : true
 	},
-	function (req, email, password, done) {
+	function (req, email_pre, password_pre, done) {
+		// sanitize
+		var email = sanitizer.sanitize(email_pre);
+		var password = sanitizer.sanitize(password_pre);
+
 		User.findOne({'local.email' : email}, function (err, user) {
 			if (err)
 				return done(err);
@@ -46,7 +52,11 @@ module.exports = function (passport) {
 		passwordField : 'password',
 		passReqToCallback : true
 	},
-	function (req, email, password, done) {
+	function (req, email_pre, password_pre, done) {
+		// sanitize
+			var email = sanitizer.sanitize(email_pre);
+			var password = sanitizer.sanitize(password_pre);
+
 			User.findOne({ 'local.email' : email}, function (err, user) {
 				if (err)
 					return done(err);
@@ -78,7 +88,8 @@ module.exports = function (passport) {
 						var newUser 				= new User();
 						newUser.facebook.id 		= profile.id;
 						newUser.facebook.token  = token;
-						newUser.facebook.name 	= profile.name.givenName + ' ' + profile.name.familyName;
+						// newUser.facebook.name 	= profile.name.givenName + ' ' + profile.name.familyName;
+						newUser.facebook.name 	= profile.name.givenName; // first name only
 						newUser.facebook.email 	= profile.emails[0].value;
 
 						newUser.save(function(err) {

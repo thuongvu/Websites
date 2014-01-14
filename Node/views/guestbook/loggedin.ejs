@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pirate's Den</title>
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/auth/authStyle.css">
+</head>
+<body>
+<div class="container">
+
+	<div class="jumbotron text-center">
+		<h1>Guest Book </h1>
+		<form action="/guestbook/post" method="post">
+			<div class="form-group">
+				<label>Message</label>
+				<input type="text" class="form-control" name="message">
+			</div>
+			<button type="submit" class="btn btn-warning btn-lg">Post</button>
+		</form>
+	</div>
+
+</div>
+	<script src="/bower_components/jquery/jquery.min.js"></script>
+	<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="/js/auth/indexClient.js"></script>
+</body>
+</html>

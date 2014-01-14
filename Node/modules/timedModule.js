@@ -10,8 +10,6 @@ function timed_io (socket, io) {
 	socket.on("newScore", function (data) {
 		var name = sanitizer.sanitize(data.name)
 		var score = sanitizer.sanitize(data.score)
-		console.log(data.name)
-		console.log(data.score)
 		socket.emit("highScoresToClient", data)
 		db.timeScoreCollection.save({name: name, score: score}, function(err, saved) {
 		  if( err || !saved ) console.log("timeScore not saved in db");
