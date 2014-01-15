@@ -4,7 +4,9 @@ var sanitizer = require('sanitizer');
 var _ = require("underscore");
 
 module.exports = function (app, passport) {
+	// ======================================================================================== //
 	// AUTH PAGE -------------------------------------------------
+	// ======================================================================================== //
 	app.get('/auth', function (req, res) {
 		res.render('auth/index');
 	});
@@ -54,24 +56,19 @@ module.exports = function (app, passport) {
 	// 		failureRedirect : '/auth'
 	// 	}));
 
-
+// ======================================================================================== //
 // GUESTBOOK ---------------------------------------------------------------------------------
+// ======================================================================================== //
+
 app.get('/guestbook', function (req, res) {
 	db.guestBookCollection.find(function(err, data) {
+		// res.cookie('user', JSON.stringify({
+		// 	'user': req.user
+		// }))
+		// console.log(JSON.stringify(req.user));
 		res.render('guestbook/index', {guestPosts: data})
 	}) 
 });
-
-
-app.get('/guestbook/login', function (req, res) {
-	res.render('guestbook/login', { message: req.flash('loginMessage')});
-})
-
-app.post('/guestbook/login', passport.authenticate('local-login', {
-	successRedirect: '/guestbook/loggedin',
-	failureRedirect: '/guestbook/login',
-	failureFlash: true
-}))
 
 // app.get('/guestbook/facebook', passport.authenticate('facebook', {scope: 'email'}))
 app.get('/guestbook/facebook', passport.authenticate('fb', {scope: 'email'}))
@@ -84,6 +81,10 @@ app.get('/auth/facebook/callback',
 
 app.get('/guestbook/loggedin', isLoggedInGuessBook, function (req, res) {
 	db.guestBookCollection.find(function(err, data) {
+		// res.cookie('user', JSON.stringify({
+		// 	'user': req.user
+		// }))
+		// console.log(JSON.stringify(req.user));
 		res.render('guestbook/loggedin', {guestPosts: data, user: req.user})
 	}) 
 });
@@ -108,6 +109,32 @@ app.post("/guestbook/loggedin", function (request, response) {
 app.get('/guestbook/logout', function (req, res) {
 	req.logout();
 	res.redirect('/guestbook');
+	res.clearCookie('user');
+});
+
+// ======================================================================================== //
+// ----------------------------- ZOMBIEBOOK -----------------------------------------------
+// ======================================================================================== //
+
+app.get('/zombiebook', function (req, res) {
+		res.render('zombiebook/index', {guestPosts: data})
+});
+app.get('/zombiebook/facebook', passport.authenticate('fb', {scope: 'email'}))
+
+app.get('/zombiebook/facebook/callback',
+	passport.authenticate('fb_zombiebook', {
+		successRedirect : '/zombiebook/loggedin',
+		failureRedirect : '/zombiebook'
+	}));
+
+app.get('/zombiebook/loggedin', isLoggedInGuessBook, function (req, res) {
+	// db.guestBookCollection.find(function(err, data) {
+		// res.cookie('user', JSON.stringify({
+		// 	'user': req.user
+		// }))
+		// console.log(JSON.stringify(req.user));
+		res.render('zombiebook/loggedin', {guestPosts: data, user: req.user})
+	// }) 
 });
 
 

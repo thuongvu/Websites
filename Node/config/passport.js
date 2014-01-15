@@ -103,6 +103,52 @@ module.exports = function (passport) {
 				});
 			});
 	}));
+
+
+
+
+// ----------------------------------- //
+// facebook
+passport.use('fb_zombie', new FacebookStrategy({
+
+	clientID				: configAuth.facebookZombieAuth.clientID,
+	clientSecret		: configAuth.facebookZombieAuth.clientSecret,
+	callbackURL			: configAuth.facebookZombieAuth.callbackURL
+
+},
+
+function(token, refreshToken, profile, done) {
+		process.nextTick(function() {
+			User.findOne({ 'facebook.id': profile.id}, function(err, user) {
+				if (err)
+					return done(err);
+				if (user) {
+					return done(null, user)
+				} else {
+					var newUser 				= new User();
+					newUser.facebook.id 		= profile.id;
+					newUser.facebook.token  = token;
+					newUser.facebook.name 	= profile.name.givenName; // first name only
+					newUser.facebook.email 	= profile.emails[0].value;
+
+					newUser.save(function(err) {
+						if (err)
+							throw err;
+
+						return done(null, newUser);
+					});
+				}
+			});
+		});
+}));
+
+
+
+
+
+
+
+
 };
 
 
