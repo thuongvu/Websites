@@ -118,7 +118,7 @@ app.get('/zombiebook/facebook/callback',
 		// res.cookie('user', JSON.stringify({
 		// 	'user': req.user
 		// }))
-		res.render('zombiebook/index', { state : 'loggedinsuccessfully', friends: req.user.facebook.friends})
+		res.redirect('zombiebook/index', { state : 'loggedinsuccessfully', friends: req.user.facebook.friends})
 	});
 
 app.post('/zombiebook/logout', function (req, res) {
