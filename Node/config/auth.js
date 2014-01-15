@@ -14,6 +14,13 @@ module.exports = {
 		'callbackURL' 	: 'http://node.thuongvuho.com/zombiebook/facebook/callback' // http://node.thuongvuho.com/zombiebook/facebook/callback
 	},
 
+	// 'facebookZombieAuth' : {
+	// 	'clientID' 		: '625022444231201', 
+	// 	'clientSecret' 	: '84e79a0cb88628d1dcf7936edd7e59d9', 
+	// 	'callbackURL' 	: 'http://localhost:8080/zombiebook/facebook/callback' // for development // http://localhost:8080/auth/facebook/callback
+	// 	// 'callbackURL' 	: 'http://node.thuongvuho.com/zombiebook/facebook/callback' // http://node.thuongvuho.com/zombiebook/facebook/callback
+	// },
+
 	'twitterAuth' : {
 		'consumerKey' 		: 'your-consumer-key-here',
 		'consumerSecret' 	: 'your-client-secret-here',
