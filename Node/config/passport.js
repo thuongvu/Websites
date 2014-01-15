@@ -70,7 +70,9 @@ module.exports = function (passport) {
 			});
 	}));
 
-	// facebook
+	// ----------------------------------- //
+	//       facebook for guestpage			//
+	// ----------------------------------- //
 	// passport.use(new FacebookStrategy({
 	passport.use('fb', new FacebookStrategy({
 
@@ -112,63 +114,45 @@ module.exports = function (passport) {
 
 
 
-// ----------------------------------- //
-// facebook
-passport.use('fb_zombie', new FacebookStrategyFriends({
+	// ----------------------------------- //
+	//          facebook_zombie            //
+	// ----------------------------------- //
+	passport.use('fb_zombie', new FacebookStrategyFriends({
 
-	clientID				: configAuth.facebookZombieAuth.clientID,
-	clientSecret		: configAuth.facebookZombieAuth.clientSecret,
-	callbackURL			: configAuth.facebookZombieAuth.callbackURL
+		clientID				: configAuth.facebookZombieAuth.clientID,
+		clientSecret		: configAuth.facebookZombieAuth.clientSecret,
+		callbackURL			: configAuth.facebookZombieAuth.callbackURL
 
-},
+	},
 
-function(token, refreshToken, profile, done) {
-		process.nextTick(function() {
-			UserFriend.findOne({ 'facebook.id': profile.id}, function(err, user) {
-				if (err)
-					return done(err);
-				if (user) {
-					return done(null, user)
-				} else {
-					// console.log(" this is the user")
-					// console.log(user);
-					console.log("profile");
-					var friends = [];
-					for (var i = 0; i < 10; i++) {
-						var rand = Math.round(Math.random() * 100)
-						var person = profile._json.friends.data[rand].name;
-						friends.push(person);
+	function(token, refreshToken, profile, done) {
+			process.nextTick(function() {
+				UserFriend.findOne({ 'facebook.id': profile.id}, function(err, user) {
+					if (err)
+						return done(err);
+					if (user) {
+						return done(null, user)
+					} else {
+						var friends = [];
+						for (var i = 0; i < 10; i++) {
+							var rand = Math.round(Math.random() * 100)
+							var person = profile._json.friends.data[rand].name;
+							friends.push(person);
+						}
+						var newUser 				= new UserFriend();
+						newUser.facebook.id 		= profile.id;
+						newUser.facebook.token  = token;
+						newUser.facebook.friends = friends;
+
+						newUser.save(function(err) {
+							if (err)
+								throw err;
+
+							return done(null, newUser);
+						});
 					}
-
-					console.log(profile._json.friends.data[20].name);
-
-					var newUser 				= new UserFriend();
-					newUser.facebook.id 		= profile.id;
-					newUser.facebook.token  = token;
-					newUser.facebook.friends = friends;
-					// newUser.facebook.name 	= profile.name.givenName; // first name only
-					// newUser.facebook.email 	= profile.emails[0].value;
-
-					newUser.save(function(err) {
-						if (err)
-							throw err;
-
-						return done(null, newUser);
-					});
-				}
+				});
 			});
-		});
-}));
-
-
-
-
-
-
-
-
-};
-
-
-
+	}));
 	
+};

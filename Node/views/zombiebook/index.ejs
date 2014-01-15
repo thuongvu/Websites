@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html ng-app="app">
 <head>
-	<!-- <link rel="stylesheet" href="/css/timed/timedStyle.css"> -->
 	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
 	<script>
 	if (window.location.hash == '#_=_') {
-	    window.location.hash = ''; // for older browsers, leaves a # behind
-	    // history.pushState('', document.title, window.location.pathname); // nice and clean
-	    // e.preventDefault(); // no page reload
+	    window.location.hash = '';
 	}
 	</script>
 	<style>
@@ -41,7 +38,7 @@
 	<script src="/js/zombiebook/controllers.js"></script>
 	<script src="/js/zombiebook/directives.js"></script>
 	<script src="/js/zombiebook/services.js"></script>
-	<!--<script src="/js/gAnalytics.js"></script>  -->
+	<script src="/js/gAnalytics.js"></script>  
 	<script>
 		var state = <%- JSON.stringify(state) %>
 		console.log(state)
