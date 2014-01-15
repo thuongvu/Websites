@@ -26,6 +26,16 @@ var userSchema = mongoose.Schema({
 	}
 });
 
+var userSchemaFriend = mongoose.Schema({
+	facebook			: {
+		id				: String,
+		token			: String,
+		email			: String,
+		name			: String,
+		friends		: Array,
+	},
+});
+
 // methods -----------------
 
 //generate hash
@@ -38,3 +48,4 @@ userSchema.methods.validPassword = function (password) {
 };
 
 module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('UserFriend', userSchemaFriend);

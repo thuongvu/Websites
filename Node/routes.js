@@ -71,7 +71,8 @@ app.get('/guestbook', function (req, res) {
 });
 
 // app.get('/guestbook/facebook', passport.authenticate('facebook', {scope: 'email'}))
-app.get('/guestbook/facebook', passport.authenticate('fb', {scope: 'email'}))
+// app.get('/guestbook/facebook', passport.authenticate('fb', {scope: 'email'}))
+app.get('/guestbook/facebook', passport.authenticate('fb', {scope: ['email']}))
 
 app.get('/auth/facebook/callback',
 	passport.authenticate('fb', {
@@ -117,25 +118,86 @@ app.get('/guestbook/logout', function (req, res) {
 // ======================================================================================== //
 
 app.get('/zombiebook', function (req, res) {
-		res.render('zombiebook/index', {guestPosts: data})
+		// res.render('zombiebook/index', {guestPosts: data})
+		// res.send({ data: 'data' });
+		res.render('zombiebook/index', { state : 'not logged in', friends : 'l'})
+		// res.render('zombiebook/index')
+
 });
-app.get('/zombiebook/facebook', passport.authenticate('fb', {scope: 'email'}))
+
+app.get('/zombiebook/facebook', passport.authenticate('fb_zombie', {scope: 'email'}))
+
+// app.get('/zombiebook/facebook/callback',
+// 	passport.authenticate('fb_zombie', {
+// 		// res.render('zombiebook/index', { state : 'loggedinsuccessfully'})
+
+// 		// successRedirect : '/zombiebook',
+// 		// failureRedirect : '/zombiebook'
+// 	}));
 
 app.get('/zombiebook/facebook/callback',
-	passport.authenticate('fb_zombiebook', {
-		successRedirect : '/zombiebook/loggedin',
-		failureRedirect : '/zombiebook'
-	}));
-
-app.get('/zombiebook/loggedin', isLoggedInGuessBook, function (req, res) {
-	// db.guestBookCollection.find(function(err, data) {
+	passport.authenticate('fb_zombie'), function(req, res) {
 		// res.cookie('user', JSON.stringify({
 		// 	'user': req.user
 		// }))
-		// console.log(JSON.stringify(req.user));
-		res.render('zombiebook/loggedin', {guestPosts: data, user: req.user})
-	// }) 
+		console.log("req.user")
+		console.log(req.user)
+		console.log("req.user.facebook")
+		console.log(req.user.facebook)
+		console.log("req.user.facebook.friends")
+		console.log(req.user.facebook.friends)
+		res.render('zombiebook/index', { state : 'loggedinsuccessfully', friends: req.user.facebook.friends})
+		// res.send({state : 'logged in??'})
+	});
+
+// db.userFriends.find(function(err, data) {
+// 		// res.cookie('user', JSON.stringify({
+// 		// 	'user': req.user
+// 		// }))
+// 		res.render('zombiebook/loggedin', {people: data, user: req.user})
+// 	}) 
+
+
+app.post('/zombiebook/logout', function (req, res) {
+	req.logout();
+	res.redirect('/zombiebook');
+	res.clearCookie('user');
+	console.log("someone just logged out")
 });
+
+// app.get('/zombiebook/facebook/callback',
+// 	passport.authenticate('fb_zombie', function(err, user, info) {
+// 		if (err) {
+// 			return next(err);
+// 		}
+// 		if (!user) {
+// 			return res.redirect('/zombiebook')
+// 		}
+// 			res.writeHead(302, {
+// 			                'data': 'please work'
+// 			   });
+//           res.end();
+
+// 			// res.send({ data: 'lol' });
+// 			// db.guestBookCollection.find(function(err, data) {
+// 			// 	res.cookie('user', JSON.stringify({
+// 			// 		'user': req.user
+// 			// 	}))
+// 			// 	console.log(JSON.stringify(req.user));
+// 			// }) 
+
+// 	}));
+
+// app.get('/zombiebook/loggedin', function (req, res) {
+// 	db.guestBookCollection.find(function(err, data) {
+// 		// res.cookie('user', JSON.stringify({
+// 		// 	'user': req.user
+// 		// }))
+// 		// console.log(JSON.stringify(req.user));
+// 		res.render('zombiebook/loggedin', {people: data, user: req.user})
+// 		// res.render('zombiebook/loggedin')
+// 	}) 
+// });
 
 
 }

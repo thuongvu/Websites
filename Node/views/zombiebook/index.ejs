@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<!-- <link rel="stylesheet" href="/css/timed/timedStyle.css"> -->
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+	<!-- <link rel="stylesheet" href="/css/timed/bootstrap.min.css"> -->
+	<script>
+	if (window.location.hash == '#_=_') {
+	    window.location.hash = ''; // for older browsers, leaves a # behind
+	    // history.pushState('', document.title, window.location.pathname); // nice and clean
+	    // e.preventDefault(); // no page reload
+	}
+	</script>
+</head>
+<body>
+	<div>SOMETHING SHOULD BE HERE</div>
+	<ng-view></ng-view>
+	<div ng-controller="mainCtrl">
+		<div>
+		<!-- <div ng-repeat="friend in list"> -->
+			<table class="table table-bordered" ng-repeat="friend in list">
+				<tr><td>{{friend.name}}</td><td>{{friend.role}}</td></tr>
+			</table>
+			
+		</div>
+
+	</div>
+
+	
+	<script src="/bower_components/angular/angular.min.js"></script>
+	<script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
+	<script src="/bower_components/angular-route/angular-route.min.js"></script>
+	<script src="/bower_components/angular-resource/angular-resource.min.js"></script>
+	<script src="/js/zombiebook/app.js"></script>
+	<script src="/js/zombiebook/controllers.js"></script>
+	<script src="/js/zombiebook/directives.js"></script>
+	<script src="/js/zombiebook/services.js"></script>
+	<!--<script src="/js/gAnalytics.js"></script>  -->
+	<script>
+		var state = <%- JSON.stringify(state) %>
+		console.log(state)
+
+		var friends = <%- JSON.stringify(friends) %>
+		// console.log(friends)
+		
+	</script>
+</body>
+</html>

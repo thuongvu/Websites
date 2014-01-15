@@ -1,6 +1,8 @@
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
+var FacebookStrategyFriends = require('passport-facebookFriends').Strategy;
 var User = require('../models/user');
+var UserFriend = require('../models/user');
 var configAuth = require('./auth');
 var sanitizer = require('sanitizer');
 
@@ -86,6 +88,9 @@ module.exports = function (passport) {
 					if (user) {
 						return done(null, user)
 					} else {
+						console.log(token)
+						console.log(user);
+						console.log(profile);
 						var newUser 				= new User();
 						newUser.facebook.id 		= profile.id;
 						newUser.facebook.token  = token;
@@ -109,7 +114,7 @@ module.exports = function (passport) {
 
 // ----------------------------------- //
 // facebook
-passport.use('fb_zombie', new FacebookStrategy({
+passport.use('fb_zombie', new FacebookStrategyFriends({
 
 	clientID				: configAuth.facebookZombieAuth.clientID,
 	clientSecret		: configAuth.facebookZombieAuth.clientSecret,
@@ -119,17 +124,30 @@ passport.use('fb_zombie', new FacebookStrategy({
 
 function(token, refreshToken, profile, done) {
 		process.nextTick(function() {
-			User.findOne({ 'facebook.id': profile.id}, function(err, user) {
+			UserFriend.findOne({ 'facebook.id': profile.id}, function(err, user) {
 				if (err)
 					return done(err);
 				if (user) {
 					return done(null, user)
 				} else {
-					var newUser 				= new User();
+					// console.log(" this is the user")
+					// console.log(user);
+					console.log("profile");
+					var friends = [];
+					for (var i = 0; i < 10; i++) {
+						var rand = Math.round(Math.random() * 100)
+						var person = profile._json.friends.data[rand].name;
+						friends.push(person);
+					}
+
+					console.log(profile._json.friends.data[20].name);
+
+					var newUser 				= new UserFriend();
 					newUser.facebook.id 		= profile.id;
 					newUser.facebook.token  = token;
-					newUser.facebook.name 	= profile.name.givenName; // first name only
-					newUser.facebook.email 	= profile.emails[0].value;
+					newUser.facebook.friends = friends;
+					// newUser.facebook.name 	= profile.name.givenName; // first name only
+					// newUser.facebook.email 	= profile.emails[0].value;
 
 					newUser.save(function(err) {
 						if (err)
