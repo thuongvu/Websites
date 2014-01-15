@@ -3,8 +3,8 @@ angular.module('app.controllers', [])
 		// oauth login
 		$scope.loginOauth = function() {
 		    $window.location.href = '/zombiebook/facebook/callback',
-		    }
-		};
+		}
+		// };
 		// logout
 		$scope.logout = function (success, error) {
 			$http.post('/zombiebook/logout').success(function() {
