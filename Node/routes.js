@@ -113,12 +113,13 @@ app.get('/zombiebook', function (req, res) {
 
 app.get('/zombiebook/facebook', passport.authenticate('fb_zombie', {scope: 'email'}))
 
+// original
 app.get('/zombiebook/facebook/callback',
 	passport.authenticate('fb_zombie'), function(req, res) {
 		// res.cookie('user', JSON.stringify({
 		// 	'user': req.user
 		// }))
-		res.redirect('zombiebook/index', { state : 'loggedinsuccessfully', friends: req.user.facebook.friends})
+		res.render('zombiebook/index', { state : 'loggedinsuccessfully', friends: req.user.facebook.friends})
 	});
 
 app.post('/zombiebook/logout', function (req, res) {
