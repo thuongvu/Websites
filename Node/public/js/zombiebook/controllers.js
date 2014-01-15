@@ -20,7 +20,7 @@ angular.module('app.controllers', [])
 		$scope.friendRole = {};
 		$scope.tempObj = {};
 		$scope.list = [];
-		$scope.roles = ["First one to die", "Minion", "Zombie in hiding", "Scapeboat", "Humanitarian", "The one who gets bitten", "Bait", "The hero", "Scavenger", "Zombie Killer"];
+		$scope.roles = ["First one to die", "Minion", "Zombie in hiding", "Scapegoat", "Humanitarian", "The one who gets bitten", "Bait", "The hero", "Scavenger", "Zombie Killer"];
 		$scope.friends = friends;
 		for (var i = 0; i < $scope.friends.length; i++) {
 			var friend = $scope.friends[i];
