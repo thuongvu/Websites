@@ -128,7 +128,7 @@ app.post('/zombiebook/logout', function (req, res) {
 	console.log("someone just logged out")
 });
 
-} -- i dont know why this was here, in case it breaks soemthing i know it was here 
+} //-- i dont know why this was here, in case it breaks soemthing i know it was here 
 function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated())
 		return next();
