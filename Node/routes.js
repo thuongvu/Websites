@@ -113,6 +113,7 @@ app.get('/zombiebook', function (req, res) {
 
 app.get('/zombiebook/facebook', passport.authenticate('fb_zombie', {scope: 'email'}))
 
+// original
 app.get('/zombiebook/facebook/callback',
 	passport.authenticate('fb_zombie'), function(req, res) {
 		// res.cookie('user', JSON.stringify({
@@ -128,7 +129,7 @@ app.post('/zombiebook/logout', function (req, res) {
 	console.log("someone just logged out")
 });
 
-//} -- i dont know why this was here, in case it breaks soemthing i know it was here 
+} //-- i dont know why this was here, in case it breaks soemthing i know it was here 
 function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated())
 		return next();

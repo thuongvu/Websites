@@ -2,9 +2,9 @@ angular.module('app.controllers', [])
 	.controller('mainCtrl', ['$scope', '$window', '$http', function ($scope, $window, $http) {
 		// oauth login
 		$scope.loginOauth = function() {
-		    $window.location.href = '/zombiebook/facebook/callback',
-		    }
-		};
+		    $window.location.href = '/zombiebook/facebook/callback';
+		}
+		// };
 		// logout
 		$scope.logout = function (success, error) {
 			$http.post('/zombiebook/logout').success(function() {
