@@ -18,8 +18,8 @@ module.exports = {
 	'twitterAuth' : {
 		'consumerKey' 		: 'Spruia06VrVpXoKa4jdBw',
 		'consumerSecret' 	: 'EJF0RlIetZeAlul4Bl9aNTg6MBJcRybdjaLQeWaaHqo',
-		// 'callbackURL' 		: 'http://localhost:8080/twittype/twitter/callback'
-		'callbackURL' 		: 'http://node.thuongvuho.com/twittype/twitter/callback'
+		'callbackURL' 		: 'http://localhost:8080/twittype/twitter/callback'
+		// 'callbackURL' 		: 'http://node.thuongvuho.com/twittype/twitter/callback'
 	},
 
 	'googleAuth' : {
