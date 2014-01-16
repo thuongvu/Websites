@@ -129,57 +129,34 @@ app.get('/guestbook/logout', function (req, res) {
 // ----------------------------------- ZOMBIEBOOK ----------------------------------------- //
 // ======================================================================================== //
 
-// app.get('/zombiebook', function (req, res) {
-// 		res.render('zombiebook/index', { state : 'not logged in', friends : 'l'})
-// });
-
-// app.get('/zombiebook/facebook', passport.authenticate('fb_zombie', {scope: 'email'}))
-
-// // original
-// app.get('/zombiebook/facebook/callback',
-// 	passport.authenticate('fb_zombie'), function(req, res) {
-// 		// res.cookie('user', JSON.stringify({
-// 		// 	'user': req.user
-// 		// }))
-// 		res.render('zombiebook/index', { state : 'loggedinsuccessfully', friends: req.user.facebook.friends})
-// 	});
-
-// app.post('/zombiebook/logout', function (req, res) {
-// 	req.logout();
-// 	res.redirect('/zombiebook');
-// 	res.clearCookie('user');
-// 	console.log("someone just logged out")
-// });
-
-// ======================================================================================== //
-// ----------------------------------- ZOMBIEBOOK ----------------------------------------- //
-// ======================================================================================== //
-app.get('/twittype', function (req, res) {
-	// t.verifyCredentials(function (err, data) {
- //   	// console.log(data);
- //  })
-	// t.get('/statuses/user_timeline.json?', {screen_name: "rainloft", count : 2}, function(data) {
-	// 	console.log(data)
-	// })
-	// t.get('users/show',{screen_name: 'rainloft'}, function (err, res) {
-	//     console.log(res)
-	// });
-// t.get(
-// 	  '/statuses/user_timeline',
-// 	  {count: 1, screen_name: 'delcqo'},
-// 	function logResponse(error, data, response) {
-// 	  console.log(data[0].text)
-// 	});
-	// t.get('https://api.twitter.com/1.1/statuses/show/27593302936.json', function(data) {
-	//     console.log(data);
-	// });
-		res.render('twittype/index.ejs', { state : 'not logged in', username : 'l', tweets: [] })
+app.get('/zombiebook', function (req, res) {
+		res.render('zombiebook/index', { state : 'not logged in', friends : 'l'})
 });
 
+app.get('/zombiebook/facebook', passport.authenticate('fb_zombie', {scope: 'email'}))
 
-// $http.get('https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=rainloft&count=2').success(function(data) {
-// 	console.log(data)
-// })
+// original
+app.get('/zombiebook/facebook/callback',
+	passport.authenticate('fb_zombie'), function(req, res) {
+		// res.cookie('user', JSON.stringify({
+		// 	'user': req.user
+		// }))
+		res.render('zombiebook/index', { state : 'loggedinsuccessfully', friends: req.user.facebook.friends})
+	});
+
+app.post('/zombiebook/logout', function (req, res) {
+	req.logout();
+	res.redirect('/zombiebook');
+	res.clearCookie('user');
+	console.log("someone just logged out")
+});
+
+// ======================================================================================== //
+// ----------------------------------- twittype  ------------------------------------------ //
+// ======================================================================================== //
+app.get('/twittype', function (req, res) {
+		res.render('twittype/index.ejs', { state : 'not logged in', username : 'l', tweets: [] })
+});
 
 app.get('/twittype/twitter', passport.authenticate('twitter'))
 
@@ -194,22 +171,9 @@ app.get('/twittype/twitter/callback',
 			  for (var i = 0; i < data.length; i++) {
 			  	tweets.push(data[i].text)
 			  }
-			  console.log(tweets)
 			  res.render('twittype/index.ejs', { state : 'loggedinsuccessfully', username: req.user.twitter.username, tweets: tweets})
 			});
-console.log(req.user)
-console.log(req.user.twitter.username)
-		
 	});
-
-// app.get('/twittype/twitter/callback',
-// 	passport.authenticate('twitter', {
-// 		successRedirect : '/twittype',
-// 		failureRedirect : '/twittype/',
-// 	}), function () {
-// 		console.log("successfuly redirected")
-// 	});
-
 
 app.post('/twittype/logout', function (req, res) {
 	req.logout();
@@ -217,7 +181,6 @@ app.post('/twittype/logout', function (req, res) {
 	res.clearCookie('user');
 	console.log("someone just logged out")
 });
-
 
 
 } //-- i dont know why this was here, in case it breaks soemthing i know it was here 
