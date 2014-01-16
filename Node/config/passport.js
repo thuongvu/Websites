@@ -1,8 +1,10 @@
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
+var TwitterStrategy = require('passport-twitter').Strategy;
 var FacebookStrategyFriends = require('passport-facebookFriends').Strategy;
 var User = require('../models/user');
-var UserFriend = require('../models/user');
+// var UserGuest = require('../models/user');
+// var UserFriend = require('../models/user');
 var configAuth = require('./auth');
 var sanitizer = require('sanitizer');
 
@@ -114,35 +116,76 @@ module.exports = function (passport) {
 
 
 
-	// ----------------------------------- //
-	//          facebook_zombie            //
-	// ----------------------------------- //
-	passport.use('fb_zombie', new FacebookStrategyFriends({
+	// // ----------------------------------- //
+	// //          facebook_zombie            //
+	// // ----------------------------------- //
+	// passport.use('fb_zombie', new FacebookStrategyFriends({
 
-		clientID				: configAuth.facebookZombieAuth.clientID,
-		clientSecret		: configAuth.facebookZombieAuth.clientSecret,
-		callbackURL			: configAuth.facebookZombieAuth.callbackURL
+	// 	clientID				: configAuth.facebookZombieAuth.clientID,
+	// 	clientSecret		: configAuth.facebookZombieAuth.clientSecret,
+	// 	callbackURL			: configAuth.facebookZombieAuth.callbackURL
+
+	// },
+
+	// function(token, refreshToken, profile, done) {
+	// 		process.nextTick(function() {
+	// 			UserFriend.findOne({ 'facebook.id': profile.id}, function(err, user) {
+	// 				if (err)
+	// 					return done(err);
+	// 				if (user) {
+	// 					return done(null, user)
+	// 				} else {
+	// 					var friends = [];
+	// 					for (var i = 0; i < 10; i++) {
+	// 						var rand = Math.round(Math.random() * 100)
+	// 						var person = profile._json.friends.data[rand].name;
+	// 						friends.push(person);
+	// 					}
+	// 					var newUser 				= new UserFriend();
+	// 					newUser.facebook.id 		= profile.id;
+	// 					newUser.facebook.token  = token;
+	// 					newUser.facebook.friends = friends;
+
+	// 					newUser.save(function(err) {
+	// 						if (err)
+	// 							throw err;
+
+	// 						return done(null, newUser);
+	// 					});
+	// 				}
+	// 			});
+	// 		});
+	// }));
+	
+	
+	// ----------------------------------- //
+	//       facebook for guestpage			//
+	// ----------------------------------- //
+	// passport.use(new FacebookStrategy({
+	passport.use('twitter', new TwitterStrategy({
+
+		consumerKey				: configAuth.twitterAuth.consumerKey,
+		consumerSecret		: configAuth.twitterAuth.consumerSecret,
+		callbackURL			: configAuth.twitterAuth.callbackURL
 
 	},
 
 	function(token, refreshToken, profile, done) {
 			process.nextTick(function() {
-				UserFriend.findOne({ 'facebook.id': profile.id}, function(err, user) {
+				User.findOne({ 'twitter.id': profile.id}, function(err, user) {
 					if (err)
 						return done(err);
 					if (user) {
 						return done(null, user)
 					} else {
-						var friends = [];
-						for (var i = 0; i < 10; i++) {
-							var rand = Math.round(Math.random() * 100)
-							var person = profile._json.friends.data[rand].name;
-							friends.push(person);
-						}
-						var newUser 				= new UserFriend();
-						newUser.facebook.id 		= profile.id;
-						newUser.facebook.token  = token;
-						newUser.facebook.friends = friends;
+						// console.log(token)
+						// console.log(user);
+						// console.log(profile);
+						var newUser 				= new User();
+						newUser.twitter.id 		= profile.id;
+						newUser.twitter.token  = token;
+						newUser.twitter.username 	= profile.username; 
+						newUser.twitter.displayName 	= profile.displayName;
 
 						newUser.save(function(err) {
 							if (err)
@@ -154,5 +197,6 @@ module.exports = function (passport) {
 				});
 			});
 	}));
-	
+
+
 };
