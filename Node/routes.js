@@ -80,7 +80,7 @@ app.get('/guestbook', function (req, res) {
 	}) 
 });
 
-app.get('/guestbook/facebook', passport.authenticate('fb', {scope: ['email']}))
+app.get('/guestbook/facebook', passport.authenticate('fb', {scope: 'email'}))
 
 app.get('/auth/facebook/callback',
 	passport.authenticate('fb', {
@@ -88,16 +88,22 @@ app.get('/auth/facebook/callback',
 		failureRedirect : '/guestbook'
 	}));
 
+// app.get('/guestbook/loggedin', isLoggedInGuessBook, function (req, res) {
+// 	db.guestBookCollection.find(function(err, data) {
+// 		console.log(req)
+// 		console.log("req")
+// 		console.log("req.user")
+// 		console.log(req.user)
+// 		// res.cookie('user', JSON.stringify({
+// 		// 	'user': req.user
+// 		// }))
+// 		// console.log(JSON.stringify(req.user));
+// 		res.render('guestbook/loggedin', {guestPosts: data, user: req.user})
+// 	}) 
+// });
+
 app.get('/guestbook/loggedin', isLoggedInGuessBook, function (req, res) {
 	db.guestBookCollection.find(function(err, data) {
-		console.log(req)
-		console.log("req")
-		console.log("req.user")
-		console.log(req.user)
-		// res.cookie('user', JSON.stringify({
-		// 	'user': req.user
-		// }))
-		// console.log(JSON.stringify(req.user));
 		res.render('guestbook/loggedin', {guestPosts: data, user: req.user})
 	}) 
 });
@@ -195,5 +201,5 @@ function isLoggedInGuessBook(req, res, next) {
 	if (req.isAuthenticated())
 		return next();
 
-	res.redirect('/guessbook'); 
+	res.redirect('/guestbook'); 
 }

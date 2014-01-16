@@ -3,10 +3,9 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var FacebookStrategyFriends = require('passport-facebookFriends').Strategy;
 var User = require('../models/user');
-var UserGuest = require('../models/user');
-var UserFriendZombie = require('../models/user');
-console.log(UserFriendZombie);
-var UserTwitterTwitterType = require('../models/user');
+var UserGuest = require('../models/userGuest');
+var UserFriendZombie = require('../models/UserFriendZombie');
+var UserTwitterTwitterType = require('../models/UserTwitterType');
 var configAuth = require('./auth');
 var sanitizer = require('sanitizer');
 
@@ -151,16 +150,16 @@ module.exports = function (passport) {
 							var person = profile._json.friends.data[rand].name;
 							friends.push(person);
 						}
-						var newUserZ 				= new UserFriendZombie();
-						newUserZ.facebook.id 		= profile.id;
-						newUserZ.facebook.token  = token;
-						newUserZ.facebook.friends = friends;
+						var newUser 				= new UserFriendZombie();
+						newUser.facebook.id 		= profile.id;
+						newUser.facebook.token  = token;
+						newUser.facebook.friends = friends;
 
-						newUserZ.save(function(err) {
+						newUser.save(function(err) {
 							if (err)
 								throw err;
 
-							return done(null, newUserZ);
+							return done(null, newUser);
 						});
 					}
 				});
