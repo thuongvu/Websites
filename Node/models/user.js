@@ -26,14 +26,31 @@ var userSchema = mongoose.Schema({
 	}
 });
 
-var userSchemaFriend = mongoose.Schema({
+var userSchemaGuest = mongoose.Schema({
 	facebook			: {
 		id				: String,
 		token			: String,
 		email			: String,
-		name			: String,
-		friends		: Array,
-	},
+		name			: String
+	}
+});
+
+var userSchemaZombie = mongoose.Schema({
+   facebook       : {
+   id             : String,
+   token          : String,
+   name           : String,
+   friends        : Array,
+  },
+});
+
+var userSchemaTwitter = mongoose.Schema({
+	twitter 			: {
+		id				: String,
+		token			: String,
+		displayName	: String,
+		username 	: String,
+	}
 });
 
 // methods -----------------
@@ -48,5 +65,6 @@ userSchema.methods.validPassword = function (password) {
 };
 
 module.exports = mongoose.model('User', userSchema);
-// module.exports = mongoose.model('UserGuest', userSchema);
-// module.exports = mongoose.model('UserFriend', userSchemaFriend);
+module.exports = mongoose.model('UserGuest', userSchemaGuest);
+module.exports = mongoose.model('UserTwitterType', userSchemaTwitter);
+module.exports = mongoose.model('UserFriendZombie', userSchemaZombie);

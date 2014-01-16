@@ -138,6 +138,7 @@ app.get('/zombiebook/facebook', passport.authenticate('fb_zombie', {scope: 'emai
 // original
 app.get('/zombiebook/facebook/callback',
 	passport.authenticate('fb_zombie'), function(req, res) {
+		console.log("it got here")
 		// res.cookie('user', JSON.stringify({
 		// 	'user': req.user
 		// }))

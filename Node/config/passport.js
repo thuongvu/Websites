@@ -3,12 +3,18 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var FacebookStrategyFriends = require('passport-facebookFriends').Strategy;
 var User = require('../models/user');
-// var UserGuest = require('../models/user');
-// var UserFriend = require('../models/user');
+var UserGuest = require('../models/user');
+var UserFriendZombie = require('../models/user');
+console.log(UserFriendZombie);
+var UserTwitterTwitterType = require('../models/user');
 var configAuth = require('./auth');
 var sanitizer = require('sanitizer');
 
 module.exports = function (passport) {
+	// ----------------------------------- //
+	//           SERIALIZE USER	         //
+	// ----------------------------------- //
+
 	// used to serialize user for session
 	passport.serializeUser(function(user, done) {
 		done(null, user.id);
@@ -19,6 +25,10 @@ module.exports = function (passport) {
 			done(err, user);
 		})
 	})
+
+	// ----------------------------------- //
+	//               LOCAL	          		//
+	// ----------------------------------- //
 
 	// local signup
 	passport.use('local-signup', new LocalStrategy({
@@ -72,6 +82,8 @@ module.exports = function (passport) {
 			});
 	}));
 
+
+
 	// ----------------------------------- //
 	//       facebook for guestpage			//
 	// ----------------------------------- //
@@ -86,7 +98,7 @@ module.exports = function (passport) {
 
 	function(token, refreshToken, profile, done) {
 			process.nextTick(function() {
-				User.findOne({ 'facebook.id': profile.id}, function(err, user) {
+				UserGuest.findOne({ 'facebook.id': profile.id}, function(err, user) {
 					if (err)
 						return done(err);
 					if (user) {
@@ -95,7 +107,7 @@ module.exports = function (passport) {
 						console.log(token)
 						console.log(user);
 						console.log(profile);
-						var newUser 				= new User();
+						var newUser 				= new UserGuest();
 						newUser.facebook.id 		= profile.id;
 						newUser.facebook.token  = token;
 						// newUser.facebook.name 	= profile.name.givenName + ' ' + profile.name.familyName;
@@ -114,8 +126,6 @@ module.exports = function (passport) {
 	}));
 
 
-
-
 	// ----------------------------------- //
 	//          facebook_zombie            //
 	// ----------------------------------- //
@@ -129,7 +139,7 @@ module.exports = function (passport) {
 
 	function(token, refreshToken, profile, done) {
 			process.nextTick(function() {
-				UserFriend.findOne({ 'facebook.id': profile.id}, function(err, user) {
+				UserFriendZombie.findOne({ 'facebook.id': profile.id}, function(err, user) {
 					if (err)
 						return done(err);
 					if (user) {
@@ -141,16 +151,16 @@ module.exports = function (passport) {
 							var person = profile._json.friends.data[rand].name;
 							friends.push(person);
 						}
-						var newUser 				= new UserFriend();
-						newUser.facebook.id 		= profile.id;
-						newUser.facebook.token  = token;
-						newUser.facebook.friends = friends;
+						var newUserZ 				= new UserFriendZombie();
+						newUserZ.facebook.id 		= profile.id;
+						newUserZ.facebook.token  = token;
+						newUserZ.facebook.friends = friends;
 
-						newUser.save(function(err) {
+						newUserZ.save(function(err) {
 							if (err)
 								throw err;
 
-							return done(null, newUser);
+							return done(null, newUserZ);
 						});
 					}
 				});
@@ -159,7 +169,7 @@ module.exports = function (passport) {
 	
 	
 	// ----------------------------------- //
-	//       twittype      			//
+	//             twittype       			//
 	// ----------------------------------- //
 	passport.use('twitter', new TwitterStrategy({
 
@@ -171,13 +181,13 @@ module.exports = function (passport) {
 
 	function(token, refreshToken, profile, done) {
 			process.nextTick(function() {
-				User.findOne({ 'twitter.id': profile.id}, function(err, user) {
+				UserTwitterTwitterType.findOne({ 'twitter.id': profile.id}, function(err, user) {
 					if (err)
 						return done(err);
 					if (user) {
 						return done(null, user)
 					} else {
-						var newUser 				= new User();
+						var newUser 				= new UserTwitterTwitterType();
 						newUser.twitter.id 		= profile.id;
 						newUser.twitter.token  = token;
 						newUser.twitter.username 	= profile.username; 
