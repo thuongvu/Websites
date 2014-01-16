@@ -1,2 +1,5 @@
 key-cert.pem
 key.pem
+aws.crt
+aws.key
+ca.crt

@@ -61,12 +61,21 @@ function twitter_io (socket, io) {
 		eventEmitter.on("newTweet", function () {
 			socket.emit("data", coords)
 		})
+
+	
 	} else if (isStreamOpen === 1) {
 		users++;
 		eventEmitter.on("newTweet", function () {
 			socket.emit("data", coords)
 		})
 	}
+
+	// // adding to test
+	
+	// t.search('happy', function(data) {
+	//     console.log(data);
+	// });
+	// // 
 
 	socket.on("disconnect", function () {
 		users--;
