@@ -12,12 +12,12 @@ var twitter = require("mtwitter");
 // })
 
 
-var t = new twitter({
-    consumer_key: 'Spruia06VrVpXoKa4jdBw',           // <--- FILL ME IN
-    consumer_secret: 'EJF0RlIetZeAlul4Bl9aNTg6MBJcRybdjaLQeWaaHqo',        // <--- FILL ME IN
-    access_token_key: '51275775-fad2qlL8hWYD6aZ8BMGrrOQYimyubD1JBPYgl8mEZ',       // <--- FILL ME IN
-    access_token_secret: 'ynKLHwIo9yGvvxhQzq0R5nWljKCGnJzYphHt6OS9SzwAt'     // <--- FILL ME IN
-});
+// var t = new twitter({
+//     consumer_key: 'Spruia06VrVpXoKa4jdBw',       
+//     consumer_secret: 'EJF0RlIetZeAlul4Bl9aNTg6MBJcRybdjaLQeWaaHqo',      
+//     access_token_key: '51275775-fad2qlL8hWYD6aZ8BMGrrOQYimyubD1JBPYgl8mEZ', 
+//     access_token_secret: 'ynKLHwIo9yGvvxhQzq0R5nWljKCGnJzYphHt6OS9SzwAt'
+// });
 
 
 
@@ -170,15 +170,58 @@ module.exports = function (app, passport) {
 	// original
 	app.get('/twittype/twitter/callback',
 		passport.authenticate('twitter'), function(req, res) {
-			var tweets = [];
+			// var tweets = [];
+			// t.get(
+			// 	  '/statuses/user_timeline',
+			// 	  {count: 20, screen_name: req.user.twitter.username},
+			// 	function logResponse(error, data, response) {
+			// 	  for (var i = 0; i < data.length; i++) {
+			// 	  	tweets.push(data[i].text)
+			// 	  }
+			// 	  res.render('twittype/index.ejs', { state : 'loggedinsuccessfully', username: req.user.twitter.username, tweets: tweets})
+			// 	});
+
+			var t = new twitter({
+			    consumer_key: 'Spruia06VrVpXoKa4jdBw',       
+			    consumer_secret: 'EJF0RlIetZeAlul4Bl9aNTg6MBJcRybdjaLQeWaaHqo',      
+			    access_token_key: req.user.twitter.token, 
+			    access_token_secret: req.user.twitter.tokenSecret,
+			});
+			console.log("req.user.twitter.token from route.js");
+			console.log(req.user.twitter.token);
+			console.log("req.user.twitter.tokenSecret");
+			console.log(req.user.twitter.tokenSecret);
+
 			t.get(
-				  '/statuses/user_timeline',
-				  {count: 20, screen_name: req.user.twitter.username},
+				  '/statuses/home_timeline',
+				  {count: 100, trim_user: true},
 				function logResponse(error, data, response) {
-				  for (var i = 0; i < data.length; i++) {
-				  	tweets.push(data[i].text)
-				  }
-				  res.render('twittype/index.ejs', { state : 'loggedinsuccessfully', username: req.user.twitter.username, tweets: tweets})
+					// console.log("data[0]")
+					// console.log(data[0])
+					// console.log("data.entities")
+					// console.log(data[0].entities)
+					// console.log("data[0].entities.hashtags")
+					// console.log(data[0].entities.hashtags)
+
+					console.log("all of them")
+					for (var i = 0; i < data.length; i++) {
+						if (data[i].entities.hashtags.length > 1) {
+							console.log(data[i].entities.hashtags)
+						}
+					}
+
+					console.log("take two")
+
+					for (var i = 0; i < data.length; i++) {
+						if (data[i].entities.hashtags.length > 1) {
+							for (var j = 0; j < data[i].entities.hashtags.length; j++) {
+								console.log(data[i].entities.hashtags[j].text)
+							}
+							
+						}
+					}
+
+				  res.render('twittype/index.ejs', { state : 'loggedinsuccessfully', username: req.user.twitter.username, tweets: []})
 				});
 		});
 

@@ -172,13 +172,13 @@ module.exports = function (passport) {
 	// ----------------------------------- //
 	passport.use('twitter', new TwitterStrategy({
 
-		consumerKey				: configAuth.twitterAuth.consumerKey,
+		consumerKey			: configAuth.twitterAuth.consumerKey,
 		consumerSecret		: configAuth.twitterAuth.consumerSecret,
 		callbackURL			: configAuth.twitterAuth.callbackURL
 
 	},
 
-	function(token, refreshToken, profile, done) {
+	function(token, tokenSecret, profile, done) { //changing refreshToken to tokenSecret
 			process.nextTick(function() {
 				UserTwitterTwitterType.findOne({ 'twitter.id': profile.id}, function(err, user) {
 					if (err)
@@ -186,10 +186,16 @@ module.exports = function (passport) {
 					if (user) {
 						return done(null, user)
 					} else {
-						var newUser 				= new UserTwitterTwitterType();
-						newUser.twitter.id 		= profile.id;
-						newUser.twitter.token  = token;
-						newUser.twitter.username 	= profile.username; 
+						console.log("token from within passport.js");
+						console.log(token);
+						console.log("tokenSecret from within passport.js");
+						console.log(tokenSecret);
+
+						var newUser 				      = new UserTwitterTwitterType();
+						newUser.twitter.id 		      = profile.id;
+						newUser.twitter.token         = token;
+						newUser.twitter.tokenSecret   = tokenSecret;
+						newUser.twitter.username 	   = profile.username; 
 						newUser.twitter.displayName 	= profile.displayName;
 
 						newUser.save(function(err) {

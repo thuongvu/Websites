@@ -4,6 +4,7 @@ var userSchemaTwitter = mongoose.Schema({
 	twitter 			: {
 		id				: String,
 		token			: String,
+		tokenSecret	: String,
 		displayName	: String,
 		username 	: String,
 	}
