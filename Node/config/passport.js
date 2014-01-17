@@ -6,6 +6,7 @@ var User = require('../models/user');
 var UserGuest = require('../models/userGuest');
 var UserFriendZombie = require('../models/UserFriendZombie');
 var UserTwitterTwitterType = require('../models/UserTwitterType');
+var UserTwitterText = require('../models/UserTwitterText');
 var configAuth = require('./auth');
 var sanitizer = require('sanitizer');
 
@@ -186,12 +187,44 @@ module.exports = function (passport) {
 					if (user) {
 						return done(null, user)
 					} else {
-						console.log("token from within passport.js");
-						console.log(token);
-						console.log("tokenSecret from within passport.js");
-						console.log(tokenSecret);
-
 						var newUser 				      = new UserTwitterTwitterType();
+						newUser.twitter.id 		      = profile.id;
+						newUser.twitter.token         = token;
+						newUser.twitter.tokenSecret   = tokenSecret;
+						newUser.twitter.username 	   = profile.username; 
+						newUser.twitter.displayName 	= profile.displayName;
+
+						newUser.save(function(err) {
+							if (err)
+								throw err;
+
+							return done(null, newUser);
+						});
+					}
+				});
+			});
+	}));
+
+	// ----------------------------------- //
+	//             twittype       			//
+	// ----------------------------------- //
+	passport.use('twitterTextStrategy', new TwitterStrategy({
+
+		consumerKey			: configAuth.twitterAuthText.consumerKey,
+		consumerSecret		: configAuth.twitterAuthText.consumerSecret,
+		callbackURL			: configAuth.twitterAuthText.callbackURL
+
+	},
+
+	function(token, tokenSecret, profile, done) { 
+			process.nextTick(function() {
+				UserTwitterText.findOne({ 'twitter.id': profile.id}, function(err, user) {
+					if (err)
+						return done(err);
+					if (user) {
+						return done(null, user)
+					} else {
+						var newUser 				      = new UserTwitterText();
 						newUser.twitter.id 		      = profile.id;
 						newUser.twitter.token         = token;
 						newUser.twitter.tokenSecret   = tokenSecret;
