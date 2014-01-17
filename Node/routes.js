@@ -221,23 +221,23 @@ module.exports = function (app, passport) {
 						}
 						callback()
 					}
-					hashTags(function() {
-						if(req.user) {
-						    role = 1;
-						    username = req.user.twitter.username;
-						    console.log(req.user)
+				function sendCookie() {
+					if(req.user) {
+					    role = 1;
+					    username = req.user.twitter.username;
+					    console.log(req.user)
 
-						    res.cookie('user', JSON.stringify({
-						        'username': username,
-						        'role': role,
-						        'hashtags': hashtags,
-						    }));
-						    // change something
+					    res.cookie('user', JSON.stringify({
+					        'username': username,
+					        'role': role,
+					        'hashtags': ["work"],
+					    }));
 
-						    res.redirect('/twittext');
-						}
-					})
-					
+					    res.redirect('/twittext');
+					}
+				}
+					hashTags(sendCookie)
+				
 				
 				
 				// console.log(res)
