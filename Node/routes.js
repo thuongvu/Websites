@@ -192,16 +192,11 @@ module.exports = function (app, passport) {
 			console.log("req.user.twitter.tokenSecret");
 			console.log(req.user.twitter.tokenSecret);
 
+			var hashtags = [];
 			t.get(
 				  '/statuses/home_timeline',
-				  {count: 100, trim_user: true},
+				  {count: 200, trim_user: true},
 				function logResponse(error, data, response) {
-					// console.log("data[0]")
-					// console.log(data[0])
-					// console.log("data.entities")
-					// console.log(data[0].entities)
-					// console.log("data[0].entities.hashtags")
-					// console.log(data[0].entities.hashtags)
 
 					console.log("all of them")
 					for (var i = 0; i < data.length; i++) {
@@ -216,12 +211,13 @@ module.exports = function (app, passport) {
 						if (data[i].entities.hashtags.length > 1) {
 							for (var j = 0; j < data[i].entities.hashtags.length; j++) {
 								console.log(data[i].entities.hashtags[j].text)
+								hashtags.push(data[i].entities.hashtags[j].text)
 							}
 							
 						}
 					}
 
-				  res.render('twittype/index.ejs', { state : 'loggedinsuccessfully', username: req.user.twitter.username, tweets: []})
+				  res.render('twittype/index.ejs', { state : 'loggedinsuccessfully', username: req.user.twitter.username, tweets: hashtags})
 				});
 		});
 
