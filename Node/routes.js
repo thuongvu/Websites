@@ -208,7 +208,7 @@ module.exports = function (app, passport) {
 
 			t.get(
 				  '/statuses/home_timeline',
-				  {count: 10, trim_user: true},
+				  {count: 1, trim_user: true},
 				function logResponse(error, data, response) {
 					// for (var i = 0; i < data.length; i++) {
 					// 	if (data[i].text.length > 1) {
