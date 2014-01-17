@@ -222,6 +222,7 @@ module.exports = function (app, passport) {
 				    role = 1;
 				    username = req.user.twitter.username;
 				    console.log(req.user)
+				    console.log(data)
 
 				    res.cookie('user', JSON.stringify({
 				        'username': username,
