@@ -225,16 +225,17 @@ module.exports = function (app, passport) {
 
 	// TESTING
 	app.get('/twittext', function (req, res) {
-			var role = 0, username = '';
-			console.log(req.user)
-			if(req.user) {
-			    role = 1;
-			    username = req.user.twitter.username;
-			}
-			res.cookie('user', JSON.stringify({
-			    'username': username,
-			    'role': role
-			}));
+			// var role = 0, username = '';
+			// console.log(req)
+			// console.log(req.user)
+			// if(req.user) {
+			//     role = 1;
+			//     username = req.user.twitter.username;
+			// }
+			// res.cookie('user', JSON.stringify({
+			//     'username': username,
+			//     'role': role
+			// }));
 			res.render('twittext/index.ejs', { state : 0, username : '', hashtags: [] })
 	});
 
@@ -247,8 +248,6 @@ module.exports = function (app, passport) {
 
 	app.get('/twittext/twitter/callback',
 		passport.authenticate('twitterTextStrategy'), function(req, res) {
-			var role = 0, username = '';
-			console.log(req.user)
 			if(req.user) {
 			    role = 1;
 			    username = req.user.twitter.username;
@@ -257,7 +256,8 @@ module.exports = function (app, passport) {
 			    'username': username,
 			    'role': role
 			}));
-		   res.render('/twittext'); // 
+		   // res.render('twittext/index.ejs');
+		   res.redirect('/twittext');
 		});
 
 } 

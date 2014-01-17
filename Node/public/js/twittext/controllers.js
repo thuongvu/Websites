@@ -1,5 +1,5 @@
 angular.module('app.controllers', [])
-	.controller('mainCtrl', ['$scope', '$window', '$http', '$cookieStore', function ($scope, $window, $http, $cookieStore) {
+	.controller('mainCtrl', ['$scope', '$window', '$http', '$cookieStore', 'Auth', function ($scope, $window, $http, $cookieStore, Auth) {
 
 		$scope.showLogOut = false;
 
@@ -7,10 +7,18 @@ angular.module('app.controllers', [])
 		    $window.location.href = '/twittext/twitter/callback';
 		}
 		
-		$scope.logout = function (success, error) {
-			$http.post('/twittext/logout').success(function() {
-				console.log("logged out")
-			})
+		// $scope.logout = function (success, error) {
+		// 	$http.post('/twittext/logout').success(function() {
+		// 		console.log("logged out")
+		// 	})
+		// }
+
+		$scope.logout = function () {
+			Auth.logout(function() {
+				console.log("logged out");
+			}, function() {
+				$rootScope.error = "failed to logout"
+			});
 		}
 
 		// if (state > 0) {
@@ -39,12 +47,12 @@ angular.module('app.controllers', [])
 		// }
 
 		// COOKIES
-		// console.log($cookieStore)
-		var cookie = $cookieStore.get('user')
-		console.log(cookie);
-
-
-
+		// $scope.logCookie = Auth.logCookie;
+		// $scope.logCookie();
+		$scope.logCookie = function () {
+			Auth.logCookie();
+		}
+		$scope.logCookie();
 
 
 		
