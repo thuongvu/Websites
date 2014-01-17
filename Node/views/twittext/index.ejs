@@ -15,7 +15,11 @@
 		<p>Login to <button ng-click="loginOauth()" class="btn btn-primary"><span class="fa fa-twitter"></span> Twitter</button> and this will show you every word from your last 20 tweets for a split second.  </p> <button class="btn btn-alert" ng-show="showLogOut" ng-click="logout()">Log Out</button>
 	</div>
 	<div class="text-center">
-	<h1>{{tweetsDisplay.words}}</h1>
+	<!-- <h1>{{hashtagArr}}</h1> -->
+
+	<div ng-repeat="name in hashtagArr track by $index">
+		{{name.key}}: {{name.value}}
+	</div>
 	</div>
 
 	<script src="/bower_components/angular/angular.min.js"></script>

@@ -14,6 +14,7 @@ angular.module('app.controllers', [])
 		}
 
 		// if (state > 0) {
+			$scope.hashtagsTest = ["ColbyFire", "AC360", "subpoenas", "Christie", "bridge", "AC360", "Benghazi", "AC360", "KendrickJohnson", "AC360", "AaronHernandez", "NFL", "AC360", "ICYMI", "SitRoom", "Sundance", "fireplaces", "TetsuoAndYouth", "TetsuoSeason", "TY"]
 			var hashtags = ["ColbyFire", "AC360", "subpoenas", "Christie", "bridge", "AC360", "Benghazi", "AC360", "KendrickJohnson", "AC360", "AaronHernandez", "NFL", "AC360", "ICYMI", "SitRoom", "Sundance", "fireplaces", "TetsuoAndYouth", "TetsuoSeason", "TY"]
 			$scope.showLogOut = true;
 			$scope.hashtags = hashtags;
@@ -30,7 +31,8 @@ angular.module('app.controllers', [])
 			}
 			for (key in $scope.hashtagContainer) {
 				var tempObj = {};
-				tempObj[key] = $scope.hashtagContainer[key];
+				tempObj["key"] = key;
+				tempObj["value"] = $scope.hashtagContainer[key]
 				$scope.hashtagArr.push(tempObj)
 			}
 			console.log($scope.hashtagArr)
