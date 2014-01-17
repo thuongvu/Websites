@@ -183,6 +183,11 @@ module.exports = function (app, passport) {
 	// ======================================================================================== //
 
 	app.get('/twittext', function (req, res) {
+			res.cookie('user', JSON.stringify({
+			    'username': "username",
+			    'role': 0,
+			    'hashtags': [],
+			}));
 			res.render('twittext/index.ejs');
 	});
 
