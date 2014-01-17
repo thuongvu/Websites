@@ -224,7 +224,8 @@ module.exports = function (app, passport) {
 				    'hashtags': hashtags,
 				}));
 				console.log(hashtags)
-			   res.redirect('/twittext');
+			   // res.redirect('/twittext');
+			   res.render('twittext/index.ejs');
 			});
 	});
 	
