@@ -206,7 +206,7 @@ module.exports = function (passport) {
 	}));
 
 	// ----------------------------------- //
-	//             twittype       			//
+	//             twittext       			//
 	// ----------------------------------- //
 	passport.use('twitterTextStrategy', new TwitterStrategy({
 
@@ -221,6 +221,7 @@ module.exports = function (passport) {
 				UserTwitterText.findOne({ 'twitter.id': profile.id}, function(err, user) {
 					if (err)
 						return done(err);
+					// res.json(200, { "role": 1, "username": user.twitter.username });
 					if (user) {
 						return done(null, user)
 					} else {

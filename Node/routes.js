@@ -182,38 +182,38 @@ module.exports = function (app, passport) {
 	// ----------------------------------- twittext  ------------------------------------------ //
 	// ======================================================================================== //
 
-	app.get('/twittext', function (req, res) {
-			res.render('twittext/index.ejs', { state : 0, username : '', hashtags: [] })
-	});
+	// app.get('/twittext', function (req, res) {
+	// 		res.render('twittext/index.ejs', { state : 0, username : '', hashtags: [] })
+	// });
 
 	app.get('/twittext/twitter', passport.authenticate('twitterTextStrategy'))
 
 	// original
-	app.get('/twittext/twitter/callback',
-		passport.authenticate('twitterTextStrategy'), function(req, res) {
-			var t = new twitter({
-			    consumer_key: 'yur1W5rQghWp7SD5702rg',       
-			    consumer_secret: '9Y2HZcWIXATRccbZx2PzffO89WQHoRTF9MZ0Yki4Tok',      
-			    access_token_key: req.user.twitter.token, 
-			    access_token_secret: req.user.twitter.tokenSecret,
-			});
+	// app.get('/twittext/twitter/callback',
+	// 	passport.authenticate('twitterTextStrategy'), function(req, res) {
+	// 		var t = new twitter({
+	// 		    consumer_key: 'yur1W5rQghWp7SD5702rg',       
+	// 		    consumer_secret: '9Y2HZcWIXATRccbZx2PzffO89WQHoRTF9MZ0Yki4Tok',      
+	// 		    access_token_key: req.user.twitter.token, 
+	// 		    access_token_secret: req.user.twitter.tokenSecret,
+	// 		});
 
-			var hashtags = [];
-			t.get(
-				  '/statuses/home_timeline',
-				  {count: 100, trim_user: true},
-				function logResponse(error, data, response) {
-					for (var i = 0; i < data.length; i++) {
-						if (data[i].entities.hashtags.length > 1) {
-							for (var j = 0; j < data[i].entities.hashtags.length; j++) {
-								console.log(data[i].entities.hashtags[j].text)
-								hashtags.push(data[i].entities.hashtags[j].text)
-							}
-						}
-					}
-				   res.render('twittext/index.ejs', { state : 1, username: req.user.twitter.username, hashtags: hashtags})
-			});
-		});
+	// 		var hashtags = [];
+	// 		t.get(
+	// 			  '/statuses/home_timeline',
+	// 			  {count: 100, trim_user: true},
+	// 			function logResponse(error, data, response) {
+	// 				for (var i = 0; i < data.length; i++) {
+	// 					if (data[i].entities.hashtags.length > 1) {
+	// 						for (var j = 0; j < data[i].entities.hashtags.length; j++) {
+	// 							console.log(data[i].entities.hashtags[j].text)
+	// 							hashtags.push(data[i].entities.hashtags[j].text)
+	// 						}
+	// 					}
+	// 				}
+	// 			   res.render('twittext/index.ejs', { state : 1, username: req.user.twitter.username, hashtags: hashtags})
+	// 		});
+	// 	});
 
 	app.post('/twittext/logout', function (req, res) {
 		req.logout();
@@ -221,6 +221,44 @@ module.exports = function (app, passport) {
 		res.clearCookie('user');
 		console.log("someone just logged out")
 	});
+
+
+	// TESTING
+	app.get('/twittext', function (req, res) {
+			var role = 0, username = '';
+			console.log(req.user)
+			if(req.user) {
+			    role = 1;
+			    username = req.user.twitter.username;
+			}
+			res.cookie('user', JSON.stringify({
+			    'username': username,
+			    'role': role
+			}));
+			res.render('twittext/index.ejs', { state : 0, username : '', hashtags: [] })
+	});
+
+	// app.get('/twittext/twitter/callback',
+	// 	passport.authenticate('twitterTextStrategy', {
+	// 		successRedirect : '/twittext',
+	// 		failureRedirect : '/twittext',
+	// 	}));
+
+
+	app.get('/twittext/twitter/callback',
+		passport.authenticate('twitterTextStrategy'), function(req, res) {
+			var role = 0, username = '';
+			console.log(req.user)
+			if(req.user) {
+			    role = 1;
+			    username = req.user.twitter.username;
+			}
+			res.cookie('user', JSON.stringify({
+			    'username': username,
+			    'role': role
+			}));
+		   res.render('/twittext'); // 
+		});
 
 } 
 function isLoggedIn(req, res, next) {

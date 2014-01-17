@@ -1,5 +1,5 @@
 angular.module('app.controllers', [])
-	.controller('mainCtrl', ['$scope', '$window', '$http', '$timeout', function ($scope, $window, $http, $timeout) {
+	.controller('mainCtrl', ['$scope', '$window', '$http', '$cookieStore', function ($scope, $window, $http, $cookieStore) {
 
 		$scope.showLogOut = false;
 
@@ -37,6 +37,16 @@ angular.module('app.controllers', [])
 			}
 			console.log($scope.hashtagArr)
 		// }
+
+		// COOKIES
+		// console.log($cookieStore)
+		var cookie = $cookieStore.get('user')
+		console.log(cookie);
+
+
+
+
+
 		
 	}])
 
