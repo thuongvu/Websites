@@ -246,19 +246,91 @@ module.exports = function (app, passport) {
 	// 	}));
 
 
+	// app.get('/twittext/twitter/callback',
+	// 	passport.authenticate('twitterTextStrategy'), function(req, res) {
+	// 		var hashtags = [];
+
+	// 		if(req.user) {
+	// 		    role = 1;
+	// 		    username = req.user.twitter.username;
+	// 		}
+	// 		res.cookie('user', JSON.stringify({
+	// 		    'username': username,
+	// 		    'role': role
+	// 		}));
+	// 	   // res.render('twittext/index.ejs');
+	// 	   res.redirect('/twittext');
+	// 	});
+
+
 	app.get('/twittext/twitter/callback',
 		passport.authenticate('twitterTextStrategy'), function(req, res) {
-			if(req.user) {
-			    role = 1;
-			    username = req.user.twitter.username;
-			}
-			res.cookie('user', JSON.stringify({
-			    'username': username,
-			    'role': role
-			}));
-		   // res.render('twittext/index.ejs');
-		   res.redirect('/twittext');
+
+			var t = new twitter({
+			    consumer_key: 'yur1W5rQghWp7SD5702rg',       
+			    consumer_secret: '9Y2HZcWIXATRccbZx2PzffO89WQHoRTF9MZ0Yki4Tok',      
+			    access_token_key: req.user.twitter.token, 
+			    access_token_secret: req.user.twitter.tokenSecret,
+			});
+
+			var hashtags = [];
+
+			t.get(
+				  '/statuses/home_timeline',
+				  {count: 100, trim_user: true},
+				function logResponse(error, data, response) {
+					for (var i = 0; i < data.length; i++) {
+						if (data[i].entities.hashtags.length > 1) {
+							for (var j = 0; j < data[i].entities.hashtags.length; j++) {
+								console.log(data[i].entities.hashtags[j].text)
+								hashtags.push(data[i].entities.hashtags[j].text)
+							}
+						}
+					}
+				
+						if(req.user) {
+						    role = 1;
+						    username = req.user.twitter.username;
+						}
+						res.cookie('user', JSON.stringify({
+						    'username': username,
+						    'role': role,
+						    'hashtags': hashtags,
+						}));
+					   // res.render('twittext/index.ejs');
+					   res.redirect('/twittext');
+
+			});
+			
+			
 		});
+
+
+	// app.get('/twittext/twitter/callback',
+	// 	passport.authenticate('twitterTextStrategy'), function(req, res) {
+	// 		var t = new twitter({
+	// 		    consumer_key: 'yur1W5rQghWp7SD5702rg',       
+	// 		    consumer_secret: '9Y2HZcWIXATRccbZx2PzffO89WQHoRTF9MZ0Yki4Tok',      
+	// 		    access_token_key: req.user.twitter.token, 
+	// 		    access_token_secret: req.user.twitter.tokenSecret,
+	// 		});
+
+	// 		var hashtags = [];
+	// 		t.get(
+	// 			  '/statuses/home_timeline',
+	// 			  {count: 100, trim_user: true},
+	// 			function logResponse(error, data, response) {
+	// 				for (var i = 0; i < data.length; i++) {
+	// 					if (data[i].entities.hashtags.length > 1) {
+	// 						for (var j = 0; j < data[i].entities.hashtags.length; j++) {
+	// 							console.log(data[i].entities.hashtags[j].text)
+	// 							hashtags.push(data[i].entities.hashtags[j].text)
+	// 						}
+	// 					}
+	// 				}
+	// 			   res.render('twittext/index.ejs', { state : 1, username: req.user.twitter.username, hashtags: hashtags})
+	// 		});
+	// 	});
 
 } 
 function isLoggedIn(req, res, next) {
