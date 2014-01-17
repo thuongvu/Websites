@@ -2,24 +2,7 @@ var mongojs = require('mongojs');
 var db = mongojs('test', ['guestBookCollection']);
 var sanitizer = require('sanitizer');
 var _ = require("underscore");
-//
 var twitter = require("mtwitter");
-// var fs = require("fs");
-
-// fs.readFile('../../config/keys.json', function(err, data) {
-// 	var keys = JSON.parse(data);
-// 	t = new twitter(keys);
-// })
-
-
-var t = new twitter({
-    consumer_key: 'Spruia06VrVpXoKa4jdBw',           // <--- FILL ME IN
-    consumer_secret: 'EJF0RlIetZeAlul4Bl9aNTg6MBJcRybdjaLQeWaaHqo',        // <--- FILL ME IN
-    access_token_key: '51275775-fad2qlL8hWYD6aZ8BMGrrOQYimyubD1JBPYgl8mEZ',       // <--- FILL ME IN
-    access_token_secret: 'ynKLHwIo9yGvvxhQzq0R5nWljKCGnJzYphHt6OS9SzwAt'     // <--- FILL ME IN
-});
-
-
 
 module.exports = function (app, passport) {
 	// ======================================================================================== //
@@ -171,6 +154,12 @@ module.exports = function (app, passport) {
 	app.get('/twittype/twitter/callback',
 		passport.authenticate('twitter'), function(req, res) {
 			var tweets = [];
+			var t = new twitter({
+			    consumer_key: 'Spruia06VrVpXoKa4jdBw',       
+			    consumer_secret: 'EJF0RlIetZeAlul4Bl9aNTg6MBJcRybdjaLQeWaaHqo',      
+			    access_token_key: req.user.twitter.token, 
+			    access_token_secret: req.user.twitter.tokenSecret,
+			});
 			t.get(
 				  '/statuses/user_timeline',
 				  {count: 20, screen_name: req.user.twitter.username},
@@ -189,6 +178,71 @@ module.exports = function (app, passport) {
 		console.log("someone just logged out")
 	});
 
+	// ======================================================================================== //
+	// ----------------------------------- twittext  ------------------------------------------ //
+	// ======================================================================================== //
+
+	app.get('/twittext', function (req, res) {
+			res.render('twittext/index.ejs');
+	});
+
+	app.get('/twittext/twitter', passport.authenticate('twitterTextStrategy'))
+
+	app.get('/twittext/twitter/callback',
+		passport.authenticate('twitterTextStrategy'), function(req, res) {
+			console.log("req.user")
+			console.log(req.user)
+			var t = new twitter({
+			    consumer_key: 'yur1W5rQghWp7SD5702rg',       
+			    consumer_secret: '9Y2HZcWIXATRccbZx2PzffO89WQHoRTF9MZ0Yki4Tok',      
+			    access_token_key: req.user.twitter.token, 
+			    access_token_secret: req.user.twitter.tokenSecret,
+			});
+
+			var hashtags = [];
+			// declaring it
+			function logResponse(error, data, callback) {
+				for (var i = 0; i < data.length; i++) {
+					if (data[i].text.length > 1) {
+							var split = data[i].text.split(" ");
+							for (var j = 0; j < split.length; j++) {
+								hashtags.push(split[j])
+							}
+					}
+				}
+				callback()
+			}
+			// declaring it
+			function sendCookie() {
+				if(req.user) {
+				    role = 1;
+				    username = req.user.twitter.username;
+
+				    res.cookie('user', JSON.stringify({
+				        'username': username,
+				        'role': role,
+				        'hashtags': hashtags,
+				    }));
+
+				    res.redirect('/twittext');
+				}
+			}
+
+	t.get(
+		  '/statuses/home_timeline',
+		  {count: 20, trim_user: true}, function(error, data) {
+		  		logResponse(error, data, sendCookie)
+		  		// both functions used as callbacks
+		  });
+
+
+	});
+	
+	app.post('/twittext/logout', function (req, res) {
+		req.logout();
+		res.redirect('/twittext');
+		console.log("someone just logged out")
+	});
 
 } 
 function isLoggedIn(req, res, next) {

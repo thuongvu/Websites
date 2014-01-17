@@ -6,6 +6,7 @@ var User = require('../models/user');
 var UserGuest = require('../models/userGuest');
 var UserFriendZombie = require('../models/UserFriendZombie');
 var UserTwitterTwitterType = require('../models/UserTwitterType');
+var UserTwitterText = require('../models/UserTwitterText');
 var configAuth = require('./auth');
 var sanitizer = require('sanitizer');
 
@@ -172,13 +173,13 @@ module.exports = function (passport) {
 	// ----------------------------------- //
 	passport.use('twitter', new TwitterStrategy({
 
-		consumerKey				: configAuth.twitterAuth.consumerKey,
+		consumerKey			: configAuth.twitterAuth.consumerKey,
 		consumerSecret		: configAuth.twitterAuth.consumerSecret,
 		callbackURL			: configAuth.twitterAuth.callbackURL
 
 	},
 
-	function(token, refreshToken, profile, done) {
+	function(token, tokenSecret, profile, done) { //changing refreshToken to tokenSecret
 			process.nextTick(function() {
 				UserTwitterTwitterType.findOne({ 'twitter.id': profile.id}, function(err, user) {
 					if (err)
@@ -186,10 +187,49 @@ module.exports = function (passport) {
 					if (user) {
 						return done(null, user)
 					} else {
-						var newUser 				= new UserTwitterTwitterType();
-						newUser.twitter.id 		= profile.id;
-						newUser.twitter.token  = token;
-						newUser.twitter.username 	= profile.username; 
+						var newUser 				      = new UserTwitterTwitterType();
+						newUser.twitter.id 		      = profile.id;
+						newUser.twitter.token         = token;
+						newUser.twitter.tokenSecret   = tokenSecret;
+						newUser.twitter.username 	   = profile.username; 
+						newUser.twitter.displayName 	= profile.displayName;
+
+						newUser.save(function(err) {
+							if (err)
+								throw err;
+
+							return done(null, newUser);
+						});
+					}
+				});
+			});
+	}));
+
+	// ----------------------------------- //
+	//             twittext       			//
+	// ----------------------------------- //
+	passport.use('twitterTextStrategy', new TwitterStrategy({
+
+		consumerKey			: configAuth.twitterAuthText.consumerKey,
+		consumerSecret		: configAuth.twitterAuthText.consumerSecret,
+		callbackURL			: configAuth.twitterAuthText.callbackURL
+
+	},
+
+	function(token, tokenSecret, profile, done) { 
+			process.nextTick(function() {
+				UserTwitterText.findOne({ 'twitter.id': profile.id}, function(err, user) {
+					if (err)
+						return done(err);
+					// res.json(200, { "role": 1, "username": user.twitter.username });
+					if (user) {
+						return done(null, user)
+					} else {
+						var newUser 				      = new UserTwitterText();
+						newUser.twitter.id 		      = profile.id;
+						newUser.twitter.token         = token;
+						newUser.twitter.tokenSecret   = tokenSecret;
+						newUser.twitter.username 	   = profile.username; 
 						newUser.twitter.displayName 	= profile.displayName;
 
 						newUser.save(function(err) {

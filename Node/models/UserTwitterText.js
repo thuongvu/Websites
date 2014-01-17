@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var userSchemaTwitter = mongoose.Schema({
+var userSchemaTwitterText = mongoose.Schema({
 	twitter 			: {
 		id				: String,
 		token			: String,
@@ -10,4 +10,4 @@ var userSchemaTwitter = mongoose.Schema({
 	}
 });
 
-module.exports = mongoose.model('UserTwitterType', userSchemaTwitter);
+module.exports = mongoose.model('UserTwitterText', userSchemaTwitterText);
