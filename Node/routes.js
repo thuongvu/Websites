@@ -210,35 +210,30 @@ module.exports = function (app, passport) {
 				  '/statuses/home_timeline',
 				  {count: 30, trim_user: true},
 				function logResponse(error, data, response) {
-					function hashTags(data, callback) {
-						for (var i = 0; i < data.length; i++) {
-							if (data[i].text.length > 1) {
-									var split = data[i].text.split(" ");
-									for (var j = 0; j < split.length; j++) {
-										hashtags.push(split[j])
-									}
+					function doThis(data) {
+							for (var i = 0; i < data.length; i++) {
+								if (data[i].text.length > 1) {
+										var split = data[i].text.split(" ");
+										for (var j = 0; j < split.length; j++) {
+											hashtags.push(split[j])
+										}
+								}
 							}
+						if(req.user) {
+						    role = 1;
+						    username = req.user.twitter.username;
+						    console.log(req.user)
+
+						    res.cookie('user', JSON.stringify({
+						        'username': username,
+						        'role': role,
+						        'hashtags': hashtags,
+						    }));
+
+						    res.redirect('/twittext');
 						}
-						callback()
 					}
-				function sendCookie() {
-					if(req.user) {
-					    role = 1;
-					    username = req.user.twitter.username;
-					    console.log(req.user)
-
-					    res.cookie('user', JSON.stringify({
-					        'username': username,
-					        'role': role,
-					        'hashtags': hashtags,
-					    }));
-
-					    res.redirect('/twittext');
-					}
-				}
-					hashTags(data, sendCookie)
-
-				
+					doThis(data);
 				
 				// console.log(res)
 			   
