@@ -208,7 +208,7 @@ module.exports = function (app, passport) {
 
 			t.get(
 				  '/statuses/home_timeline',
-				  {count: 30, trim_user: true},
+				  {count: 10, trim_user: true},
 				function logResponse(error, data, response) {
 					// for (var i = 0; i < data.length; i++) {
 					// 	if (data[i].text.length > 1) {
@@ -227,7 +227,7 @@ module.exports = function (app, passport) {
 				    res.cookie('user', JSON.stringify({
 				        'username': username,
 				        'role': role,
-				        'hashtags': data,
+				        'hashtags': "data",
 				    }));
 
 				    res.redirect('/twittext');
