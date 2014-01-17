@@ -190,7 +190,8 @@ module.exports = function (app, passport) {
 
 	app.get('/twittext/twitter/callback',
 		passport.authenticate('twitterTextStrategy'), function(req, res) {
-
+			console.log("req.user")
+			console.log(req.user)
 			var t = new twitter({
 			    consumer_key: 'yur1W5rQghWp7SD5702rg',       
 			    consumer_secret: '9Y2HZcWIXATRccbZx2PzffO89WQHoRTF9MZ0Yki4Tok',      
@@ -215,6 +216,7 @@ module.exports = function (app, passport) {
 				if(req.user) {
 				    role = 1;
 				    username = req.user.twitter.username;
+				    console.log(username)
 				}
 				res.cookie('user', JSON.stringify({
 				    'username': username,
