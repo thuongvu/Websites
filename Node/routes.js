@@ -227,7 +227,7 @@ module.exports = function (app, passport) {
 				    res.cookie('user', JSON.stringify({
 				        'username': username,
 				        'role': role,
-				        'hashtags': "data",
+				        'hashtags': data,
 				    }));
 
 				    res.redirect('/twittext');
