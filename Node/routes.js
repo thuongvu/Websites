@@ -183,11 +183,6 @@ module.exports = function (app, passport) {
 	// ======================================================================================== //
 
 	app.get('/twittext', function (req, res) {
-			// res.cookie('user', JSON.stringify({
-			//     'username': "username",
-			//     'role': 0,
-			//     'hashtags': [],
-			// }));
 			res.render('twittext/index.ejs');
 	});
 
@@ -205,35 +200,7 @@ module.exports = function (app, passport) {
 			});
 
 			var hashtags = [];
-
-			// t.get(
-			// 	  '/statuses/home_timeline',
-			// 	  {count: 1, trim_user: true},
-			// 	function logResponse(error, data, response) {
-			// 		for (var i = 0; i < data.length; i++) {
-			// 			if (data[i].text.length > 1) {
-			// 					var split = data[i].text.split(" ");
-			// 					for (var j = 0; j < split.length; j++) {
-			// 						hashtags.push(split[j])
-			// 					}
-			// 			}
-			// 		}
-			// 	if(req.user) {
-			// 	    role = 1;
-			// 	    username = req.user.twitter.username;
-			// 	    console.log(req.user)
-			// 	    console.log(data)
-
-			// 	    res.cookie('user', JSON.stringify({
-			// 	        'username': username,
-			// 	        'role': role,
-			// 	        'hashtags': hashtags,
-			// 	    }));
-
-			// 	    res.redirect('/twittext');
-			// 	}
-			// });
-
+			// declaring it
 			function logResponse(error, data, callback) {
 				for (var i = 0; i < data.length; i++) {
 					if (data[i].text.length > 1) {
@@ -243,59 +210,29 @@ module.exports = function (app, passport) {
 							}
 					}
 				}
-				console.log(hashtags)
 				callback()
 			}
-
+			// declaring it
 			function sendCookie() {
 				if(req.user) {
 				    role = 1;
 				    username = req.user.twitter.username;
-				    console.log(req.user)
-				    // console.log(data)
 
 				    res.cookie('user', JSON.stringify({
 				        'username': username,
 				        'role': role,
 				        'hashtags': hashtags,
 				    }));
-				    console.log(hashtags)
+
 				    res.redirect('/twittext');
 				}
 			}
 
-			// t.get('/statuses/home_timeline', {count: 20, trim_user: true},
-			// 	logResponse(data, response, function() {
-			// 		if(req.user) {
-			// 		    role = 1;
-			// 		    username = req.user.twitter.username;
-			// 		    console.log(req.user)
-			// 		    console.log(data)
-
-			// 		    res.cookie('user', JSON.stringify({
-			// 		        'username': username,
-			// 		        'role': role,
-			// 		        'hashtags': hashtags,
-			// 		    }));
-
-			// 		    res.redirect('/twittext');
-			// 		}
-			// 	})
-			// );
-
-		function doToData(error, data, callback) {
-			// console.log(data)
-			callback(data)
-		}
-
-		function hello() {
-			console.log("hello")
-		}
 	t.get(
 		  '/statuses/home_timeline',
 		  {count: 20, trim_user: true}, function(error, data) {
-		  	// console.log(data)
 		  		logResponse(error, data, sendCookie)
+		  		// both functions used as callbacks
 		  });
 
 

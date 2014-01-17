@@ -13,7 +13,7 @@ angular.module('app.services', [])
 			var hashtags = [];
 		}
 		
-		// $cookieStore.remove('user');
+		$cookieStore.remove('user');
 
 		return {
 			logout: function (success, error) {

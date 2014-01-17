@@ -42,7 +42,7 @@ angular.module('app.controllers', [])
 				tempObj["key"] = key;
 				tempObj["value"] = $scope.hashtagContainer[key]
 				$scope.hashtagArr.push(tempObj)
-				console.log("$scope.hashtags")
+				console.log($scope.hashtags)
 				console.log($scope.hashtags)
 			}
 		}
