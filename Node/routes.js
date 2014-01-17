@@ -232,6 +232,7 @@ module.exports = function (app, passport) {
 						        'role': role,
 						        'hashtags': hashtags,
 						    }));
+						    // change something
 
 						    res.redirect('/twittext');
 						}
