@@ -236,8 +236,8 @@ module.exports = function (app, passport) {
 					    res.redirect('/twittext');
 					}
 				}
-					hashTags(sendCookie)
-				
+					hashTags(data, sendCookie)
+
 				
 				
 				// console.log(res)
