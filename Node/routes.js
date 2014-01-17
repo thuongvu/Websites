@@ -222,14 +222,18 @@ module.exports = function (app, passport) {
 				    role = 1;
 				    username = req.user.twitter.username;
 				    console.log(req.user)
+
+				    res.cookie('user', JSON.stringify({
+				        'username': username,
+				        'role': role,
+				        'hashtags': hashtags,
+				    }));
+
+				    res.redirect('/twittext');
 				}
-				res.cookie('user', JSON.stringify({
-				    'username': username,
-				    'role': role,
-				    'hashtags': hashtags,
-				}));
-				console.log(hashtags)
-			   res.redirect('/twittext');
+				
+				// console.log(res)
+			   
 			   // res.render('twittext/index.ejs');
 			});
 	});
