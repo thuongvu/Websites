@@ -183,11 +183,11 @@ module.exports = function (app, passport) {
 	// ======================================================================================== //
 
 	app.get('/twittext', function (req, res) {
-			res.cookie('user', JSON.stringify({
-			    'username': "username",
-			    'role': 0,
-			    'hashtags': [],
-			}));
+			// res.cookie('user', JSON.stringify({
+			//     'username': "username",
+			//     'role': 0,
+			//     'hashtags': [],
+			// }));
 			res.render('twittext/index.ejs');
 	});
 
@@ -221,7 +221,7 @@ module.exports = function (app, passport) {
 				if(req.user) {
 				    role = 1;
 				    username = req.user.twitter.username;
-				    console.log(username)
+				    console.log(req.user)
 				}
 				res.cookie('user', JSON.stringify({
 				    'username': username,
@@ -229,8 +229,8 @@ module.exports = function (app, passport) {
 				    'hashtags': hashtags,
 				}));
 				console.log(hashtags)
-			   // res.redirect('/twittext');
-			   res.render('twittext/index.ejs');
+			   res.redirect('/twittext');
+			   // res.render('twittext/index.ejs');
 			});
 	});
 	
