@@ -6,12 +6,15 @@ angular.module('app.controllers', [])
 		$scope.role = Auth.role;
 		$scope.hashtags = Auth.hashtags;
 
+		// VIEW
 		$scope.showLogOut = false;
 
+		// LOGIN
 		$scope.loginOauth = function() {
 		    $window.location.href = '/twittext/twitter/callback';
 		}
 
+		// LOGOUT uses Auth service
 		$scope.logout = function () {
 			Auth.logout(function() {
 				console.log("logged out");
@@ -20,6 +23,7 @@ angular.module('app.controllers', [])
 			});
 		}
 
+		// LOGIC FOR SHOWING TWEETS
 		if (Auth.role > 0) {
 			$scope.showLogOut = true;
 			$scope.hashtagContainer = {};
