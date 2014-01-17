@@ -183,7 +183,7 @@ module.exports = function (app, passport) {
 	// ======================================================================================== //
 
 	app.get('/twittext', function (req, res) {
-			res.render('twittext/index.ejs', { state : 'not logged in', username : 'l', tweets: [] })
+			res.render('twittext/index.ejs', { state : 0, username : '', hashtags: [] })
 	});
 
 	app.get('/twittext/twitter', passport.authenticate('twitterTextStrategy'))
@@ -211,7 +211,7 @@ module.exports = function (app, passport) {
 							}
 						}
 					}
-				   res.render('twittext/index.ejs', { state : 'loggedinsuccessfully', username: req.user.twitter.username, tweets: hashtags})
+				   res.render('twittext/index.ejs', { state : 1, username: req.user.twitter.username, hashtags: hashtags})
 			});
 		});
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+	<script>
+	if (window.location.hash == '#_=_') {
+	    window.location.hash = '';
+	}
+	</script>
+</head>
+<body ng-controller="mainCtrl">
+	<div class="jumbotron text-center">
+		<h2>TwitText</h2>
+		<p>Login to <button ng-click="loginOauth()" class="btn btn-primary"><span class="fa fa-twitter"></span> Twitter</button> and this will show you every word from your last 20 tweets for a split second.  </p> <button class="btn btn-alert" ng-show="showLogOut" ng-click="logout()">Log Out</button>
+	</div>
+	<div class="text-center">
+	<h1>{{tweetsDisplay.words}}</h1>
+	</div>
+
+	<script src="/bower_components/angular/angular.min.js"></script>
+	<script src="/bower_components/angular-route/angular-route.min.js"></script>
+	<script src="/bower_components/angular-resource/angular-resource.min.js"></script>
+	<script src="/js/twittext/app.js"></script>
+	<script src="/js/twittext/controllers.js"></script>
+	<script src="/js/twittext/services.js"></script>
+	<!-- <script src="/js/gAnalytics.js"></script>   -->
+	<script>
+		var state = <%- JSON.stringify(state) %>
+		console.log(state)
+		var username = <%- JSON.stringify(username) %>
+		var hashtags = <%- JSON.stringify(hashtags) %>
+		console.log(hashtags)
+	</script>
+</body>
+</html>

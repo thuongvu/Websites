@@ -26,7 +26,7 @@ module.exports = {
 		'consumerKey' 		: 'yur1W5rQghWp7SD5702rg',
 		'consumerSecret' 	: '9Y2HZcWIXATRccbZx2PzffO89WQHoRTF9MZ0Yki4Tok',
 		'callbackURL' 		: 'http://localhost:8080/twittext/twitter/callback'
-		// 'callbackURL' 		: 'http://node.thuongvuho.com/twittype/twitter/callback'
+		// 'callbackURL' 		: 'http://node.thuongvuho.com/twittext/twitter/callback'
 	},
 
 	'googleAuth' : {
