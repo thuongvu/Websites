@@ -5,10 +5,6 @@ angular.module('app.controllers', [])
 		$scope.username = Auth.username;
 		$scope.role = Auth.role;
 		$scope.hashtags = Auth.hashtags;
-		console.log($scope.username)
-		console.log($scope.role)
-		console.log($scope.hashtags)
-
 
 		$scope.showLogOut = false;
 
@@ -25,10 +21,7 @@ angular.module('app.controllers', [])
 		}
 
 		if (Auth.role > 0) {
-			// $scope.hashtagsTest = ["ColbyFire", "AC360", "subpoenas", "Christie", "bridge", "AC360", "Benghazi", "AC360", "KendrickJohnson", "AC360", "AaronHernandez", "NFL", "AC360", "ICYMI", "SitRoom", "Sundance", "fireplaces", "TetsuoAndYouth", "TetsuoSeason", "TY"]
-			// var hashtags = ["ColbyFire", "AC360", "subpoenas", "Christie", "bridge", "AC360", "Benghazi", "AC360", "KendrickJohnson", "AC360", "AaronHernandez", "NFL", "AC360", "ICYMI", "SitRoom", "Sundance", "fireplaces", "TetsuoAndYouth", "TetsuoSeason", "TY"]
 			$scope.showLogOut = true;
-			// $scope.hashtags = hashtags;
 			$scope.hashtagContainer = {};
 			$scope.hashtagArr = [];
 
@@ -46,14 +39,7 @@ angular.module('app.controllers', [])
 				tempObj["value"] = $scope.hashtagContainer[key]
 				$scope.hashtagArr.push(tempObj)
 			}
-			console.log($scope.hashtagArr)
 		}
-
-
-		
-
-
-		
 	}])
 
 

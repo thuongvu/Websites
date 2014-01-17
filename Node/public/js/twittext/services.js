@@ -14,21 +14,6 @@ angular.module('app.services', [])
 		$cookieStore.remove('user');
 
 		return {
-			// this.username = username,
-			// this.role = role,
-			logCookie: function() {
-				// console.log(cookie)
-				console.log(username)
-				console.log(role)
-				// return cookie;
-				// var cookie = cookie;
-				// success()
-			},
-			// logout: function () {
-			// 	$http.post('/twittext/logout').success(function() {
-			// 		console.log("logged out")
-			// 	})
-			// }
 			logout: function (success, error) {
 				$http.post('/twittext/logout').success(function() {
 					username = '';

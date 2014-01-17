@@ -12,13 +12,18 @@
 <body ng-controller="mainCtrl">
 	<div class="jumbotron text-center">
 		<h2>TwitText</h2>
-		<p>Login to <button ng-click="loginOauth()" class="btn btn-primary"><span class="fa fa-twitter"></span> Twitter</button> and this will show you every word from your last 20 tweets for a split second.  </p> <button class="btn btn-alert" ng-show="showLogOut" ng-click="logout()">Log Out</button>
+		<p>Login to <button ng-click="loginOauth()" class="btn btn-primary"><span class="fa fa-twitter"></span> Twitter</button> and it will show you word frequencies of the first 50 tweets on your timeline. </p> <button class="btn btn-alert" ng-show="showLogOut" ng-click="logout()">Log Out</button>
 	</div>
 	<div class="text-center">
 	<!-- <h1>{{hashtagArr}}</h1> -->
 	<button class="btn btn-alert" ng-click="logout()">Log Out for cookie testing</button>
 	<div ng-repeat="name in hashtagArr track by $index">
 		{{name.key}}: {{name.value}}
+		<!-- <p ng-style="set_size(name.value)">{{name.key}}</p> -->
+
+		<!-- <p style="{{style}}">{{name.key}}</p> -->
+		<!-- <p ng-style="{font-size: 'red'}">{{name.key}}</p> -->
+		<!-- <p ng-style="{size: '2em'}">{{name.key}}</p> -->
 	</div>
 	</div>
 
