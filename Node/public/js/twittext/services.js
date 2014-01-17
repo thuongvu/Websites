@@ -5,6 +5,8 @@ angular.module('app.services', [])
 			var username = cookie.username;
 			var role = cookie.role;
 			var hashtags = cookie.hashtags;
+			console.log("hashtags in the service")
+			console.log(hashtags)
 		} else {
 			var username = '';
 			var role = 0;

@@ -223,6 +223,7 @@ module.exports = function (app, passport) {
 				    'role': role,
 				    'hashtags': hashtags,
 				}));
+				console.log(hashtags)
 			   res.redirect('/twittext');
 			});
 	});
