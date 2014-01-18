@@ -19,7 +19,6 @@ angular.module('app.controllers', [])
 		function loop(x) {
 			// if (x >=10)
 			// 	return;
-
 			setTimeout(function() {
 				for (var i = 0; i < $scope.goals.length; i++) {
 				   $timeout(function(x) {
@@ -29,7 +28,6 @@ angular.module('app.controllers', [])
 				   	};
 				   } ($scope.goals[i]), 1000*i);
 				}
-				console.log(x)
 				loop(x + 1)
 			}, 1000 * $scope.goals.length)
 			

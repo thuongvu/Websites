@@ -252,35 +252,10 @@ module.exports = function (app, passport) {
 	// ======================================================================================== //
 
 	app.get('/thisyear', function (req, res) {
-			// dbThisYear.thisYearcollection.find(function(err, data) {
-			// 	res.render('thisyear/index.ejs', {data: data});
-			// })
 			dbThisYear.thisYearCollection.find(function(err, data) {
 				res.render('thisyear/index.ejs', {data: data});
 			}) 
-			// dbThisYear.thisYearCollection.find(function(err, data) {
-			// 	res.send({data: data})
-			// 	// response.render('guestbook/loggedin', {guestPosts: data, user: request.user})
-			// }) 
 	});
-
-
-	
-
-	// app.post('/thisyear', function (req, res) {
-	// 	var message = sanitizer.sanitize(req.body.message);
-	// 	console.log(message)
-
-	// 		// res.render('thisyear/index.ejs');
-	// });
-
-	// dbThisYear.thisYearCollection.find(function(err, data) {
-	// 	// res.cookie('user', JSON.stringify({
-	// 	// 	'user': req.user
-	// 	// }))
-	// 	// console.log(JSON.stringify(req.user));
-	// 	res.render('thisyear/index.ejs', {guestPosts: data})
-	// }) 
 
 	app.post("/thisyear", function (req, res) {
 		var message = sanitizer.sanitize(req.body.message.slice(0, 255));
@@ -293,10 +268,9 @@ module.exports = function (app, passport) {
 		dbThisYear.thisYearCollection.save({message: message}, function(err, saved) {
 		  if( err || !saved ) console.log("message not saved in db");
 		  else console.log("message in db");
-		  // res.send({data: "woop woop"})
+		  
 		  dbThisYear.thisYearCollection.find(function(err, data) {
 		  	res.send({data: data})
-		  	// response.render('guestbook/loggedin', {guestPosts: data, user: request.user})
 		  }) 
 		});
 	})
