@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+</head>
+<body ng-controller="mainCtrl">
+	This year
+	{{displayWords}}
+	<form>
+		<input ng-model="message"></input>
+		<button ng-click="send()">Submit</button>
+	</form>
+	<script>
+	var data = <%- JSON.stringify(data) %>
+	</script>
+	<script src="/bower_components/angular/angular.min.js"></script>
+	<script src="/bower_components/angular-route/angular-route.min.js"></script>
+	<script src="/bower_components/angular-resource/angular-resource.min.js"></script>
+	<script src="/js/thisyear/app.js"></script>
+	<script src="/js/thisyear/services.js"></script>
+	<script src="/js/thisyear/controllers.js"></script>
+	<!-- <script src="/js/gAnalytics.js"></script>   -->
+</body>
+</html>

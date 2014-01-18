@@ -1,5 +1,6 @@
 var mongojs = require('mongojs');
 var db = mongojs('test', ['guestBookCollection']);
+var dbThisYear = mongojs('test', ['thisYearCollection']);
 var sanitizer = require('sanitizer');
 var _ = require("underscore");
 var twitter = require("mtwitter");
@@ -243,6 +244,63 @@ module.exports = function (app, passport) {
 		res.redirect('/twittext');
 		console.log("someone just logged out")
 	});
+
+
+
+	// ======================================================================================== //
+	// ----------------------------------- this year  ----------------------------------------- //
+	// ======================================================================================== //
+
+	app.get('/thisyear', function (req, res) {
+			// dbThisYear.thisYearcollection.find(function(err, data) {
+			// 	res.render('thisyear/index.ejs', {data: data});
+			// })
+			dbThisYear.thisYearCollection.find(function(err, data) {
+				res.render('thisyear/index.ejs', {data: data});
+			}) 
+			// dbThisYear.thisYearCollection.find(function(err, data) {
+			// 	res.send({data: data})
+			// 	// response.render('guestbook/loggedin', {guestPosts: data, user: request.user})
+			// }) 
+	});
+
+
+	
+
+	// app.post('/thisyear', function (req, res) {
+	// 	var message = sanitizer.sanitize(req.body.message);
+	// 	console.log(message)
+
+	// 		// res.render('thisyear/index.ejs');
+	// });
+
+	// dbThisYear.thisYearCollection.find(function(err, data) {
+	// 	// res.cookie('user', JSON.stringify({
+	// 	// 	'user': req.user
+	// 	// }))
+	// 	// console.log(JSON.stringify(req.user));
+	// 	res.render('thisyear/index.ejs', {guestPosts: data})
+	// }) 
+
+	app.post("/thisyear", function (req, res) {
+		var message = sanitizer.sanitize(req.body.message.slice(0, 255));
+		console.log(message)
+
+		if (_.isUndefined(message) || _.isEmpty(message.trim())) {
+			return res.json(400, {error: "message is invalid"});
+		}
+		
+		dbThisYear.thisYearCollection.save({message: message}, function(err, saved) {
+		  if( err || !saved ) console.log("message not saved in db");
+		  else console.log("message in db");
+		  // res.send({data: "woop woop"})
+		  dbThisYear.thisYearCollection.find(function(err, data) {
+		  	res.send({data: data})
+		  	// response.render('guestbook/loggedin', {guestPosts: data, user: request.user})
+		  }) 
+		});
+	})
+
 
 } 
 function isLoggedIn(req, res, next) {
