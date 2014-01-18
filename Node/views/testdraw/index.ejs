@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<!-- // <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+	<!-- // <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script> -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+	<!-- <link rel="stylesheet" href="/css/notesStyle.css"> -->
+	<!-- <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet"> -->
+	<script src="/js/socket.io.min.js"></script>
+	<script src="/js/testdraw/d3module.js"></script>
+	<script src="/js/testdraw/app.js"></script>
+	<script src="/js/testdraw/services.js"></script>
+	<script src="/js/testdraw/controllers.js"></script>
+	<script src="/js/testdraw/directives.js"></script>
+
+	<!-- // <script src="/js/gAnalytics.js"></script> -->
+</head>
+<body >
+	
+	<div ng-controller="mainCtrl">
+		<graph data="data" mouse-down="mouseDown()"></graph>
+	</div>
+</body>
+</html>
