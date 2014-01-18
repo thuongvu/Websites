@@ -1,7 +1,7 @@
 angular.module('app.services', [])
 	.factory('socket', function ($rootScope) {
 	var serverBaseUrl = document.domain;
-	var socket = io.connect(serverBaseUrl + '/testdrawsocket');
+	var socket = io.connect(serverBaseUrl + '/testdraw');
 
 	return {
 		on: function (eventName, callback) {

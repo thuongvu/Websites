@@ -18,7 +18,11 @@
 <body >
 	
 	<div ng-controller="mainCtrl">
-		<graph data="data" mouse-down="mouseDown()"></graph>
+		<graph room="room.name"></graph>
+		<form>
+			<input ng-model="room.name"></input>
+			<button ng-click="joinRoom()">join room</button>
+		</form>
 	</div>
 </body>
 </html>
