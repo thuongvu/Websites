@@ -23,6 +23,7 @@ var treasure = require("./modules/treasureModule.js");
 var vote = require("./modules/voteModule.js");
 var weSee = require("./modules/weSeeModule.js");
 var timed = require("./modules/timedModule.js");
+var testdraw = require("./modules/testdrawModule.js");
 
 	// auth
 	var port = process.env.PORT || 8080;
@@ -223,6 +224,17 @@ app.get('/timedd', function (request, response) {
 
 var timed_socket_io = io.of('/timedd').on("connection", function (socket) {
 	timed.timed_io(socket, io);
+})
+
+// testdraw
+app.get("/testdraw", function (request, response) {
+	testdraw.renderPage(request, response);
+});
+app.get("/testdraw/previous", function (request, response) {
+	testdraw.getPrevious(request, response);
+});
+var draw = io.of('/testdraw').on("connection", function (socket) {
+	testdraw.testdraw_io(socket, io);
 })
 
 // ------------------------------------------------------------------------- //

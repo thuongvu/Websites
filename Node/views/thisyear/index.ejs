@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+	<style>
+		.jumbotron {
+			background-color: #90E8AE;
+			border-radius: 4px;
+			margin-top: 14%;
+		}
+		body {
+			background-color: #52A35F;
+		}
+	</style>
+</head>
+<body ng-controller="mainCtrl">
+	<div class="container">
+	<div class="jumbotron text-center">
+		<table>
+			<tr>
+				<td><h3>This year, I want to:<h3></td>
+				<td><h1>{{displayWords}}</h1></td>
+			</tr>
+		</table>
+	</div>
+
+	<h1><form>
+		<div class="form-group">
+			<input class="form-group col-sm-7 col-md-offset-2" placeholder="Dream Big!" ng-model="message"></input>
+			<button class="btn-success" ng-click="send()">Submit</button>
+		</div>
+	</form></h1>
+
+</div>
+	
+	<script>
+	var data = <%- JSON.stringify(data) %>
+	</script>
+	<script src="/bower_components/angular/angular.min.js"></script>
+	<script src="/bower_components/angular-route/angular-route.min.js"></script>
+	<script src="/bower_components/angular-resource/angular-resource.min.js"></script>
+	<script src="/js/thisyear/app.js"></script>
+	<script src="/js/thisyear/services.js"></script>
+	<script src="/js/thisyear/controllers.js"></script>
+	<!-- <script src="/js/gAnalytics.js"></script>   -->
+</body>
+</html>
