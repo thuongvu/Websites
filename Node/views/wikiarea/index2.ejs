@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" />
+	<style>
+		.infoPanelContainer {
+			background-color: #fff;
+			width: 300px;
+			height: 500px;
+			position: absolute;
+			z-index: 100;
+			top: 1em;
+			right: 1em;
+			opacity: 0.8;
+			overflow-y: scroll;
+			border-radius: 5px;
+			padding: 1.5em;
+
+		}
+		.lngLat {
+			background-color: #fff;
+			z-index: 100;
+			top: 1em;
+			left: 25%;
+			position: absolute;
+			background-color: white;
+			text-align: center;
+			opacity: 0.8;
+			border-radius: 2px;
+		}
+		.infoPanel {
+			margin-top: 10%;
+		}
+	</style>
+</head>
+<body>
+	<div class="lngLat">
+		<input type="text" placeholder="Latitude" id="lat"></input>
+		<input type="text" placeholder="Longitude" id="lng"></input>
+		<button class="btn-danger" id="getReq">Show me wiki entries!</button>
+	</div>
+
+	
+	<div class="infoPanelContainer">
+		<span class="text-center"><h1>Wiki-Area</h1></span>
+		<div class="infoPanel">
+			<h4>
+				<p>Instructions:  Click on an area and and a red circle will appear.</p>
+				<p>Click the "show me wiki entries" button and you will see entries on wikipedia based on that geo-location.</p>
+			</h4>
+		</div>
+	</div>
+	
+	<div id="map" class=""></div>
+
+
+		
+
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+	<script src="/js/leaflet.awesome-markers.min.js"></script>
+	<link rel="stylesheet" href="/css/leaflet.awesome-markers.css">
+	<script src="/js/wikiarea/wikiareaClient.js"></script>
+	<!-- <script src="/js/gAnalytics.js"></script>   -->
+</body>
+</html>
