@@ -3,7 +3,7 @@ var room;
 var userCount = 0;
 var roomCount = 0;
 var newgame = {};
-var roomList = {};
+var roomList = [];
 
 function Game(roomNumber) {
 	this.room = roomNumber;
@@ -47,6 +47,7 @@ function ticTac_io(socket, io) {
 	socket.emit("connection", {id: socket.id, room: room})
 
 	console.log("newgame[room].users is " + newgame[room].users)
+	console.log(newgame);
 
 	socket.on("connectionAccepted", function (data) {
 		if (newgame[data.room].users < 2) {
@@ -175,12 +176,61 @@ function ticTac_io(socket, io) {
 	})
 
 	socket.on("disconnect", function () {
-		userCount-=1;
-		if (userCount %2 === 0) {
-			roomCount-=1;
-		}
-		newgame[room].users -=1
+		// // this stuff needs to be in context of a room
+		// userCount-=1;
+		// if (userCount %2 === 0) {
+		// 	roomCount-=1;
+		// }
+		// newgame[room].users -=1
 		console.log(socket.id + " is leaving")
+		// console.log(newgame[2])
+
+		// var lookup = {};
+
+		for (var prop in newgame) {
+			if ((newgame[prop].user1) && (socket.id === newgame[prop].user1.id)) {
+				
+				// delete user from room
+				var roomInWhichToDelete = prop;
+				console.log("deleting user1 " + socket.id + " from " + roomInWhichToDelete)
+				delete newgame[roomInWhichToDelete].user1
+
+				// new usercount in rooms--obj
+				newgame[roomInWhichToDelete].users-=1;
+				console.log("newgame[roomInWhichToDelete].users is " +newgame[roomInWhichToDelete].users)
+
+				// if there are no users in a room, delete the room
+				if ((newgame[roomInWhichToDelete].user1 === undefined) && (newgame[roomInWhichToDelete].user2 === undefined)) {
+					delete newgame[roomInWhichToDelete];
+					console.log("because there are no members left in the room, deleting room " + roomInWhichToDelete);
+				}
+
+				console.log("here's the latest newgame");
+				console.log(newgame);
+
+			} else if ((newgame[prop].user2) && (socket.id === newgame[prop].user2.id)){
+				
+				// delete user from room
+				var roomInWhichToDelete = prop;
+				console.log("deleting user2 " + socket.id + " from " + roomInWhichToDelete)
+				delete newgame[roomInWhichToDelete].user2
+
+				// new usercount in rooms--obj
+				newgame[roomInWhichToDelete].users-=1;
+				console.log("newgame[roomInWhichToDelete].users is " +newgame[roomInWhichToDelete].users)
+
+				// if there are no users in a room, delete the room
+				if ((newgame[roomInWhichToDelete].user1 === undefined) && (newgame[roomInWhichToDelete].user2 === undefined)) {
+					delete newgame[roomInWhichToDelete];
+					console.log("because there are no members left in the room, deleting room " + roomInWhichToDelete);
+				}
+
+				console.log("here's the latest newgame");
+				console.log(newgame);
+				
+			}
+		}
+
 
 	})
 }
