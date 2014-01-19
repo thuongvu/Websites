@@ -6,7 +6,7 @@
 	z-index: 100;
 	top: 1em;
 	right: 1em;
-	opacity: 0.8;
+	opacity: 0.9;
 	overflow-y: scroll;
 	border-radius: 5px;
 	padding: 1.5em;
@@ -20,7 +20,7 @@
 	position: absolute;
 	background-color: white;
 	text-align: center;
-	opacity: 0.8;
+	opacity: 0.9;
 	border-radius: 2px;
 }
 .infoPanel {
