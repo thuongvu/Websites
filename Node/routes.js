@@ -276,17 +276,12 @@ module.exports = function (app, passport) {
 	})
 
 	// ======================================================================================== //
-	// ----------------------------------- this year  ----------------------------------------- //
+	// ----------------------------------- wikiarea  ----------------------------------------- //
 	// ======================================================================================== //
 
 	app.get('/wikiarea', function (req, res) {
 		res.render('wikiarea/index2.ejs');
 	});
-
-	app.get('/wikiareaang', function (req, res) {
-		res.render('wikiarea/index.ejs');
-	});
-
 
 } 
 function isLoggedIn(req, res, next) {
