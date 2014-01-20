@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<!-- <link rel="stylesheet" href="/css/ticTac/ticTacStyle.css"> -->
+</head>
+<body ng-controller="mainCtrl">
+	<button ng-click="choose('rock')">Rock</button>
+	<button ng-click="choose('paper')">paper</button>
+	<button ng-click="choose('scissors')">scissors</button>
+	<input ng-model="room.name"></input>
+	<button ng-click="joinRoom()">Join room</button>
+
+	<script src="/js/socket.io.min.js"></script>
+	<script src="/bower_components/angular/angular.min.js"></script>
+	<script src="/js/rps/app.js"></script>
+	<script src="/js/rps/services.js"></script>
+	<script src="/js/rps/controllers.js"></script>
+	 <!-- <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="/js/rps/rpsClient.js"></script>
+	<script src="/js/gAnalytics.js"></script>  -->
+</body>
+</html>

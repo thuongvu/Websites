@@ -24,6 +24,7 @@ var vote = require("./modules/voteModule.js");
 var weSee = require("./modules/weSeeModule.js");
 var timed = require("./modules/timedModule.js");
 var testdraw = require("./modules/testdrawModule.js");
+var rps = require("./modules/rpsModule.js");
 
 	// auth
 	var port = process.env.PORT || 8080;
@@ -235,6 +236,10 @@ app.get("/testdraw/previous", function (request, response) {
 });
 var draw = io.of('/testdraw').on("connection", function (socket) {
 	testdraw.testdraw_io(socket, io);
+})
+
+var rps_socket_io = io.of('/rps').on("connection", function (socket, io) {
+	rps.rps_io(socket, io);
 })
 
 // ------------------------------------------------------------------------- //

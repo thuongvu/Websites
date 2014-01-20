@@ -4,6 +4,11 @@ var dbThisYear = mongojs('test', ['thisYearCollection']);
 var sanitizer = require('sanitizer');
 var _ = require("underscore");
 var twitter = require("mtwitter");
+var express = require("express");
+var app = express();
+var http = require("http").createServer(app);
+var io = require("socket.io").listen(http);
+
 
 module.exports = function (app, passport) {
 	// ======================================================================================== //
@@ -282,6 +287,21 @@ module.exports = function (app, passport) {
 	app.get('/wikiarea', function (req, res) {
 		res.render('wikiarea/index2.ejs');
 	});
+
+	// ======================================================================================== //
+	// -------------------------------------- rps  -------------------------------------------- //
+	// ======================================================================================== //
+
+	app.get('/rps', function (req, res) {
+		res.render('rps/index.ejs');
+	});
+
+	// io.of('/rps').on("connection", function (socket, io) {
+	// 	console.log(socket.id + " connected")
+	// 	console.log("SOEMEONS CONNECTED")
+
+	// })
+
 
 } 
 function isLoggedIn(req, res, next) {
