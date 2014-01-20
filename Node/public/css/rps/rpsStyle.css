@@ -1,0 +1,21 @@
+.inline {
+	display: inline-block;
+}
+#buttonCtrl {
+	margin: 0 auto;
+	width: 400px;
+	height: 120px;
+	background-color: grey;
+	padding: 40px;
+	border-radius: 10px;
+	opacity: 0.9;
+}
+body {
+	background-color: #8A7757;
+}
+.container {
+	color: #fff;
+}
+#coverPhoto {
+	height: 350px;
+}
