@@ -238,7 +238,7 @@ var draw = io.of('/testdraw').on("connection", function (socket) {
 	testdraw.testdraw_io(socket, io);
 })
 
-var rps_socket_io = io.of('/rps').on("connection", function (socket, io) {
+var rps_socket_io = io.of('/rps/game').on("connection", function (socket, io) {
 	rps.rps_io(socket, io);
 })
 

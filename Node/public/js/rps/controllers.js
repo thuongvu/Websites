@@ -1,9 +1,11 @@
 angular.module('app.controllers', [])
-	.controller('mainCtrl', ['$scope', 'socket', '$location', 'Game', '$timeout', function ($scope, socket, $location, Game, $timeout) {
+	.controller('mainCtrl', ['$scope', 'socket', '$location', 'Game', '$timeout', 'preGame', function ($scope, socket, $location, Game, $timeout, preGame) {
+		console.log("in mainCtrl now")
 		$scope.room = {};
 		$scope.user = {};
 		$scope.display = {};
 		$scope.show = {};
+
 		// $scope.roomie = "hello" // why doesnt this work?
 
 		$scope.show = function(strategy) {
@@ -26,7 +28,15 @@ angular.module('app.controllers', [])
 			// emitting to server from Game service
 			Game.choose(strategy)
 		}
-	
+		setTimeout(function() {
+			preGame.returnRoom(function(gameRoom) {
+				console.log(gameRoom)
+				Game.joinRoom(gameRoom, function() {
+					console.log("joined a room emittttt done ")
+				})
+			})
+		}, 500)
+		
 		$scope.joinRoom = function() {
 			Game.joinRoom($scope.room.name,function(room) {
 				// console.log("success return")
@@ -82,6 +92,14 @@ angular.module('app.controllers', [])
 			}, 3000)
 		})
 
+	}])
+	.controller('preGameCtrl', ['$scope', 'preGame', function ($scope, preGame) {
+		console.log("in test ctrl")
+		$scope.room = {};
+		$scope.joinRoom = function() {
+			var room = $scope.room.name
+			preGame.joinRoom(room)
+		}
 	}])
 
 

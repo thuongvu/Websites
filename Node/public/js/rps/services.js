@@ -1,7 +1,7 @@
 angular.module('app.services', [])
 	.factory('socket', function ($rootScope) {
 		var serverBaseUrl = document.domain;
-		var socket = io.connect(serverBaseUrl + '/rps');
+		var socket = io.connect(serverBaseUrl + '/rps/game');
 		return {
 			on: function (eventName, callback) {
 				socket.on(eventName, function () {
@@ -29,6 +29,7 @@ angular.module('app.services', [])
 		var playerNumber;
 		socket.on("connection", function(data) {
 			gameId = data.id;
+			console.log("gameId is " + gameId)
 		})
 
 		socket.on("playerNumber", function(data) {
@@ -40,7 +41,8 @@ angular.module('app.services', [])
 			joinRoom: function(room, callback) {
 				gameRoom = room;
 				socket.emit("joinRoom", {id: gameId, roomName: room, playerNumber: playerNumber})
-				$location.path('/game/')
+				console.log("emitting joining this room")
+				// $location.path('/game/')
 				// return gameRoom;
 				callback(gameRoom)
 			},
@@ -58,4 +60,16 @@ angular.module('app.services', [])
 				return gameRoom;
 			}
 		}
-	});
+	})
+	.factory('preGame', function ($location) {
+		var gameRoom;
+		return {
+			joinRoom: function(room) {
+				gameRoom = room;
+				$location.path('/game')
+			},
+			returnRoom: function (callback) {
+				callback(gameRoom)
+			}
+		}
+	})

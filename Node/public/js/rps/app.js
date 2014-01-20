@@ -3,7 +3,7 @@ angular.module('app', [ 'ngRoute', 'app.services', 'app.controllers']) //'app.di
 		$routeProvider
 		.when('/', {
 			templateUrl: '/partials/rps/main.ejs',
-			controller: 'mainCtrl'
+			controller: 'preGameCtrl'
 		})
 		.when('/game/', {
 			templateUrl: '/partials/rps/game.ejs',
