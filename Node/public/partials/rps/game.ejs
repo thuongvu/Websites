@@ -1,8 +1,23 @@
-A GAME IS HAPENING HERE
-<button ng-click="choose('rock')">Rock</button>
-<button ng-click="choose('paper')">paper</button>
-<button ng-click="choose('scissors')">scissors</button>
-{{display.status}}
-<img ng-show="show.paper" src="/images/rps/paper.png"></img>
-<img ng-show="show.scissors" src="/images/rps/scissors.png"></img>
-<img ng-show="show.rock" src="/images/rps/rock.png"></img>
+GAME VIEW!
+<style>
+	.inline {
+		display: inline-block;
+	}
+</style>
+<div>
+	<button ng-click="choose('rock')">Rock</button>
+	<button ng-click="choose('paper')">paper</button>
+	<button ng-click="choose('scissors')">scissors</button>
+</div>
+<div>{{display.status}}</div>
+<div class="inline">
+	<img ng-show="show.paper" src="/images/rps/paper.png"></img>
+	<img ng-show="show.scissors" src="/images/rps/scissors.png"></img>
+	<img ng-show="show.rock" src="/images/rps/rock.png"></img>
+</div>
+<div class="inline">
+	{{display.otherPlayerChoice}}
+	<img ng-show="show.otherPaper" src="/images/rps/paper_mirror.png"></img>
+	<img ng-show="show.otherScissors" src="/images/rps/scissors_mirror.png"></img>
+	<img ng-show="show.otherRock" src="/images/rps/rock_mirror.png"></img>
+</div>

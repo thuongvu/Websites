@@ -12,9 +12,6 @@ angular.module('app.controllers', [])
 			Game.returnData();
 		}
 
-
-
-
 		// $scope.show.paper = true;
 		$scope.choose = function(strategy) {
 			// logic for showing which strategy image
@@ -26,36 +23,14 @@ angular.module('app.controllers', [])
 					$scope.show[strategies[i]] = false;
 				}
 			} 
-
-			// logic for emitting strategy to server
-			// console.log("strategy")
-			// console.log(strategy)
-			// console.log("$scope.room.name")
-			// console.log($scope.room.name)
-			// console.log("$scope.user.id")
-			// console.log($scope.user.id)
+			// emitting to server from Game service
 			Game.choose(strategy)
-			// socket.emit("choose", {id: $scope.user.id, roomName: $scope.room.name, strategy: strategy})
 		}
-		// $scope.joinRoom = function() {
-		// 	// console.log($scope.room.name)
-		// 	console.log("$scope.user.id")
-		// 	console.log($scope.user.id)
-		// 	socket.emit("joinRoom", {id: $scope.user.id, roomName: $scope.room.name})
-		// 	$location.path('/game/');
-		// }
+	
 		$scope.joinRoom = function() {
 			Game.joinRoom($scope.room.name)
 			$location.path('/game/')
-			// $scope.user.id = data.id;
-			// $scope.room.name = data.room;
 		}
-			
-		// socket.on("connection", function (data) {
-		// 	console.log(data.id)
-		// 	$scope.user.id = data.id
-		// 	console.log($scope.user)
-		// })
 
 		socket.on("chooseWait", function(data) {
 			console.log(data)
@@ -70,6 +45,24 @@ angular.module('app.controllers', [])
 		socket.on("waitForNewPlayer", function(data) {
 			console.log(data)
 			$scope.display.status = data;
+		})
+
+		socket.on("otherPlayerDisplay", function(data) {
+			console.log(data)
+			$scope.display.otherPlayerChoice = "the other player chose " + data;
+			if (data === 'rock') {
+				$scope.show.otherRock = true;
+				$scope.show.otherPaper = false;
+				$scope.show.otherScissors = false;
+			} else if (data === 'paper') {
+				$scope.show.otherRock = false;
+				$scope.show.otherPaper = true;
+				$scope.show.otherScissors = false;
+			} else if (data === 'scissors') {
+				$scope.show.otherRock = false;
+				$scope.show.otherPaper = false;
+				$scope.show.otherScissors = true;
+			}
 		})
 
 	}])

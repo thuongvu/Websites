@@ -28,6 +28,7 @@ function rps_io (socket, io) {
 			console.log(newGame)
 			// broadcast to user that they are waiting for a new player
 			socket.in(roomName).emit('waitForNewPlayer', "waiting for another player")
+			socket.in(roomName).emit('playerNumber', "1")
 			// raise usercount
 			newGame[room].userCount ++;
 			console.log(newGame[room].room + " 's usercount is " + newGame[room].userCount)
@@ -38,6 +39,7 @@ function rps_io (socket, io) {
 			// broadcast this to both players
 			socket.in(roomName).broadcast.emit('waitForNewPlayer', "new player has joined!  begin!  choose!")
 			socket.in(roomName).emit('waitForNewPlayer', "two players in this room!  begin!  choose!")
+			socket.in(roomName).emit('playerNumber', "2")
 			// raise usercount
 			newGame[room].userCount ++;
 			console.log(newGame[room].room + " 's usercount is " + newGame[room].userCount)
@@ -48,9 +50,12 @@ function rps_io (socket, io) {
 		var id = data.id;
 		var roomName = data.roomName;
 		var strategy = data.strategy;
+		var playerNumber = data.playerNumber;
 		console.log(id);
 		console.log(roomName);
 		console.log(strategy);
+		console.log("playerNumber");
+		console.log(playerNumber);
 
 		if (newGame[roomName].user1 === id) {
 			newGame[roomName].user1Strategy = strategy;
@@ -66,6 +71,20 @@ function rps_io (socket, io) {
 
 		if (newGame[roomName].user1Strategy && newGame[roomName].user2Strategy) {
 			console.log("they've both chosen strategies now")
+			// logic to decide what displays
+			if (playerNumber === '1') {
+				console.log("if playernumber is 1, display user2's strategy")
+				console.log(newGame[roomName].user2Strategy)
+				socket.in(roomName).emit('otherPlayerDisplay', newGame[roomName].user2Strategy)
+				socket.in(roomName).broadcast.emit('otherPlayerDisplay', newGame[roomName].user1Strategy)
+			} else if (playerNumber === '2') {
+				console.log("if playernumber is 2, display user1's strategy")
+				console.log(newGame[roomName].user1Strategy)
+				socket.in(roomName).emit('otherPlayerDisplay', newGame[roomName].user1Strategy)
+				socket.in(roomName).broadcast.emit('otherPlayerDisplay', newGame[roomName].user2Strategy)
+			}
+
+			// logic to decide who wins
 			if ((newGame[roomName].user1Strategy === 'rock') && (newGame[roomName].user2Strategy === 'rock')) {
 				console.log("tie bc rock === rock")
 				socket.in(roomName).emit('bothChosen', "tie bc rock === rock")
