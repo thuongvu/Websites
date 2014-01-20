@@ -6,7 +6,6 @@ angular.module('app.controllers', [])
 		$scope.show = {};
 		// $scope.roomie = "hello" // why doesnt this work?
 
-
 		$scope.show = function(strategy) {
 			$scope.show[strategy] = true;
 		}
@@ -14,8 +13,6 @@ angular.module('app.controllers', [])
 		$scope.check = function() {
 			Game.returnData();
 		}
-
-		// $scope.show.paper = true;
 		$scope.choose = function(strategy) {
 			// logic for showing which strategy image
 			var strategies = ["paper", "scissors", "rock"];

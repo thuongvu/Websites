@@ -9,7 +9,6 @@ function Game(roomNumber) {
 }
 
 function rps_io (socket, io) {
-	console.log(socket.id + " connected")
 	socket.emit("connection", {id: socket.id})
 	socket.on("checking", function(data) {
 		console.log(data)

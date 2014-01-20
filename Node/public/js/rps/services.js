@@ -28,13 +28,10 @@ angular.module('app.services', [])
 		var gameId;
 		var playerNumber;
 		socket.on("connection", function(data) {
-			console.log("SAY HELLO TO MY LIL FRIEND " + data.id)
 			gameId = data.id;
 		})
 
 		socket.on("playerNumber", function(data) {
-			console.log("playerNumber here")
-			console.log(data)
 			playerNumber = data;
 		})
 
@@ -42,8 +39,6 @@ angular.module('app.services', [])
 		return {
 			joinRoom: function(room) {
 				gameRoom = room;
-				console.log(room + " from service")
-				console.log(gameId + " from service")
 				socket.emit("joinRoom", {id: gameId, roomName: room, playerNumber: playerNumber})
 			},
 			returnData: function() {
@@ -52,8 +47,6 @@ angular.module('app.services', [])
 				console.log(gameRoom)
 			},
 			choose: function(strategy) {
-				console.log("strategy from the Game service says strategy is... ")
-				console.log(strategy)
 				if (gameId && gameRoom && strategy) {
 					socket.emit("choose", {id: gameId, roomName: gameRoom, strategy: strategy, playerNumber: playerNumber})
 				}
@@ -61,6 +54,5 @@ angular.module('app.services', [])
 			returnRoom: function() {
 				return gameRoom;
 			}
-			// DataId,
 		}
 	});
