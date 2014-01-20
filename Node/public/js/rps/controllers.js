@@ -1,13 +1,15 @@
 angular.module('app.controllers', [])
-	.controller('mainCtrl', ['$scope', 'socket', function ($scope, socket) {
+	.controller('mainCtrl', ['$scope', 'socket', '$location', function ($scope, socket, $location) {
 		$scope.room = {};
 		$scope.user = {};
 		$scope.display = {};
 		$scope.show = {};
 		$scope.show = function(strategy) {
 			$scope.show[strategy] = true;
-
 		}
+
+
+
 		// $scope.show.paper = true;
 		$scope.choose = function(strategy) {
 			// logic for showing which strategy image
@@ -19,14 +21,15 @@ angular.module('app.controllers', [])
 					$scope.show[strategies[i]] = false;
 				}
 			} 
-			
+
 			// logic for emitting strategy to server
 			console.log(strategy)
 			socket.emit("choose", {id: $scope.user.id, roomName: $scope.room.name, strategy: strategy})
 		}
 		$scope.joinRoom = function() {
-			console.log($scope.room.name)
+			// console.log($scope.room.name)
 			socket.emit("joinRoom", {id: $scope.user.id, roomName: $scope.room.name})
+			$location.path('/game/');
 		}
 		socket.on("connection", function (data) {
 			console.log(data.id)
