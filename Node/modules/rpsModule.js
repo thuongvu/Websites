@@ -84,45 +84,69 @@ function rps_io (socket, io) {
 				socket.in(roomName).broadcast.emit('otherPlayerDisplay', newGame[roomName].user2Strategy)
 			}
 
+			function deleteStrats() {
+				console.log("user strategies BEFORE")
+				console.log(newGame[roomName].user1Strategy)
+				console.log(newGame[roomName].user2Strategy)
+				newGame[roomName].user1Strategy = '';
+				newGame[roomName].user2Strategy = '';
+				console.log("user strategies AFTER")
+				console.log(newGame[roomName].user1Strategy)
+				console.log(newGame[roomName].user2Strategy)
+			}
+
 			// logic to decide who wins
 			if ((newGame[roomName].user1Strategy === 'rock') && (newGame[roomName].user2Strategy === 'rock')) {
 				console.log("tie bc rock === rock")
 				socket.in(roomName).emit('bothChosen', "tie bc rock === rock")
 				socket.in(roomName).broadcast.emit('bothChosen', "tie bc rock === rock")
+				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'rock') && (newGame[roomName].user2Strategy === 'scissors')) {
 				console.log("player 1 wins, bc rock > scissors")
 				socket.in(roomName).emit('bothChosen', "player 1 wins, bc rock > scissors")
 				socket.in(roomName).broadcast.emit('bothChosen', "player 1 wins, bc rock > scissors")
+				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'rock') && (newGame[roomName].user2Strategy === 'paper')) {
 				console.log("player 2 wins, bc rock < paper")
 				socket.in(roomName).emit('bothChosen', "player 2 wins, bc rock < paper")
 				socket.in(roomName).broadcast.emit('bothChosen', "player 2 wins, bc rock < paper")
+				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'scissors') && (newGame[roomName].user2Strategy === 'rock')) {
 				console.log("player 2 wins, bc scissors < rock")
 				socket.in(roomName).emit('bothChosen', "player 2 wins, bc scissors < rock")
 				socket.in(roomName).broadcast.emit('bothChosen', "player 2 wins, bc scissors < rock")
+				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'scissors') && (newGame[roomName].user2Strategy === 'scissors')) {
 				console.log("tie, bc scissors === scissors")
 				socket.in(roomName).emit('bothChosen', "bc scissors === scissors")
 				socket.in(roomName).broadcast.emit('bothChosen', "bc scissors === scissors")
+				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'scissors') && (newGame[roomName].user2Strategy === 'paper')) {
 				console.log("player 1 wins, bc scissors < paper")
 				socket.in(roomName).emit('bothChosen', "player 1 wins, bc scissors < paper")
 				socket.in(roomName).broadcast.emit('bothChosen', "player 1 wins, bc scissors < paper")
+				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'paper') && (newGame[roomName].user2Strategy === 'rock')) {
 				console.log("player 1 wins, bc paper > rock")
 				socket.in(roomName).emit('bothChosen', "player 1 wins, bc paper > rock")
 				socket.in(roomName).broadcast.emit('bothChosen', "player 1 wins, bc paper > rock")
+				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'paper') && (newGame[roomName].user2Strategy === 'scissors')) {
 				console.log("player 2 wins, bc paper < scissors")
 				socket.in(roomName).emit('bothChosen', "player 2 wins, bc paper < scissors")
 				socket.in(roomName).broadcast.emit('bothChosen', "player 2 wins, bc paper < scissors")
+				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'paper') && (newGame[roomName].user2Strategy === 'paper')) {
 				console.log("tie, bc paper === paper")
 				socket.in(roomName).emit('bothChosen', "tie, bc paper === paper")
 				socket.in(roomName).broadcast.emit('bothChosen', "tie, bc paper === paper")
+				deleteStrats()
 			} 
 		}  
+
+
+		
+
 
 	})
 

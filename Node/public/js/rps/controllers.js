@@ -1,5 +1,5 @@
 angular.module('app.controllers', [])
-	.controller('mainCtrl', ['$scope', 'socket', '$location', 'Game', function ($scope, socket, $location, Game) {
+	.controller('mainCtrl', ['$scope', 'socket', '$location', 'Game', '$timeout', function ($scope, socket, $location, Game, $timeout) {
 		$scope.room = {};
 		$scope.user = {};
 		$scope.display = {};
@@ -63,6 +63,22 @@ angular.module('app.controllers', [])
 				$scope.show.otherPaper = false;
 				$scope.show.otherScissors = true;
 			}
+
+			$timeout(function() {
+				$scope.display.otherPlayerChoice = "";
+				$scope.show.paper = false;
+				$scope.show.scissors = false;
+				$scope.show.rock = false;
+				$scope.show.otherRock = false;
+				$scope.show.otherPaper = false;
+				$scope.show.otherScissors = false;
+				$scope.display.status = "Choose another to play again!"
+			}, 3000)
 		})
 
 	}])
+
+
+
+
+
