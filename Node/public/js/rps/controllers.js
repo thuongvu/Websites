@@ -28,14 +28,19 @@ angular.module('app.controllers', [])
 		}
 	
 		$scope.joinRoom = function() {
-			Game.joinRoom($scope.room.name)
-			var room = Game.returnRoom()
+			Game.joinRoom($scope.room.name,function(room) {
+				// console.log("success return")
+				console.log(room)
+				// $scope.$apply($scope.display.room = room);
+			})
+			// var room = Game.returnRoom()
+			// console.log(room)
+			// console.log("that was room")
 				// $scope.roomie = room.toString();
-			$location.path('/game/')
+			// $location.path('/game/')
 		}
 
 		socket.on("chooseWait", function(data) {
-			console.log(data)
 			$scope.display.status = data;
 		})
 

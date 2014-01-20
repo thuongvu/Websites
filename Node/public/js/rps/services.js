@@ -23,7 +23,7 @@ angular.module('app.services', [])
 			}
 		};
 	})
-	.factory('Game', function (socket) {
+	.factory('Game', function (socket, $location) {
 		var gameRoom; 
 		var gameId;
 		var playerNumber;
@@ -37,9 +37,12 @@ angular.module('app.services', [])
 
 		
 		return {
-			joinRoom: function(room) {
+			joinRoom: function(room, callback) {
 				gameRoom = room;
 				socket.emit("joinRoom", {id: gameId, roomName: room, playerNumber: playerNumber})
+				$location.path('/game/')
+				// return gameRoom;
+				callback(gameRoom)
 			},
 			returnData: function() {
 				console.log("from returnData function from Game service")
