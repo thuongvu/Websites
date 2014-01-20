@@ -4,6 +4,7 @@
 	<!-- <link rel="stylesheet" href="/css/ticTac/ticTacStyle.css"> -->
 </head>
 <body ng-controller="mainCtrl">
+	<button ng-click="check()">Check</button>
 	
 	<ng-view></ng-view>
 	<!-- <button ng-click="choose('rock')">Rock</button>
@@ -18,7 +19,7 @@
 
 	<script src="/js/socket.io.min.js"></script>
 	<script src="/bower_components/angular/angular.min.js"></script>
-	<script src="http://code.angularjs.org/1.2.7/angular-route.min.js"></script>
+	<script src="/bower_components/angular-route/angular-route.min.js"></script>
 	<script src="/js/rps/app.js"></script>
 	<script src="/js/rps/services.js"></script>
 	<script src="/js/rps/controllers.js"></script>

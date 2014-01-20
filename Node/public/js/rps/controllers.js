@@ -1,5 +1,5 @@
 angular.module('app.controllers', [])
-	.controller('mainCtrl', ['$scope', 'socket', '$location', function ($scope, socket, $location) {
+	.controller('mainCtrl', ['$scope', 'socket', '$location', 'Game', function ($scope, socket, $location, Game) {
 		$scope.room = {};
 		$scope.user = {};
 		$scope.display = {};
@@ -7,6 +7,13 @@ angular.module('app.controllers', [])
 		$scope.show = function(strategy) {
 			$scope.show[strategy] = true;
 		}
+
+		$scope.check = function() {
+			Game.returnData();
+			// console.log("data.room")
+			// console.log(data.room)
+		}
+
 
 
 
@@ -23,14 +30,29 @@ angular.module('app.controllers', [])
 			} 
 
 			// logic for emitting strategy to server
+			console.log("strategy")
 			console.log(strategy)
-			socket.emit("choose", {id: $scope.user.id, roomName: $scope.room.name, strategy: strategy})
+			console.log("$scope.room.name")
+			console.log($scope.room.name)
+			console.log("$scope.user.id")
+			console.log($scope.user.id)
+			Game.choose(strategy)
+			// socket.emit("choose", {id: $scope.user.id, roomName: $scope.room.name, strategy: strategy})
 		}
+		// $scope.joinRoom = function() {
+		// 	// console.log($scope.room.name)
+		// 	console.log("$scope.user.id")
+		// 	console.log($scope.user.id)
+		// 	socket.emit("joinRoom", {id: $scope.user.id, roomName: $scope.room.name})
+		// 	$location.path('/game/');
+		// }
 		$scope.joinRoom = function() {
-			// console.log($scope.room.name)
-			socket.emit("joinRoom", {id: $scope.user.id, roomName: $scope.room.name})
-			$location.path('/game/');
+			Game.joinRoom($scope.room.name, $scope.user.id)
+			$location.path('/game/')
+			// $scope.user.id = data.id;
+			// $scope.room.name = data.room;
 		}
+			
 		socket.on("connection", function (data) {
 			console.log(data.id)
 			$scope.user.id = data.id
