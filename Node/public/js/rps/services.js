@@ -26,21 +26,25 @@ angular.module('app.services', [])
 	.factory('Game', function (socket) {
 		var gameRoom; 
 		var gameId;
+		socket.on("connection", function(data) {
+			console.log("SAY HELLO TO MY LIL FRIEND " + data.id)
+			gameId = data.id;
+		})
+		
 		return {
-			joinRoom: function(room, id) {
+			joinRoom: function(room) {
 				gameRoom = room;
-				gameId = id;
 				console.log(room + " from service")
-				console.log(id + " from service")
-				socket.emit("joinRoom", {id: id, roomName: room})
+				console.log(gameId + " from service")
+				socket.emit("joinRoom", {id: gameId, roomName: room})
 			},
 			returnData: function() {
-				console.log("from returnData function")
+				console.log("from returnData function from Game service")
 				console.log(gameId)
 				console.log(gameRoom)
 			},
 			choose: function(strategy) {
-				console.log("strategy in choose function of Game")
+				console.log("strategy from the Game service says strategy is... ")
 				console.log(strategy)
 				socket.emit("choose", {id: gameId, roomName: gameRoom, strategy: strategy})
 			}

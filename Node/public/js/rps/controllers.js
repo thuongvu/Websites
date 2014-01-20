@@ -10,8 +10,6 @@ angular.module('app.controllers', [])
 
 		$scope.check = function() {
 			Game.returnData();
-			// console.log("data.room")
-			// console.log(data.room)
 		}
 
 
@@ -30,12 +28,12 @@ angular.module('app.controllers', [])
 			} 
 
 			// logic for emitting strategy to server
-			console.log("strategy")
-			console.log(strategy)
-			console.log("$scope.room.name")
-			console.log($scope.room.name)
-			console.log("$scope.user.id")
-			console.log($scope.user.id)
+			// console.log("strategy")
+			// console.log(strategy)
+			// console.log("$scope.room.name")
+			// console.log($scope.room.name)
+			// console.log("$scope.user.id")
+			// console.log($scope.user.id)
 			Game.choose(strategy)
 			// socket.emit("choose", {id: $scope.user.id, roomName: $scope.room.name, strategy: strategy})
 		}
@@ -47,17 +45,17 @@ angular.module('app.controllers', [])
 		// 	$location.path('/game/');
 		// }
 		$scope.joinRoom = function() {
-			Game.joinRoom($scope.room.name, $scope.user.id)
+			Game.joinRoom($scope.room.name)
 			$location.path('/game/')
 			// $scope.user.id = data.id;
 			// $scope.room.name = data.room;
 		}
 			
-		socket.on("connection", function (data) {
-			console.log(data.id)
-			$scope.user.id = data.id
-			console.log($scope.user)
-		})
+		// socket.on("connection", function (data) {
+		// 	console.log(data.id)
+		// 	$scope.user.id = data.id
+		// 	console.log($scope.user)
+		// })
 
 		socket.on("chooseWait", function(data) {
 			console.log(data)
