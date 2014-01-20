@@ -27,7 +27,7 @@ function rps_io (socket, io) {
 			newGame[room].user1 = data.id;
 			console.log(newGame)
 			// broadcast to user that they are waiting for a new player
-			socket.in(roomName).emit('waitForNewPlayer', "waiting for another player")
+			socket.in(roomName).emit('waitForNewPlayer', "Waiting for another player...")
 			socket.in(roomName).emit('playerNumber', "1")
 			// raise usercount
 			newGame[room].userCount ++;
@@ -37,8 +37,8 @@ function rps_io (socket, io) {
 			newGame[room].user2 = data.id;
 			console.log(newGame)
 			// broadcast this to both players
-			socket.in(roomName).broadcast.emit('waitForNewPlayer', "new player has joined!  begin!  choose!")
-			socket.in(roomName).emit('waitForNewPlayer', "two players in this room!  begin!  choose!")
+			socket.in(roomName).broadcast.emit('waitForNewPlayer', "Another player has joined!  Start!")
+			socket.in(roomName).emit('waitForNewPlayer', "There are two players in the room!  Start!")
 			socket.in(roomName).emit('playerNumber', "2")
 			// raise usercount
 			newGame[room].userCount ++;
@@ -60,13 +60,13 @@ function rps_io (socket, io) {
 		if (newGame[roomName].user1 === id) {
 			newGame[roomName].user1Strategy = strategy;
 			console.log(newGame[roomName]);
-			socket.in(roomName).emit('chooseWait', "waiting for the user other")
-			socket.in(roomName).broadcast.emit('chooseWait', "the other player is waiting for you")
+			socket.in(roomName).emit('chooseWait', "Waiting for other player")
+			socket.in(roomName).broadcast.emit('chooseWait', "The other player is waiting... Choose!")
 		} else if (newGame[roomName].user2 === id) {
 			newGame[roomName].user2Strategy = strategy;
 			console.log(newGame[roomName]);
-			socket.in(roomName).emit('chooseWait', "waiting for the user other")
-			socket.in(roomName).broadcast.emit('chooseWait', "the other player is waiting for you")
+			socket.in(roomName).emit('chooseWait', "Waiting for other player")
+			socket.in(roomName).broadcast.emit('chooseWait', "The other player is waiting... Choose!")
 		}
 
 		if (newGame[roomName].user1Strategy && newGame[roomName].user2Strategy) {
@@ -98,48 +98,48 @@ function rps_io (socket, io) {
 			// logic to decide who wins
 			if ((newGame[roomName].user1Strategy === 'rock') && (newGame[roomName].user2Strategy === 'rock')) {
 				console.log("tie bc rock === rock")
-				socket.in(roomName).emit('bothChosen', "tie bc rock === rock")
-				socket.in(roomName).broadcast.emit('bothChosen', "tie bc rock === rock")
+				socket.in(roomName).emit('bothChosen', "TIE - You both chose rock!")
+				socket.in(roomName).broadcast.emit('bothChosen', "TIE - You both chose rock!")
 				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'rock') && (newGame[roomName].user2Strategy === 'scissors')) {
 				console.log("player 1 wins, bc rock > scissors")
-				socket.in(roomName).emit('bothChosen', "player 1 wins, bc rock > scissors")
-				socket.in(roomName).broadcast.emit('bothChosen', "player 1 wins, bc rock > scissors")
+				socket.in(roomName).emit('bothChosen', "ROCK beats SCISSORS")
+				socket.in(roomName).broadcast.emit('bothChosen', "ROCK beats SCISSORS")
 				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'rock') && (newGame[roomName].user2Strategy === 'paper')) {
 				console.log("player 2 wins, bc rock < paper")
-				socket.in(roomName).emit('bothChosen', "player 2 wins, bc rock < paper")
-				socket.in(roomName).broadcast.emit('bothChosen', "player 2 wins, bc rock < paper")
+				socket.in(roomName).emit('bothChosen', "PAPER beats ROCK")
+				socket.in(roomName).broadcast.emit('bothChosen', "PAPER beats ROCK")
 				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'scissors') && (newGame[roomName].user2Strategy === 'rock')) {
 				console.log("player 2 wins, bc scissors < rock")
-				socket.in(roomName).emit('bothChosen', "player 2 wins, bc scissors < rock")
-				socket.in(roomName).broadcast.emit('bothChosen', "player 2 wins, bc scissors < rock")
+				socket.in(roomName).emit('bothChosen', "ROCK beats SCISSORS")
+				socket.in(roomName).broadcast.emit('bothChosen', "ROCK beats SCISSORS")
 				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'scissors') && (newGame[roomName].user2Strategy === 'scissors')) {
 				console.log("tie, bc scissors === scissors")
-				socket.in(roomName).emit('bothChosen', "bc scissors === scissors")
+				socket.in(roomName).emit('bothChosen', "TIE - You both chose scissors!")
 				socket.in(roomName).broadcast.emit('bothChosen', "bc scissors === scissors")
 				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'scissors') && (newGame[roomName].user2Strategy === 'paper')) {
 				console.log("player 1 wins, bc scissors < paper")
-				socket.in(roomName).emit('bothChosen', "player 1 wins, bc scissors < paper")
-				socket.in(roomName).broadcast.emit('bothChosen', "player 1 wins, bc scissors < paper")
+				socket.in(roomName).emit('bothChosen', "PAPER beats SCISSORS")
+				socket.in(roomName).broadcast.emit('bothChosen', "PAPER beats SCISSORS")
 				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'paper') && (newGame[roomName].user2Strategy === 'rock')) {
 				console.log("player 1 wins, bc paper > rock")
-				socket.in(roomName).emit('bothChosen', "player 1 wins, bc paper > rock")
-				socket.in(roomName).broadcast.emit('bothChosen', "player 1 wins, bc paper > rock")
+				socket.in(roomName).emit('bothChosen', "PAPER beats ROCK")
+				socket.in(roomName).broadcast.emit('bothChosen', "PAPER beats ROCK")
 				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'paper') && (newGame[roomName].user2Strategy === 'scissors')) {
 				console.log("player 2 wins, bc paper < scissors")
-				socket.in(roomName).emit('bothChosen', "player 2 wins, bc paper < scissors")
-				socket.in(roomName).broadcast.emit('bothChosen', "player 2 wins, bc paper < scissors")
+				socket.in(roomName).emit('bothChosen', "SCISSORS beats PAPER")
+				socket.in(roomName).broadcast.emit('bothChosen', "SCISSORS beats PAPER")
 				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'paper') && (newGame[roomName].user2Strategy === 'paper')) {
 				console.log("tie, bc paper === paper")
-				socket.in(roomName).emit('bothChosen', "tie, bc paper === paper")
-				socket.in(roomName).broadcast.emit('bothChosen', "tie, bc paper === paper")
+				socket.in(roomName).emit('bothChosen', "TIE -- You both chose paper!")
+				socket.in(roomName).broadcast.emit('bothChosen', "TIE -- You both chose paper!")
 				deleteStrats()
 			} 
 		}  

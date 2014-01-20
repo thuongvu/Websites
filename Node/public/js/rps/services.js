@@ -57,9 +57,10 @@ angular.module('app.services', [])
 				if (gameId && gameRoom && strategy) {
 					socket.emit("choose", {id: gameId, roomName: gameRoom, strategy: strategy, playerNumber: playerNumber})
 				}
+			},
+			returnRoom: function() {
+				return gameRoom;
 			}
-			// ,
-			// DataRoom,
 			// DataId,
 		}
 	});

@@ -4,6 +4,9 @@ angular.module('app.controllers', [])
 		$scope.user = {};
 		$scope.display = {};
 		$scope.show = {};
+		// $scope.roomie = "hello" // why doesnt this work?
+
+
 		$scope.show = function(strategy) {
 			$scope.show[strategy] = true;
 		}
@@ -29,6 +32,8 @@ angular.module('app.controllers', [])
 	
 		$scope.joinRoom = function() {
 			Game.joinRoom($scope.room.name)
+			var room = Game.returnRoom()
+				// $scope.roomie = room.toString();
 			$location.path('/game/')
 		}
 
@@ -49,7 +54,6 @@ angular.module('app.controllers', [])
 
 		socket.on("otherPlayerDisplay", function(data) {
 			console.log(data)
-			$scope.display.otherPlayerChoice = "the other player chose " + data;
 			if (data === 'rock') {
 				$scope.show.otherRock = true;
 				$scope.show.otherPaper = false;
