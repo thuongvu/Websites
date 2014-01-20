@@ -122,8 +122,8 @@ function rps_io (socket, io) {
 				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'scissors') && (newGame[roomName].user2Strategy === 'paper')) {
 				console.log("player 1 wins, bc scissors < paper")
-				socket.in(roomName).emit('bothChosen', "PAPER beats SCISSORS")
-				socket.in(roomName).broadcast.emit('bothChosen', "PAPER beats SCISSORS")
+				socket.in(roomName).emit('bothChosen', "SCISSORS beats PAPER")
+				socket.in(roomName).broadcast.emit('bothChosen', "SCISSORS beats PAPER")
 				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'paper') && (newGame[roomName].user2Strategy === 'rock')) {
 				console.log("player 1 wins, bc paper > rock")
