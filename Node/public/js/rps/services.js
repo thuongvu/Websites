@@ -24,36 +24,24 @@ angular.module('app.services', [])
 		};
 	})
 	.factory('Game', function (socket, $location) {
-		var gameRoom; 
-		var gameId;
-		var playerNumber;
+		var gameObj = {};
+		
 		socket.on("connection", function(data) {
-			gameId = data.id;
-			console.log("gameId is " + gameId)
+			gameObj.id = data.id;
 		})
 
 		socket.on("playerNumber", function(data) {
-			playerNumber = data;
+			gameObj.playerNumber = data;
 		})
 
-		
 		return {
-			joinRoom: function(room, callback) {
-				gameRoom = room;
-				socket.emit("joinRoom", {id: gameId, roomName: room, playerNumber: playerNumber})
-				console.log("emitting joining this room")
-				// $location.path('/game/')
-				// return gameRoom;
-				callback(gameRoom)
-			},
-			returnData: function() {
-				console.log("from returnData function from Game service")
-				console.log(gameId)
-				console.log(gameRoom)
+			joinRoom: function(room) {
+				gameObj.roomName = room;
+				socket.emit("joinRoom", {id: gameObj.id, roomName: gameObj.roomName, playerNumber: gameObj.playerNumber})
 			},
 			choose: function(strategy) {
-				if (gameId && gameRoom && strategy) {
-					socket.emit("choose", {id: gameId, roomName: gameRoom, strategy: strategy, playerNumber: playerNumber})
+				if (gameObj.id && gameObj.roomName && strategy) {
+					socket.emit("choose", {id: gameObj.id, roomName: gameObj.roomName, strategy: strategy, playerNumber: gameObj.playerNumber})
 				}
 			},
 			returnRoom: function() {
@@ -62,14 +50,12 @@ angular.module('app.services', [])
 		}
 	})
 	.factory('preGame', function ($location) {
-		var gameRoom;
+		var gameRoomObj = {};
 		return {
 			joinRoom: function(room) {
-				gameRoom = room;
+				gameRoomObj.room = room;
 				$location.path('/game')
 			},
-			returnRoom: function (callback) {
-				callback(gameRoom)
-			}
+			gameRoomObj: gameRoomObj
 		}
 	})

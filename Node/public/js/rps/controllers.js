@@ -1,20 +1,18 @@
 angular.module('app.controllers', [])
 	.controller('mainCtrl', ['$scope', 'socket', '$location', 'Game', '$timeout', 'preGame', function ($scope, socket, $location, Game, $timeout, preGame) {
 		console.log("in mainCtrl now")
-		$scope.room = {};
-		$scope.user = {};
+		$scope.gameRoomObj = preGame.gameRoomObj;
 		$scope.display = {};
 		$scope.show = {};
 
-		// $scope.roomie = "hello" // why doesnt this work?
+		setTimeout(function() {
+				Game.joinRoom(preGame.gameRoomObj.room)
+		}, 500)
 
 		$scope.show = function(strategy) {
 			$scope.show[strategy] = true;
 		}
 
-		$scope.check = function() {
-			Game.returnData();
-		}
 		$scope.choose = function(strategy) {
 			// logic for showing which strategy image
 			var strategies = ["paper", "scissors", "rock"];
@@ -28,39 +26,8 @@ angular.module('app.controllers', [])
 			// emitting to server from Game service
 			Game.choose(strategy)
 		}
-		setTimeout(function() {
-			preGame.returnRoom(function(gameRoom) {
-				console.log(gameRoom)
-				Game.joinRoom(gameRoom, function() {
-					console.log("joined a room emittttt done ")
-				})
-			})
-		}, 500)
-		
-		$scope.joinRoom = function() {
-			Game.joinRoom($scope.room.name,function(room) {
-				// console.log("success return")
-				console.log(room)
-				// $scope.$apply($scope.display.room = room);
-			})
-			// var room = Game.returnRoom()
-			// console.log(room)
-			// console.log("that was room")
-				// $scope.roomie = room.toString();
-			// $location.path('/game/')
-		}
 
-		socket.on("chooseWait", function(data) {
-			$scope.display.status = data;
-		})
-
-		socket.on("bothChosen", function(data) {
-			console.log(data)
-			$scope.display.status = data;
-		})
-
-		socket.on("waitForNewPlayer", function(data) {
-			console.log(data)
+		socket.on("status", function(data) {
 			$scope.display.status = data;
 		})
 

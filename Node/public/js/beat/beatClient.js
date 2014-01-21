@@ -50,4 +50,41 @@ $(document).ready(function() {
    	    .attr("r", 30)
    	    .remove();
    }
+
+   // added on later
+   function keyBindTrigger(box) {
+   	showBeat()
+   	// console.log(box)
+   	var clone = $(box).clone()
+   	clone.find('audio')[0].play();
+   	var currentThis = $(box);
+   	$(box).addClass("pressed")
+   	setTimeout(function() {
+   		currentThis.removeClass("pressed")
+   	}, 500)
+   	socket.emit("beatToServer", this.id)
+   }
+
+   $(document).keypress(function(e){
+   		if (e.which ===  113) {
+   			keyBindTrigger($('#box1'));
+   			console.log("q")
+   		} else if (e.which == 119) {
+   			keyBindTrigger($('#box2'));
+   		} else if (e.which == 101) {
+   			keyBindTrigger($('#box3'));
+   		} else if (e.which == 99) {
+   			keyBindTrigger($('#box4'));
+   		} else if (e.which == 110) {
+   			keyBindTrigger($('#box5'));
+   		} else if (e.which == 105) {
+   			keyBindTrigger($('#box6'));
+   		} else if (e.which == 111) {
+   			keyBindTrigger($('#box7'));
+   		} else if (e.which == 112) {
+   			keyBindTrigger($('#box8'));
+   		} 
+   	});
+
+
 })
