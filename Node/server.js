@@ -25,6 +25,7 @@ var weSee = require("./modules/weSeeModule.js");
 var timed = require("./modules/timedModule.js");
 var testdraw = require("./modules/testdrawModule.js");
 var rps = require("./modules/rpsModule.js");
+var beat = require("./modules/beatModule.js");
 
 	// auth
 	var port = process.env.PORT || 8080;
@@ -238,8 +239,16 @@ var draw = io.of('/testdraw').on("connection", function (socket) {
 	testdraw.testdraw_io(socket, io);
 })
 
+// rps socket.io
+
 var rps_socket_io = io.of('/rps/game').on("connection", function (socket, io) {
 	rps.rps_io(socket, io);
+})
+
+// beat socket.io
+
+var beat_socket_io = io.of('/beat').on("connection", function (socket, io) {
+	beat.beat_io(socket, io);
 })
 
 // ------------------------------------------------------------------------- //

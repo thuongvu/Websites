@@ -296,12 +296,13 @@ module.exports = function (app, passport) {
 		res.render('rps/index.ejs');
 	});
 
-	// io.of('/rps').on("connection", function (socket, io) {
-	// 	console.log(socket.id + " connected")
-	// 	console.log("SOEMEONS CONNECTED")
+	// ======================================================================================== //
+	// -------------------------------------- beat  -------------------------------------------- //
+	// ======================================================================================== //
 
-	// })
-
+	app.get('/beat', function (req, res) {
+		res.render('beat/index.ejs');
+	});
 
 } 
 function isLoggedIn(req, res, next) {
