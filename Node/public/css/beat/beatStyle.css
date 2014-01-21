@@ -21,7 +21,7 @@ body {
 .play:active {
 	background-color: #fff !important;
 }
-.red {
+.pressed {
 	opacity: 0.3 !important;
 	height: 100px;
 }

@@ -6,37 +6,25 @@ $(document).ready(function() {
 	$('.play').css("height", ($(window).height() / 10))
 
 	$('.play').click(function() {
+		showBeat()
 		var clone = $(this).clone()
 		clone.find('audio')[0].play();
 		var currentThis = $(this);
-		$(this).addClass("red")
+		$(this).addClass("pressed")
 		setTimeout(function() {
-			currentThis.removeClass("red")
+			currentThis.removeClass("pressed")
 		}, 500)
-		showBeat()
 		socket.emit("beatToServer", this.id)
-	})
-
-	$('#buttonTest').click(function() {
-		var box = '#box6';
-		var clone = $(box).clone();
-		clone.find('audio')[0].play();
-		var currentThis = $(this);
-		$(this).addClass("red")
-		setTimeout(function() {
-			currentThis.removeClass("red")
-		}, 500)
 	})
 
 	socket.on("beatToClient", function(data) {
 		showBeat()
-		console.log(data + " from another user")
 		var box = $('#' + data) 
 		var clone = $(box).clone();
 		clone.find('audio')[0].play();
-		$(box).addClass("red")
+		$(box).addClass("pressed")
 		setTimeout(function() {
-			$(box).removeClass("red")
+			$(box).removeClass("pressed")
 		}, 500)
 	})
 
@@ -62,6 +50,4 @@ $(document).ready(function() {
    	    .attr("r", 30)
    	    .remove();
    }
-	   
-
 })
