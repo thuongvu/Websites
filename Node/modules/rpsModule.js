@@ -1,3 +1,4 @@
+var sanitizer = require('sanitizer');
 var newGame = {};
 function Game(roomNumber) {
 	this.room = roomNumber;
@@ -15,7 +16,7 @@ function rps_io (socket, io) {
 	})
 
 	socket.on("joinRoom", function(data) {
-		var roomName = data.roomName;
+		var roomName = sanitizer.sanitize(data.roomName);
 		console.log(data.id + " is joining room " + data.roomName)
 		var room = data["roomName"];
 		socket.join(room)
