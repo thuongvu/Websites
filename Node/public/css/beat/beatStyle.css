@@ -1,67 +1,51 @@
+svg {
+	margin-left: -30px;
+	margin-top: -100px;
+	opacity: 0.9;
+}
+body {
+	background-color: #EEEEEE;
+}
+.jumbotron {
+	margin: 0 auto;
+	width: 600px;
+	height: 120px;
+	margin-bottom: 0px;
+}
 .play {
 	width: 100%;
 	height: 100px;
+	transition: background-color .5s ease;
+	cursor: pointer;
+}
+.play:active {
+	background-color: #fff !important;
 }
 .red {
-	/*background-color: red !important;*/
-	opacity: 0.8 !important;
+	opacity: 0.3 !important;
 	height: 100px;
 }
 #box1 { 
 	background-color: #66A3D2;
-	/*transition: background-color .5s ease;*/
 }
-/*#box1:active {
-	background-color: white;
-}*/
 #box2 { 
 	background: #3F92D2;
-	transition: background-color .5s ease;
-}
-#box2:active {
-	background-color: white;
 }
 #box3 { 
 	background: #033E6B;
-	transition: background-color .5s ease;
 }
-#box3:active {
-	background-color: white;
-}
-
 #box4 { 
 	background: #25567B;
-	transition: background-color .5s ease;
-}
-#box4:active {
-	background-color: white;
 }
 #box5 { 
 	background: #0B61A4;
-	transition: background-color .5s ease;
 }
-#box5:active {
-	background-color: white;
-}
-
 #box6 { 
 	background: #61D7A4;
-	transition: background-color .5s ease;
-}
-#box6:hover {
-	background-color: white;
 }
 #box7 { 
 	background: #36D792;
-	transition: background-color 3s ease;
-}
-#box7:hover {
-	background-color: white;
 }
 #box8 { 
 	background: #007241;
-	transition: background-color 3s ease;
-}
-#box8:hover {
-	background-color: white;
 }
