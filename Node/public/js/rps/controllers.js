@@ -2,8 +2,6 @@ angular.module('app.controllers', [])
 	.controller('mainCtrl', ['$scope', 'socket', '$location', 'Game', '$timeout', 'preGame', function ($scope, socket, $location, Game, $timeout, preGame) {
 		console.log("in mainCtrl now")
 		$scope.gameRoomObj = preGame.gameRoomObj;
-		$scope.room = {};
-		$scope.user = {};
 		$scope.display = {};
 		$scope.show = {};
 		// $scope.roomie = "hello" // why doesnt this work?
@@ -13,13 +11,6 @@ angular.module('app.controllers', [])
 					console.log("joined a room emittttt done ")
 				})
 		}, 500)
-
-		$scope.joinRoom = function() {
-			Game.joinRoom($scope.room.name,function(room) {
-			})
-		}
-
-
 
 		$scope.show = function(strategy) {
 			$scope.show[strategy] = true;

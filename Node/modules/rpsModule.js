@@ -166,6 +166,15 @@ function rps_io (socket, io) {
 					newGame[specificRoom].userCount --;
 					console.log("newGame[specificRoom].userCount");
 					console.log(newGame[specificRoom].userCount);
+
+					//user2 is now user1 
+					newGame[specificRoom].user1 = newGame[specificRoom].user2;
+					delete newGame[specificRoom].user2
+					console.log("user2 is now user1  and here is the state of the room")
+					console.log(newGame[specificRoom]);
+
+					// alert other user
+					socket.in(specificRoom).broadcast.emit('bothChosen', "Your opponent has disconnected!")
 					callback(specificRoom)
 				} else if (newGame[prop].user2 === socket.id) {
 					// trying to find the room name that person left
@@ -180,6 +189,8 @@ function rps_io (socket, io) {
 					newGame[specificRoom].userCount --;
 					console.log("newGame[specificRoom].userCount");
 					console.log(newGame[specificRoom].userCount);
+					// alert other user
+					socket.in(specificRoom).broadcast.emit('bothChosen', "Your opponent has disconnected!")
 					callback(specificRoom)
 				}
 				
