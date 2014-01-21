@@ -41,15 +41,10 @@ angular.module('app.services', [])
 			joinRoom: function(room, callback) {
 				gameRoom = room;
 				socket.emit("joinRoom", {id: gameId, roomName: room, playerNumber: playerNumber})
-				console.log("emitting joining this room")
+				// console.log("emitting joining this room")
 				// $location.path('/game/')
 				// return gameRoom;
 				callback(gameRoom)
-			},
-			returnData: function() {
-				console.log("from returnData function from Game service")
-				console.log(gameId)
-				console.log(gameRoom)
 			},
 			choose: function(strategy) {
 				if (gameId && gameRoom && strategy) {
@@ -62,14 +57,12 @@ angular.module('app.services', [])
 		}
 	})
 	.factory('preGame', function ($location) {
-		var gameRoom;
+		var gameRoomObj = {};
 		return {
 			joinRoom: function(room) {
-				gameRoom = room;
+				gameRoomObj.room = room;
 				$location.path('/game')
 			},
-			returnRoom: function (callback) {
-				callback(gameRoom)
-			}
+			gameRoomObj: gameRoomObj
 		}
 	})
