@@ -1,6 +1,7 @@
 var _ = require("underscore");
 var mongojs = require('mongojs');
 var db = mongojs('test', ['sentenceCollection']);
+var sanitizer = require('sanitizer');
 
 function renderPage (request, response) {
 	db.sentenceCollection.find(function(err, docs) {
@@ -10,7 +11,7 @@ function renderPage (request, response) {
 }
 
 function addSentence (request, response) {
-	var sentence = request.body.sentence;
+	var sentence = sanitizer.sanitize(request.body.sentence);
 	if (_.isUndefined(sentence) || _.isEmpty(sentence.trim())) {
 		return response.json(400, {error: "Sentence is invalid"});
 	}
