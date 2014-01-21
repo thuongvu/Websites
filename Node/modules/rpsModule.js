@@ -118,7 +118,7 @@ function rps_io (socket, io) {
 			} else if ((newGame[roomName].user1Strategy === 'scissors') && (newGame[roomName].user2Strategy === 'scissors')) {
 				console.log("tie, bc scissors === scissors")
 				socket.in(roomName).emit('bothChosen', "TIE - You both chose scissors!")
-				socket.in(roomName).broadcast.emit('bothChosen', "bc scissors === scissors")
+				socket.in(roomName).broadcast.emit('bothChosen', "TIE - You both chose scissors!")
 				deleteStrats()
 			} else if ((newGame[roomName].user1Strategy === 'scissors') && (newGame[roomName].user2Strategy === 'paper')) {
 				console.log("player 1 wins, bc scissors < paper")
@@ -142,71 +142,35 @@ function rps_io (socket, io) {
 				deleteStrats()
 			} 
 		}  
-
-
-		
-
-
 	})
 
 	socket.on("disconnect", function() {
-		console.log(socket.id + " is leaving") 
 		for (prop in newGame) {
+			// declaring function
 			function findAndDeleteUser(callback) {
 				if (newGame[prop].user1 === socket.id) {
-					// trying to find the room name that person left
-					console.log(prop)
-					var specificRoom = prop;
-					console.log("newGame[specificRoom] before deleting user")
-					console.log(newGame[specificRoom])
-					delete newGame[specificRoom].user1
-					console.log("newGame[specificRoom] after deleting user")
-					console.log(newGame[specificRoom])
-					// take 1 from usercount
-					newGame[specificRoom].userCount --;
-					console.log("newGame[specificRoom].userCount");
-					console.log(newGame[specificRoom].userCount);
-
-					//user2 is now user1 
-					newGame[specificRoom].user1 = newGame[specificRoom].user2;
+					var specificRoom = prop; // find the room name that user left
+					delete newGame[specificRoom].user1; // delete the user
+					newGame[specificRoom].userCount --; // usercount--
+					newGame[specificRoom].user1 = newGame[specificRoom].user2; //user2 is now user1 
 					delete newGame[specificRoom].user2
-					console.log("user2 is now user1  and here is the state of the room")
-					console.log(newGame[specificRoom]);
+					socket.in(specificRoom).broadcast.emit('bothChosen', "Your opponent has disconnected!") // alert other user
+					callback(specificRoom) // callback
 
-					// alert other user
-					socket.in(specificRoom).broadcast.emit('bothChosen', "Your opponent has disconnected!")
-					callback(specificRoom)
 				} else if (newGame[prop].user2 === socket.id) {
-					// trying to find the room name that person left
-					console.log(prop)
-					var specificRoom = prop;
-					console.log("newGame[specificRoom] before deleting user")
-					console.log(newGame[specificRoom])
-					delete newGame[specificRoom].user2
-					console.log("newGame[specificRoom] after deleting user")
-					console.log(newGame[specificRoom])
-					// take 1 from usercount
-					newGame[specificRoom].userCount --;
-					console.log("newGame[specificRoom].userCount");
-					console.log(newGame[specificRoom].userCount);
-					// alert other user
-					socket.in(specificRoom).broadcast.emit('bothChosen', "Your opponent has disconnected!")
-					callback(specificRoom)
-				}
-				
+					var specificRoom = prop; // trying to find the room name that person left
+					delete newGame[specificRoom].user2 // delete user
+					newGame[specificRoom].userCount--; // usercount--
+					socket.in(specificRoom).broadcast.emit('bothChosen', "Your opponent has disconnected!") // alert other user
+					callback(specificRoom) //callback
+				}	
 			}
+			// invoking function: do function ^, as callback, if no users in room, delete room
 			findAndDeleteUser(function(specificRoom) {
-				console.log(specificRoom)
-				console.log("newGame before deleting ROOM")
-				console.log(newGame)
 				if (newGame[specificRoom].userCount === 0) {
 					delete newGame[specificRoom]
-					console.log("newGame after deleting room")
-					console.log(newGame)
 				}
 			})
-
-
 		}
 	})
 
