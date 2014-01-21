@@ -26,19 +26,8 @@ angular.module('app.controllers', [])
 			// emitting to server from Game service
 			Game.choose(strategy)
 		}
-		
-		
-		
 
-		socket.on("chooseWait", function(data) {
-			$scope.display.status = data;
-		})
-
-		socket.on("bothChosen", function(data) {
-			$scope.display.status = data;
-		})
-
-		socket.on("waitForNewPlayer", function(data) {
+		socket.on("status", function(data) {
 			$scope.display.status = data;
 		})
 
