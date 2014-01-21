@@ -4,12 +4,9 @@ angular.module('app.controllers', [])
 		$scope.gameRoomObj = preGame.gameRoomObj;
 		$scope.display = {};
 		$scope.show = {};
-		// $scope.roomie = "hello" // why doesnt this work?
 
 		setTimeout(function() {
-				Game.joinRoom(preGame.gameRoomObj.room, function() {
-					console.log("joined a room emittttt done ")
-				})
+				Game.joinRoom(preGame.gameRoomObj.room)
 		}, 500)
 
 		$scope.show = function(strategy) {
@@ -38,12 +35,10 @@ angular.module('app.controllers', [])
 		})
 
 		socket.on("bothChosen", function(data) {
-			console.log(data)
 			$scope.display.status = data;
 		})
 
 		socket.on("waitForNewPlayer", function(data) {
-			console.log(data)
 			$scope.display.status = data;
 		})
 
