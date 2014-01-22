@@ -62,7 +62,7 @@ $(document).ready(function() {
    	setTimeout(function() {
    		currentThis.removeClass("pressed")
    	}, 500)
-   	socket.emit("beatToServer", box)
+   	socket.emit("beatToServer", (box.selector).split("").splice(1).join(""))
    }
 
    $(document).keypress(function(e){
