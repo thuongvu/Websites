@@ -1,6 +1,7 @@
 var mongojs = require('mongojs');
 var db = mongojs('test', ['guestBookCollection']);
 var dbThisYear = mongojs('test', ['thisYearCollection']);
+var dbLightShow = mongojs('test', ['lightCollection']);
 var sanitizer = require('sanitizer');
 var _ = require("underscore");
 var twitter = require("mtwitter");
@@ -310,6 +311,32 @@ module.exports = function (app, passport) {
 
 	app.get('/poetry', function (req, res) {
 		res.render('magnet/index.ejs');
+	});
+
+	// ======================================================================================== //
+	// ----------------------------------- colorsquare  --------------------------------------- //
+	// ======================================================================================== //
+
+	app.get('/lightshow', function (req, res) {
+		// res.render('colorsquare/index.ejs');
+		dbLightShow.lightCollection.find(function(err, data) {
+			res.render('colorsquare/index.ejs', {color: data})
+		}) 
+	});
+
+	app.post('/lightshow', function (req, res) {
+		// res.render('colorsquare/index.ejs');
+		var color = sanitizer.sanitize(req.body.color);
+		console.log(color);
+
+		if (_.isUndefined(color) || _.isEmpty(color.trim())) {
+			return response.json(400, {error: "color is invalid"});
+		}
+		// var dbLightShow = mongojs('test', ['lightCollection']);
+		dbLightShow.lightCollection.save({color: color}, function(err, saved) {
+		  if( err || !saved ) console.log("color not saved in db");
+		  else console.log("color in db");
+		});
 	});
 
 } 

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css">
+	<!-- <link rel="stylesheet" href="/css/rps/rpsStyle.css"> -->
+	<style>
+		.box {
+			/*margin: 0 auto;*/
+			transition: background-color .5s ease;
+		}
+		#one {
+			background-color: blue;
+			width: 200px;
+			height: 200px;
+		}
+		#two {
+			background-color: red;
+			height: 100px;
+			width: 100px;
+		}
+		#three {
+			background-color: green;
+			height: 50px;
+			width: 50px;
+		}
+	</style>
+</head>
+<body ng-controller="mainCtrl">
+	<div class="box" id="one" ng-style='{"background-color": colors.current}'>
+	<!-- 	<div class="box" id="two" ng-style='{"background-color": colors.two}'>
+			<div class="box" id="three" ng-style='{"background-color": colors.three}'></div>
+		</div> -->
+	</div>
+	<!-- <input colorpicker class="span2" type="text" ng-model="colors.three" />
+	<input colorpicker class="span2" type="text" ng-model="colors.two" /> -->
+
+	<input colorpicker class="span2" type="text" ng-model="colors.toAdd" />
+	<button ng-click="add()">Add</button>
+	<button ng-click="play()">play</button>
+	
+	
+
+
+	<script>
+		var colorOnLoad = <%- JSON.stringify(color) %>
+		console.log(colorOnLoad)
+	</script>
+	<!-- // <script src="/js/socket.io.min.js"></script> -->
+	<script src="/bower_components/angular/angular.min.js"></script>
+	<script src="/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+	<script src="/js/colorsquare/app.js"></script>
+	<!-- // <script src="/js/rps/services.js"></script> -->
+	<!-- // <script src="/js/rps/directives.js"></script> -->
+	<script src="/js/colorsquare/controller.js"></script>
+	<!-- // <script src="/js/gAnalytics.js"></script> -->
+</body>
+</html>
