@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css">
+	<link rel="stylesheet" href="/css/colorsquare/colorsquareStyle.css">
+</head>
+<body ng-controller="mainCtrl" ng-style='{"background-color": colors.current}'>
+	<div class="col-sm-4 col-sm-offset-4">
+	<div class="input-group">
+		<!-- <form role="form"> -->
+				<input class="form-control" colorpicker type="text" placeholder="Click here to choose a color to add!" ng-model="colors.toAdd" />
+				<span class="input-group-btn">
+					<button type="submit" ng-click="add()">Add</button>
+					<button ng-show="playShow" ng-click="play()">Play</button>
+				</span>
+				<p>{{colors.count}}</p>
+		<!-- </form> -->
+	</div>
+</div>
+	<script>
+		var colorOnLoad = <%- JSON.stringify(color) %>
+		console.log(colorOnLoad)
+	</script>
+	<script src="/bower_components/angular/angular.min.js"></script>
+	<script src="/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+	<script src="/js/colorsquare/app.js"></script>
+	<!-- // <script src="/js/rps/services.js"></script> -->
+	<script src="/js/colorsquare/controller.js"></script>
+	<!-- // <script src="/js/gAnalytics.js"></script> -->
+</body>
+</html>
