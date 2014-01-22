@@ -308,7 +308,7 @@ module.exports = function (app, passport) {
 	// -------------------------------------- magnet  ------------------------------------------ //
 	// ======================================================================================== //
 
-	app.get('/magnet', function (req, res) {
+	app.get('/poetry', function (req, res) {
 		res.render('magnet/index.ejs');
 	});
 

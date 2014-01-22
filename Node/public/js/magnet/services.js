@@ -1,7 +1,7 @@
 angular.module('app.services', [])
 	.factory('socket', function ($rootScope) {
 		var serverBaseUrl = document.domain;
-		var socket = io.connect(serverBaseUrl + '/magnet');
+		var socket = io.connect(serverBaseUrl + '/poetry');
 		return {
 			on: function (eventName, callback) {
 				socket.on(eventName, function () {

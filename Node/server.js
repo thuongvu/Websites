@@ -253,7 +253,7 @@ var beat_socket_io = io.of('/beat').on("connection", function (socket, io) {
 })
 
 // magnet socket.io
-var magnet_socket_io = io.of('/magnet').on("connection", function (socket, io) {
+var magnet_socket_io = io.of('/poetry').on("connection", function (socket, io) {
 	magnet.magnet_io(socket, io);
 })
 
