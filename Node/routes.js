@@ -324,19 +324,39 @@ module.exports = function (app, passport) {
 		}) 
 	});
 
-	app.post('/lightshow', function (req, res) {
-		// res.render('colorsquare/index.ejs');
-		var color = sanitizer.sanitize(req.body.color);
-		console.log(color);
+	function isHexaColor(sNum){
+	  return (typeof sNum === "string") && sNum.length === 6 
+	         && ! isNaN( parseInt(sNum, 16) );
+	}
+	function sendCount(res) {
+		dbLightShow.lightCollection.count(function(err, number) {
+			res.send(number)
+			console.log(number)
+		})
+	}
 
-		if (_.isUndefined(color) || _.isEmpty(color.trim())) {
-			return response.json(400, {error: "color is invalid"});
+	app.post('/lights', function (req, res) {
+		// res.render('colorsquare/index.ejs');
+		var colorPre = sanitizer.sanitize(req.body.color);
+		
+		var colorTest = colorPre.split("").splice(1).join("")
+		if (isHexaColor(colorTest) === true) {
+			dbLightShow.lightCollection.save({color: colorPre}, function(err, saved) {
+			  if( err || !saved ) console.log("color not saved in db");
+			  else console.log("color in db");
+
+			  dbLightShow.lightCollection.count(function(err, number) {
+			  	console.log(number)
+			  	res.send(number.toString())
+			  	// console.log(res)
+			  	// console.log(number)
+			  })
+			});
 		}
-		// var dbLightShow = mongojs('test', ['lightCollection']);
-		dbLightShow.lightCollection.save({color: color}, function(err, saved) {
-		  if( err || !saved ) console.log("color not saved in db");
-		  else console.log("color in db");
-		});
+		
+
+	
+		
 	});
 
 } 

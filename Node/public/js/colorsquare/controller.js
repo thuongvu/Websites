@@ -3,44 +3,31 @@ angular.module('app.controllers', [])
 		$scope.colors = {};
 		$scope.colorContainer = [];
 		$scope.colors.current;
-		// setTimeout(function() {
-		// 	$scope.colors.two = $scope.colors.three;
-		// 	// $scope.colors.three = $scope.colors.two;
-		// 	console.log("it happened")
-		// }, 5000)
-		// for (var i = 0; i < colorOnLoad.length; i++ ){
-		// 	$scope.colorContainer.unshift(colorOnLoad[i].color)
-		// 	console.log(colorOnLoad[i].color)
-		// }
-		// $scope.play();
+		$scope.colors.count;
+		$scope.playShow = false;
 
-		$scope.add = function() {
+		$scope.add = function(success,error) {
 			$scope.colorContainer.unshift($scope.colors.toAdd);
-			console.log("$scope.colorContainer");
-			console.log($scope.colorContainer);
-			$http.post('/lightshow', {color : $scope.colors.toAdd}).success(function() {
-				console.log("post success")
+			$http.post('/lights', {color : $scope.colors.toAdd}).success(function(data) {
+				$scope.colors.count = data + " colors in total.";
 			})
+			$scope.playShow = true;
 		}
 
 		$scope.play = function() {
 			for (var i = 0; i < $scope.colorContainer.length; i++) {
-				// $scope.colors.current = $scope.colorContainer[i];
 
 				$timeout(function(x) {
 					return function() {
 						var current = x;
 						$scope.colors.current = x;
-						console.log("shit should happen now");
-						console.log($scope.colors.current);
 					}
-				} ($scope.colorContainer[i]), 2000 * i)
+				} ($scope.colorContainer[i]), 4000 * i)
 			}
 		}
 
 		for (var i = 0; i < colorOnLoad.length; i++ ){
 			$scope.colorContainer.unshift(colorOnLoad[i].color)
-			console.log(colorOnLoad[i].color)
 		}
 		$scope.play();
 
