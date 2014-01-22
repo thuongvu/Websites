@@ -7,10 +7,14 @@
 		.magnet {
 			color: #fff;
 		}
+		body {
+			width: 960px;
+			height: 720px;
+		}
 	</style>
 </head>
 <body>
-	
+	<div class="container">
 	<div ng-controller="mainCtrl">
 		<button ng-click="createMagnet()">Create Magnet</button>
 	<!-- ng-style={"left": magnet.x, "top": magnet.y} -->
@@ -20,6 +24,7 @@
 		</div>
 
 	</div>
+</div>
 		<script src="/bower_components/jquery/jquery.min.js"></script>
 		<script src="bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
 		 <!-- // <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script> -->
