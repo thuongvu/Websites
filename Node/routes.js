@@ -304,6 +304,14 @@ module.exports = function (app, passport) {
 		res.render('beat/index.ejs');
 	});
 
+	// ======================================================================================== //
+	// -------------------------------------- magnet  ------------------------------------------ //
+	// ======================================================================================== //
+
+	app.get('/magnet', function (req, res) {
+		res.render('magnet/index.ejs');
+	});
+
 } 
 function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated())

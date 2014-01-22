@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- <link rel="stylesheet" href="/css/notesStyle.css"> -->
+	<style>
+		.magnet {
+			/*width: 150px;*/
+			/*height: 25px;*/
+			/*background-color: blue;*/
+			/*border-radius: 2px;*/
+			/*padding-left: 4px;*/
+			/*padding-right: 4px;*/
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	
+	<div ng-controller="mainCtrl">
+		<button ng-click="createMagnet()">Create Magnet</button>
+	<!-- ng-style={"left": magnet.x, "top": magnet.y} -->
+		<div magnet ng-repeat="magnet in magnets" magnetdir="magnet" class="magnet btn" ng-style='{"left": magnet.x, "top": magnet.y, "background-color": magnet.bgcolor}'>
+			<!-- <input type="text" ng-model="magnet.body"></input> -->
+			{{magnet.body}}
+		</div>
+
+	</div>
+		<script src="/bower_components/jquery/jquery.min.js"></script>
+		<script src="bower_components/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+		 <!-- // <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script> -->
+		 <script src="/bower_components/angular/angular.min.js"></script>
+		<script src="/js/socket.io.min.js"></script>
+		<script src="/js/magnet/app.js"></script>
+		<script src="/js/magnet/controllers.js"></script>
+		<script src="/js/magnet/services.js"></script>
+		<script src="/js/magnet/directives.js"></script>
+		
+		<!--<script src="/js/gAnalytics.js"></script> -->
+</body>
+</html>

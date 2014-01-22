@@ -26,6 +26,7 @@ var timed = require("./modules/timedModule.js");
 var testdraw = require("./modules/testdrawModule.js");
 var rps = require("./modules/rpsModule.js");
 var beat = require("./modules/beatModule.js");
+var magnet = require("./modules/magnetModule.js");
 
 	// auth
 	var port = process.env.PORT || 8080;
@@ -249,6 +250,11 @@ var rps_socket_io = io.of('/rps/game').on("connection", function (socket, io) {
 
 var beat_socket_io = io.of('/beat').on("connection", function (socket, io) {
 	beat.beat_io(socket, io);
+})
+
+// magnet socket.io
+var magnet_socket_io = io.of('/magnet').on("connection", function (socket, io) {
+	magnet.magnet_io(socket, io);
 })
 
 // ------------------------------------------------------------------------- //
