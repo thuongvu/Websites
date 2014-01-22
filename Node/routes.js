@@ -317,7 +317,7 @@ module.exports = function (app, passport) {
 	// ----------------------------------- colorsquare  --------------------------------------- //
 	// ======================================================================================== //
 
-	app.get('/lightshow', function (req, res) {
+	app.get('/lights', function (req, res) {
 		// res.render('colorsquare/index.ejs');
 		dbLightShow.lightCollection.find(function(err, data) {
 			res.render('colorsquare/index.ejs', {color: data})
