@@ -5,33 +5,26 @@ var sanitizer = require("sanitizer")
 
 function magnet_io(socket, io) {
 
-		// socket.on('connected', function (data) {
+		db.magnetCol.find(function(err, data) {
+			socket.emit('magnetsOnLoad', data)
+		})
 
-			db.magnetCol.find(function(err, data) {
-				socket.emit('magnetsOnLoad', data)
-			})
-		// })
+		// socket.on('createMagnet', function (data) {
+		// 	db.magnetCol.save(data, function(err, saved) {
+		// 	  if( err || !saved ) console.log("sentence not saved in db");
+		// 	  else console.log("saved in db");
+		// 	});
+		// });
 
-		socket.on('createMagnet', function (data) {
-			// this.broadcast.emit('onNoteCreated', data)
-			db.magnetCol.save(data, function(err, saved) {
-			  if( err || !saved ) console.log("sentence not saved in db");
-			  else console.log("saved in db");
-			});
-		});
-
-		socket.on('updateMagnet', function (data) {
-			// this.broadcast.emit('onNoteUpdated', data)
-			console.log(data)
-			db.magnetCol.findAndModify({
-				query: {id: data.id},
-				update: {id: data.id, body: data.body, x: data.x, y: data.y, bgcolor: data.bgcolor},
-				new: true
-			})
-		});
+		// socket.on('updateMagnet', function (data) {
+		// 	db.magnetCol.findAndModify({
+		// 		query: {id: data.id},
+		// 		update: {id: data.id, body: data.body, x: data.x, y: data.y, bgcolor: data.bgcolor},
+		// 		new: true
+		// 	})
+		// });
 
 		socket.on('moveMagnet', function (data) {
-			console.log(data)
 			db.magnetCol.findAndModify({
 				query: {id: data.id},
 				update: {id: data.id, body: data.body, x: data.x, y: data.y, bgcolor: data.bgcolor},

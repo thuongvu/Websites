@@ -3,8 +3,6 @@ angular.module('app.directives', [])
 		var linker = function(scope, element, attrs) {
 			element.css('left', '10px');
 			element.css('top', '50px');
-			// element.hide().fadeIn();
-
 			element.draggable({
 				stop: function(event, ui) {
 					scope.magnetdir.x = ui.position.left;
@@ -16,7 +14,6 @@ angular.module('app.directives', [])
 						y: ui.position.top,
 						bgcolor: scope.magnetdir.bgcolor
 					})
-					// console.log(scope.magnetdir)
 				}
 			});
 			socket.on('magnetMovedByOther', function(data) {
@@ -30,11 +27,9 @@ angular.module('app.directives', [])
 		};
 		var ctrller = function($scope) {
 			function update(magnetdir) {
-				// console.log(magnetdir)
 				socket.emit('updateMagnet', magnetdir)
 			}
 			$scope.$watch('magnetdir', update, true)
-
 		};
 		return {
 			restrict: 'EA',
