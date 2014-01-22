@@ -318,7 +318,6 @@ module.exports = function (app, passport) {
 	// ======================================================================================== //
 
 	app.get('/lights', function (req, res) {
-		// res.render('colorsquare/index.ejs');
 		dbLightShow.lightCollection.find(function(err, data) {
 			res.render('colorsquare/index.ejs', {color: data})
 		}) 
@@ -328,15 +327,9 @@ module.exports = function (app, passport) {
 	  return (typeof sNum === "string") && sNum.length === 6 
 	         && ! isNaN( parseInt(sNum, 16) );
 	}
-	function sendCount(res) {
-		dbLightShow.lightCollection.count(function(err, number) {
-			res.send(number)
-			console.log(number)
-		})
-	}
+
 
 	app.post('/lights', function (req, res) {
-		// res.render('colorsquare/index.ejs');
 		var colorPre = sanitizer.sanitize(req.body.color);
 		
 		var colorTest = colorPre.split("").splice(1).join("")
@@ -344,20 +337,17 @@ module.exports = function (app, passport) {
 			dbLightShow.lightCollection.save({color: colorPre}, function(err, saved) {
 			  if( err || !saved ) console.log("color not saved in db");
 			  else console.log("color in db");
-
 			  dbLightShow.lightCollection.count(function(err, number) {
-			  	console.log(number)
 			  	res.send(number.toString())
-			  	// console.log(res)
-			  	// console.log(number)
 			  })
 			});
 		}
-		
-
-	
-		
 	});
+
+
+	// ======================================================================================== //
+	// ----------------------------------- pictionary  ---------------------------------------- //
+	// ======================================================================================== //
 
 } 
 function isLoggedIn(req, res, next) {
