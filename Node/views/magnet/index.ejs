@@ -15,7 +15,7 @@
 		<button ng-click="createMagnet()">Create Magnet</button>
 	<!-- ng-style={"left": magnet.x, "top": magnet.y} -->
 		<div magnet ng-repeat="magnet in magnets" magnetdir="magnet" class="magnet btn" ng-style='{"left": magnet.x, "top": magnet.y, "background-color": magnet.bgcolor}'>
-			<input type="text" ng-model="magnet.body"></input>
+			<!-- <input type="text" ng-model="magnet.body"></input> -->
 			{{magnet.body}}
 		</div>
 
