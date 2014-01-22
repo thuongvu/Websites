@@ -27,9 +27,10 @@ angular.module('app.controllers', [])
 			Game.choose(strategy)
 		}
 
-		socket.on("status", function(data) {
-			$scope.display.status = data;
-		})
+		// socket.on("status", function(data) {
+		// 	console.log("status from controller")
+		// 	$scope.display.status = data;
+		// })
 
 		socket.on("otherPlayerDisplay", function(data) {
 			console.log(data)
