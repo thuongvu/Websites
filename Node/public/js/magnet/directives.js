@@ -16,11 +16,11 @@ angular.module('app.directives', [])
 						y: ui.position.top,
 						bgcolor: scope.magnetdir.bgcolor
 					})
-					console.log(scope.magnetdir)
+					// console.log(scope.magnetdir)
 				}
 			});
 			socket.on('magnetMovedByOther', function(data) {
-				if (data.id == scope.magnet.id) {
+				if (data.id == scope.magnetdir.id) {
 					element.animate({
 						left: data.x,
 						top: data.y
@@ -30,7 +30,7 @@ angular.module('app.directives', [])
 		};
 		var ctrller = function($scope) {
 			function update(magnetdir) {
-				console.log(magnetdir)
+				// console.log(magnetdir)
 				socket.emit('updateMagnet', magnetdir)
 			}
 			$scope.$watch('magnetdir', update, true)
