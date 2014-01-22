@@ -1,8 +1,8 @@
 angular.module('app.directives', [])
 	.directive('magnet', function(socket) {
 		var linker = function(scope, element, attrs) {
-			element.css('left', '10px');
-			element.css('top', '50px');
+			// element.css('left', '10px');
+			// element.css('top', '50px');
 			element.draggable({
 				stop: function(event, ui) {
 					scope.magnetdir.x = ui.position.left;
@@ -17,7 +17,7 @@ angular.module('app.directives', [])
 				}
 			});
 			socket.on('magnetMovedByOther', function(data) {
-				if (data.id == scope.magnetdir.id) {
+				if (data.id === scope.magnetdir.id) {
 					element.animate({
 						left: data.x,
 						top: data.y

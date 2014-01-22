@@ -34,6 +34,9 @@ app.directive('stickyNote', function (socket) {
 		element.hide().fadeIn();
 		element.draggable({
 			stop: function(event, ui) {
+				scope.note.left = ui.position.left;
+				scope.note.top = ui.position.top;
+
 				socket.emit('moveNote', {
 					id: scope.note.id
 				,	title: scope.note.title
@@ -44,7 +47,7 @@ app.directive('stickyNote', function (socket) {
 			}
 		})
 		socket.on('onNoteMoved', function(data) {
-			if (data.id == scope.note.id) {
+			if (data.id === scope.note.id) {
 				element.animate({
 					left: data.x
 				,	top: data.y
