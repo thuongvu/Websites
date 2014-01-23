@@ -141,11 +141,11 @@ function pictionary_io (socket, io) {
 			newGame[room].userCount++;
 			newGame[room].users.push(newUser);
 			var message = username + " has joined the room " + room;
-			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000', userJoined: username});
+			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000', userJoined: username, round: newGame[room].round});
 			
 			
 			sendUserList(room, function(usersArray) {
-				socket.in(room).emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000', userJoined: usersArray});
+				socket.in(room).emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000', userJoined: usersArray, currentDrawer: newGame[room].currentDrawer, round: newGame[room].round});
 			})
 
 		}

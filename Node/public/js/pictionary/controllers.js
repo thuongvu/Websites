@@ -79,6 +79,15 @@ angular.module('app.controllers', [])
 				}
 				
 			}
+			if (data.currentDrawer) {
+				if ((data.currentDrawer != $scope.gameObj.id) && (data.inSession === 1)) {
+					console.log("i am the guessing!")
+					$scope.showDraw = false;
+					$scope.showGuess = true;
+					$scope.currentWord = 'Guess the word!';
+					$scope.round = "Round " + data.round;
+				}
+			}
 			
 		})
 		// request startgame
