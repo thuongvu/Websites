@@ -91,8 +91,12 @@ angular.module('app.services', [])
 					socket.emit("messageToServer", {username: gameObj.username, message: message, id: gameObj.id, room: gameObj.room})
 				}
 			},
-			requestStartGame: function() {
-				socket.emit("requestStartGame", {username: gameObj.username, id: gameObj.id, room: gameObj.room})
+			requestStartGame: function(inSession) {
+				if (inSession === 0) {
+					socket.emit("requestStartGame", {username: gameObj.username, id: gameObj.id, room: gameObj.room})
+				} else {
+					console.log("game is in session")
+				}
 			},
 			gameObj: gameObj,
 			messagesObj: messagesObj

@@ -18,6 +18,10 @@ GAME ROOM
 </div>
 
 <!-- draw -->
-<div draw ng-show="showDraw">ShowDraw</div>
-<!-- see someone else draw -->
-<div guess ng-show="showGuess"></div>
+
+<div>
+	{{currentWord}}
+	<div draw ng-show="showDraw">ShowDraw</div>
+	<!-- see someone else draw -->
+	<div guess ng-show="showGuess"></div>
+</div>

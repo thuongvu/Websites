@@ -20,6 +20,7 @@ function Game(room) {
 	this.timeLeft = 10;
 	var randNumber = Math.round(Math.random() * words.length)
 	this.word = words[randNumber];
+	this.inSession = 0;
 }
 
 function pictionary_io (socket, io) {
@@ -59,9 +60,12 @@ function pictionary_io (socket, io) {
 		console.log("newGame[room].word")
 		console.log(newGame[room].word)
 
-		socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: newGame[room].currentDrawer, inSession: 1});
+		// in session
+		newGame[room].inSession = 1;
+
+		socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: newGame[room].currentDrawer, inSession: newGame[room].inSession});
 		// socket.in(room).broadcast.emit("startGame");
-		socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: newGame[room].currentDrawer, inSession: 1});
+		socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: newGame[room].currentDrawer, inSession: newGame[room].inSession});
 	})
 
 	socket.on("joinRoom", function(data) {
@@ -79,15 +83,15 @@ function pictionary_io (socket, io) {
 			newGame[room].users.push(newUser);
 			console.log(newGame[room])
 			var message = username + " has joined the room " + room;
-			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message});
-			socket.in(room).emit("messageToClient", {username: "Room", message: message});
+			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession});
+			socket.in(room).emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession});
 		} else {
 			newUser = new User(id, username);
 			newGame[room].userCount++;
 			newGame[room].users.push(newUser);
 			var message = username + " has joined the room " + room;
-			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message});
-			socket.in(room).emit("messageToClient", {username: "Room", message: message});
+			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession});
+			socket.in(room).emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession});
 		}
 
 	})

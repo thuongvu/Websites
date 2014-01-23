@@ -11,6 +11,8 @@ angular.module('app.controllers', [])
 	}])
 	.controller('mainCtrl', ['$scope', 'socket', 'Game', '$timeout', function ($scope, socket, Game, $timeout) {
 		console.log('in mainCtrl')
+		$scope.status = {};
+		$scope.inSession;
 		$scope.gameObj = Game.gameObj;
 		// $scope.$watch('Game.gameObj', function(newVal, oldVal) {
 		// 	// $scope.gameObj = Game.gameObj;
@@ -37,11 +39,13 @@ angular.module('app.controllers', [])
 			console.log(data)
 			var username = data.username;
 			var message = data.message;
+			$scope.inSession = data.inSession;
+
 			$scope.chatroom.receivedMessages.unshift({"username": username, "message" : message})
 		})
 		// request startgame
 		$scope.requestStartGame = function () {
-			Game.requestStartGame()
+			Game.requestStartGame($scope.inSession)
 		}
 		// joinroom
 		$scope.joinRoom = function() {
@@ -73,10 +77,14 @@ angular.module('app.controllers', [])
 
 
 		socket.on("startGame", function(data) {
+			console.log(data)
 				if ($scope.gameObj.id === data.currentDrawer) {
 					console.log("i am the current drawer")
 					$scope.showDraw = true;
 					$scope.showGuess = false;
+					$scope.currentWord = 'Draw: ' + data.word;
+					
+					
 				} else {
 					console.log("i am the guessing!")
 					$scope.showDraw = false;
