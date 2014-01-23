@@ -113,8 +113,8 @@ angular.module('app.directives', [])
 				    svgSee = d3.select(element[0]).append("svg")
 				       .attr("width", width)
 				       .attr("height", height)
-				       .on("mousedown", mouseDown)
-				       .on("mouseup", mouseUp)
+				       // .on("mousedown", mouseDown)
+				       // .on("mouseup", mouseUp)
 
 				   var strokesContainer = []; // for emitting
 

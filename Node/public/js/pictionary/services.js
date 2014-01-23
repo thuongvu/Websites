@@ -48,19 +48,17 @@ angular.module('app.services', [])
 		// })
 
 		socket.on("startGame", function(data) {
-			console.log(data)
 			gameObj.word = data.word;
 			gameObj.inSession = data.inSession;
-			console.log(gameObj.inSession)
-			if (gameObj.id === data.currentDrawer) {
-				console.log("i am the current drawer")
-				gameObj.showDraw = true;
-				gameObj.showGuess = true;
-			} else {
-				console.log("i am the guessing!")
-				gameObj.showDraw = false;
-				gameObj.showGuess = true;
-			}
+			// if (gameObj.id === data.currentDrawer) {
+			// 	console.log("i am the current drawer")
+			// 	gameObj.showDraw = true;
+			// 	gameObj.showGuess = true;
+			// } else {
+			// 	console.log("i am the guessing!")
+			// 	gameObj.showDraw = false;
+			// 	gameObj.showGuess = true;
+			// }
 		})
 
 		// socket.on("messageToClient", function(data) {
