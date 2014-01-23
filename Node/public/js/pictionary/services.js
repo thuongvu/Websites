@@ -74,11 +74,11 @@ angular.module('app.services', [])
 			},
 			sendMessage: function(message) {
 				if (gameObj.username && message) {
-					socket.emit("messageToServer", {username: gameObj.username, message: message, id: gameObj.id})
+					socket.emit("messageToServer", {username: gameObj.username, message: message, id: gameObj.id, room: gameObj.room})
 				}
 			},
 			requestStartGame: function() {
-				socket.emit("requestStartGame", {username: gameObj.username, id: gameObj.id})
+				socket.emit("requestStartGame", {username: gameObj.username, id: gameObj.id, room: gameObj.room})
 			},
 			gameObj: gameObj,
 			messagesObj: messagesObj

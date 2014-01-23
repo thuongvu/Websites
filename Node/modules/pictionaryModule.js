@@ -1,6 +1,6 @@
 var _ = require("underscore");
 var sanitizer = require("sanitizer");
-var words = ['dog', 'chair', 'television', 'phone', 'honor', 'mountain', 'clock', 'sky', 'honk', 'chalk', 'story', 'book', 'throne', 'windmill', 'monk', 'sand', 'year', 'month', 'day', 'time', 'fish', 'pizza', 'basebal', 'football', 'basketball', 'party', 'hair', 'spine', 'head', 'nose', 'ear', 'beard', 'big', 'pig', 'small', 'hipster', 'trip', 'cookie', 'gym', 'syrup', 'carrot', 'spider', 'lung', 'flamingo', 'explore', 'music', 'conversation', 'tomato', 'police', 'island', 'faucet', 'level', 'evolution', 'trian', 'jump', 'vegetable'];
+var words = ['dog', 'chair', 'television', 'phone', 'honor', 'mountain', 'clock', 'sky', 'honk', 'chalk', 'story', 'book', 'throne', 'windmill', 'monk', 'sand', 'year', 'month', 'day', 'time', 'fish', 'pizza', 'baseball', 'football', 'basketball', 'party', 'hair', 'spine', 'head', 'nose', 'ear', 'beard', 'big', 'pig', 'small', 'hipster', 'trip', 'cookie', 'gym', 'syrup', 'carrot', 'spider', 'lung', 'flamingo', 'explore', 'music', 'conversation', 'tomato', 'police', 'island', 'faucet', 'level', 'evolution', 'trian', 'jump', 'vegetable'];
 var newGame = {};
 var newUser = {};
 function User(id, username) {
@@ -18,7 +18,8 @@ function Game(room) {
 	this.currentDrawer = '';
 	this.nextDrawer = '';
 	this.timeLeft = 10;
-	this.word = words[3];
+	var randNumber = Math.round(Math.random() * words.length)
+	this.word = words[randNumber];
 }
 
 function pictionary_io (socket, io) {
@@ -26,31 +27,40 @@ function pictionary_io (socket, io) {
 	socket.emit("ClientPlayerInfo", {id: socket.id})
 
 	socket.on("newStroke", function (data) {
-		currentStrokes = data.strokes
-		socket.broadcast.emit("strokesToDraw", {data: data});
+		var room = sanitizer.sanitize(data.strokes[0].room);
+		var currentStrokes = sanitizer.sanitize(data.strokes)
+		socket.in(room).broadcast.emit("strokesToDraw", {data: data});
 		// if i wanna test emitting to self... hmm, try later
 	});
 
 	socket.on("reset", function (){
 		db.drawSomethingCol.remove()
-		socket.broadcast.emit("resetDrawing");
+		socket.in(room).broadcast.emit("resetDrawing");
 	})
 
 	socket.on("messageToServer", function(data) {
 		var username = sanitizer.sanitize(data.username);
 		var message = sanitizer.sanitize(data.message);
 		var id = sanitizer.sanitize(data.id);
-		socket.broadcast.emit("messageToClient", {username: username, message: message});
-		socket.emit("messageToClient", {username: username, message: message});
+		var room = sanitizer.sanitize(data.room);
+		socket.in(room).broadcast.emit("messageToClient", {username: username, message: message});
+		socket.in(room).emit("messageToClient", {username: username, message: message});
 	})
 
 	socket.on("requestStartGame", function(data) {
 		var username = sanitizer.sanitize(data.username);
-		var message = sanitizer.sanitize(data.message);
+		var room = sanitizer.sanitize(data.room);
 		var id = sanitizer.sanitize(data.id);
+		// what to emit on startgame?
+		// word, drawer
+		newGame[room].currentDrawer = id;
+		console.log("newGame[room].currentDrawer")
+		console.log(newGame[room].currentDrawer)
+		console.log("newGame[room].word")
+		console.log(newGame[room].word)
 
-		socket.emit("startGame");
-		socket.broadcast.emit("startGame");
+		socket.in(room).emit("startGame");
+		socket.in(room).broadcast.emit("startGame");
 	})
 
 	socket.on("joinRoom", function(data) {
@@ -66,28 +76,17 @@ function pictionary_io (socket, io) {
 			newUser = new User(id, username);
 			newGame[room].userCount++;
 			newGame[room].users.push(newUser);
-
-			// console.log("newUser")
-			// console.log(newUser)
-			// console.log("newGame")
-			// console.log(newGame)
-
+			console.log(newGame[room])
 			var message = username + " has joined the room " + room;
-			socket.broadcast.emit("messageToClient", {username: "Room", message: message});
-			socket.emit("messageToClient", {username: "Room", message: message});
+			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message});
+			socket.in(room).emit("messageToClient", {username: "Room", message: message});
 		} else {
 			newUser = new User(id, username);
 			newGame[room].userCount++;
 			newGame[room].users.push(newUser);
-
-			// console.log("newUser")
-			// console.log(newUser)
-			// console.log("newGame")
-			// console.log(newGame)
-
 			var message = username + " has joined the room " + room;
-			socket.broadcast.emit("messageToClient", {username: "Room", message: message});
-			socket.emit("messageToClient", {username: "Room", message: message});
+			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message});
+			socket.in(room).emit("messageToClient", {username: "Room", message: message});
 		}
 
 	})

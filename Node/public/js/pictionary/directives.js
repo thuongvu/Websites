@@ -1,5 +1,5 @@
 angular.module('app.directives', [])
-	.directive('draw', function (socket, d3) {
+	.directive('draw', function (socket, d3, Game) {
 		return {
 			restrict: 'EA',
 			scope: {
@@ -9,6 +9,7 @@ angular.module('app.directives', [])
 
 			},
 			link: function(scope, element, attrs) {
+				var room = Game.gameObj.room;
 				var width = 600,
 				     height = 300;      
 
@@ -54,7 +55,8 @@ angular.module('app.directives', [])
 				         cy: parseInt(drawStrokeObj[0][0].attributes.cy.value),
 				         r: drawStrokeObj[0][0].attributes.r.value,
 				         fill: drawStrokeObj[0][0].attributes.fill.value,
-				         opacity: drawStrokeObj[0][0].attributes.opacity.value
+				         opacity: drawStrokeObj[0][0].attributes.opacity.value,
+				         room: room,
 				       }
 				       strokesContainer.push(obj)
 				     })
@@ -95,7 +97,7 @@ angular.module('app.directives', [])
 			}
 		}
 	})
-	.directive('seedraw', function (socket, d3) {
+	.directive('seedraw', function (socket, d3, Game) {
 		return {
 			restrict: 'EA',
 			scope: {
