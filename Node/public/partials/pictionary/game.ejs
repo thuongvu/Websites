@@ -2,18 +2,29 @@
 
 <div class="cont">
 	<div class="text-center">Room: {{gameRoom}} </div>
+	<br>
+	<br>
 	<div class="row">	
 		<div class="col-md-4">
 			<!-- set username -->
-			<!-- <div id="setUserName" class="col-md-2"> -->
+			<div>
 				<button ng-click="requestStartGame()">Start game</button>
-				<input ng-model="user.name" placeholder="user name"></input>
-				<button ng-click="setUsername()">Set username</button>
-			<!-- </div> -->
+				<!-- <input ng-model="user.name" placeholder="user name"></input> -->
+				<!-- <button ng-click="setUsername()">Set username</button> -->
+			</div>
+
+			<!-- user container -->
+			<div id="userContainer">
+				<table>
+					<th class="text-center">Players</th>
+					<tr ng-repeat="user in usersInRoom">
+						<td>{{user.name}}</td>
+					</tr>
+				</table>
+			</div>
 	
 			<!-- chat room -->
 			<div id="chatContainer">
-	
 				<form class="form control" ng-submit="sendMessage()">
 					<input class="form-control" ng-model="chatroom.message" placeholder="Type and Press Enter"></input>
 					<span class="input-group-btn">

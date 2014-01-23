@@ -102,13 +102,11 @@ function pictionary_io (socket, io) {
 		var username = sanitizer.sanitize(data.username);
 		var room = sanitizer.sanitize(data.room);
 		var id = sanitizer.sanitize(data.id);
-		// what to emit on startgame?
-		// word, drawer, gameInSession
 		newGame[room].currentDrawer = id;
-		console.log("newGame[room].currentDrawer")
-		console.log(newGame[room].currentDrawer)
-		console.log("newGame[room].word")
-		console.log(newGame[room].word)
+		// console.log("newGame[room].currentDrawer")
+		// console.log(newGame[room].currentDrawer)
+		// console.log("newGame[room].word")
+		// console.log(newGame[room].word)
 
 		// in session
 		newGame[room].inSession = 1;
@@ -134,20 +132,36 @@ function pictionary_io (socket, io) {
 			newUser = new User(id, username);
 			newGame[room].userCount++;
 			newGame[room].users.push(newUser);
-			console.log(newGame[room])
+			// console.log(newGame[room])
 			var message = username + " has joined the room " + room;
-			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000'});
-			socket.in(room).emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000'});
+			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000', userJoined: username});
+			socket.in(room).emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000', userJoined: username});
 		} else {
 			newUser = new User(id, username);
 			newGame[room].userCount++;
 			newGame[room].users.push(newUser);
 			var message = username + " has joined the room " + room;
-			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000'});
-			socket.in(room).emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000'});
+			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000', userJoined: username});
+			
+			
+			sendUserList(room, function(usersArray) {
+				socket.in(room).emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000', userJoined: usersArray});
+			})
+
 		}
 
 	})
+
+	function sendUserList(room, callback) {
+		var usersArray = [];
+		for (var j = 0; j < newGame[room].users.length; j++) {
+			usersArray.push(newGame[room].users[j].username)
+		}
+		callback(usersArray, room)
+	}
+
+
+
 
 	socket.on("disconnect", function() {
 		console.log("socket.id " + socket.id + " disconnected" )
@@ -157,11 +171,17 @@ function pictionary_io (socket, io) {
 				var currentRoom = prop;
 				var length = newGame[prop].users.length;
 				for (var i = 0; i < length; i++) {
-					console.log(newGame[prop].users)
 					if (newGame[prop].users[i].id === socket.id) {
+						var username = newGame[prop].users[i].username;
+						// deleting from server logic
 						newGame[prop].users.splice(i, 1)
 						length--
 						newGame[prop].userCount--;
+						// emitting to room logic
+						
+						var message = username + " has left the room " + currentRoom;
+						socket.in(currentRoom).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[currentRoom].inSession, color: '#FF0000', userLeft: username});
+						// our lovely callback
 						callback(currentRoom)
 					}
 				}

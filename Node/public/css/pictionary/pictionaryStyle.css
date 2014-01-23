@@ -6,7 +6,17 @@ svg {
 	height: 200px;
 	overflow-y: scroll;
 	border: 1px solid grey;
+	border-radius: 5px;
 }
 .cont {
 	padding: 20px;
+}
+#userContainer {
+	/*background-color: blue;*/
+	height: 180px;
+	width: 200px;
+	overflow-y: scroll;
+	border: 1px solid grey;
+	margin-bottom: 15px;
+	border-radius: 5px;
 }

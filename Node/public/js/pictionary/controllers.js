@@ -9,6 +9,7 @@ angular.module('app.controllers', [])
 	}])
 	.controller('mainCtrl', ['$scope', 'socket', 'Game', '$timeout', function ($scope, socket, Game, $timeout) {
 		console.log('in mainCtrl')
+		$scope.usersInRoom = [];
 		$scope.status = {};
 		$scope.inSession;
 		$scope.gameObj = Game.gameObj;
@@ -49,6 +50,34 @@ angular.module('app.controllers', [])
 					$scope.currentWord = 'Guess the word!';
 					$scope.round = "Round " + data.round;
 				}
+			}
+			
+			if (data.userJoined) {
+				var userJoined = data.userJoined;
+				console.log(data.userJoined)
+				if (typeof userJoined === "string") {
+					$scope.usersInRoom.push({name: data.userJoined});
+				} else {
+					for (var j = 0; j < data.userJoined.length; j++) {
+						$scope.usersInRoom.push({name: data.userJoined[j]});
+					}
+				}
+				// if (data.userJoined.length > 1) {
+				// 	for (var j = 0; j < data.userJoined.length; j++) {
+				// 		$scope.usersInRoom.push({name: data.userJoined[i]});
+				// 	}
+				// } else {
+				// 	$scope.usersInRoom.push({name: data.userJoined});
+				// }
+				
+			}
+			if (data.userLeft) {
+				for (var i = 0; i < $scope.usersInRoom.length; i++) {
+					if (data.userLeft === $scope.usersInRoom[i].name) {
+						$scope.usersInRoom.splice(i,1)
+					}
+				}
+				
 			}
 			
 		})
