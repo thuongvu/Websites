@@ -10,7 +10,7 @@ angular.module('app.controllers', [])
 	.controller('mainCtrl', ['$scope', 'socket', 'Game', '$timeout', function ($scope, socket, Game, $timeout) {
 		console.log('in mainCtrl')
 		$scope.colorDraw = {};
-		$scope.colorDraw.current;
+		$scope.colorDraw.current = '#000'
 
 		$scope.usersInRoom = [];
 		$scope.status = {};

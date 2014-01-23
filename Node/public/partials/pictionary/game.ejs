@@ -46,8 +46,7 @@
 			<div class="text-center">{{round}}</div>
 			<div class="text-center">{{currentWord}}</div>
 			<div draw ng-show="showDraw" colordata="colorDraw.current">
-				<input colorpicker type="text" placeholder="Click here to choose a color to add!" ng-model="colorDraw.current"/>
-				{{colorDraw.current}}
+				<div ng-model="colorDraw.current" colorpicker ng-style='{"width": "20px", "height": "20px", "background-color": colorDraw.current, "display": "inline-block"}'></div>
 			</div>
 			<!-- see someone else draw -->
 			<div guess ng-show="showGuess"></div>
