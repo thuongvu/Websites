@@ -2,13 +2,22 @@ angular.module('app.directives', [])
 	.directive('draw', function (socket, d3, Game) {
 		return {
 			restrict: 'EA',
-			scope: {
-				data: '='
-			},
+			// scope: {
+			// 	colordata: '='
+			// },
 			controller: function ($scope) {
 
 			},
 			link: function(scope, element, attrs) {
+				// SET UP A WATCH
+				// var color = scope.colordata;
+				// var color = '#fff000'
+				var color = scope.colordata
+				setInterval(function() {
+					console.log(scope)
+				}, 1000)
+				console.log("scope.color")
+				console.log(scope.color)
 				var room = Game.gameObj.room;
 				var width = 600,
 				     height = 300;      
@@ -47,7 +56,7 @@ angular.module('app.directives', [])
 				           .attr("cy", coordinates[1])
 				           .attr("r", size)
 				           .attr("stroke-width", 1)
-				           .attr("fill", '#000')
+				           .attr("fill", color)
 				           .attr("opacity", opacity)
 
 				       var obj = {

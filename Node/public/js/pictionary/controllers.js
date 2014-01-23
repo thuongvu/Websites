@@ -9,6 +9,9 @@ angular.module('app.controllers', [])
 	}])
 	.controller('mainCtrl', ['$scope', 'socket', 'Game', '$timeout', function ($scope, socket, Game, $timeout) {
 		console.log('in mainCtrl')
+		$scope.colorDraw = {};
+		$scope.colorDraw.current;
+
 		$scope.usersInRoom = [];
 		$scope.status = {};
 		$scope.inSession;
@@ -82,6 +85,15 @@ angular.module('app.controllers', [])
 			}
 			if ($scope.inSession === 1) {
 				$scope.hideInSession = true;
+				$scope.round = "Round " + data.round;
+			} else if ($scope.inSession === 0) {
+				$scope.hideInSession = false;
+				$scope.round = "Round " + data.round;
+				$scope.currentWord = ''
+			}
+			if (data.round === 0) {
+				$scope.hideInSession = false;
+				$scope.showDraw = false;
 			}
 			
 		})

@@ -37,13 +37,18 @@
 			</div>
 		</div>
 		
+		<!-- 	<input colorpicker type="text" placeholder="Click here to choose a color to add!" ng-model="colors" />
+			{{colors}} -->
 		<!-- draw -->
 		
 		<div class="col-md-6 col-md-offset-1">
 			
 			<div class="text-center">{{round}}</div>
 			<div class="text-center">{{currentWord}}</div>
-			<div draw ng-show="showDraw"></div>
+			<div draw ng-show="showDraw" colordata="colorDraw.current">
+				<input colorpicker type="text" placeholder="Click here to choose a color to add!" ng-model="colorDraw.current"/>
+				{{colorDraw.current}}
+			</div>
 			<!-- see someone else draw -->
 			<div guess ng-show="showGuess"></div>
 		</div>

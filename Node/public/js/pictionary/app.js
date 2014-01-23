@@ -1,4 +1,4 @@
-angular.module('app', [ 'ngRoute', 'app.services', 'app.directives', 'app.controllers', 'd3'])
+angular.module('app', [ 'ngRoute', 'colorpicker.module', 'app.services', 'app.directives', 'app.controllers', 'd3'])
 	.config(function($routeProvider) {
 		$routeProvider
 		.when('/', {
