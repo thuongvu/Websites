@@ -53,6 +53,7 @@ angular.module('app.services', [])
 		// 	messagesObj.msg.message = data.message;
 		// })
 
+
 		// temp vars for testing
 		// username, room
 		gameObj.room = "test";

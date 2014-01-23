@@ -63,16 +63,61 @@ function pictionary_io (socket, io) {
 
 		if (!(newGame[room])) {
 			newGame[room] = new Game(room);
-			newUser[id] = new User(id, username);
-			console.log(newGame)
-			console.log(newUser) 
+			newUser = new User(id, username);
+			newGame[room].userCount++;
+			newGame[room].users.push(newUser);
+
+			// console.log("newUser")
+			// console.log(newUser)
+			// console.log("newGame")
+			// console.log(newGame)
+
+			var message = username + " has joined the room " + room;
+			socket.broadcast.emit("messageToClient", {username: "Room", message: message});
+			socket.emit("messageToClient", {username: "Room", message: message});
 		} else {
-			newUser[id] = new User(id, username);
+			newUser = new User(id, username);
+			newGame[room].userCount++;
+			newGame[room].users.push(newUser);
+
+			// console.log("newUser")
+			// console.log(newUser)
+			// console.log("newGame")
+			// console.log(newGame)
+
+			var message = username + " has joined the room " + room;
+			socket.broadcast.emit("messageToClient", {username: "Room", message: message});
+			socket.emit("messageToClient", {username: "Room", message: message});
 		}
 
 	})
 
 	socket.on("disconnect", function() {
+		console.log("socket.id " + socket.id + " disconnected" )
+
+		function findAndDeleteUser(callback) {
+			for (prop in newGame) {
+				var currentRoom = prop;
+				var length = newGame[prop].users.length;
+				for (var i = 0; i < length; i++) {
+					if (newGame[prop].users[i].id === socket.id) {
+						newGame[prop].users.splice(i, 1)
+						newGame[prop].userCount--;
+						callback(currentRoom)
+					}
+				}
+			}
+		}
+
+		findAndDeleteUser(function(currentRoom) {
+			if (newGame[currentRoom].userCount === 0) {
+				delete newGame[currentRoom]
+			}
+		})
+		
+
+
+
 
 	})
 }
