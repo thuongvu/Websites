@@ -52,15 +52,16 @@ function pictionary_io (socket, io) {
 		var room = sanitizer.sanitize(data.room);
 		var id = sanitizer.sanitize(data.id);
 		// what to emit on startgame?
-		// word, drawer
+		// word, drawer, gameInSession
 		newGame[room].currentDrawer = id;
 		console.log("newGame[room].currentDrawer")
 		console.log(newGame[room].currentDrawer)
 		console.log("newGame[room].word")
 		console.log(newGame[room].word)
 
-		socket.in(room).emit("startGame");
-		socket.in(room).broadcast.emit("startGame");
+		socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: newGame[room].currentDrawer, inSession: 1});
+		// socket.in(room).broadcast.emit("startGame");
+		socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: newGame[room].currentDrawer, inSession: 1});
 	})
 
 	socket.on("joinRoom", function(data) {
@@ -99,8 +100,10 @@ function pictionary_io (socket, io) {
 				var currentRoom = prop;
 				var length = newGame[prop].users.length;
 				for (var i = 0; i < length; i++) {
+					console.log(newGame[prop].users)
 					if (newGame[prop].users[i].id === socket.id) {
 						newGame[prop].users.splice(i, 1)
+						length--
 						newGame[prop].userCount--;
 						callback(currentRoom)
 					}

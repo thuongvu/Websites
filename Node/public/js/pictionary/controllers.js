@@ -43,6 +43,11 @@ angular.module('app.controllers', [])
 		$timeout(function() {
 			$scope.joinRoom()
 		}, 500)
+		// show which: draw/guess
+		// $scope.showDraw = Game.gameObj.showDraw;
+		$scope.showDraw = true;
+		$scope.showGuess = Game.gameObj.showGuess;
+
 
 
 

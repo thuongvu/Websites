@@ -97,7 +97,7 @@ angular.module('app.directives', [])
 			}
 		}
 	})
-	.directive('seedraw', function (socket, d3, Game) {
+	.directive('guess', function (socket, d3, Game) {
 		return {
 			restrict: 'EA',
 			scope: {

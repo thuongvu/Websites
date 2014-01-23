@@ -36,15 +36,31 @@ angular.module('app.services', [])
 	.factory('Game', function (socket, $location) {
 		var gameObj = {};
 		var messagesObj = {};
-		// var gameObj.inSession = 0;
+		gameObj.inSession = 0;
 
 		socket.on("ClientPlayerInfo", function(data) {
 			gameObj.id = data.id
 			console.log(gameObj.id)
 		})
 
-		socket.on("chatRoomMessage", function(data) {
+		// socket.on("chatRoomMessage", function(data) {
+		// 	console.log(data)
+		// })
+
+		socket.on("startGame", function(data) {
 			console.log(data)
+			gameObj.word = data.word;
+			gameObj.inSession = data.inSession;
+			console.log(gameObj.inSession)
+			if (gameObj.id === data.currentDrawer) {
+				console.log("i am the current drawer")
+				gameObj.showDraw = true;
+				gameObj.showGuess = true;
+			} else {
+				console.log("i am the guessing!")
+				gameObj.showDraw = false;
+				gameObj.showGuess = true;
+			}
 		})
 
 		// socket.on("messageToClient", function(data) {
