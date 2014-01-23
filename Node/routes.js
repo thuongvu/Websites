@@ -349,6 +349,12 @@ module.exports = function (app, passport) {
 	// ----------------------------------- pictionary  ---------------------------------------- //
 	// ======================================================================================== //
 
+	app.get('/pictionary', function (req, res) {
+		res.render('pictionary/index.ejs');
+	});
+
+
+
 } 
 function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated())

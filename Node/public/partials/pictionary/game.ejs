@@ -1,0 +1,23 @@
+GAME ROOM
+<button ng-click="requestStartGame()">Start game</button>
+<!-- set username -->
+<div id="setUserName">
+	<input ng-model="user.name" placeholder="user name"></input>
+	<button ng-click="setUsername()">Set username</button>
+</div>
+<!-- chat room -->
+
+<div>
+	<form ng-submit="sendMessage()">
+		<input ng-model="chatroom.message" placeholder="type here"></input>
+		<button type="submit">Send</button>
+	</form>
+	<div ng-repeat="msg in chatroom.receivedMessages track by $index">
+		{{msg.username}}: {{msg.message}}
+	</div>
+</div>
+
+<!-- draw -->
+<div draw></div>
+<!-- see someone else draw -->
+<!-- <div seedraw></div> -->
