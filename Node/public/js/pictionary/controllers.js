@@ -12,11 +12,12 @@ angular.module('app.controllers', [])
 	.controller('mainCtrl', ['$scope', 'socket', 'Game', '$timeout', function ($scope, socket, Game, $timeout) {
 		console.log('in mainCtrl')
 		$scope.gameObj = Game.gameObj;
-
+		// assign user
 		$scope.user = {}; // just temporarily for the sake of assigning it here, want to move it to the other ctrller on the other page on PreGame
 		$scope.setUsername = function() {
 			Game.setUsername($scope.user.name)
 		}
+		// chatroom logic
 		$scope.chatroom = {};
 		$scope.chatroom.receivedMessages = [{"username": 'blah', message: "hello world yo", color: '#000'}];
 		$scope.chatroom.message;
@@ -24,17 +25,24 @@ angular.module('app.controllers', [])
 			Game.sendMessage($scope.chatroom.message)
 			$scope.chatroom.message = '';
 		}
-
+		// more chatroom logic
 		socket.on("messageToClient", function(data) {
 			console.log(data)
 			var username = data.username;
 			var message = data.message;
 			$scope.chatroom.receivedMessages.unshift({"username": username, "message" : message})
 		})
-
+		// request startgame
 		$scope.requestStartGame = function () {
 			Game.requestStartGame()
 		}
+		// joinroom
+		$scope.joinRoom = function() {
+			Game.joinRoom();
+		}
+		$timeout(function() {
+			$scope.joinRoom()
+		}, 500)
 
 
 

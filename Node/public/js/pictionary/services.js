@@ -36,7 +36,7 @@ angular.module('app.services', [])
 	.factory('Game', function (socket, $location) {
 		var gameObj = {};
 		var messagesObj = {};
-		var gameObj.inSession = 0;
+		// var gameObj.inSession = 0;
 
 		socket.on("ClientPlayerInfo", function(data) {
 			gameObj.id = data.id
@@ -53,10 +53,20 @@ angular.module('app.services', [])
 		// 	messagesObj.msg.message = data.message;
 		// })
 
+		// temp vars for testing
+		// username, room
+		gameObj.room = "test";
+		var number = Math.round(Math.random() * 100)
+		gameObj.username = 'player' + number;
+
+
 		return {
 			joinRoom: function(room) {
-				gameObj.room = room;
-				$location.path('/game');
+				// gameObj.room = room;      // disabling for the sake of making it "test"
+				// $location.path('/game');
+				if (gameObj.id && gameObj.username && gameObj.room) {
+					socket.emit("joinRoom", {id: gameObj.id, username: gameObj.username, room: gameObj.room})
+				}
 			},
 			setUsername: function(username) {
 				gameObj.username = username;
@@ -68,7 +78,7 @@ angular.module('app.services', [])
 			},
 			requestStartGame: function() {
 				socket.emit("requestStartGame", {username: gameObj.username, id: gameObj.id})
-			}
+			},
 			gameObj: gameObj,
 			messagesObj: messagesObj
 		}
