@@ -13,7 +13,7 @@ GAME ROOM
 		<button type="submit">Send</button>
 	</form>
 	<div ng-repeat="msg in chatroom.receivedMessages track by $index">
-		{{msg.username}}: <span ng-style='{color: msg.color}'>{{msg.message}}</span>
+		{{msg.username}}: <span ng-style='{"color": color.current}'>{{msg.message}}</span>
 	</div>
 </div>
 

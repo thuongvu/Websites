@@ -35,8 +35,8 @@ function pictionary_io (socket, io) {
 	});
 
 	socket.on("reset", function (){
-		db.drawSomethingCol.remove()
 		socket.in(room).broadcast.emit("resetDrawing");
+		socket.in(room).emit("resetDrawing");
 	})
 
 	function correctWord(username, message, id, room, callback) {
@@ -45,12 +45,12 @@ function pictionary_io (socket, io) {
 			var username = 'Room';
 			newGame[room].usersCorrect ++;
 			console.log("correctWord")
-			socket.in(room).broadcast.emit("messageToClient", {username: username, message: message, color: 'red'});
-			socket.in(room).emit("messageToClient", {username: username, message: message, color: 'red'});
+			socket.in(room).broadcast.emit("messageToClient", {username: username, message: message, color: '#FF0000'});
+			socket.in(room).emit("messageToClient", {username: username, message: message, color: '#FF0000'});
 			callback(username, message, id, room)
 		} else {
-			socket.in(room).broadcast.emit("messageToClient", {username: username, message: message, color: '#fff'});
-			socket.in(room).emit("messageToClient", {username: username, message: message, color: 'fff'});
+			socket.in(room).broadcast.emit("messageToClient", {username: username, message: message, color: '#000'});
+			socket.in(room).emit("messageToClient", {username: username, message: message, color: '#000'});
 		}
 		
 	}
@@ -61,22 +61,23 @@ function pictionary_io (socket, io) {
 			newGame[room].usersCorrect = 0;
 			newGame[room].round++;
 			if (newGame[room].round < 5) {
-				console.log("newGame[room].round")
-				console.log(newGame[room].round)
 				// choose random number for word, set it, consolelogit
 				var randNumber = Math.round(Math.random() * words.length)
 				newGame[room].word = words[randNumber]
-				console.log(newGame[room].word)
 				// set new current drawer
 				var randDrawer = Math.round(Math.random() * totalMinusOne)
-				console.log("randDrawer");
-				console.log(randDrawer);
 				var currentDrawer = newGame[room].users[randDrawer].id;
-				console.log("currentDrawer")
-				console.log(currentDrawer)
+				// emit delete svg
+				socket.in(room).broadcast.emit("resetDrawing");
+				socket.in(room).emit("resetDrawing");
 				// emit
 				socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession});
 				socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession});
+			} else if (newGame[room].round <= 5){
+				newGame[room].inSession = 0;
+				var message = "Yay!  You've played for 5 rounds!"
+				socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, color: '#FF0000', inSession: newGame[room].inSession});
+				socket.in(room).emit("messageToClient", {username: "Room", message: message, color: '#FF0000', inSession: newGame[room].inSession});
 			}
 			
 		}
@@ -135,15 +136,15 @@ function pictionary_io (socket, io) {
 			newGame[room].users.push(newUser);
 			console.log(newGame[room])
 			var message = username + " has joined the room " + room;
-			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession});
-			socket.in(room).emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession});
+			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000'});
+			socket.in(room).emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000'});
 		} else {
 			newUser = new User(id, username);
 			newGame[room].userCount++;
 			newGame[room].users.push(newUser);
 			var message = username + " has joined the room " + room;
-			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession});
-			socket.in(room).emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession});
+			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000'});
+			socket.in(room).emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000'});
 		}
 
 	})

@@ -35,8 +35,10 @@ angular.module('app.controllers', [])
 			$scope.chatroom.message = '';
 		}
 		// more chatroom logic
+		// $scope.color = {};
 		socket.on("messageToClient", function(data) {
 			console.log(data)
+			// $scope.color.current = data.color;
 			var username = data.username;
 			var message = data.message;
 			$scope.inSession = data.inSession;
@@ -104,7 +106,7 @@ angular.module('app.controllers', [])
 					console.log("i am the guessing!")
 					$scope.showDraw = false;
 					$scope.showGuess = true;
-					$scope.currentWord = 'Guess the word';
+					$scope.currentWord = 'Guess the word!';
 				}
 			})
 
