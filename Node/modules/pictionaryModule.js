@@ -44,6 +44,12 @@ function pictionary_io (socket, io) {
 		var message = sanitizer.sanitize(data.message);
 		var id = sanitizer.sanitize(data.id);
 		var room = sanitizer.sanitize(data.room);
+
+		if (message === newGame[room].word) {
+			// console.log('newGame[room].word')
+			console.log("holy shit you got the right word")
+		}
+
 		socket.in(room).broadcast.emit("messageToClient", {username: username, message: message});
 		socket.in(room).emit("messageToClient", {username: username, message: message});
 	})
