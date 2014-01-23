@@ -42,6 +42,21 @@ angular.module('app.controllers', [])
 			$scope.inSession = data.inSession;
 
 			$scope.chatroom.receivedMessages.unshift({"username": username, "message" : message})
+			if (data.currentDrawer) {
+				console.log($scope.gameObj.id)
+				if ($scope.gameObj.id === data.currentDrawer) {
+					console.log("i am the current drawer")
+					$scope.showDraw = true;
+					$scope.showGuess = false;
+					$scope.currentWord = 'Draw: ' + data.word;
+				} else {
+					console.log("i am the guessing!")
+					$scope.showDraw = false;
+					$scope.showGuess = true;
+					$scope.currentWord = 'Guess the word!';
+				}
+			}
+			
 		})
 		// request startgame
 		$scope.requestStartGame = function () {
@@ -89,6 +104,7 @@ angular.module('app.controllers', [])
 					console.log("i am the guessing!")
 					$scope.showDraw = false;
 					$scope.showGuess = true;
+					$scope.currentWord = 'Guess the word';
 				}
 			})
 

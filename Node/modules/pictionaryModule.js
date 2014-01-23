@@ -68,12 +68,15 @@ function pictionary_io (socket, io) {
 				newGame[room].word = words[randNumber]
 				console.log(newGame[room].word)
 				// set new current drawer
-				var randDrawer = Math.round(Math.random() * newGame[room].userCount.length)
-				var currentDrawer = newGame[room].currentDrawer;
+				var randDrawer = Math.round(Math.random() * totalMinusOne)
+				console.log("randDrawer");
+				console.log(randDrawer);
+				var currentDrawer = newGame[room].users[randDrawer].id;
+				console.log("currentDrawer")
 				console.log(currentDrawer)
 				// emit
-				socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: newGame[room].currentDrawer, inSession: newGame[room].inSession});
-				socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: newGame[room].currentDrawer, inSession: newGame[room].inSession});
+				socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession});
+				socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession});
 			}
 			
 		}
