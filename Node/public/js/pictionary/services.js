@@ -98,6 +98,9 @@ angular.module('app.services', [])
 					console.log("game is in session")
 				}
 			},
+			resetDrawing: function() {
+				socket.emit("reset", {username: gameObj.username, id: gameObj.id, room: gameObj.room})
+			},
 			gameObj: gameObj,
 			messagesObj: messagesObj
 		}

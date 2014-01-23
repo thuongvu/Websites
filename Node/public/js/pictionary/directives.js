@@ -25,7 +25,7 @@ angular.module('app.directives', [])
 				       .attr("height", height)
 				       .on("mousedown", mouseDown)
 				       .on("mouseup", mouseUp)
-
+				   
 				   var strokesContainer = []; // for emitting
 
 				   // setting vars for brush

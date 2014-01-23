@@ -9,8 +9,10 @@ angular.module('app.controllers', [])
 	}])
 	.controller('mainCtrl', ['$scope', 'socket', 'Game', '$timeout', function ($scope, socket, Game, $timeout) {
 		console.log('in mainCtrl')
-		$scope.colorDraw = {};
-		$scope.colorDraw.current = '#000'
+		$scope.draw = {};
+		$scope.draw.color = '#000';
+		$scope.draw.size = 5;
+		$scope.draw.opacity = 0.7;
 
 		$scope.usersInRoom = [];
 		$scope.status = {};
@@ -130,7 +132,9 @@ angular.module('app.controllers', [])
 			})
 
 
-
+		$scope.resetDrawing = function() {
+			Game.resetDrawing()
+		}
 
 		// $scope.$watch('Game.gameObj', function(newVal, oldVal) {
 		// 	// $scope.gameObj = Game.gameObj;

@@ -34,7 +34,8 @@ function pictionary_io (socket, io) {
 		// if i wanna test emitting to self... hmm, try later
 	});
 
-	socket.on("reset", function (){
+	socket.on("reset", function (data){
+		var room = sanitizer.sanitize(data.room);
 		socket.in(room).broadcast.emit("resetDrawing");
 		socket.in(room).emit("resetDrawing");
 	})

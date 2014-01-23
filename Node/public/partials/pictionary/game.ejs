@@ -45,8 +45,16 @@
 			
 			<div class="text-center">{{round}}</div>
 			<div class="text-center">{{currentWord}}</div>
-			<div draw ng-show="showDraw" colordata="colorDraw.current">
-				<div ng-model="colorDraw.current" colorpicker ng-style='{"width": "20px", "height": "20px", "background-color": colorDraw.current, "display": "inline-block"}'></div>
+			<div draw ng-show="showDraw" colordata="draw.color">
+					<div class="btn-group" data-toggle="buttons">
+						<button type="button" class="btn btn-default" ng-click="brushOrEraser()">Brush</button>
+						<button type="button" class="btn btn-default" ng-click="brushOrEraser()">Eraser</button>
+					</div>
+					<div ng-model="draw.color" colorpicker ng-style='{"width": "30px", "height": "30px", "background-color": draw.color, "display": "inline-block", "border-radius": "3px"}'></div>
+					<input ng-model="draw.size" type="number" min="1" max="20">Size</input>
+					<input ng-model="draw.opacity" type="number" min="0.1" max="1">Opacity</input>
+				
+					<button type="button" class="btn btn-danger" ng-click="resetDrawing()">Reset</button>
 			</div>
 			<!-- see someone else draw -->
 			<div guess ng-show="showGuess"></div>
