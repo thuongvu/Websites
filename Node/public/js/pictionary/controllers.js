@@ -6,39 +6,29 @@ angular.module('app.controllers', [])
 		// 	PreGame.joinRoom($scope.room.name)
 		// }
 
-
-
 	}])
 	.controller('mainCtrl', ['$scope', 'socket', 'Game', '$timeout', function ($scope, socket, Game, $timeout) {
 		console.log('in mainCtrl')
 		$scope.status = {};
 		$scope.inSession;
 		$scope.gameObj = Game.gameObj;
-		// $scope.$watch('Game.gameObj', function(newVal, oldVal) {
-		// 	// $scope.gameObj = Game.gameObj;
-		// 	console.log(newVal)
-		// 	console.log(oldVal)
-		// 	console.log("$scope.gameObj from ctrller")
-		// 	// console.log($scope.gameObj)
-		// })
-		// assign user
+		$scope.gameRoom = Game.gameObj.room;
+
 		$scope.user = {}; // just temporarily for the sake of assigning it here, want to move it to the other ctrller on the other page on PreGame
 		$scope.setUsername = function() {
 			Game.setUsername($scope.user.name)
 		}
 		// chatroom logic
 		$scope.chatroom = {};
-		$scope.chatroom.receivedMessages = [{"username": 'blah', message: "hello world yo", color: '#000'}];
+		$scope.chatroom.receivedMessages = [];
 		$scope.chatroom.message;
 		$scope.sendMessage = function() {
 			Game.sendMessage($scope.chatroom.message)
 			$scope.chatroom.message = '';
 		}
-		// more chatroom logic
-		// $scope.color = {};
+
 		socket.on("messageToClient", function(data) {
 			console.log(data)
-			// $scope.color.current = data.color;
 			var username = data.username;
 			var message = data.message;
 			$scope.inSession = data.inSession;
@@ -51,11 +41,13 @@ angular.module('app.controllers', [])
 					$scope.showDraw = true;
 					$scope.showGuess = false;
 					$scope.currentWord = 'Draw: ' + data.word;
+					$scope.round = "Round " + data.round;
 				} else {
 					console.log("i am the guessing!")
 					$scope.showDraw = false;
 					$scope.showGuess = true;
 					$scope.currentWord = 'Guess the word!';
+					$scope.round = "Round " + data.round;
 				}
 			}
 			
@@ -71,6 +63,40 @@ angular.module('app.controllers', [])
 		$timeout(function() {
 			$scope.joinRoom()
 		}, 500)
+		
+
+
+		socket.on("startGame", function(data) {
+			console.log(data)
+				if ($scope.gameObj.id === data.currentDrawer) {
+					console.log("i am the current drawer")
+					$scope.showDraw = true;
+					$scope.showGuess = false;
+					$scope.currentWord = 'Draw: ' + data.word;
+					$scope.round = "Round " + data.round;
+					
+				} else {
+					console.log("i am the guessing!")
+					$scope.showDraw = false;
+					$scope.showGuess = true;
+					$scope.currentWord = 'Guess the word!';
+					$scope.round = "Round " + data.round;
+				}
+			})
+
+
+
+
+		// $scope.$watch('Game.gameObj', function(newVal, oldVal) {
+		// 	// $scope.gameObj = Game.gameObj;
+		// 	console.log(newVal)
+		// 	console.log(oldVal)
+		// 	console.log("$scope.gameObj from ctrller")
+		// 	// console.log($scope.gameObj)
+		// })
+		// assign user
+
+
 		// show which: draw/guess
 		// $scope.showDraw = Game.gameObj.showDraw;
 		// // $scope.showDraw = true;
@@ -90,28 +116,7 @@ angular.module('app.controllers', [])
 
 
 		// $scope.showDraw = $scope.gameObj.showDraw;
-		// $scope.showGuess = $scope.gameObj.showGuess;
-
-
-		socket.on("startGame", function(data) {
-			console.log(data)
-				if ($scope.gameObj.id === data.currentDrawer) {
-					console.log("i am the current drawer")
-					$scope.showDraw = true;
-					$scope.showGuess = false;
-					$scope.currentWord = 'Draw: ' + data.word;
-					
-					
-				} else {
-					console.log("i am the guessing!")
-					$scope.showDraw = false;
-					$scope.showGuess = true;
-					$scope.currentWord = 'Guess the word!';
-				}
-			})
-
-
-
+		// $scope.showGuess = $scope.gameObj.showGuess;	
 		// ------------ trying to get messages as a service BLAH--------------
 		// $scope.receivedMessagesFromGame = {};
 		// $scope.receivedMessagesFromGame.msg = {};

@@ -71,13 +71,13 @@ function pictionary_io (socket, io) {
 				socket.in(room).broadcast.emit("resetDrawing");
 				socket.in(room).emit("resetDrawing");
 				// emit
-				socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession});
-				socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession});
+				socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round});
+				socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round});
 			} else if (newGame[room].round <= 5){
 				newGame[room].inSession = 0;
 				var message = "Yay!  You've played for 5 rounds!"
-				socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, color: '#FF0000', inSession: newGame[room].inSession});
-				socket.in(room).emit("messageToClient", {username: "Room", message: message, color: '#FF0000', inSession: newGame[room].inSession});
+				socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, color: '#FF0000', inSession: newGame[room].inSession, round: newGame[room].round});
+				socket.in(room).emit("messageToClient", {username: "Room", message: message, color: '#FF0000', inSession: newGame[room].inSession, round: newGame[room].round});
 			}
 			
 		}
@@ -116,9 +116,9 @@ function pictionary_io (socket, io) {
 		// round++
 		newGame[room].round++;
 
-		socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: newGame[room].currentDrawer, inSession: newGame[room].inSession});
+		socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: newGame[room].currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round});
 		// socket.in(room).broadcast.emit("startGame");
-		socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: newGame[room].currentDrawer, inSession: newGame[room].inSession});
+		socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: newGame[room].currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round});
 	})
 
 	socket.on("joinRoom", function(data) {

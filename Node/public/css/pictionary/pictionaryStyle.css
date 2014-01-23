@@ -1,3 +1,12 @@
 svg {
 	border: 2px solid #000
 }
+#chatContainer {
+	/*background-color: blue;*/
+	height: 200px;
+	overflow-y: scroll;
+	border: 1px solid grey;
+}
+.cont {
+	padding: 20px;
+}
