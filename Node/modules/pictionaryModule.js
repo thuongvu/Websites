@@ -1,6 +1,6 @@
 var _ = require("underscore");
 var sanitizer = require("sanitizer");
-var words = ['dog', 'chair', 'television', 'phone', 'honor', 'mountain', 'clock', 'sky', 'honk', 'chalk', 'story', 'book', 'throne', 'windmill', 'monk', 'sand', 'year', 'month', 'day', 'time', 'fish', 'pizza', 'baseball', 'football', 'basketball', 'party', 'hair', 'spine', 'head', 'nose', 'ear', 'beard', 'big', 'pig', 'small', 'hipster', 'trip', 'cookie', 'gym', 'syrup', 'carrot', 'spider', 'lung', 'flamingo', 'explore', 'music', 'conversation', 'tomato', 'police', 'island', 'faucet', 'level', 'evolution', 'trian', 'jump', 'vegetable'];
+var words = ['dog', 'chair', 'television', 'phone', 'honor', 'mountain', 'clock', 'sky', 'honk', 'chalk', 'story', 'book', 'throne', 'windmill', 'monk', 'sand', 'year', 'month', 'day', 'time', 'fish', 'pizza', 'baseball', 'football', 'basketball', 'party', 'hair', 'spine', 'head', 'nose', 'ear', 'beard', 'big', 'pig', 'small', 'hipster', 'trip', 'cookie', 'gym', 'syrup', 'carrot', 'spider', 'lung', 'flamingo', 'explore', 'music', 'conversation', 'tomato', 'police', 'island', 'faucet', 'level', 'evolution', 'train', 'jump', 'vegetable'];
 var newGame = {};
 var newUser = {};
 function User(id, username) {
@@ -173,32 +173,49 @@ function pictionary_io (socket, io) {
 				for (var i = 0; i < length; i++) {
 					if (newGame[prop].users[i].id === socket.id) {
 						var username = newGame[prop].users[i].username;
+						var idUser = newGame[prop].users[i].id;
 						// deleting from server logic
 						newGame[prop].users.splice(i, 1)
 						length--
 						newGame[prop].userCount--;
-						// // if the person who left was the drawer
-						// if (newGame[prop].users[i].id === newGame[prop].currentDrawer) {
-							
+						// if the person who left was the drawer
+						// if (newGame[currentRoom].users[i].id === newGame[currentRoom].currentDrawer) {
+
 						// }
 						// emitting to room logic
 						var message = username + " has left the room " + currentRoom;
 						socket.in(currentRoom).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[currentRoom].inSession, color: '#FF0000', userLeft: username});
 						// our lovely callback
-						callback(currentRoom)
+						callback(currentRoom, idUser)
 					}
 				}
 			}
 		}
 
-		findAndDeleteUser(function(currentRoom) {
+		findAndDeleteUser(function(currentRoom, idUser) {
+			// console.log("newGame[currentRoom]")
+			// console.log(newGame[currentRoom])
 			if (newGame[currentRoom].userCount === 0) {
 				delete newGame[currentRoom]
-			}
+			} else if (idUser === newGame[currentRoom].currentDrawer) {
+				console.log("the drawer left bro!")
+				// var totalMinusOne = newGame[currentRoom].userCount - 1
+				// var randDrawerNumber = Math.round(Math.random * totalMinusOne);
+				// newGame[currentRoom].currentDrawer = newGame[currentRoom].users[randDrawerNumber].id;
+				// var username = newGame[currentRoom].users[randDrawerNumber].username;
+
+				var totalMinusOne = newGame[currentRoom].userCount - 1;
+				var randDrawer = Math.round(Math.random() * totalMinusOne)
+				var currentDrawer = newGame[currentRoom].users[randDrawer].id;
+				var currentDrawerUsername = newGame[currentRoom].users[randDrawer].username;
+				newGame[currentRoom].currentDrawer = currentDrawer;
+
+				var message = "The new person who will be drawing is " + currentDrawerUsername;
+				socket.in(currentRoom).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[currentRoom].inSession, color: '#FF0000', currentDrawer: currentDrawer, round: newGame[currentRoom].round, word: newGame[currentRoom].word });
+			}	
 		})
 		
-
-
+		
 
 
 	})
