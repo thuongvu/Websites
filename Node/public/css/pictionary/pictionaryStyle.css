@@ -1,5 +1,6 @@
 svg {
-	border: 2px solid #000
+	border: 2px solid #000;
+	border-radius: 5px;
 }
 #chatContainer {
 	/*background-color: blue;*/
@@ -10,6 +11,7 @@ svg {
 }
 .cont {
 	padding: 20px;
+
 }
 #userContainer {
 	/*background-color: blue;*/

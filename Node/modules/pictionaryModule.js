@@ -60,7 +60,7 @@ function pictionary_io (socket, io) {
 		if (totalMinusOne === newGame[room].usersCorrect) {
 			newGame[room].usersCorrect = 0;
 			newGame[room].round++;
-			if (newGame[room].round < 5) {
+			if (newGame[room].round < 6) {
 				// choose random number for word, set it, consolelogit
 				var randNumber = Math.round(Math.random() * words.length)
 				newGame[room].word = words[randNumber]
@@ -73,7 +73,7 @@ function pictionary_io (socket, io) {
 				// emit
 				socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round});
 				socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round});
-			} else if (newGame[room].round <= 5){
+			} else if (newGame[room].round <= 6){
 				newGame[room].inSession = 0;
 				var message = "Yay!  You've played for 5 rounds!"
 				socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, color: '#FF0000', inSession: newGame[room].inSession, round: newGame[room].round});
@@ -177,8 +177,11 @@ function pictionary_io (socket, io) {
 						newGame[prop].users.splice(i, 1)
 						length--
 						newGame[prop].userCount--;
+						// // if the person who left was the drawer
+						// if (newGame[prop].users[i].id === newGame[prop].currentDrawer) {
+							
+						// }
 						// emitting to room logic
-						
 						var message = username + " has left the room " + currentRoom;
 						socket.in(currentRoom).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[currentRoom].inSession, color: '#FF0000', userLeft: username});
 						// our lovely callback

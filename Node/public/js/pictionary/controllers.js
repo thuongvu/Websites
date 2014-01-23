@@ -12,6 +12,7 @@ angular.module('app.controllers', [])
 		$scope.usersInRoom = [];
 		$scope.status = {};
 		$scope.inSession;
+		$scope.hideInSession = false;
 		$scope.gameObj = Game.gameObj;
 		$scope.gameRoom = Game.gameObj.room;
 
@@ -62,14 +63,6 @@ angular.module('app.controllers', [])
 						$scope.usersInRoom.push({name: data.userJoined[j]});
 					}
 				}
-				// if (data.userJoined.length > 1) {
-				// 	for (var j = 0; j < data.userJoined.length; j++) {
-				// 		$scope.usersInRoom.push({name: data.userJoined[i]});
-				// 	}
-				// } else {
-				// 	$scope.usersInRoom.push({name: data.userJoined});
-				// }
-				
 			}
 			if (data.userLeft) {
 				for (var i = 0; i < $scope.usersInRoom.length; i++) {
@@ -77,7 +70,6 @@ angular.module('app.controllers', [])
 						$scope.usersInRoom.splice(i,1)
 					}
 				}
-				
 			}
 			if (data.currentDrawer) {
 				if ((data.currentDrawer != $scope.gameObj.id) && (data.inSession === 1)) {
@@ -87,6 +79,9 @@ angular.module('app.controllers', [])
 					$scope.currentWord = 'Guess the word!';
 					$scope.round = "Round " + data.round;
 				}
+			}
+			if ($scope.inSession === 1) {
+				$scope.hideInSession = true;
 			}
 			
 		})
