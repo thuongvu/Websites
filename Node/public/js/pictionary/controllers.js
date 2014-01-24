@@ -8,7 +8,6 @@ angular.module('app.controllers', [])
 			}
 		}
 		socket.on("roomsList", function(data) {
-			console.log(data.roomsList)
 			$scope.roomsList = data.roomsList;
 			
 		})
@@ -138,7 +137,6 @@ angular.module('app.controllers', [])
 					$scope.currentWord = 'Draw: ' + data.word;
 					$scope.round = "Round " + data.round;
 					$scope.hideInSession = true;
-					
 				} else {
 					console.log("i am the guessing!")
 					$scope.showDraw = false;
@@ -157,7 +155,6 @@ angular.module('app.controllers', [])
 				$scope.$watch('allCorrect', allCorrectValid, true)
 
 			})
-
 
 		$scope.resetDrawing = function() {
 			Game.resetDrawing()

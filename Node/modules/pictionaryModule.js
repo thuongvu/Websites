@@ -69,7 +69,7 @@ function pictionary_io (socket, io) {
 			console.log("at all correct now")
 			newGame[room].usersCorrect = 0;
 			newGame[room].round++;
-			if (newGame[room].round < 3) {
+			if (newGame[room].round < 11) {
 				// choose random number for word, set it, consolelogit
 				var randNumber = Math.round(Math.random() * words.length)
 				newGame[room].word = words[randNumber]
@@ -82,7 +82,7 @@ function pictionary_io (socket, io) {
 				// emit
 				socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round, room: newGame[room].room, allCorrect: true});
 				socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round, room: newGame[room].room, allCorrect: true});
-			} else if (newGame[room].round <= 3){
+			} else if (newGame[room].round <= 11){
 				newGame[room].inSession = 0;
 				var message = "Yay!  You've played for 10 rounds!"
 				newGame[room].round = 0;
