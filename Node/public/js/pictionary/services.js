@@ -29,12 +29,22 @@ angular.module('app.services', [])
 			preGameObj.id = data.id
 			console.log(preGameObj.id)
 			console.log(data.roomsList)
+
 		})
 
 		return {
 			joinRoom: function(obj) {
-				preGameObj.room = obj.room;
-				preGameObj.username = obj.username;
+				if (!obj.room) {
+					obj.room = "MainRoom"
+				} else if (!obj.username) {
+					obj.username = 'Player'
+				} else if ((!obj.room) && (!ob.username)) {
+					obj.room = "MainRoom"
+					obj.username = 'Player'
+				} else if ((obj.room) && (obj.username)){
+					preGameObj.room = obj.room;
+					preGameObj.username = obj.username;
+				}
 				$location.path('/game');
 			},
 			preGameObj: preGameObj

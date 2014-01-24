@@ -12,6 +12,10 @@ angular.module('app.controllers', [])
 			$scope.roomsList = data.roomsList;
 			
 		})
+		$scope.draw = {};
+		$scope.draw.color = '#000';
+		$scope.draw.size = 5;
+		$scope.draw.opacity = 0.7;
 
 	}])
 	.controller('mainCtrl', ['$scope', 'socket', 'Game', '$timeout', 'PreGame', function ($scope, socket, Game, $timeout, PreGame) {

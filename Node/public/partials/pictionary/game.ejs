@@ -1,7 +1,10 @@
 
 
 <div class="cont">
-	<div class="text-center" id="gameRoom">Room: {{gameRoom}} </div>
+	<!-- <div class="text-center" id="gameRoom">Room: {{gameRoom}} </div> -->
+	<div class="text-center"><h3>Room: <span class="label label-default"> {{gameRoom}}</span></h3></div>
+
+
 	<br>
 	<br>
 	<div class="row">	
@@ -9,8 +12,6 @@
 			<!-- set username -->
 			<div>
 				<button ng-hide="hideInSession" ng-click="requestStartGame()" class="btn btn-success">Start game</button>
-				<!-- <input ng-model="user.name" placeholder="user name"></input> -->
-				<!-- <button ng-click="setUsername()">Set username</button> -->
 			</div>
 
 			<!-- user container -->
@@ -41,7 +42,8 @@
 		<div class="col-md-6 col-md-offset-1">
 			
 			<div class="text-center">{{round}}</div>
-			<div class="text-center">{{currentWord}}</div>
+			<!-- <div class="text-center" id="drawWord">{{currentWord}}</div> -->
+			<div class="btn btn-primary btn-lg text-center col-md-offset-5" role="button">{{currentWord}}</div>
 			<div draw ng-show="showDraw" colordata="draw.color" sizedata="draw.size" opacitydata="draw.opacity" roomdata="gameRoom">
 					<!-- brush or eraser buttons -->
 					<div class="btn-group" data-toggle="buttons">

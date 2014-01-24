@@ -33,3 +33,8 @@ svg {
 	border: 1px solid #000;
 	padding-bottom: 0px;
 }
+#drawWord {
+	background-color: #5BC0DD;
+	/*width: 150px;*/
+	font-weight: bold
+}
