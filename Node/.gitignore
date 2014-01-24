@@ -3,3 +3,5 @@ key.pem
 aws.crt
 aws.key
 ca.crt
+err.log
+out.log
