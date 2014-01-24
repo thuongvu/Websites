@@ -10,17 +10,17 @@ angular.module('app.controllers', [])
 	.controller('mainCtrl', ['$scope', 'socket', 'Game', '$timeout', 'PreGame', function ($scope, socket, Game, $timeout, PreGame) {
 		console.log('in mainCtrl')
 		$scope.preGameObj = PreGame.preGameObj;
+		$scope.gameRoom = $scope.preGameObj.room;
+		console.log($scope.gameRoom)
 
 		$scope.joinRoom = function() {
-			var username = $scope.preGameObj.username;
-			var room = $scope.preGameObj.room;
-			console.log(username)
-			console.log(room)
 			Game.joinRoom($scope.preGameObj)
 		}
 		$timeout(function() {
 			$scope.joinRoom();
-			$scope.gameRoom = Game.gameObj.room;
+			// $scope.gameRoom = Game.gameObj.room;
+			console.log("$scope.gameRoom")
+			console.log($scope.gameRoom)
 		}, 500)
 		
 
@@ -54,7 +54,9 @@ angular.module('app.controllers', [])
 			console.log(data)
 			var username = data.username;
 			var message = data.message;
+			$scope.gameRoom.room = data.room;
 			$scope.inSession = data.inSession;
+
 
 			$scope.chatroom.receivedMessages.unshift({"username": username, "message" : message})
 			if (data.currentDrawer) {
@@ -70,9 +72,6 @@ angular.module('app.controllers', [])
 					$scope.showDraw = false;
 					$scope.showGuess = true;
 					$scope.currentWord = 'Guess the word!';
-					// if (!data.round) {
-					// 	data.round = 0;
-					// }
 					$scope.round = "Round " + data.round;
 				}
 			}

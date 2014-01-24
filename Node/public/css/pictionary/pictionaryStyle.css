@@ -22,3 +22,14 @@ svg {
 	margin-bottom: 15px;
 	border-radius: 5px;
 }
+#gameRoom {
+
+}
+#colorPicker {
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	border-radius: 3px;
+	border: 1px solid #000;
+	padding-bottom: 0px;
+}

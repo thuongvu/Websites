@@ -72,14 +72,17 @@ function pictionary_io (socket, io) {
 				socket.in(room).broadcast.emit("resetDrawing");
 				socket.in(room).emit("resetDrawing");
 				// emit
-				socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round});
-				socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round});
+				socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round, room: newGame[room].room});
+				socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round, room: newGame[room].room});
 			} else if (newGame[room].round <= 3){
 				newGame[room].inSession = 0;
 				var message = "Yay!  You've played for 5 rounds!"
 				newGame[room].round = 0;
-				socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, color: '#FF0000', inSession: newGame[room].inSession, round: newGame[room].round});
-				socket.in(room).emit("messageToClient", {username: "Room", message: message, color: '#FF0000', inSession: newGame[room].inSession, round: newGame[room].round});
+				socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, color: '#FF0000', inSession: newGame[room].inSession, round: newGame[room].round, room: newGame[room].room});
+				socket.in(room).emit("messageToClient", {username: "Room", message: message, color: '#FF0000', inSession: newGame[room].inSession, round: newGame[room].round, room: newGame[room].room});
+				// just added this, a reset whenever the rounds finish
+				socket.in(room).broadcast.emit("resetDrawing");
+				socket.in(room).emit("resetDrawing");
 			}
 			
 		}
