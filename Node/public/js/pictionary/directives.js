@@ -6,6 +6,7 @@ angular.module('app.directives', [])
 				colordata: '=',
 				sizedata: '=',
 				opacitydata: '=',
+				roomdata: '='
 			},
 			controller: function ($scope) {
 
@@ -26,11 +27,14 @@ angular.module('app.directives', [])
 				function updateColor() {
 					color = scope.colordata;
 				}
+				function updateRoom() {
+					room = scope.roomdata;
+				}
 				scope.$watch('colordata', updateColor, true);
 				scope.$watch('sizedata', updateSize, true);
 				scope.$watch('opacitydata', updateOpacity, true);
-				
-				var room = Game.gameObj.room;
+				scope.$watch('roomdata', updateRoom, true)
+
 				var width = 600,
 				     height = 300;      
 

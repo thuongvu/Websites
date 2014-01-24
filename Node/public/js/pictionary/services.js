@@ -23,14 +23,20 @@ angular.module('app.services', [])
 			}
 		};
 	})
-	.factory('PreGame', function ($location) {
-		var gameRoomObj = {};
+	.factory('PreGame', function ($location, socket) {
+		var preGameObj = {};
+		socket.on("ClientPlayerInfo", function(data) {
+			preGameObj.id = data.id
+			console.log(preGameObj.id)
+		})
+
 		return {
-			joinRoom: function(room) {
-				gameRoomObj = room;
+			joinRoom: function(obj) {
+				preGameObj.room = obj.room;
+				preGameObj.username = obj.username;
 				$location.path('/game');
 			},
-			gameRoomObj: gameRoomObj
+			preGameObj: preGameObj
 		}
 	})
 	.factory('Game', function (socket, $location) {
@@ -38,45 +44,35 @@ angular.module('app.services', [])
 		var messagesObj = {};
 		gameObj.inSession = 0;
 
-		socket.on("ClientPlayerInfo", function(data) {
-			gameObj.id = data.id
-			console.log(gameObj.id)
-		})
-
-		// socket.on("chatRoomMessage", function(data) {
-		// 	console.log(data)
+		// socket.on("ClientPlayerInfo", function(data) {
+		// 	gameObj.id = data.id
+		// 	console.log(gameObj.id)
 		// })
 
 		socket.on("startGame", function(data) {
 			gameObj.word = data.word;
 			gameObj.inSession = data.inSession;
-			// if (gameObj.id === data.currentDrawer) {
-			// 	console.log("i am the current drawer")
-			// 	gameObj.showDraw = true;
-			// 	gameObj.showGuess = true;
-			// } else {
-			// 	console.log("i am the guessing!")
-			// 	gameObj.showDraw = false;
-			// 	gameObj.showGuess = true;
-			// }
 		})
 
-		// socket.on("messageToClient", function(data) {
-		// 	console.log(data)
-		// 	messagesObj.msg.username = data.username;
-		// 	messagesObj.msg.message = data.message;
-		// })
-
-
-		// temp vars for testing
-		// username, room
-		gameObj.room = "test";
+		// gameObj.room = "test"; // disabling for sake of testing joiing manually
 		var number = Math.round(Math.random() * 100)
 		gameObj.username = 'player' + number;
 
 
 		return {
-			joinRoom: function(room) {
+			joinRoom: function(obj) {
+				console.log(obj)
+				gameObj.room = obj.room;
+				gameObj.username = obj.username;
+				gameObj.id = obj.id;
+
+				console.log("gameObj.room");
+				console.log("gameObj.username")
+				console.log("gameObj.id")
+				console.log(gameObj.room);	
+				console.log(gameObj.username)
+				console.log(gameObj.id)
+				console.log("joinRoom in service")
 				// gameObj.room = room;      // disabling for the sake of making it "test"
 				// $location.path('/game');
 				if (gameObj.id && gameObj.username && gameObj.room) {

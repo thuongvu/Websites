@@ -136,8 +136,8 @@ function pictionary_io (socket, io) {
 			newGame[room].users.push(newUser);
 			// console.log(newGame[room])
 			var message = username + " has joined the room " + room;
-			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000', userJoined: username});
-			socket.in(room).emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000', userJoined: username});
+			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000', userJoined: username, round: newGame[room].round});
+			socket.in(room).emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000', userJoined: username, round: newGame[room].round});
 		} else {
 			newUser = new User(id, username);
 			newGame[room].userCount++;

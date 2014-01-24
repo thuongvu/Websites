@@ -1,14 +1,30 @@
 angular.module('app.controllers', [])
-	.controller('preGameCtrl', ['$scope', 'PreGame', function ($scope, PreGame) {
+	.controller('preGameCtrl', ['$scope', 'PreGame', 'socket', function ($scope, PreGame, socket) {
 		console.log('in preGameCtrl')
-		$scope.room = {};
-		// $scope.joinRoom = function (room) {
-		// 	PreGame.joinRoom($scope.room.name)
-		// }
+		$scope.preGame = {};
+		$scope.joinRoom = function (obj) {
+			PreGame.joinRoom($scope.preGame)
+		}
 
 	}])
-	.controller('mainCtrl', ['$scope', 'socket', 'Game', '$timeout', function ($scope, socket, Game, $timeout) {
+	.controller('mainCtrl', ['$scope', 'socket', 'Game', '$timeout', 'PreGame', function ($scope, socket, Game, $timeout, PreGame) {
 		console.log('in mainCtrl')
+		$scope.preGameObj = PreGame.preGameObj;
+
+		$scope.joinRoom = function() {
+			var username = $scope.preGameObj.username;
+			var room = $scope.preGameObj.room;
+			console.log(username)
+			console.log(room)
+			Game.joinRoom($scope.preGameObj)
+		}
+		$timeout(function() {
+			$scope.joinRoom();
+			$scope.gameRoom = Game.gameObj.room;
+		}, 500)
+		
+
+
 		$scope.draw = {};
 		$scope.draw.color = '#000';
 		$scope.draw.size = 5;
@@ -19,7 +35,7 @@ angular.module('app.controllers', [])
 		$scope.inSession;
 		$scope.hideInSession = false;
 		$scope.gameObj = Game.gameObj;
-		$scope.gameRoom = Game.gameObj.room;
+		// $scope.gameRoom = Game.gameObj.room;
 
 		$scope.user = {}; // just temporarily for the sake of assigning it here, want to move it to the other ctrller on the other page on PreGame
 		$scope.setUsername = function() {
@@ -54,6 +70,9 @@ angular.module('app.controllers', [])
 					$scope.showDraw = false;
 					$scope.showGuess = true;
 					$scope.currentWord = 'Guess the word!';
+					// if (!data.round) {
+					// 	data.round = 0;
+					// }
 					$scope.round = "Round " + data.round;
 				}
 			}
@@ -103,13 +122,13 @@ angular.module('app.controllers', [])
 		$scope.requestStartGame = function () {
 			Game.requestStartGame($scope.inSession)
 		}
-		// joinroom
-		$scope.joinRoom = function() {
-			Game.joinRoom();
-		}
-		$timeout(function() {
-			$scope.joinRoom()
-		}, 500)
+		// // joinroom
+		// $scope.joinRoom = function() {
+		// 	Game.joinRoom();
+		// }
+		// $timeout(function() {
+		// 	$scope.joinRoom()
+		// }, 500)
 		
 
 
