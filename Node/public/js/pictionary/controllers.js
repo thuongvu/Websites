@@ -135,6 +135,19 @@ angular.module('app.controllers', [])
 		$scope.resetDrawing = function() {
 			Game.resetDrawing()
 		}
+		$scope.brushOrEraser = function (option) {
+			if (option === 'brush') {
+				if ($scope.draw.pastColor) {
+					$scope.draw.color = $scope.draw.pastColor;
+				}
+			} else if (option === 'eraser') {
+				$scope.draw.pastColor = $scope.draw.color;
+				$scope.draw.color = '#fff';
+			}
+		}
+
+
+
 
 		// $scope.$watch('Game.gameObj', function(newVal, oldVal) {
 		// 	// $scope.gameObj = Game.gameObj;

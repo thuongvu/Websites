@@ -3,19 +3,33 @@ angular.module('app.directives', [])
 		return {
 			restrict: 'EA',
 			scope: {
-				colordata: '='
+				colordata: '=',
+				sizedata: '=',
+				opacitydata: '=',
 			},
 			controller: function ($scope) {
 
 			},
 			link: function(scope, element, attrs) {
 				var color = scope.colordata;
+				var size = scope.sizedata;
+				var opacity = scope.opacitydata;
+
+				function updateSize() {
+					size = scope.sizedata;
+				}
+
+				function updateOpacity() {
+					opacity = scope.opacitydata;
+				}
 
 				function updateColor() {
 					color = scope.colordata;
-					console.log(color)
 				}
-				scope.$watch('colordata', updateColor, true)
+				scope.$watch('colordata', updateColor, true);
+				scope.$watch('sizedata', updateSize, true);
+				scope.$watch('opacitydata', updateOpacity, true);
+				
 				var room = Game.gameObj.room;
 				var width = 600,
 				     height = 300;      
