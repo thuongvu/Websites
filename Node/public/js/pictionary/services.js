@@ -83,10 +83,11 @@ angular.module('app.services', [])
 				gameObj.username = username;
 			},
 			sendMessage: function(message, lost) {
-				if (gameObj.username && message && lost) {
-					console.log(lost)
-					socket.emit("messageToServer", {username: gameObj.username, message: message, id: gameObj.id, room: gameObj.room, lost: true})
-				} else if (gameObj.username && message) {
+				// if (gameObj.username && message && lost) {
+				// 	console.log(lost)
+				// 	socket.emit("messageToServer", {username: gameObj.username, message: message, id: gameObj.id, room: gameObj.room, lost: true})
+				// } else
+				 if (gameObj.username && message) {
 					socket.emit("messageToServer", {username: gameObj.username, message: message, id: gameObj.id, room: gameObj.room})
 				} 
 			},

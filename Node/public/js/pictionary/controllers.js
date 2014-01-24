@@ -3,7 +3,9 @@ angular.module('app.controllers', [])
 		console.log('in preGameCtrl')
 		$scope.preGame = {};
 		$scope.joinRoom = function (obj) {
-			PreGame.joinRoom($scope.preGame)
+			if (($scope.preGame.name != "room") || ($scope.preGame.name != "Room")) {
+				PreGame.joinRoom($scope.preGame)
+			}
 		}
 
 	}])
@@ -98,10 +100,14 @@ angular.module('app.controllers', [])
 					$scope.round = "Round " + data.round;
 				}
 			}
-			if ($scope.inSession === 1) {
+			if (data.inSession === 1) {
 				$scope.hideInSession = true;
 				$scope.round = "Round " + data.round;
-			} else if ($scope.inSession === 0) {
+			} else if (data.inSession === 0) {
+				$scope.hideInSession = false;
+				$scope.round = "Round " + data.round;
+				$scope.currentWord = ''
+			} else {
 				$scope.hideInSession = false;
 				$scope.round = "Round " + data.round;
 				$scope.currentWord = ''
@@ -109,12 +115,13 @@ angular.module('app.controllers', [])
 			if (data.round === 0) {
 				$scope.hideInSession = false;
 				$scope.showDraw = false;
+				$scope.hideInSession = false;
 			}
-			if (data.correct) {
-				if (data.true === correct) {
-					$scope.correct = true;
-				}
-			}
+			// if (data.correct) {
+			// 	if (data.true === correct) {
+			// 		$scope.correct = true;
+			// 	}
+			// }
 			
 		})
 		// request startgame
@@ -129,6 +136,7 @@ angular.module('app.controllers', [])
 					$scope.showGuess = false;
 					$scope.currentWord = 'Draw: ' + data.word;
 					$scope.round = "Round " + data.round;
+					$scope.hideInSession = true;
 					
 				} else {
 					console.log("i am the guessing!")
@@ -136,6 +144,7 @@ angular.module('app.controllers', [])
 					$scope.showGuess = true;
 					$scope.currentWord = 'Guess the word!';
 					$scope.round = "Round " + data.round;
+					$scope.hideInSession = true;
 				}
 				$scope.allCorrect = data.allCorrect;
 				function allCorrectValid() {
@@ -147,19 +156,19 @@ angular.module('app.controllers', [])
 				$scope.$watch('allCorrect', allCorrectValid, true)
 
 			
-				function loop(x) {
-					if ((x > 10) && ($scope.correct === false)) {
-						Game.sendMessage("incorrect word", "lost")
-						return;
-					} else if ($scope.correct) {
-						return;
-					}
-					setTimeout(function() {
-						console.log(x)
-						loop(x+1)
-					}, 1000)
-				}
-				loop(0)
+				// function loop(x) {
+				// 	if ((x > 10) && ($scope.correct === false)) {
+				// 		Game.sendMessage("incorrect word", "lost")
+				// 		return;
+				// 	} else if ($scope.correct) {
+				// 		return;
+				// 	}
+				// 	setTimeout(function() {
+				// 		console.log(x)
+				// 		loop(x+1)
+				// 	}, 1000)
+				// }
+				// loop(0)
 
 
 

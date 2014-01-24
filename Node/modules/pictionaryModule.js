@@ -23,11 +23,28 @@ function Game(room) {
 	this.inSession = 0;
 }
 
+function sendUsers() {
+	console.log(newGame)
+	console.log("newGame")
+
+
+	for (prop in newGame) {
+		console.log("prop")
+		console.log(prop)
+	}
+}
+
 function pictionary_io (socket, io) {
+
+	sendUsers()
+
+	// console.log("soeone connected")
+
 
 	socket.emit("ClientPlayerInfo", {id: socket.id})
 
 	socket.on("newStroke", function (data) {
+		console.log(data)
 		var room = sanitizer.sanitize(data.strokes[0].room);
 		var currentStrokes = sanitizer.sanitize(data.strokes)
 		socket.in(room).broadcast.emit("strokesToDraw", {data: data});
@@ -97,12 +114,12 @@ function pictionary_io (socket, io) {
 		var message = sanitizer.sanitize(data.message);
 		var id = sanitizer.sanitize(data.id);
 		var room = sanitizer.sanitize(data.room);
-		if (data.lost) {
-			incorrectWord(username, message, id, room, allCorrect);
-			console.log("SOMEONE LOSTSTSTSTST at messagetoserver")
-		} else {
+		// if (data.lost) {
+		// 	incorrectWord(username, message, id, room, allCorrect);
+		// 	console.log("SOMEONE LOSTSTSTSTST at messagetoserver")
+		// } else {
 			correctWord(username, message, id, room, allCorrect);
-		}
+		// }
 
 		
 
@@ -119,6 +136,10 @@ function pictionary_io (socket, io) {
 
 		// round++
 		newGame[room].round++;
+
+		// new word
+		var randNumber = Math.round(Math.random() * words.length)
+		newGame[room].word = words[randNumber]
 
 		socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: newGame[room].currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round});
 		socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: newGame[room].currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round});
@@ -152,9 +173,7 @@ function pictionary_io (socket, io) {
 			sendUserList(room, function(usersArray) {
 				socket.in(room).emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000', userJoined: usersArray, currentDrawer: newGame[room].currentDrawer, round: newGame[room].round});
 			})
-
 		}
-
 	})
 
 	function sendUserList(room, callback) {
@@ -164,9 +183,6 @@ function pictionary_io (socket, io) {
 		}
 		callback(usersArray, room)
 	}
-
-
-
 
 	socket.on("disconnect", function() {
 		console.log("socket.id " + socket.id + " disconnected" )
@@ -183,10 +199,6 @@ function pictionary_io (socket, io) {
 						newGame[prop].users.splice(i, 1)
 						length--
 						newGame[prop].userCount--;
-						// if the person who left was the drawer
-						// if (newGame[currentRoom].users[i].id === newGame[currentRoom].currentDrawer) {
-
-						// }
 						// emitting to room logic
 						var message = username + " has left the room " + currentRoom;
 						socket.in(currentRoom).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[currentRoom].inSession, color: '#FF0000', userLeft: username});
@@ -198,17 +210,9 @@ function pictionary_io (socket, io) {
 		}
 
 		findAndDeleteUser(function(currentRoom, idUser) {
-			// console.log("newGame[currentRoom]")
-			// console.log(newGame[currentRoom])
 			if (newGame[currentRoom].userCount === 0) {
 				delete newGame[currentRoom]
 			} else if (idUser === newGame[currentRoom].currentDrawer) {
-				console.log("the drawer left bro!")
-				// var totalMinusOne = newGame[currentRoom].userCount - 1
-				// var randDrawerNumber = Math.round(Math.random * totalMinusOne);
-				// newGame[currentRoom].currentDrawer = newGame[currentRoom].users[randDrawerNumber].id;
-				// var username = newGame[currentRoom].users[randDrawerNumber].username;
-
 				var totalMinusOne = newGame[currentRoom].userCount - 1;
 				var randDrawer = Math.round(Math.random() * totalMinusOne)
 				var currentDrawer = newGame[currentRoom].users[randDrawer].id;

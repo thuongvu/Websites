@@ -46,11 +46,6 @@ angular.module('app.directives', [])
 				   
 				   var strokesContainer = []; // for emitting
 
-				   // setting vars for brush
-				   // var size = 5
-				   // var opacity = 0.7
-				   
-
 				   // logic for drawing
 				   function mouseDown () {
 				     svg.on('mousemove', function () {
