@@ -22,26 +22,25 @@ function Game(room) {
 	this.word = words[randNumber];
 	this.inSession = 0;
 }
-
-function sendUsers() {
-	console.log(newGame)
-	console.log("newGame")
-
-
-	for (prop in newGame) {
-		console.log("prop")
-		console.log(prop)
-	}
-}
+var roomsList = [];
+// function sendUsers(callback) {
+// 	for (prop in newGame) {
+// 		roomsList.push(prop.toString())
+// 	}
+// 	callback(roomsList)
+// }
 
 function pictionary_io (socket, io) {
 
-	sendUsers()
+	// sendUsers(function(roomsList) {
+	// 	console.log(roomsList)
+	// })
 
 	// console.log("soeone connected")
 
 
 	socket.emit("ClientPlayerInfo", {id: socket.id})
+	socket.emit("roomsList", {roomsList: roomsList})
 
 	socket.on("newStroke", function (data) {
 		console.log(data)
@@ -156,12 +155,22 @@ function pictionary_io (socket, io) {
 		if (!(newGame[room])) {
 			newGame[room] = new Game(room);
 			newUser = new User(id, username);
+
+			// ADD TO ROOMSLIST
+			roomsList.push(room)
+			console.log("roomsList")
+			console.log(roomsList)
+
 			newGame[room].userCount++;
 			newGame[room].users.push(newUser);
 			// console.log(newGame[room])
 			var message = username + " has joined the room " + room;
 			socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000', userJoined: username, round: newGame[room].round});
 			socket.in(room).emit("messageToClient", {username: "Room", message: message, inSession: newGame[room].inSession, color: '#FF0000', userJoined: username, round: newGame[room].round});
+			
+			// emit roomsList
+			socket.emit("roomsList", {roomsList: roomsList})
+			socket.broadcast.emit("roomsList", {roomsList: roomsList})
 		} else {
 			newUser = new User(id, username);
 			newGame[room].userCount++;
@@ -209,9 +218,28 @@ function pictionary_io (socket, io) {
 			}
 		}
 
+		function deleteFromList(currentRoom) {
+			console.log("roomsList")
+			console.log(roomsList)
+			console.log("currentRoom")
+			var roomToDelete = currentRoom.toString()
+			// var listLength = roomsList.length;
+			for (var k = 0; k < roomsList.length; k++) {
+				if (roomsList[k] === roomToDelete) {
+					roomsList.splice(k, 1)
+					console.log("new roomsList")
+					console.log(roomsList)
+					socket.emit("roomsList", {roomsList: roomsList})
+					socket.broadcast.emit("roomsList", {roomsList: roomsList})
+				}
+			}
+		}
+
 		findAndDeleteUser(function(currentRoom, idUser) {
 			if (newGame[currentRoom].userCount === 0) {
+				console.log("deleted room from obj")
 				delete newGame[currentRoom]
+				deleteFromList(currentRoom)
 			} else if (idUser === newGame[currentRoom].currentDrawer) {
 				var totalMinusOne = newGame[currentRoom].userCount - 1;
 				var randDrawer = Math.round(Math.random() * totalMinusOne)

@@ -7,6 +7,11 @@ angular.module('app.controllers', [])
 				PreGame.joinRoom($scope.preGame)
 			}
 		}
+		socket.on("roomsList", function(data) {
+			console.log(data.roomsList)
+			$scope.roomsList = data.roomsList;
+			
+		})
 
 	}])
 	.controller('mainCtrl', ['$scope', 'socket', 'Game', '$timeout', 'PreGame', function ($scope, socket, Game, $timeout, PreGame) {

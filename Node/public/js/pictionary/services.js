@@ -28,6 +28,7 @@ angular.module('app.services', [])
 		socket.on("ClientPlayerInfo", function(data) {
 			preGameObj.id = data.id
 			console.log(preGameObj.id)
+			console.log(data.roomsList)
 		})
 
 		return {
