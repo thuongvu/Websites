@@ -47,20 +47,9 @@ angular.module('app.directives', [])
 				   var strokesContainer = []; // for emitting
 
 				   // setting vars for brush
-				   var size = 5
-				   var opacity = 0.7
+				   // var size = 5
+				   // var opacity = 0.7
 				   
-				   // // logic for buttons <--> brush + reset svg
-				   // $('#brushSize').change(function () {
-				   //     size = $('#brushSize').val()
-				   // }) 
-				   // $('#opacity').change(function () {
-				   //     opacity = $('#opacity').val()
-				   // }) 
-				   // $('#reset').click(function () { 
-				   //     svg.selectAll("*").remove();
-				   //     drawSomething_socket.emit('reset');
-				   // })
 
 				   // logic for drawing
 				   function mouseDown () {

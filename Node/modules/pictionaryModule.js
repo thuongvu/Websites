@@ -15,8 +15,8 @@ function Game(room) {
 	this.round = 0;
 	this.userCount = 0;
 	this.usersCorrect = 0;
+	this.allCorrect = false;
 	this.currentDrawer = '';
-	this.nextDrawer = '';
 	this.timeLeft = 10;
 	var randNumber = Math.round(Math.random() * words.length)
 	this.word = words[randNumber];
@@ -31,7 +31,6 @@ function pictionary_io (socket, io) {
 		var room = sanitizer.sanitize(data.strokes[0].room);
 		var currentStrokes = sanitizer.sanitize(data.strokes)
 		socket.in(room).broadcast.emit("strokesToDraw", {data: data});
-		// if i wanna test emitting to self... hmm, try later
 	});
 
 	socket.on("reset", function (data){
@@ -40,14 +39,19 @@ function pictionary_io (socket, io) {
 		socket.in(room).emit("resetDrawing");
 	})
 
+	function incorrectWord(username, message, id, room, callback) {
+			console.log("incorrectWord")
+			newGame[room].usersCorrect ++;
+			callback(username, message, id, room)
+	}
+
 	function correctWord(username, message, id, room, callback) {
 		if (message === newGame[room].word) {
 			var message = username + " got the correct word!"
 			var username = 'Room';
 			newGame[room].usersCorrect ++;
-			console.log("correctWord")
 			socket.in(room).broadcast.emit("messageToClient", {username: username, message: message, color: '#FF0000'});
-			socket.in(room).emit("messageToClient", {username: username, message: message, color: '#FF0000'});
+			socket.in(room).emit("messageToClient", {username: username, message: message, color: '#FF0000', correct: true});
 			callback(username, message, id, room)
 		} else {
 			socket.in(room).broadcast.emit("messageToClient", {username: username, message: message, color: '#000'});
@@ -58,7 +62,8 @@ function pictionary_io (socket, io) {
 
 	function allCorrect(username, message, id, room) {
 		var totalMinusOne = newGame[room].userCount - 1;
-		if (totalMinusOne === newGame[room].usersCorrect) {
+		if (totalMinusOne <= newGame[room].usersCorrect) {
+			console.log("at all correct now")
 			newGame[room].usersCorrect = 0;
 			newGame[room].round++;
 			if (newGame[room].round < 3) {
@@ -72,8 +77,8 @@ function pictionary_io (socket, io) {
 				socket.in(room).broadcast.emit("resetDrawing");
 				socket.in(room).emit("resetDrawing");
 				// emit
-				socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round, room: newGame[room].room});
-				socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round, room: newGame[room].room});
+				socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round, room: newGame[room].room, allCorrect: true});
+				socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round, room: newGame[room].room, allCorrect: true});
 			} else if (newGame[room].round <= 3){
 				newGame[room].inSession = 0;
 				var message = "Yay!  You've played for 5 rounds!"
@@ -84,11 +89,7 @@ function pictionary_io (socket, io) {
 				socket.in(room).broadcast.emit("resetDrawing");
 				socket.in(room).emit("resetDrawing");
 			}
-			
 		}
-
-
-
 	}
 
 	socket.on("messageToServer", function(data) {
@@ -96,11 +97,15 @@ function pictionary_io (socket, io) {
 		var message = sanitizer.sanitize(data.message);
 		var id = sanitizer.sanitize(data.id);
 		var room = sanitizer.sanitize(data.room);
+		if (data.lost) {
+			incorrectWord(username, message, id, room, allCorrect);
+			console.log("SOMEONE LOSTSTSTSTST at messagetoserver")
+		} else {
+			correctWord(username, message, id, room, allCorrect);
+		}
 
-		correctWord(username, message, id, room, allCorrect);
+		
 
-		// socket.in(room).broadcast.emit("messageToClient", {username: username, message: message});
-		// socket.in(room).emit("messageToClient", {username: username, message: message});
 	})
 
 	socket.on("requestStartGame", function(data) {
@@ -108,10 +113,6 @@ function pictionary_io (socket, io) {
 		var room = sanitizer.sanitize(data.room);
 		var id = sanitizer.sanitize(data.id);
 		newGame[room].currentDrawer = id;
-		// console.log("newGame[room].currentDrawer")
-		// console.log(newGame[room].currentDrawer)
-		// console.log("newGame[room].word")
-		// console.log(newGame[room].word)
 
 		// in session
 		newGame[room].inSession = 1;
@@ -120,7 +121,6 @@ function pictionary_io (socket, io) {
 		newGame[room].round++;
 
 		socket.in(room).emit("startGame", {word: newGame[room].word, currentDrawer: newGame[room].currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round});
-		// socket.in(room).broadcast.emit("startGame");
 		socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: newGame[room].currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round});
 	})
 

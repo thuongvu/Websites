@@ -11,19 +11,16 @@ angular.module('app.controllers', [])
 		console.log('in mainCtrl')
 		$scope.preGameObj = PreGame.preGameObj;
 		$scope.gameRoom = $scope.preGameObj.room;
-		console.log($scope.gameRoom)
+		$scope.counter = 0;
+		$scope.correct = false;
 
 		$scope.joinRoom = function() {
 			Game.joinRoom($scope.preGameObj)
 		}
 		$timeout(function() {
 			$scope.joinRoom();
-			// $scope.gameRoom = Game.gameObj.room;
-			console.log("$scope.gameRoom")
-			console.log($scope.gameRoom)
 		}, 500)
 		
-
 
 		$scope.draw = {};
 		$scope.draw.color = '#000';
@@ -54,13 +51,12 @@ angular.module('app.controllers', [])
 			console.log(data)
 			var username = data.username;
 			var message = data.message;
-			$scope.gameRoom.room = data.room;
+			// $scope.gameRoom.room = data.room;
 			$scope.inSession = data.inSession;
-
+			
 
 			$scope.chatroom.receivedMessages.unshift({"username": username, "message" : message})
 			if (data.currentDrawer) {
-				console.log($scope.gameObj.id)
 				if ($scope.gameObj.id === data.currentDrawer) {
 					console.log("i am the current drawer")
 					$scope.showDraw = true;
@@ -78,7 +74,6 @@ angular.module('app.controllers', [])
 			
 			if (data.userJoined) {
 				var userJoined = data.userJoined;
-				console.log(data.userJoined)
 				if (typeof userJoined === "string") {
 					$scope.usersInRoom.push({name: data.userJoined});
 				} else {
@@ -115,24 +110,19 @@ angular.module('app.controllers', [])
 				$scope.hideInSession = false;
 				$scope.showDraw = false;
 			}
+			if (data.correct) {
+				if (data.true === correct) {
+					$scope.correct = true;
+				}
+			}
 			
 		})
 		// request startgame
 		$scope.requestStartGame = function () {
 			Game.requestStartGame($scope.inSession)
 		}
-		// // joinroom
-		// $scope.joinRoom = function() {
-		// 	Game.joinRoom();
-		// }
-		// $timeout(function() {
-		// 	$scope.joinRoom()
-		// }, 500)
-		
-
 
 		socket.on("startGame", function(data) {
-			console.log(data)
 				if ($scope.gameObj.id === data.currentDrawer) {
 					console.log("i am the current drawer")
 					$scope.showDraw = true;
@@ -147,6 +137,32 @@ angular.module('app.controllers', [])
 					$scope.currentWord = 'Guess the word!';
 					$scope.round = "Round " + data.round;
 				}
+				$scope.allCorrect = data.allCorrect;
+				function allCorrectValid() {
+					if ($scope.allCorrect === true) {
+						console.log("everyone has it correct!")
+						console.log($scope.allCorrect);
+					}
+				}
+				$scope.$watch('allCorrect', allCorrectValid, true)
+
+			
+				function loop(x) {
+					if ((x > 10) && ($scope.correct === false)) {
+						Game.sendMessage("incorrect word", "lost")
+						return;
+					} else if ($scope.correct) {
+						return;
+					}
+					setTimeout(function() {
+						console.log(x)
+						loop(x+1)
+					}, 1000)
+				}
+				loop(0)
+
+
+
 			})
 
 
