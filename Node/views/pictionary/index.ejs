@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css">
+	<link rel="stylesheet" href="/css/pictionary/pictionaryStyle.css">
+</head>
+<body>
+	<nav class="navbar navbar-default" role="navigation">
+	  <!-- Brand and toggle get grouped for better mobile display -->
+	  <div class="navbar-header">
+	    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	      <span class="sr-only">Toggle navigation</span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	    </button>
+	    <a class="navbar-brand" href="#">Pictionary</a>
+	  </div>
+	  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	     <ul class="nav navbar-nav">
+	       <!-- <li><a href="#/game">Room</a></li> -->
+	       <!-- <li><a href="#">Link</a></li> -->
+	 </nav>
+	
+	<!-- <div class="jumbotron text-center">
+		<div>Pictionary</div>
+	</div> -->
+
+	<ng-view></ng-view>
+
+
+	<script src="/js/socket.io.min.js"></script>
+	<script src="/bower_components/angular/angular.min.js"></script>
+	<script src="/bower_components/angular-route/angular-route.min.js"></script>
+	<script src="/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+	<script src="/js/vote/d3module.js"></script>
+	<script src="/js/pictionary/app.js"></script>
+	<script src="/js/pictionary/services.js"></script>
+	<script src="/js/pictionary/directives.js"></script>
+	<script src="/js/pictionary/controllers.js"></script>
+	<!-- <script src="/js/gAnalytics.js"></script> -->
+</body>
+</html>

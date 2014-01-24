@@ -36,3 +36,7 @@ module.exports = {
 	}
 
 };
+
+// 651421851563600
+// faacfa8662aff01c61462145ef5c911d
+// http://localhost:8080/pictionary/facebook/callback

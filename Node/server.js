@@ -27,6 +27,7 @@ var testdraw = require("./modules/testdrawModule.js");
 var rps = require("./modules/rpsModule.js");
 var beat = require("./modules/beatModule.js");
 var magnet = require("./modules/magnetModule.js");
+var pictionary = require("./modules/pictionaryModule.js");
 
 	// auth
 	var port = process.env.PORT || 8080;
@@ -256,6 +257,12 @@ var beat_socket_io = io.of('/beat').on("connection", function (socket, io) {
 var magnet_socket_io = io.of('/poetry').on("connection", function (socket, io) {
 	magnet.magnet_io(socket, io);
 })
+
+// pictionary socket.io
+var pictionary_socket_io = io.of('/pictionary/game').on("connection", function (socket, io) {
+	pictionary.pictionary_io(socket, io);
+})
+
 
 // ------------------------------------------------------------------------- //
 
