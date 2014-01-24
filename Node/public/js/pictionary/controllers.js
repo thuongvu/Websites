@@ -43,7 +43,6 @@ angular.module('app.controllers', [])
 		$scope.inSession;
 		$scope.hideInSession = false;
 		$scope.gameObj = Game.gameObj;
-		// $scope.gameRoom = Game.gameObj.room;
 
 		$scope.user = {}; // just temporarily for the sake of assigning it here, want to move it to the other ctrller on the other page on PreGame
 		$scope.setUsername = function() {
@@ -62,7 +61,6 @@ angular.module('app.controllers', [])
 			console.log(data)
 			var username = data.username;
 			var message = data.message;
-			// $scope.gameRoom.room = data.room;
 			$scope.inSession = data.inSession;
 			
 
@@ -126,12 +124,6 @@ angular.module('app.controllers', [])
 				$scope.showDraw = false;
 				$scope.hideInSession = false;
 			}
-			// if (data.correct) {
-			// 	if (data.true === correct) {
-			// 		$scope.correct = true;
-			// 	}
-			// }
-			
 		})
 		// request startgame
 		$scope.requestStartGame = function () {
@@ -164,23 +156,6 @@ angular.module('app.controllers', [])
 				}
 				$scope.$watch('allCorrect', allCorrectValid, true)
 
-			
-				// function loop(x) {
-				// 	if ((x > 10) && ($scope.correct === false)) {
-				// 		Game.sendMessage("incorrect word", "lost")
-				// 		return;
-				// 	} else if ($scope.correct) {
-				// 		return;
-				// 	}
-				// 	setTimeout(function() {
-				// 		console.log(x)
-				// 		loop(x+1)
-				// 	}, 1000)
-				// }
-				// loop(0)
-
-
-
 			})
 
 
@@ -198,53 +173,4 @@ angular.module('app.controllers', [])
 			}
 		}
 
-
-
-
-		// $scope.$watch('Game.gameObj', function(newVal, oldVal) {
-		// 	// $scope.gameObj = Game.gameObj;
-		// 	console.log(newVal)
-		// 	console.log(oldVal)
-		// 	console.log("$scope.gameObj from ctrller")
-		// 	// console.log($scope.gameObj)
-		// })
-		// assign user
-
-
-		// show which: draw/guess
-		// $scope.showDraw = Game.gameObj.showDraw;
-		// // $scope.showDraw = true;
-		// $scope.showGuess = Game.gameObj.showGuess;
-
-		// function showDraw() {
-		// 	console.log("showDraw invoked")
-		// 	console.log($scope.gameObj)
-		// 	$scope.showDraw = Game.gameObj.showDraw;
-		// 	$scope.showGuess = Game.gameObj.showGuess;
-		// 	// console.log($scope.showDraw)
-		// 	// console.log($scope.showGuess)
-		// }
-
-		// $scope.$watch('showDraw', showDraw, true)
-		// $scope.$watch('showGuess', showDraw, true)
-
-
-		// $scope.showDraw = $scope.gameObj.showDraw;
-		// $scope.showGuess = $scope.gameObj.showGuess;	
-		// ------------ trying to get messages as a service BLAH--------------
-		// $scope.receivedMessagesFromGame = {};
-		// $scope.receivedMessagesFromGame.msg = {};
-		// function addMessage (){
-		// 	console.log("adding message")
-		// 	console.log("receivedMessagesFromGame")
-		// 	console.log($scope.receivedMessagesFromGame)
-		// 	var message = $scope.receivedMessagesFromGame.msg.message;
-		// 	var username = $scope.receivedMessagesFromGame.msg.username;
-		// 	$scope.chatroom.receivedMessages.unshift({"username": username, "message": message})
-		// 	var currentMessage = '';
-		// }
-
-		// $scope.receivedMessagesFromGame = Game.messagesObj;
-		// $scope.$watch('receivedMessagesFromGame', addMessage, true)
-	
 	}])

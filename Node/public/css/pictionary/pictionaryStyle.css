@@ -3,7 +3,6 @@ svg {
 	border-radius: 5px;
 }
 #chatContainer {
-	/*background-color: blue;*/
 	height: 200px;
 	overflow-y: scroll;
 	border: 1px solid grey;
@@ -14,7 +13,6 @@ svg {
 
 }
 #userContainer {
-	/*background-color: blue;*/
 	height: 180px;
 	width: 200px;
 	overflow-y: scroll;
@@ -35,6 +33,5 @@ svg {
 }
 #drawWord {
 	background-color: #5BC0DD;
-	/*width: 150px;*/
 	font-weight: bold
 }

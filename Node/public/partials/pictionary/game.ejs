@@ -1,12 +1,7 @@
-
-
 <div class="cont">
-	<!-- <div class="text-center" id="gameRoom">Room: {{gameRoom}} </div> -->
-	<div class="text-center"><h3>Room: <span class="label label-default"> {{gameRoom}}</span></h3></div>
+	<div class="text-center"><h2>Room: <span class="label label-default"> {{gameRoom}}</span></h2></div>
+	<div class="text-center"><h4><span class="label label-info">{{round}}</span></h4></div>
 
-
-	<br>
-	<br>
 	<div class="row">	
 		<div class="col-md-4">
 			<!-- set username -->
@@ -40,10 +35,8 @@
 		
 		<!-- draw -->
 		<div class="col-md-6 col-md-offset-1">
-			
-			<div class="text-center">{{round}}</div>
-			<!-- <div class="text-center" id="drawWord">{{currentWord}}</div> -->
-			<div class="btn btn-primary btn-lg text-center col-md-offset-5" role="button">{{currentWord}}</div>
+	
+			<h3><span class="label label-primary col-md-offset-4">{{currentWord}}</span></h3>
 			<div draw ng-show="showDraw" colordata="draw.color" sizedata="draw.size" opacitydata="draw.opacity" roomdata="gameRoom">
 					<!-- brush or eraser buttons -->
 					<div class="btn-group" data-toggle="buttons">

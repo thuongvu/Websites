@@ -23,21 +23,8 @@ function Game(room) {
 	this.inSession = 0;
 }
 var roomsList = [];
-// function sendUsers(callback) {
-// 	for (prop in newGame) {
-// 		roomsList.push(prop.toString())
-// 	}
-// 	callback(roomsList)
-// }
 
 function pictionary_io (socket, io) {
-
-	// sendUsers(function(roomsList) {
-	// 	console.log(roomsList)
-	// })
-
-	// console.log("soeone connected")
-
 
 	socket.emit("ClientPlayerInfo", {id: socket.id})
 	socket.emit("roomsList", {roomsList: roomsList})
@@ -97,7 +84,7 @@ function pictionary_io (socket, io) {
 				socket.in(room).broadcast.emit("startGame", {word: newGame[room].word, currentDrawer: currentDrawer, inSession: newGame[room].inSession, round: newGame[room].round, room: newGame[room].room, allCorrect: true});
 			} else if (newGame[room].round <= 3){
 				newGame[room].inSession = 0;
-				var message = "Yay!  You've played for 5 rounds!"
+				var message = "Yay!  You've played for 10 rounds!"
 				newGame[room].round = 0;
 				socket.in(room).broadcast.emit("messageToClient", {username: "Room", message: message, color: '#FF0000', inSession: newGame[room].inSession, round: newGame[room].round, room: newGame[room].room});
 				socket.in(room).emit("messageToClient", {username: "Room", message: message, color: '#FF0000', inSession: newGame[room].inSession, round: newGame[room].round, room: newGame[room].room});
@@ -113,15 +100,8 @@ function pictionary_io (socket, io) {
 		var message = sanitizer.sanitize(data.message);
 		var id = sanitizer.sanitize(data.id);
 		var room = sanitizer.sanitize(data.room);
-		// if (data.lost) {
-		// 	incorrectWord(username, message, id, room, allCorrect);
-		// 	console.log("SOMEONE LOSTSTSTSTST at messagetoserver")
-		// } else {
-			correctWord(username, message, id, room, allCorrect);
-		// }
 
-		
-
+		correctWord(username, message, id, room, allCorrect);
 	})
 
 	socket.on("requestStartGame", function(data) {
@@ -158,8 +138,6 @@ function pictionary_io (socket, io) {
 
 			// ADD TO ROOMSLIST
 			roomsList.push(room)
-			console.log("roomsList")
-			console.log(roomsList)
 
 			newGame[room].userCount++;
 			newGame[room].users.push(newUser);
@@ -219,16 +197,11 @@ function pictionary_io (socket, io) {
 		}
 
 		function deleteFromList(currentRoom) {
-			console.log("roomsList")
-			console.log(roomsList)
-			console.log("currentRoom")
 			var roomToDelete = currentRoom.toString()
 			// var listLength = roomsList.length;
 			for (var k = 0; k < roomsList.length; k++) {
 				if (roomsList[k] === roomToDelete) {
 					roomsList.splice(k, 1)
-					console.log("new roomsList")
-					console.log(roomsList)
 					socket.emit("roomsList", {roomsList: roomsList})
 					socket.broadcast.emit("roomsList", {roomsList: roomsList})
 				}
@@ -237,7 +210,6 @@ function pictionary_io (socket, io) {
 
 		findAndDeleteUser(function(currentRoom, idUser) {
 			if (newGame[currentRoom].userCount === 0) {
-				console.log("deleted room from obj")
 				delete newGame[currentRoom]
 				deleteFromList(currentRoom)
 			} else if (idUser === newGame[currentRoom].currentDrawer) {
@@ -251,10 +223,6 @@ function pictionary_io (socket, io) {
 				socket.in(currentRoom).broadcast.emit("messageToClient", {username: "Room", message: message, inSession: newGame[currentRoom].inSession, color: '#FF0000', currentDrawer: currentDrawer, round: newGame[currentRoom].round, word: newGame[currentRoom].word });
 			}	
 		})
-		
-		
-
-
 	})
 }
 

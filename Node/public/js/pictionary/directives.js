@@ -77,9 +77,7 @@ angular.module('app.directives', [])
 				     strokesContainer = []
 				   }
 
-				   // when receiving a socket.io event "strokesToDraw", draw it!
 				   socket.on('strokesToDraw', function (data) {
-				     // console.log(data.data.strokes)
 				     var drawTheseStrokes = data.data.strokes;
 
 				     function drawNewObj (obj) {
@@ -98,10 +96,8 @@ angular.module('app.directives', [])
 
 				   });
 				   
-				   // when receiving event resetDrawing, svgremove 
 				   socket.on('resetDrawing', function () {
 				     svg.selectAll("*").remove();
-				     // drawSomething_socket.emit('reset');
 				   })
 			}
 		}
@@ -122,27 +118,14 @@ angular.module('app.directives', [])
 				    svgSee = d3.select(element[0]).append("svg")
 				       .attr("width", width)
 				       .attr("height", height)
-				       // .on("mousedown", mouseDown)
-				       // .on("mouseup", mouseUp)
-
+				 
 				   var strokesContainer = []; // for emitting
 
 				   // setting vars for brush
 				   var size = 5
 				   var opacity = 0.7
 				   
-				   // // logic for buttons <--> brush + reset svg
-				   // $('#brushSize').change(function () {
-				   //     size = $('#brushSize').val()
-				   // }) 
-				   // $('#opacity').change(function () {
-				   //     opacity = $('#opacity').val()
-				   // }) 
-				   // $('#reset').click(function () { 
-				   //     svg.selectAll("*").remove();
-				   //     drawSomething_socket.emit('reset');
-				   // })
-
+				
 				   // logic for drawing
 				   function mouseDown () {
 				     svg.on('mousemove', function () {
@@ -173,9 +156,7 @@ angular.module('app.directives', [])
 				     strokesContainer = []
 				   }
 
-				   // when receiving a socket.io event "strokesToDraw", draw it!
 				   socket.on('strokesToDraw', function (data) {
-				     // console.log(data.data.strokes)
 				     var drawTheseStrokes = data.data.strokes;
 
 				     function drawNewObj (obj) {
@@ -194,10 +175,8 @@ angular.module('app.directives', [])
 
 				   });
 				   
-				   // when receiving event resetDrawing, svgremove 
 				   socket.on('resetDrawing', function () {
 				     svgSee.selectAll("*").remove();
-				     // drawSomething_socket.emit('reset');
 				   })
 			}
 		}
