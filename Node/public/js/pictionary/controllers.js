@@ -15,6 +15,16 @@ angular.module('app.controllers', [])
 		$scope.draw.color = '#000';
 		$scope.draw.size = 5;
 		$scope.draw.opacity = 0.7;
+		$scope.brushOrEraser = function (option) {
+			if (option === 'brush') {
+				if ($scope.draw.pastColor) {
+					$scope.draw.color = $scope.draw.pastColor;
+				}
+			} else if (option === 'eraser') {
+				$scope.draw.pastColor = $scope.draw.color;
+				$scope.draw.color = '#fff';
+			}
+		}
 
 	}])
 	.controller('mainCtrl', ['$scope', 'socket', 'Game', '$timeout', 'PreGame', function ($scope, socket, Game, $timeout, PreGame) {
