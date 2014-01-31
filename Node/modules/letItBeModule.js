@@ -1,6 +1,7 @@
 var _ = require("underscore");
 var mongojs = require('mongojs');
 var db = mongojs('test', ['wisdomCollection']);
+var sanitizer = require('sanitizer');
 
 function renderPage(request, response, call) {
    randNumber(findRandom)
@@ -19,7 +20,7 @@ function renderPage(request, response, call) {
 }
 
 function addWisdom (request, response) {
-	var wisdom = request.body.wisdom;
+	var wisdom = sanitizer.sanitize(request.body.wisdom);
 	if (_.isUndefined(wisdom) || _.isEmpty(wisdom.trim())) {
 		return response.json(400, {error: "wisdom is invalid"});
 	}

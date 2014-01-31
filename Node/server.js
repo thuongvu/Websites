@@ -74,7 +74,7 @@ var ios = require("socket.io").listen(https);
 // chatroom
 app.get("/chatroom", function (request, response) {
 	response.render("chatroom/chatroom");
-	response.end();
+	// response.end();
 });
 app.post("/chatroom/message", function (request, response) {
 	chatroom.chatroomPost(request, response, io);
