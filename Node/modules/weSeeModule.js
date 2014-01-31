@@ -1,5 +1,6 @@
 var currentTimeData;
 var urlData;
+var sanitizer = require('sanitizer');
 
 function renderPage (request, response) {
 	response.render("weSee/weSee")
@@ -11,7 +12,7 @@ function weSee_io (socket, io) {
 	})
 
 	socket.on("loadVideo", function (data) {
-		urlData = data.url;
+		urlData = sanitizer.sanitize(data.url);
 		socket.in(data.roomName).broadcast.emit("loadVideoBroadcast", data)
 	})
 
@@ -27,7 +28,7 @@ function weSee_io (socket, io) {
 	})
 
 	socket.on('joinRoom', function (data) {
-		var roomName = data;
+		var roomName = sanitizer.sanitize(data);
 		socket.join(roomName);
 		socket['room'] = roomName;
 		socket.emit('joinRoomSuccess', {roomName: roomName})
