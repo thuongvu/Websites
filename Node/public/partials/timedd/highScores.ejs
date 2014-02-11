@@ -1,19 +1,13 @@
-<ul class="nav nav-tabs">
+<nav>
 	<li><a ng-href="#/">Game Home</a></li>
 	<li class="active"><a ng-href="#/highscores">Best Scores</a></li>
-</ul>
+</nav>
 
-<div class="text-center">
+<div class="center">
 	<h1>HIGH SCORES</h1>
-	<table class="table table-striped" >
-		<tr ng-repeat="score in highScoresList">
+	<table class="table">
+		<tr ng-repeat="score in highScoresList" class="table-striped">
 			<td>{{score.name}}: {{score.score}}</td>
 		</tr>
-	</div>
-	<div ng-repeat="score in highScoresList">
-		<tr>
-			<td>{{score.name}}: {{score.score}}</td>
-		</tr>
-		</table>
-	</div>
+	</table>
 </div>
