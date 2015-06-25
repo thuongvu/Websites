@@ -14,7 +14,7 @@ var drawSomething = require("./modules/drawSomethingModule.js");
 var notes = require("./modules/notesModule.js");
 var here = require("./modules/hereModule.js");
 var youSee = require("./modules/youSeeModule.js");
-var twit = require("./modules/twitterModule.js");
+// var twit = require("./modules/twitterModule.js");
 var ticTac = require("./modules/ticTacModule.js");
 var harkModule = require("./modules/harkModule.js");
 var ig = require("./modules/igModule.js");
@@ -35,7 +35,7 @@ var pictionary = require("./modules/pictionaryModule.js");
 	var passport = require('passport')
 	var flash = require('connect-flash');
 	var configDB = require('./config/database.js');
-	mongoose.connect(configDB.url);
+	// mongoose.connect(configDB.url);
 	require ('./config/passport')(passport)
 	app.use(express.logger('dev')); 
 	app.use(express.cookieParser()); 
@@ -61,14 +61,14 @@ app.use(express.static("public", __dirname + "/public"));
 
 
 // https ------ //
-var options = {
-	key: fs.readFileSync('../../ssl/aws.key'),
-	cert: fs.readFileSync('../../ssl/aws.crt'),
-	ca: fs.readFileSync('../../ssl/ca.crt'),
-	passphrase: 'neonindian'
-};
-var https = require("https").createServer(options, app);
-var ios = require("socket.io").listen(https);
+// var options = {
+// 	key: fs.readFileSync('../../ssl/aws.key'),
+// 	cert: fs.readFileSync('../../ssl/aws.crt'),
+// 	ca: fs.readFileSync('../../ssl/ca.crt'),
+// 	passphrase: 'neonindian'
+// };
+// var https = require("https").createServer(options, app);
+var ios = require("socket.io").listen(http);
 // ------------ //
 
 // chatroom
@@ -144,13 +144,13 @@ var youSee_socket_io = io.of('/yousee').on("connection", function (socket) {
 	youSee.youSee_io(socket, io);
 })
 
-//twitter
-app.get('/twitter', function (request, response) {
-	twit.renderPage(request, response);
-})
-var twitter_socket_io = io.of('/twitter').on("connection", function (socket) {
-	twit.twitter_io(socket, io);
-})
+// //twitter
+// app.get('/twitter', function (request, response) {
+// 	twit.renderPage(request, response);
+// })
+// var twitter_socket_io = io.of('/twitter').on("connection", function (socket) {
+// 	twit.twitter_io(socket, io);
+// })
 
 // tictac
 app.get('/tictac', function (request, response) {
@@ -209,9 +209,9 @@ app.get('/vote', function (request, response) {
 var vote_socket_io = io.of('/vote').on("connection", function (socket) {
 	vote.vote_io(socket, io);
 })
-var vote_socket_io_ssl = ios.of('/vote').on("connection", function (socket) {
-	vote.vote_io(socket, io);
-})
+// var vote_socket_io_ssl = ios.of('/vote').on("connection", function (socket) {
+// 	vote.vote_io(socket, io);
+// })
 
 // weSee
 app.get('/wesee', function (request, response) {
@@ -269,6 +269,6 @@ var pictionary_socket_io = io.of('/pictionary/game').on("connection", function (
 http.listen(app.get("port"), function () {
 	console.log("server is up and running.  go to http://" + app.get("ipaddr") + ":" + app.get("port"));
 });
-https.listen(8081,function() {
-	console.log("magic happening on ths https server")
-});
+// https.listen(8081,function() {
+// 	console.log("magic happening on ths https server")
+// });
