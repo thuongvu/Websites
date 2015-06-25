@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<!-- <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
+	<script src="/bower_components/angular/angular.min.js"></script>
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+	<script src="/bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
+	<!-- <script src="/js/wikiarea/leaflet.js"></script> -->
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" />
+	<script src="/js/wikiarea/app.js"></script>
+	<script src="/js/wikiarea/services.js"></script>
+	<script src="/js/wikiarea/controllers.js"></script>
+	<script src="/js/wikiarea/directives.js"></script>
+</head>
+<body ng-controller="mainCtrl">
+	
+	<map></map>
+	<leaflet defaults="defaults" center="center" height="480px" width="640px" markers="markers" paths="paths"></leaflet>
+	Marker (lat/lng): <input type="number" ng-model="markers.mainMarker.lat" /> <input type="number" ng-model="markers.mainMarker.lng" />
+	
+
+	<!-- // <script src="/bower_components/angular-route/angular-route.min.js"></script> -->
+	<!-- // <script src="/bower_components/angular-resource/angular-resource.min.js"></script> -->
+	<!-- // <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script> -->
+
+	<!-- <link rel="stylesheet" href="/css/leaflet.awesome-markers.css"> -->
+	<!-- // <script src="/js/leaflet.awesome-markers.min.js"></script> -->
+	
+
+
+	<!-- <script src="/js/gAnalytics.js"></script>   -->
+</body>
+</html>

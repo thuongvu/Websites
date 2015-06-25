@@ -1,0 +1,1 @@
+angular.module('app', ['ngRoute', 'ngCookies', 'app.controllers', 'app.services'])

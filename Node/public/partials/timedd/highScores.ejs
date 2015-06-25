@@ -1,0 +1,13 @@
+<nav>
+	<li><a ng-href="#/">Game Home</a></li>
+	<li class="active"><a ng-href="#/highscores">Best Scores</a></li>
+</nav>
+
+<div class="center">
+	<h1>HIGH SCORES</h1>
+	<table class="table">
+		<tr ng-repeat="score in highScoresList" class="table-striped">
+			<td>{{score.name}}: {{score.score}}</td>
+		</tr>
+	</table>
+</div>

@@ -1,0 +1,29 @@
+{
+  "name": "angular-leaflet-directive",
+  "dependencies": {
+    "angular": "1.2.x",
+    "jquery": "2.0.x",
+    "bootstrap": "3.0.x",
+    "angular-route": "1.2.x",
+    "angular-animate": "1.2.x",
+    "angular-mocks": "1.2.x",
+    "leaflet-dist": "0.7.x",
+    "leaflet.markerclusterer": "0.4",
+    "leaflet.draw": "0.2.2",
+    "Leaflet.label": "0.2.1",
+    "Leaflet.awesome-markers": "*",
+    "leaflet-plugins": "1.0.0"
+  },
+  "homepage": "https://github.com/tombatossals/angular-leaflet-directive",
+  "version": "0.7.3",
+  "_release": "0.7.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.7.3",
+    "commit": "5e5a3073801995aae5002088b6d4a3abdee29efc"
+  },
+  "_source": "git://github.com/tombatossals/angular-leaflet-directive.git",
+  "_target": "~0.7.3",
+  "_originalSource": "angular-leaflet-directive",
+  "_direct": true
+}

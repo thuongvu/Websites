@@ -1,0 +1,127 @@
+body {
+	font-family: Helvetica, sans-serif;
+}
+
+.cf:before,
+.cf:after {
+    content: " ";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
+
+.zombie {
+	height: 300px;
+}
+
+nav {
+	display: inline;
+	float: left;
+	width: 100%;
+	margin: 0 0 2em 0;
+	padding: 2px;
+	list-style: none;
+	border-bottom: 1px solid #ccc;
+}
+
+nav li {
+	float: left;
+	margin: 0 1px;
+	padding: 10px;
+	/*making the border exist with the color of the background so it won't shift position on hover*/
+	border: 1px solid #fff;
+	border-width: 1px 1px 0 1px;
+	border-radius: 5px;
+}
+
+nav li a {
+	text-decoration: none;
+	color: #4EA4BD;
+}
+
+nav li a:visited {
+	text-decoration: none;
+	color: #4EA4BD;
+}
+
+nav li:hover:not(.name-input):not(.active) {
+	border-radius: 6px;
+	background-color: #F0F0F0;
+}
+
+nav .active {
+	border-width: 1px 1px 0 1px;
+	border-style: solid; 
+	border-color: #ccc;
+	border-radius: 6px;
+}
+
+nav .active a {
+	cursor: default;
+}
+
+.center {
+	text-align: center;
+	margin: 0 auto;
+}
+
+.stats {
+	width: 200px;
+	height: 150px;
+	clear: both;
+	margin: 0 auto; 
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.button {
+	display: inline-block;
+	padding: 8px;
+	border-radius: 4px;
+	color: #fff;
+	cursor: pointer;
+}
+
+.button:active {
+	opacity: 0.7;
+}
+
+.btn-start {
+	background-color: #65BC62;
+	box-shadow: -2px -2px 2px #4A8A48;
+}
+
+.btn-kill {
+	background-color: #D9534F;
+	box-shadow: -3px -3px 3px #802623;
+}
+
+.btn-lrg {
+	padding: 16px;
+	border-radius: 6px;
+}
+
+.btn-submit {
+	background-color: #5CC1DE;
+	box-shadow: -2px -2px 2px #4EA4BD;
+}
+
+.name-input {
+	float: right;
+}
+
+.table {
+	margin: 0 auto;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+}
+
+.table-striped {
+	font-size: 1.2em;
+}
+
+.table-striped:nth-child(2n) {
+	background-color: #ccc;
+}

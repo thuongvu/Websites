@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/rps/rpsStyle.css">
+</head>
+<body>
+	<div class="jumbotron text-center">
+		<div>Rock, Paper, Scissors</div>
+	</div>
+	<ng-view></ng-view>
+	<script src="/js/socket.io.min.js"></script>
+	<script src="/bower_components/angular/angular.min.js"></script>
+	<script src="/bower_components/angular-route/angular-route.min.js"></script>
+	<script src="/js/rps/app.js"></script>
+	<script src="/js/rps/services.js"></script>
+	<script src="/js/rps/directives.js"></script>
+	<script src="/js/rps/controllers.js"></script>
+	<script src="/js/gAnalytics.js"></script>
+</body>
+</html>

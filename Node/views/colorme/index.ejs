@@ -1,0 +1,30 @@
+<input colorpicker class="span2" type="text" ng-model="colors.color" />
+<style>
+	.changeMe {
+		width: 400px;
+		height: 100px;
+		background: blue;
+	}
+</style>
+<div class="changeMe" ng-style="{background: colors.color}">
+</div>
+
+<button ng-click="save()">Save me</button>
+	<link rel="stylesheet" href="/bower_components/angular-bootstrap-colorpicker/css/colorpicker.css">
+<script src="http://code.angularjs.org/1.2.9/angular-animate.min.js"></script>
+<script src="/bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
+<script>
+	$scope.colors = {};
+	$scope.colors.color = '';
+
+
+
+	function logColor () {
+		console.log("changed color")
+		console.log($scope.colors.color)
+	}
+	$scope.$watch('colors.color', logColor, true)
+	$scope.save = function() {
+		console.log($scope.colors.color)
+	}
+</script>

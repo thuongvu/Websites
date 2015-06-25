@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Guestbook</title>
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/guestBook/guestBookStyle.css">
+</head>
+<body>
+<div class="container">
+
+	<div class="jumbotron text-center">
+		<h1><a href="/guestbook/">Guestbook</a></h1>
+		<p>Login to <a href="/guestbook/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a> to write in the guestbook :)</p>
+	</div>
+	<div class="messageContainer col-md-8 col-md-offset-2">
+		<table class="table table-hover">
+		<tr><th>Guest</th><th>Message</th></tr>
+		<% var reverse = guestPosts.reverse(); %>
+		<% for(var i=0; i<reverse.length; i++) {%>
+		   <tr><td><%= reverse[i].fbName %></td><td> <%= guestPosts[i].message %></td><tr>
+		<% } %>
+		</table>
+	</div>
+	
+</div>
+	<script src="/bower_components/jquery/jquery.min.js"></script>
+	<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="/js/gAnalytics.js"></script>
+	<script>
+	var posts = <%- JSON.stringify(guestPosts) %>;
+		console.log(posts);
+	</script>
+</body>
+</html>

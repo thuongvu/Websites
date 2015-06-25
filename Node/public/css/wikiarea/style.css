@@ -1,0 +1,28 @@
+.infoPanelContainer {
+	background-color: #fff;
+	width: 300px;
+	height: 500px;
+	position: absolute;
+	z-index: 100;
+	top: 1em;
+	right: 1em;
+	opacity: 0.9;
+	overflow-y: scroll;
+	border-radius: 5px;
+	padding: 1.5em;
+
+}
+.lngLat {
+	background-color: #fff;
+	z-index: 100;
+	top: 1em;
+	left: 25%;
+	position: absolute;
+	background-color: white;
+	text-align: center;
+	opacity: 0.9;
+	border-radius: 2px;
+}
+.infoPanel {
+	margin-top: 10%;
+}

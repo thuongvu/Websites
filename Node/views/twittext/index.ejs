@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+	<script>
+	if (window.location.hash == '#_=_') {
+	    window.location.hash = '';
+	}
+	</script>
+</head>
+<body ng-controller="mainCtrl">
+	<div class="jumbotron text-center">
+		<h2>TwitText</h2>
+		<p>Login to <button ng-click="loginOauth()" class="btn btn-primary"><span class="fa fa-twitter"></span> Twitter</button> and it will show you word frequencies of the first 30 tweets on your timeline. </p> <button class="btn btn-alert" ng-show="showLogOut" ng-click="logout()">Log Out</button>
+	</div>
+	<div class="text-center">
+	<div ng-repeat="name in hashtagArr track by $index">
+		{{name.key}}: {{name.value}}
+	</div>
+	</div>
+	<script src="/bower_components/angular/angular.min.js"></script>
+	<script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
+	<script src="/bower_components/angular-route/angular-route.min.js"></script>
+	<script src="/bower_components/angular-resource/angular-resource.min.js"></script>
+	<script src="/js/twittext/app.js"></script>
+	<script src="/js/twittext/services.js"></script>
+	<script src="/js/twittext/controllers.js"></script>
+	<script src="/js/gAnalytics.js"></script>  
+</body>
+</html>

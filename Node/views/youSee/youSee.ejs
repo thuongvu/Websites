@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="/css/youSee/youSeeStyle.css">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+	<script src="/js/socket.io.min.js"></script>
+	<script src="/js/youSee/youSeeClient.js"></script>
+	<script src="/js/gAnalytics.js"></script>
+</head>
+<body>
+	<div id="title">
+		<h1>You See, I See</h1>
+	</div>
+	<div id="load">
+		<input id="urlInput" placeholder="Youtube video ID"></input>
+		<button id="loadVideo" class="btn btn-success">Load video</button>
+	</div>
+	<div>
+		<p><b>Instructions:</b> This website allows users to sync while watching youtube videos.  If the first user pauses, fast-forwards, or rewinds, all other viewers follow along!  If a video immediately pops open during your visit, then someone else else has the controls!  If no video pops open, then you are in control!  </p>
+
+		<p>To use, find this part of a youtube link, the youtube video ID, <img src="/css/youSee/youtube2.png"/>  Insert it at the top, and click "Load video". </p>
+	</div>
+	<div id="playerContainer">
+	</div>
+</body>
+</html>

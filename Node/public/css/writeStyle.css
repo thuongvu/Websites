@@ -1,0 +1,46 @@
+#wrapper {
+	background: url(/css/linedpaper.png);
+	width: 600px;
+	height: 600px;
+	margin-left: 26%;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+#justLastSentence {
+	font-weight: bold;
+	color: #FF0200;
+}
+#sentence {
+	resize: none;
+}
+#title {
+	text-align: center;
+	font-size: 2em;
+}
+body {
+	font-family: Courier New;
+}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  font-family: Courier New;
+}
+input:-moz-placeholder, textarea:-moz-placeholder {
+  color: blue;
+  font-family: Courier New;
+}
+#send {
+	border: none;
+	font-family: Courier New;
+	background-color: #BF0100;
+	color: #fff;
+	width: 100px;
+	height: 20px;
+	border-radius: 3px;
+	text-decoration: none;
+	padding: 0;
+	cursor: pointer;
+	box-shadow: 0 1px 1px #000;
+	text-shadow: 0 -1px 1px grey;
+}
+#showStory {
+	overflow-y: scroll;
+}

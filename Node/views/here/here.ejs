@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="/css/hereStyle.css">
+		<link rel="stylesheet" href="/css/leaflet.awesome-markers.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" />
+		<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js?"></script>
+		<script src="/js/leaflet.awesome-markers.min.js"></script>
+		<script src="/js/socket.io.min.js"></script>
+		<script src="/js/here/hereClient.js"></script>
+		<script src="/js/gAnalytics.js"></script>
+	</head>
+	<body>
+		<div id="title"><h1>Here and There</h1></div>
+		<div id="intro">This website shows your location and the location of any other visitors viewing this right now.  When anyone leaves, their marker disappears instantly.  </div>
+		<div class="app">
+			<div id="map">
+				<div id="loading">Please share your location for this to work :)</div>
+			</div>
+		</div>
+	</body>
+	<!-- Adapted from http://tympanus.net/codrops/2012/10/11/real-time-geolocation-service-with-node-js/ -->
+</html>

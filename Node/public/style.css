@@ -1,0 +1,23 @@
+body {
+	padding: 3em;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1em;
+}
+textarea {
+	resize: none;
+}
+.inlineBlock {
+	display: inline-block;
+}
+.topAligned {
+	vertical-align: top;
+}
+#nameDec {
+	font-weight: bold;
+	color: blue;
+}
+#wrapper {
+	background-color: blue;
+	height: 500px;
+	width: 400px;
+}

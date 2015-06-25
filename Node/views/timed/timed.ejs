@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<meta charset="utf-8">
+	<title>Zombies</title>
+	<link rel="stylesheet" href="/bower_components/normalize-css/normalize.css">
+	<link rel="stylesheet" href="/css/timed/timedStyle.css">
+</head>
+<body>
+	<div class="center">
+		<h1>Zombies</h1>
+	</div>
+	
+	<ng-view></ng-view>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+	<script src="http://code.angularjs.org/1.2.7/angular-route.min.js"></script>
+	<script src="/bower_components/angular-timer/app/js/timer.js"></script>
+	<script src="/js/socket.io.min.js"></script> 
+	<script src="/js/timed/timedApp.js"></script>
+	<script src="/js/timed/timedControllers.js"></script>
+	<script src="/js/timed/timedDirectives.js"></script>
+	<script src="/js/timed/timedServices.js"></script>
+	<script src="/js/gAnalytics.js"></script> 
+</body>
+</html>

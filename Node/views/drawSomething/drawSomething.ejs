@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/css/drawSomethingStyle.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.3.11/d3.min.js"></script>
+  <script src="/js/socket.io.min.js"></script>
+  <script src="/js/gAnalytics.js"></script>
+</head>
+<body>
+  <div id="title">
+    <h1>Draw Something</h1>
+  </div>
+  <div id="options">
+    <!-- Color picker from https://gist.github.com/naacal/3700648 -->
+    <div class="color-wrapper">  
+      <input type="text" name="custom_color" value="#000000" id="pickcolor" class="call-picker">
+      <span class="color-holder call-picker"></span>
+      <span class="color-picker" id="color-picker" style="display: none"></span>
+    </div>
+    <span class="option"><input type="number" id="brushSize" value="7">Brush Size</input></span>
+    <span class="option"><input type="number" id="opacity" value=".5">Opacity</input></span>
+    <button id="reset">Reset</button>
+  </div>
+  
+<script type="text/javascript">
+$(document).ready(function () {
+  // sockets
+  var serverBaseUrl = document.domain;
+  var drawSomething_socket = io.connect(serverBaseUrl + '/drawsomething');
+  var sessionId = '';
+
+  // svg
+
+ var width = 1100,
+      height = 500;      
+
+     svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .on("mousedown", mouseDown)
+        .on("mouseup", mouseUp)
+
+    var strokesContainer = []; // for emitting
+
+    // setting vars for brush
+    var size = $('#brushSize').val()
+    var opacity = $('#opacity').val()
+    
+    // logic for buttons <--> brush + reset svg
+    $('#brushSize').change(function () {
+        size = $('#brushSize').val()
+    }) 
+    $('#opacity').change(function () {
+        opacity = $('#opacity').val()
+    }) 
+    $('#reset').click(function () { 
+        svg.selectAll("*").remove();
+        drawSomething_socket.emit('reset');
+    })
+
+    // logic for drawing
+    function mouseDown () {
+      svg.on('mousemove', function () {
+        var coordinates = d3.mouse(this);
+
+      var drawStrokeObj = svg.append("circle")
+            .attr("cx", coordinates[0])
+            .attr("cy", coordinates[1])
+            .attr("r", size)
+            .attr("stroke-width", 1)
+            .attr("fill", color)
+            .attr("opacity", opacity)
+
+        var obj = {
+          cx: parseInt(drawStrokeObj[0][0].attributes.cx.value),
+          cy: parseInt(drawStrokeObj[0][0].attributes.cy.value),
+          r: drawStrokeObj[0][0].attributes.r.value,
+          fill: drawStrokeObj[0][0].attributes.fill.value,
+          opacity: drawStrokeObj[0][0].attributes.opacity.value
+        }
+        strokesContainer.push(obj)
+      })
+    }
+
+    function mouseUp () {
+      svg.on("mousemove", null)
+      drawSomething_socket.emit('newStroke', {strokes: strokesContainer});
+      strokesContainer = []
+    }
+
+    // when receiving a socket.io event "strokesToDraw", draw it!
+    drawSomething_socket.on('strokesToDraw', function (data) {
+      // console.log(data.data.strokes)
+      var drawTheseStrokes = data.data.strokes;
+
+      function drawNewObj (obj) {
+          svg.append("circle")
+          .attr("cx", obj.cx)
+          .attr("cy", obj.cy)
+          .attr("r", obj.r)
+          .attr("stroke-width", 1)
+          .attr("fill", obj.fill)
+          .attr("opacity", obj.opacity)
+      }
+    
+      drawTheseStrokes.forEach(function (obj) {
+        drawNewObj(obj);
+      })
+
+    });
+    
+    // when receiving event resetDrawing, svgremove 
+    drawSomething_socket.on('resetDrawing', function () {
+      svg.selectAll("*").remove();
+      // drawSomething_socket.emit('reset');
+    })
+
+
+    // COLOR PICKER
+    //https://gist.github.com/naacal/3700648
+    var colorList = [  '000000', '993300', '333300', '003300', '003366', '000066', '333399', '333333', 
+    '660000', 'FF6633', '666633', '336633', '336666', '0066FF', '666699', '666666', 'CC3333', 'FF9933', '99CC33', '669966', '66CCCC', '3366FF', '663366', '999999', 'CC66FF', 'FFCC33', 'FFFF66', '99FF66', '99CCCC', '66CCFF', '993366', 'CCCCCC', 'FF99CC', 'FFCC99', 'FFFF99', 'CCffCC', 'CCFFff', '99CCFF', 'CC99FF', 'FFFFFF', ];
+        var picker = $('#color-picker');
+
+        for (var i = 0; i < colorList.length; i++ ) {
+          picker.append('<li class="color-item" data-hex="' + '#' + colorList[i] + '" style="background-color:' + '#' + colorList[i] + ';"></li>');
+        }
+
+        $('body').click(function () {
+          picker.fadeOut();
+        });
+     
+        // initial state that i set
+        $('.color-holder').css('background-color', "#000"); 
+        color = $('#pickcolor').val()
+        //
+
+        $('.call-picker').click(function(event) {
+          event.stopPropagation();
+          picker.fadeIn();
+          picker.children('li').hover(function() {
+            var codeHex = $(this).data('hex');
+            $('.color-holder').css('background-color', codeHex);
+            $('#pickcolor').val(codeHex);
+            // added by me
+            color = $('#pickcolor').val()
+
+          });
+        });
+
+    $('#pickcolor').hide()
+
+})
+  function getInitialDrawing() {
+    function drawNewObj (obj) {
+        svg.append("circle")
+        .attr("cx", obj.cx)
+        .attr("cy", obj.cy)
+        .attr("r", obj.r)
+        .attr("stroke-width", 1)
+        .attr("fill", obj.fill)
+        .attr("opacity", obj.opacity)
+    }
+    $.get('/drawsomething/previous', function (data) {
+      var allPreviousDots = data.dots;
+      allPreviousDots.forEach(function (dots) {
+        drawNewObj(dots.dot);
+      })
+    })
+  }
+  getInitialDrawing();
+
+
+
+</script>
+</body>
+</html>
