@@ -68,7 +68,7 @@ app.use(express.static("public", __dirname + "/public"));
 // 	passphrase: 'neonindian'
 // };
 // var https = require("https").createServer(options, app);
-var ios = require("socket.io").listen(http);
+// var ios = require("socket.io").listen(http);
 // ------------ //
 
 // chatroom
