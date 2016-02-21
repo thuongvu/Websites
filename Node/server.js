@@ -266,7 +266,11 @@ var pictionary_socket_io = io.of('/pictionary/game').on("connection", function (
 
 // ------------------------------------------------------------------------- //
 
+<<<<<<< HEAD
 http.listen(app.get("port"), function () {
+=======
+http.listen(process.env.PORT || 8080, function () {
+>>>>>>> 1f1326df9bf58db4bbe6f193d2dab6f11f499c22
 	console.log("server is up and running.  go to http://" + app.get("ipaddr") + ":" + app.get("port"));
 });
 // https.listen(8081,function() {
