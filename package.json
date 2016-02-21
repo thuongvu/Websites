@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "postinstall": "cd ./Node && npm install"
+  },
   "engines": {
       "node": "4.2.1",
       "npm": "2.14.7"
