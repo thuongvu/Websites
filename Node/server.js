@@ -56,7 +56,7 @@ app.set("ipaddr", "127.0.0.1");
 app.set("port", 8080);
 app.set("views", __dirname + "/views");
 // app.set("view engine", "ejs");
-app.use(express.static("public", __dirname + "/public"));
+app.use(express.static("public", (process.env.PW || __dirname) + "/public"));
 // app.use(express.bodyParser());
 
 
