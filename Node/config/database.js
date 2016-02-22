@@ -1,3 +1,3 @@
 module.exports = {
-	'url' :  'mongodb://localhost/test'
+	'url' :  process.env.MONGOLAB_URI || 'mongodb://localhost/test'
 };
