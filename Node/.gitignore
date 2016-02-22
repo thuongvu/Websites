@@ -5,3 +5,4 @@ aws.key
 ca.crt
 err.log
 out.log
+node_modules
