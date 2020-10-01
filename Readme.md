@@ -1,6 +1,6 @@
 100 Days, 100 Websites
 ======================
-
+This is a very useful for websites for all of us. So, visit the webiste first. 
 I learned how to code by making 100 websites in 100 days and blogging and screen-recording the process.
 
 
@@ -15,3 +15,4 @@ Over these fun, challenging, and informative days, I covered:
 
 - __My websites:__ http://thuongvuho.com
 - __Blog:__ http://blog.thuongvuho.com
+Use this website.....
